@@ -109,7 +109,7 @@ export class ClusterStack extends TerraformStack {
         const controlConfig: ClusterNodeProps = {
           memory: Memory.GB_8,
           cores: 2,
-          tags: "node_type-control",
+          tags: "node_type-control;k8s_flavor-k3s",
           ip: `10.0.100.${props.baseIpSuffix + workerConfigs.length + controlConfigs.length + 1}/24`,
           disks: [
             {
@@ -128,7 +128,7 @@ export class ClusterStack extends TerraformStack {
         const worker: ClusterNodeProps = {
           memory: Memory.GB_12,
           cores: 4,
-          tags: "node_type-worker",
+          tags: "node_type-worker;k8s_flavor-k3s",
           ip: `10.0.100.${props.baseIpSuffix + workerConfigs.length + controlConfigs.length + 1}/24`,
           disks: [
             {
