@@ -3,6 +3,8 @@ import { TraefikCertManagerChart } from './lib/charts/traefik-certmanager/chart'
 import { CertIssuers, LetsEncryptEndpoint } from './lib/charts/traefik-certmanager/cert-manager/chart';
 import * as dotenv from "dotenv";
 import { ClusterExternalIngressChart } from './lib/charts/cluster-external-ingress/chart';
+import { OnePasswordConnectChart } from './lib/charts/1password-connect/chart';
+import { ServiceType } from 'cdk8s-plus-25';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -46,14 +48,35 @@ const traefikCertmanager = new TraefikCertManagerChart(app, "traefik-cert-manage
   }
 })
 
-const prodIssuer = traefikCertmanager.certIssuers.get("prod")
-// const stagingIssuer = traefikCertmanager.certIssuers.get("staging")
-if (prodIssuer) {
-  new ClusterExternalIngressChart(app, "cluster-external-ingress", {
-    createNamespace: true,
-    namespace: "cluster-external",
-    certIssuer: prodIssuer,
-    defaultHeaders: traefikCertmanager.deafaultHeaders,
-  })
+const prodIssuer = traefikCertmanager.GetProdCertIssuer()
+// const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
+
+new ClusterExternalIngressChart(app, "cluster-external-ingress", {
+  createNamespace: true,
+  namespace: "cluster-external",
+  certIssuer: prodIssuer,
+  defaultHeaders: traefikCertmanager.deafaultHeaders,
+})
+
+const credentialsJson = process.env.ONEPASSWORD_JSON;
+if (!credentialsJson) {
+  throw new Error("ONEPASSWORD_JSON environment variable is not set");
 }
+new OnePasswordConnectChart(app, "onepassword-connect", {
+  createNamespace: true,
+  namespace: "onepassword-connect",
+  name: "onepassword-connect",
+  credentialsJson: credentialsJson,
+  serviceType: ServiceType.LOAD_BALANCER,
+  tls: {
+    name: "onepassword-connect",
+    certIssuer: prodIssuer,
+    dnsName: "onepassword.awlsring-sea.drigs.org",
+    service: {
+      name: "onepassword-connect",
+      port: 8080,
+    }
+  }
+})
+
 app.synth();

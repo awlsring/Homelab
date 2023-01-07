@@ -14,6 +14,15 @@ export interface TraefikCertManagerChartProps extends ChartProps {
 export class TraefikCertManagerChart extends Chart {
   readonly certIssuers: Map<string, ClusterIssuer>
   readonly deafaultHeaders: Middleware
+
+  GetStagingCertIssuer(): ClusterIssuer {
+    return this.certIssuers.get("staging")!
+  }
+
+  GetProdCertIssuer(): ClusterIssuer {
+    return this.certIssuers.get("prod")!
+  }
+  
   constructor(scope: Construct, name: string, props: TraefikCertManagerChartProps) {
     super(scope, name, props)
 

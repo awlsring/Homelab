@@ -2,6 +2,13 @@ import { Construct } from "constructs";
 import { Certificate, ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
 import { IngressRoute, IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from "../../imports/traefik-traefik.containo.us";
 
+export interface TlsExposedProps {
+  name: string,
+  certIssuer: ClusterIssuer,
+  dnsName: string,
+  service: ServiceData
+}
+
 export interface GenerateCertForServiceOptions {
   scope: Construct
   name: string,
