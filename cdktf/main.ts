@@ -1,21 +1,26 @@
 import { App } from "cdktf";
 import { ClusterStack } from "./lib/stacks/k3s-cluster";
+import { OnePasswordStack } from "./lib/stacks/onepassword";
 require('dotenv').config()
 
 const app = new App();
 
-const tokenSecret = process.env.PROXMOX_TOKEN_SECRET
-const tokenId = process.env.PROXMOX_TOKEN_ID
-
-if (!tokenSecret || !tokenId) {
-  throw new Error("Missing token secret or id")
+const onepasswordUrl = process.env.ONEPASSWORD_CONNECT_URL
+const onepasswordToken = process.env.ONEPASSWORD_CONNECT_TOKEN
+if (!onepasswordToken || !onepasswordUrl) {
+  throw new Error("Missing token url or id")
 }
 
-new ClusterStack(app, "k3sCluster", {
+const onePassword = new OnePasswordStack(app, "onePassword", {
+  url: onepasswordUrl,
+  token: onepasswordToken,
+})
+
+const k3sCluster = new ClusterStack(app, "k3sCluster", {
   proxmox: {
     url: "https://10.0.10.11:8006/api2/json",
-    tokenId: tokenId,
-    tokenSecret: tokenSecret,
+    tokenId: onePassword.retrieveSecret("proxmox-token-id"),
+    tokenSecret: onePassword.retrieveSecret("proxmox-token-secret"),
   },
   nodes: [
     {
@@ -32,5 +37,6 @@ new ClusterStack(app, "k3sCluster", {
   clusterPrefix: "k3s",
   clusterVmBaseId: 3000,
 })
+k3sCluster.addDependency(onePassword)
 
 app.synth();

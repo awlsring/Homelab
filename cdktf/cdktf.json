@@ -6,7 +6,8 @@
   "terraformProviders": [
     "davidsbond/tailscale@~>0.12.2",
     "Telmate/proxmox@~>2.9.11",
-    "paultyng/unifi@0.38.2"
+    "paultyng/unifi@0.38.2",
+    "1password/onepassword@~>1.1.4"
   ],
   "terraformModules": [],
   "context": {
