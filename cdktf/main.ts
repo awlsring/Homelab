@@ -1,4 +1,5 @@
 import { App } from "cdktf";
+import { DataStoreStack } from "./lib/stacks/data-store";
 import { ClusterStack } from "./lib/stacks/k3s-cluster";
 import { OnePasswordStack } from "./lib/stacks/onepassword";
 require('dotenv').config()
@@ -38,5 +39,11 @@ const k3sCluster = new ClusterStack(app, "k3sCluster", {
   clusterVmBaseId: 3000,
 })
 k3sCluster.addDependency(onePassword)
+
+const datastore = new DataStoreStack(app, "dataStore", {
+  url: "http://10.0.10.150/api/v2.0",
+  key: onePassword.retrieveSecret("truenas-token"),
+})
+datastore.addDependency(onePassword)
 
 app.synth();

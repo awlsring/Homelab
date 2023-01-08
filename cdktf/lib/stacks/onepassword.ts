@@ -37,8 +37,20 @@ export class OnePasswordStack extends TerraformStack {
       vault: vault.uuid,
       title: "proxmox-token",
     })
-
     this.secrets.set("proxmox-token-id", proxmoxToken.username)
     this.secrets.set("proxmox-token-secret", proxmoxToken.password)
+
+    const truenasToken = new DataOnepasswordItem(this, "truenas-token-id", {
+      vault: vault.uuid,
+      title: "truenas-token",
+    })
+    this.secrets.set("truenas-token", truenasToken.password)
+
+    const s3Creds = new DataOnepasswordItem(this, "truenas-token-id", {
+      vault: vault.uuid,
+      title: "truenas-s3-creds",
+    })
+    this.secrets.set("truenas-s3-access-key", s3Creds.username)
+    this.secrets.set("truenas-s3-secret-key", s3Creds.password)
   }
 }
