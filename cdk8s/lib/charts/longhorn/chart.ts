@@ -8,6 +8,7 @@ export interface LonghornChartProps extends HomelabChartProps {
 }
 
 export class LonghornChart extends HomelabChart {
+  readonly storageClassName = "longhorn";
   constructor(scope: Construct, name: string, props: LonghornChartProps) {
     super(scope, name, props)
     new Helm(this, "helm", {

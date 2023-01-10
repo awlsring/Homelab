@@ -7,6 +7,7 @@ import { OnePasswordConnectChart } from './lib/charts/1password-connect/chart';
 import { ServiceType } from 'cdk8s-plus-25';
 import { LonghornChart } from './lib/charts/longhorn/chart';
 import { YargChart } from './lib/charts/yarg/chart';
+import { MosquittoChart } from './lib/charts/mosquitto/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -53,6 +54,18 @@ const traefikCertmanager = new TraefikCertManagerChart(app, "traefik-cert-manage
 const prodIssuer = traefikCertmanager.GetProdCertIssuer()
 const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
 
+const longhorn = new LonghornChart(app, "longhorn", {
+  createNamespace: true,
+  namespace: "longhorn-system",
+  serviceType: ServiceType.LOAD_BALANCER,
+})
+
+new MosquittoChart(app, "mosquitto", {
+  createNamespace: true,
+  namespace: "mosquitto",
+  storageClass: longhorn.storageClassName,
+})
+
 new ClusterExternalIngressChart(app, "cluster-external-ingress", {
   createNamespace: true,
   namespace: "cluster-external",
@@ -79,12 +92,6 @@ new OnePasswordConnectChart(app, "onepassword-connect", {
       port: 8080,
     }
   }
-})
-
-new LonghornChart(app, "longhorn", {
-  createNamespace: true,
-  namespace: "longhorn-system",
-  serviceType: ServiceType.LOAD_BALANCER,
 })
 
 new YargChart(app, "yarg", {
