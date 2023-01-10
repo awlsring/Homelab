@@ -23,5 +23,11 @@ export class DataStoreStack extends TerraformStack {
       name: "s3",
       comments: "S3 bucket storage",
     })
+
+    new Dataset(this, "dataset-home", {
+      pool: this.wd6d8tPool,
+      name: "home",
+      comments: "Home drirectory roots",
+    })
   }
 }

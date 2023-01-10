@@ -46,7 +46,7 @@ export class OnePasswordStack extends TerraformStack {
     })
     this.secrets.set("truenas-token", truenasToken.password)
 
-    const s3Creds = new DataOnepasswordItem(this, "truenas-token-id", {
+    const s3Creds = new DataOnepasswordItem(this, "truenas-s3-creds", {
       vault: vault.uuid,
       title: "truenas-s3-creds",
     })
