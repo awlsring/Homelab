@@ -28,7 +28,6 @@ export interface GenerateIngressRouteOptions {
 }
 
 export interface GenerateCertificateAndIngressOptions {
-  scope: Construct
   namespace: string,
   certIssuer: ClusterIssuer
   service: ServiceData
@@ -46,25 +45,25 @@ export enum ClusterIngressClass {
   TRAEFIC_EXTERNAL = "traefik-external"
 }
 
-export function GenerateCertificateAndIngress(options: GenerateCertificateAndIngressOptions): [Certificate, IngressRoute] {
-  const ingressClass = options.ingressClass ?? ClusterIngressClass.TRAEFIC_EXTERNAL
-  const certName = `${options.dnsName}-cert`
+export function GenerateCertificateAndIngress(scope: Construct, props: GenerateCertificateAndIngressOptions): [Certificate, IngressRoute] {
+  const ingressClass = props.ingressClass ?? ClusterIngressClass.TRAEFIC_EXTERNAL
+  const certName = `${props.dnsName}-cert`
 
   const cert = GenerateCertForService({
-    scope: options.scope,
+    scope: scope,
     name: certName,
-    namespace: options.namespace,
-    issuer: options.certIssuer,
-    commonName: options.dnsName,
+    namespace: props.namespace,
+    issuer: props.certIssuer,
+    commonName: props.dnsName,
   })
 
   const ingressRoute = GenerateIngressRoute({
-    scope: options.scope,
-    name: `${options.dnsName}-route`,
-    namespace: options.namespace,
+    scope: scope,
+    name: `${props.dnsName}-route`,
+    namespace: props.namespace,
     certName: certName,
     ingressClass: ingressClass,
-    routes: options.routes ?? [GenerateGenericRoute(options.dnsName, options.service)],
+    routes: props.routes ?? [GenerateGenericRoute(props.dnsName, props.service)],
   })
 
   return [cert, ingressRoute]
