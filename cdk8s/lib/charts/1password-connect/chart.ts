@@ -5,7 +5,6 @@ import { HomelabChart, HomelabChartProps } from "../../common/charts";
 
 export interface OnePasswordConnectChartProps extends HomelabChartProps {
   name: string
-  credentialsJson: string
   serviceType: ServiceType
 }
 
@@ -20,7 +19,6 @@ export class OnePasswordConnectChart extends HomelabChart {
       values: {
         connect: {
           applicationName: props.name,
-          credentials: props.credentialsJson,
           serviceType: props.serviceType,
         },
         operator: {
@@ -28,5 +26,12 @@ export class OnePasswordConnectChart extends HomelabChart {
         }
       }
     })
+
+    if (props.tls) {
+      this.configureTls(props.name, props.tls.certIssuer, props.tls.dnsName, {
+        name: props.name,
+        port: 8080
+      })
+    }
   }
 }

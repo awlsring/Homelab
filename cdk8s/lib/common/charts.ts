@@ -1,6 +1,7 @@
 import { Chart, ChartProps } from "cdk8s";
 import { Namespace } from "cdk8s-plus-25";
 import { Construct } from "constructs";
+import { ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
 import { GenerateCertForService, GenerateGenericRoute, GenerateIngressRoute, TlsExposedProps } from "../service-utils/service-utils";
 
 export interface HomelabChartProps extends ChartProps {
@@ -9,8 +10,39 @@ export interface HomelabChartProps extends ChartProps {
   tls?: TlsExposedProps,
 }
 
+export interface ServiceData {
+  name: string,
+  port: number
+}
+
 export class HomelabChart extends Chart {
-  namespace: string
+  readonly namespace: string
+  service?: ServiceData
+
+  configureTls(name: string, certIssuer: ClusterIssuer, dnsName: string, service: ServiceData) {
+    const certName = `${name}-cert`;
+    GenerateCertForService({
+      scope: this,
+      name: certName,
+      namespace: this.namespace,
+      issuer: certIssuer,
+      commonName: dnsName
+    })
+
+    GenerateIngressRoute({
+      scope: this,
+      name: `${name}-route`,
+      namespace: this.namespace,
+      routes: [
+        GenerateGenericRoute(
+          dnsName,
+          service,
+        )
+      ],
+      certName: certName
+    })
+  }
+
   constructor(scope: Construct, name: string, props: HomelabChartProps) {
     super(scope, name, props)
     this.namespace = props.namespace
@@ -19,28 +51,6 @@ export class HomelabChart extends Chart {
         metadata: {
           name: props.namespace
         }
-      })
-    }
-    if (props.tls) {
-      GenerateCertForService({
-        scope: this,
-        name: `${props.tls.name}-cert`,
-        namespace: props.namespace,
-        issuer: props.tls.certIssuer,
-        commonName: props.tls.dnsName
-      })
-  
-      GenerateIngressRoute({
-        scope: this,
-        name: `${props.tls.name}-route`,
-        namespace: props.namespace,
-        routes: [
-          GenerateGenericRoute(
-            props.tls.dnsName,
-            props.tls.service,
-          )
-        ],
-        certName: `${props.tls.name}-cert`
       })
     }
   }

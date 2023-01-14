@@ -1,0 +1,5 @@
+port: 8032
+surreal:
+  address: "ws://10.0.100.97:8000/rpc"
+  namespace: terraformbackend
+  database: terraformbackend

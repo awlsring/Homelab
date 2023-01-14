@@ -8,6 +8,7 @@ import { ServiceType } from 'cdk8s-plus-25';
 import { LonghornChart } from './lib/charts/longhorn/chart';
 import { YargChart } from './lib/charts/yarg/chart';
 import { MosquittoChart } from './lib/charts/mosquitto/chart';
+import { TerraformBackendSurrealChart } from './lib/charts/terraform-backend-surreal/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -73,24 +74,15 @@ new ClusterExternalIngressChart(app, "cluster-external-ingress", {
   defaultHeaders: traefikCertmanager.deafaultHeaders,
 })
 
-const credentialsJson = process.env.ONEPASSWORD_JSON;
-if (!credentialsJson) {
-  throw new Error("ONEPASSWORD_JSON environment variable is not set");
-}
 new OnePasswordConnectChart(app, "onepassword-connect", {
   createNamespace: true,
   namespace: "onepassword-connect",
   name: "onepassword-connect",
-  credentialsJson: credentialsJson,
   serviceType: ServiceType.LOAD_BALANCER,
   tls: {
     name: "onepassword-connect",
     certIssuer: prodIssuer,
     dnsName: "onepassword.awlsring-sea.drigs.org",
-    service: {
-      name: "onepassword-connect",
-      port: 8080,
-    }
   }
 })
 
@@ -100,6 +92,16 @@ new YargChart(app, "yarg", {
   certIssuer: prodIssuer,
   nfsServer: "10.0.100.180",
   dnsDomain: "awlsring-sea.drigs.org",
+})
+
+new TerraformBackendSurrealChart(app, "terraform-backend-surreal", {
+  createNamespace: true,
+  namespace: "terraform-backend-surreal",
+  tls: {
+    name: "tf-backend",
+    certIssuer: prodIssuer,
+    dnsName: "tf-backend.awlsring-sea.drigs.org",
+  }
 })
 
 app.synth();

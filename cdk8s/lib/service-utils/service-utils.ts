@@ -6,7 +6,7 @@ export interface TlsExposedProps {
   name: string,
   certIssuer: ClusterIssuer,
   dnsName: string,
-  service: ServiceData
+  service?: ServiceData
 }
 
 export interface GenerateCertForServiceOptions {
