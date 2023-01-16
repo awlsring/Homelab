@@ -27,8 +27,7 @@ export class Dashboard extends Construct {
   constructor(scope: Construct, id: string, props: DashboardProps) {
     super(scope, id)
 
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: "dashboard-tls",
       namespace: props.namespace,
       issuer: props.issuer,

@@ -61,16 +61,14 @@ export class ClusterExternalIngressChart extends Chart {
       ]
     })
 
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: `${props.name}-cert`,
       namespace: props.namespace,
       issuer: props.certIssuer,
       commonName: props.dnsName
     })
 
-    GenerateIngressRoute({
-      scope: this,
+    GenerateIngressRoute(this, {
       name: `${props.name}-route`,
       namespace: props.namespace,
       routes: [
@@ -106,16 +104,14 @@ export class ClusterExternalIngressChart extends Chart {
     ]
 
     dnsNames.forEach(dnsName => {
-      GenerateCertForService({
-        scope: this,
+      GenerateCertForService(this, {
         name: `${dnsName}-cert`,
         namespace: props.namespace,
         issuer: props.certIssuer,
         commonName: dnsName
       })
   
-      GenerateIngressRoute({
-        scope: this,
+      GenerateIngressRoute(this, {
         name: `${dnsName}-route`,
         namespace: props.namespace,
         routes: [
@@ -145,16 +141,14 @@ export class ClusterExternalIngressChart extends Chart {
       ]
     })
     const dns = "ui.awlsring-sea.drigs.org"
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: "ui-cert",
       namespace: props.namespace,
       issuer: props.certIssuer,
       commonName: dns
     })
 
-    GenerateIngressRoute({
-      scope: this,
+    GenerateIngressRoute(this, {
       name: "ui-route",
       namespace: props.namespace,
       routes: [
@@ -183,16 +177,14 @@ export class ClusterExternalIngressChart extends Chart {
       ]
     })
     const dns = "tolaria.awlsring-sea.drigs.org"
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: "tolaria-cert",
       namespace: props.namespace,
       issuer: props.certIssuer,
       commonName: dns
     })
 
-    GenerateIngressRoute({
-      scope: this,
+    GenerateIngressRoute(this, {
       name: "tolaria-route",
       namespace: props.namespace,
       routes: [
@@ -231,8 +223,7 @@ export class ClusterExternalIngressChart extends Chart {
     })
 
     const dns = "dns.awlsring-sea.drigs.org"
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: "pihole-cert",
       namespace: props.namespace,
       issuer: props.certIssuer,
@@ -251,8 +242,7 @@ export class ClusterExternalIngressChart extends Chart {
       }]
     )
     
-    GenerateIngressRoute({
-      scope: this,
+    GenerateIngressRoute(this, {
       name: "pihole-route",
       namespace: props.namespace,
       routes: [ route ],

@@ -10,7 +10,6 @@ export interface TlsExposedProps {
 }
 
 export interface GenerateCertForServiceOptions {
-  scope: Construct
   name: string,
   namespace: string
   issuer: ClusterIssuer
@@ -19,7 +18,6 @@ export interface GenerateCertForServiceOptions {
 }
 
 export interface GenerateIngressRouteOptions {
-  scope: Construct
   name: string,
   namespace: string
   routes: IngressRouteSpecRoutes[]
@@ -49,16 +47,14 @@ export function GenerateCertificateAndIngress(scope: Construct, props: GenerateC
   const ingressClass = props.ingressClass ?? ClusterIngressClass.TRAEFIC_EXTERNAL
   const certName = `${props.dnsName}-cert`
 
-  const cert = GenerateCertForService({
-    scope: scope,
+  const cert = GenerateCertForService(scope, {
     name: certName,
     namespace: props.namespace,
     issuer: props.certIssuer,
     commonName: props.dnsName,
   })
 
-  const ingressRoute = GenerateIngressRoute({
-    scope: scope,
+  const ingressRoute = GenerateIngressRoute(scope, {
     name: `${props.dnsName}-route`,
     namespace: props.namespace,
     certName: certName,
@@ -96,8 +92,8 @@ export function GenerateGenericRoute(dnsName: string, service: ServiceData, midd
   }
 }
 
-export function GenerateIngressRoute(options: GenerateIngressRouteOptions): IngressRoute {
-  return new IngressRoute(options.scope, `${options.name}-route`, {
+export function GenerateIngressRoute(scope: Construct, options: GenerateIngressRouteOptions): IngressRoute {
+  return new IngressRoute(scope, `${options.name}-route`, {
     metadata: {
       annotations: {
         "kubernetes.io/ingress.class": options.ingressClass ?? ClusterIngressClass.TRAEFIC_EXTERNAL
@@ -115,12 +111,12 @@ export function GenerateIngressRoute(options: GenerateIngressRouteOptions): Ingr
   })
 }
 
-export function GenerateCertForService(options: GenerateCertForServiceOptions): Certificate {
+export function GenerateCertForService(scope: Construct, options: GenerateCertForServiceOptions): Certificate {
   const dnsNames = [options.commonName]
   if (options.dnsNames) {
     dnsNames.push(...options.dnsNames)
   }
-  const cert = new Certificate(options.scope, `${options.name}-certificate`, {
+  const cert = new Certificate(scope, `${options.name}-certificate`, {
     metadata: {
       namespace: options.namespace
     },

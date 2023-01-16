@@ -21,16 +21,14 @@ export class HomelabChart extends Chart {
 
   configureTls(name: string, certIssuer: ClusterIssuer, dnsName: string, service: ServiceData) {
     const certName = `${name}-cert`;
-    GenerateCertForService({
-      scope: this,
+    GenerateCertForService(this, {
       name: certName,
       namespace: this.namespace,
       issuer: certIssuer,
       commonName: dnsName
     })
 
-    GenerateIngressRoute({
-      scope: this,
+    GenerateIngressRoute(this, {
       name: `${name}-route`,
       namespace: this.namespace,
       routes: [
