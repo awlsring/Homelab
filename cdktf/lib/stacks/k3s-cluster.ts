@@ -1,7 +1,7 @@
-import { TerraformStack } from "cdktf";
 import { Construct } from "constructs";
 import { ProxmoxProvider } from "../../.gen/providers/proxmox/provider";
 import { VmQemuDisk, VmQemuNetwork } from "../../.gen/providers/proxmox/vm-qemu";
+import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
 import { Memory } from "../constructs/proxmox/enums";
 import { VMClone, VMCloneProps } from "../constructs/proxmox/vm-clone";
 
@@ -36,7 +36,7 @@ export interface ProxmoxNodeProps {
   workerAmount: number;
 }
 
-export interface ClusterStackProps {
+export interface ClusterStackProps extends HomelabStackProps {
   proxmox: ProxmoxProviderProps;
   nodes: ProxmoxNodeProps[],
   template: string;
@@ -48,7 +48,7 @@ export interface ClusterStackProps {
 
 const PUBLIC_KEY = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDKBk8jY0K2Vnr2Jcobao0aoYGAyRzUhDbAEjU1JLq47/Azmy/rDOMaX2EEineisEY4gwrDRt2RF2jeb+/bb2oG0LbqypXiWdXHp6FZcQS9ZV9Udurew2WotP7UtTx+VhOoO1Kc2stw1Qw7GFmMNO8FvSotGh+iD/gNvZKTDXNZDK2rNoyvRpij/lNFseF/ir+Pu3DIToAQMGiFi4ApfFGHk68nkpfR8UikI9C0uWkcQwVO4aTOJXRImAitASZ/otmaOfstE79KBNNL7OiIa2nHwvkA8Z7UW8i34WZsY/AG6lZUvX+0ACaCThQgy73YRy3GC1cV4wvCnxA+BtxvYw982WsEvcSv72E/11ii8hq7czlRb4Y9WnnxfG4IB9NesHqsolvHR3nS6KocHMX/Asa6Q09XD0AQYDQiX/7bOq2oSdA5rPjNYNJH5AGowkBZUAglj35u3xx4t3x2CPJza+mBksbejQDCfFL68zh3Occ+AlT1yksqm4xaUgHYU65Aehk= Mac Key"
 
-export class ClusterStack extends TerraformStack {
+export class ClusterStack extends HomelabStack {
   readonly controlNodes: VMClone[];
   readonly workerNodes: VMClone[];
 
@@ -73,7 +73,7 @@ export class ClusterStack extends TerraformStack {
   }
 
   constructor(scope: Construct, name: string, props: ClusterStackProps) {
-    super(scope, name);
+    super(scope, name, props);
 
     new ProxmoxProvider(this, "ProxmoxProvider", {
       pmApiUrl: props.proxmox.url,

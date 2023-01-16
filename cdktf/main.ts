@@ -12,9 +12,26 @@ if (!onepasswordToken || !onepasswordUrl) {
   throw new Error("Missing token url or id")
 }
 
+const backendUser = process.env.BACKEND_USER
+const backendPassword = process.env.BACKEND_PASSWORD
+if (!backendUser || !backendPassword) {
+  throw new Error("Missing backend user or password")
+}
+
+const genericProps = {
+  project: "homelab",
+  backend: {
+    address: "https://tf-backend.awlsring-sea.drigs.org",
+    username: backendUser,
+    password: backendPassword,
+  }
+}
+
 const onePassword = new OnePasswordStack(app, "onePassword", {
   url: onepasswordUrl,
   token: onepasswordToken,
+  stack: "onepassword",
+  ...genericProps,
 })
 
 const k3sCluster = new ClusterStack(app, "k3sCluster", {
@@ -37,12 +54,16 @@ const k3sCluster = new ClusterStack(app, "k3sCluster", {
   template: "ubuntu-jammy-template",
   clusterPrefix: "k3s",
   clusterVmBaseId: 3000,
+  stack: "k3scluster",
+  ...genericProps,
 })
 k3sCluster.addDependency(onePassword)
 
 const datastore = new DataStoreStack(app, "dataStore", {
+  stack: "datastore",
   url: "http://10.0.10.150/api/v2.0",
   key: onePassword.retrieveSecret("truenas-token"),
+  ...genericProps,
 })
 datastore.addDependency(onePassword)
 

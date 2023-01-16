@@ -1,15 +1,15 @@
-import { TerraformStack } from "cdktf";
 import { Construct } from "constructs";
 import { OnepasswordProvider } from "../../.gen/providers/onepassword/provider";
 import { DataOnepasswordVault } from "../../.gen/providers/onepassword/data-onepassword-vault";
 import { DataOnepasswordItem } from "../../.gen/providers/onepassword/data-onepassword-item";
+import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
 
-export interface OnepasswordStackProps {
+export interface OnepasswordStackProps extends HomelabStackProps {
   url: string;
   token: string;
 }
 
-export class OnePasswordStack extends TerraformStack {
+export class OnePasswordStack extends HomelabStack {
   secrets: Map<string, string>
 
   retrieveSecret(name: string): string {
@@ -21,7 +21,7 @@ export class OnePasswordStack extends TerraformStack {
   }
 
   constructor(scope: Construct, name: string, props: OnepasswordStackProps) {
-    super(scope, name);
+    super(scope, name, props);
     this.secrets = new Map<string, string>();
 
     new OnepasswordProvider(this, "provider", {

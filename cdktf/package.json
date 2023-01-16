@@ -21,8 +21,9 @@
     "node": ">=14.0"
   },
   "dependencies": {
+    "@awlsring/cdktf-surreal-backend": "^0.0.6",
     "cdktf": "^0.14.3",
-    "constructs": "^10.1.210",
+    "constructs": "^10.1.52",
     "dotenv": "^16.0.3"
   },
   "devDependencies": {
