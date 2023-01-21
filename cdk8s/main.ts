@@ -9,6 +9,7 @@ import { LonghornChart } from './lib/charts/longhorn/chart';
 import { YargChart } from './lib/charts/yarg/chart';
 import { MosquittoChart } from './lib/charts/mosquitto/chart';
 import { TerraformBackendSurrealChart } from './lib/charts/terraform-backend-surreal/chart';
+import { GithubActionsRunnersChart } from './lib/charts/github-actions-runners/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -102,6 +103,11 @@ new TerraformBackendSurrealChart(app, "terraform-backend-surreal", {
     certIssuer: prodIssuer,
     dnsName: "tf-backend.awlsring-sea.drigs.org",
   }
+})
+
+new GithubActionsRunnersChart(app, "github-actions-runners", {
+  createNamespace: true,
+  namespace: "github-actions-runners",
 })
 
 app.synth();
