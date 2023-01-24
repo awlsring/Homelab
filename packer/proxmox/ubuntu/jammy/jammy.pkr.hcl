@@ -55,7 +55,7 @@ source "proxmox" "ubuntu-server-jammy" {
     scsi_controller = "virtio-scsi-pci"
 
     disks {
-        disk_size = "20G"
+        disk_size = "30G"
         storage_pool = "local-lvm"
         storage_pool_type = "lvm"
         type = "virtio"
