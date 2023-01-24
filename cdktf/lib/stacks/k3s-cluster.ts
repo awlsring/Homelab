@@ -2,10 +2,11 @@ import { Construct } from "constructs";
 import { ProxmoxProvider } from "../../.gen/providers/proxmox/provider";
 import { VmQemuDisk, VmQemuNetwork } from "../../.gen/providers/proxmox/vm-qemu";
 import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
-import { Memory } from "../constructs/proxmox/enums";
+import { Memory, StorageSize } from "../proxmox/enums";
 import { VMClone, VMCloneProps } from "../constructs/proxmox/vm-clone";
+import { HomelabMachine } from "../meta/homelab-machine";
 
-export interface ClusterNodeProps {
+export interface ClusterNodeOptions {
   node: string,
   template: string,
   memory: Memory,
@@ -28,31 +29,51 @@ export interface ProxmoxProviderProps {
   tokenSecret: string;
 }
 
-export interface ProxmoxNodeProps {
-  name: string;
+export interface NodeProps {
+  machine: HomelabMachine
   bridge: string;
+  controlNodeAmount: number;
+  workerNodeAmount: number;
+  template: string;
   pool: string;
-  controlAmount: number;
-  workerAmount: number;
+}
+
+export interface SSHProps {
+  user: string;
+  publicKey: string;
+}
+
+export interface ClusterMachineConfigProps {
+  namePrefix: string;
+  baseIp: string;
+  baseId: number;
+  ssh: SSHProps;
+  dnsServer: string;
+  dnsDomain: string;
+  gateway: string;
+  vlan?: number;
+}
+
+export interface ClusterNodeProps {
+  storageSize: StorageSize;
+  memory: Memory;
+  cpus: number;
+  tags?: string;
 }
 
 export interface ClusterStackProps extends HomelabStackProps {
   proxmox: ProxmoxProviderProps;
-  nodes: ProxmoxNodeProps[],
-  template: string;
-  clusterPrefix: string;
-  clusterVmBaseId: number;
-  baseIpSuffix: number;
-  gateway: string;
+  nodes: NodeProps[],
+  machines: ClusterMachineConfigProps
+  controlConfig: ClusterNodeProps;
+  workerConfig: ClusterNodeProps;
 }
-
-const PUBLIC_KEY = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDKBk8jY0K2Vnr2Jcobao0aoYGAyRzUhDbAEjU1JLq47/Azmy/rDOMaX2EEineisEY4gwrDRt2RF2jeb+/bb2oG0LbqypXiWdXHp6FZcQS9ZV9Udurew2WotP7UtTx+VhOoO1Kc2stw1Qw7GFmMNO8FvSotGh+iD/gNvZKTDXNZDK2rNoyvRpij/lNFseF/ir+Pu3DIToAQMGiFi4ApfFGHk68nkpfR8UikI9C0uWkcQwVO4aTOJXRImAitASZ/otmaOfstE79KBNNL7OiIa2nHwvkA8Z7UW8i34WZsY/AG6lZUvX+0ACaCThQgy73YRy3GC1cV4wvCnxA+BtxvYw982WsEvcSv72E/11ii8hq7czlRb4Y9WnnxfG4IB9NesHqsolvHR3nS6KocHMX/Asa6Q09XD0AQYDQiX/7bOq2oSdA5rPjNYNJH5AGowkBZUAglj35u3xx4t3x2CPJza+mBksbejQDCfFL68zh3Occ+AlT1yksqm4xaUgHYU65Aehk= Mac Key"
 
 export class ClusterStack extends HomelabStack {
   readonly controlNodes: VMClone[];
   readonly workerNodes: VMClone[];
 
-  private buildControlNode(prefix: string, baseId: number, config: ClusterNodeProps) {
+  private buildControlNode(prefix: string, baseId: number, config: ClusterNodeOptions) {
     const cloneConfig: VMCloneProps = {
       id: this.controlNodes.length + baseId,
       name: `${prefix}-control-${this.controlNodes.length + 1}`,
@@ -62,7 +83,7 @@ export class ClusterStack extends HomelabStack {
     this.controlNodes.push(node);
   }
 
-  private buildWorkerNode(prefix: string, baseId: number, config: ClusterNodeProps) {
+  private buildWorkerNode(prefix: string, baseId: number, config: ClusterNodeOptions) {
     const cloneConfig: VMCloneProps = {
       id: this.controlNodes.length + baseId,
       name: `${prefix}-worker-${this.workerNodes.length + 1}`,
@@ -70,6 +91,13 @@ export class ClusterStack extends HomelabStack {
     }
     const node = new VMClone(this, `worker${this.workerNodes.length}`, cloneConfig);
     this.workerNodes.push(node);
+  }
+
+  private uptickIp(ip: string, amount: number) {
+    const parts = ip.split(".");
+    const last = parseInt(parts[parts.length - 1]);
+    parts[parts.length - 1] = (last + amount).toString();
+    return parts.join(".");
   }
 
   constructor(scope: Construct, name: string, props: ClusterStackProps) {
@@ -82,39 +110,39 @@ export class ClusterStack extends HomelabStack {
       pmTlsInsecure: true,
     })
 
-    const controlConfigs: ClusterNodeProps[] = [];
-    const workerConfigs: ClusterNodeProps[] = [];
+    const controlConfigs: ClusterNodeOptions[] = [];
+    const workerConfigs: ClusterNodeOptions[] = [];
 
     for (let i = 0; i < props.nodes.length; i++) {
       const node = props.nodes[i];
       const commonConfig = {
-        node: node.name,
-        template: props.template,
+        node: node.machine.name,
+        template: node.template,
         nics: [
           {
             model: "virtio",
             bridge: node.bridge,
-            tag: 100,
+            tag: props.machines.vlan,
           },
         ],
-        gateway: props.gateway,
+        gateway: props.machines.gateway,
         agent: true,
-        sshUser: "awlsring",
-        sshKey: PUBLIC_KEY,
-        dnsServer: "10.10.10.10",
-        dnsDomain: "awlsring-sea.drigs.org",
+        sshUser: props.machines.ssh.user,
+        sshKey: props.machines.ssh.publicKey,
+        dnsServer: props.machines.dnsServer,
+        dnsDomain: props.machines.dnsDomain,
       }
 
-      for (let j = 0; j < props.nodes[i].controlAmount; j++) {
-        const controlConfig: ClusterNodeProps = {
-          memory: Memory.GB_8,
-          cores: 2,
-          tags: "node_type-control;k8s_flavor-k3s",
-          ip: `10.0.100.${props.baseIpSuffix + workerConfigs.length + controlConfigs.length + 1}/24`,
+      props.nodes.forEach((node) => {
+        const controlConfig: ClusterNodeOptions = {
+          memory: props.controlConfig.memory,
+          cores: props.controlConfig.cpus,
+          tags: props.controlConfig.tags,
+          ip: `${this.uptickIp(props.machines.baseIp, (workerConfigs.length + controlConfigs.length + 1))}/24`,
           disks: [
             {
               storage: node.pool,
-              size: "30G",
+              size: props.controlConfig.storageSize,
               type: "scsi",
               discard: "on",
             },
@@ -122,18 +150,16 @@ export class ClusterStack extends HomelabStack {
           ...commonConfig,
         }
         controlConfigs.push(controlConfig);
-      }
 
-      for (let j = 0; j < props.nodes[i].workerAmount; j++) {
-        const worker: ClusterNodeProps = {
-          memory: Memory.GB_12,
-          cores: 4,
-          tags: "node_type-worker;k8s_flavor-k3s",
-          ip: `10.0.100.${props.baseIpSuffix + workerConfigs.length + controlConfigs.length + 1}/24`,
+        const worker: ClusterNodeOptions = {
+          memory: props.workerConfig.memory,
+          cores: props.workerConfig.cpus,
+          tags: props.workerConfig.tags,
+          ip: `${this.uptickIp(props.machines.baseIp, (workerConfigs.length + controlConfigs.length + 1))}/24`,
           disks: [
             {
               storage: node.pool,
-              size: "200G",
+              size: props.workerConfig.storageSize,
               type: "scsi",
               discard: "on",
             },
@@ -141,17 +167,18 @@ export class ClusterStack extends HomelabStack {
           ...commonConfig,
         }
         workerConfigs.push(worker);
-      }
+
+      })
     }
 
     this.controlNodes = [];
     this.workerNodes = [];
 
     for (let i = 0; i < controlConfigs.length; i++) {
-      this.buildControlNode(props.clusterPrefix, props.clusterVmBaseId, controlConfigs[i]);
+      this.buildControlNode(props.machines.namePrefix, props.machines.baseId, controlConfigs[i]);
     }
     for (let i = 0; i < workerConfigs.length; i++) {
-      this.buildWorkerNode(props.clusterPrefix, props.clusterVmBaseId, workerConfigs[i]);
+      this.buildWorkerNode(props.machines.namePrefix, props.machines.baseId, workerConfigs[i]);
     }
   }
 }

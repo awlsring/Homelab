@@ -26,7 +26,6 @@ export enum StorageSize {
   GB_490 = "490G"
 }
 
-
 export enum OsType {
   UBUNTU = "ubuntu",
   CENTOS = "centos",

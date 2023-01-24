@@ -1,0 +1,49 @@
+machines:
+  - name: "dominaria"
+    roles: 
+      - "proxmox"
+    networks: 
+      - "infra"
+      - "apps"
+    cpus:
+      - brand: "Intel i7-10700KF"
+        cores: "20"
+    memory: "64GB"
+    nics:
+      - type: onboard
+        ports: 1
+        speed: 2.5G
+      - type: card
+        ports: 4
+        speed: 1G
+    disks: 
+      ssd: 
+        - brand: "Samsung 850 EVO"
+          size: "250GB"
+      nvme: 
+        - brand: "Sabrant Rocket Q"
+          size: "1TB"
+  - name: "dominaria"
+    roles: 
+      - "proxmox"
+    networks: 
+      - "infra"
+      - "apps"
+    cpus:
+      - brand: "AMD Ryzen 7 5800x"
+        cores: "16"
+    memory: "64GB"
+    nics:
+      - type: onboard
+        ports: 1
+        speed: 1G
+      - type: card
+        ports: 4
+        speed: 1G
+    disks: 
+      ssd: 
+        - brand: "Kingston"
+          size: "240GB"
+      nvme: 
+        - brand: "Silicon Power"
+          size: "500GB"

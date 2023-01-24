@@ -1,0 +1,13 @@
+nodes:
+  - name: "ravnica"
+    bridge: "vmbr1"
+    controlNodes: 1
+    workerNodes: 2
+    template: "ubuntu-jammy-template"
+    pool: "rav-pool-1"
+  # - name: "dominaria"
+  #   bridge: "vmbr1"
+  #   controlNodes: 2
+  #   workerNodes: 2
+  #   template: "ubuntu-jammy-template"
+  #   pool: "dom-pool-1"

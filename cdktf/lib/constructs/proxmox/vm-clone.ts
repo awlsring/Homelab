@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { VmQemu, VmQemuConfig, VmQemuDisk, VmQemuNetwork } from "../../../.gen/providers/proxmox/vm-qemu"
-import { Memory } from "./enums";
+import { Memory } from "../../proxmox/enums";
 
 export interface VMCloneProps {
   name: string,
