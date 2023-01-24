@@ -52,5 +52,11 @@ export class OnePasswordStack extends HomelabStack {
     })
     this.secrets.set("truenas-s3-access-key", s3Creds.username)
     this.secrets.set("truenas-s3-secret-key", s3Creds.password)
+
+    const terraformGithub = new DataOnepasswordItem(this, "terraform-github", {
+      vault: vault.uuid,
+      title: "terraform-homelab",
+    })
+    this.secrets.set("terraform-homelab", terraformGithub.password)
   }
 }
