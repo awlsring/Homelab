@@ -6,11 +6,12 @@ import { OnePasswordStack } from "./lib/stacks/onepassword";
 import * as path from 'path';
 import { ReadNodesFromYAML } from "./lib/proxmox/cluster-node";
 import { Memory, StorageSize } from "./lib/proxmox/enums";
+import { CreateOnepasswordSecretsProvider } from "./lib/constructs/secret-provider/onepassword-secret-provider";
 require('dotenv').config()
 
 const app = new App();
 
-const machines = ReadMachinesFromYAML(path.join(__dirname, "../meta/machines.yaml"));
+const machines = ReadMachinesFromYAML(path.join(__dirname, "meta/machines.yaml"));
 const proxmoxMachines = machines.filter(m => m.roles.includes("proxmox"));
 
 const onepasswordUrl = process.env.ONEPASSWORD_CONNECT_URL
@@ -31,6 +32,14 @@ const genericProps = {
     address: "https://tf-backend.awlsring-sea.drigs.org",
     username: backendUser,
     password: backendPassword,
+  },
+  secretProvider: {
+    create: CreateOnepasswordSecretsProvider,
+    params: {
+      url: onepasswordUrl,
+      token: onepasswordToken,
+      vault: 'Homelab',
+    },
   }
 }
 
@@ -41,7 +50,7 @@ const onePassword = new OnePasswordStack(app, "onePassword", {
   ...genericProps,
 })
 
-const clusterNodes = ReadNodesFromYAML(path.join(__dirname, "../meta/k3sCluster.yaml"))
+const clusterNodes = ReadNodesFromYAML(path.join(__dirname, "meta/k3sCluster.yaml"))
 
 let clusterNodeProps: NodeProps[] = [];
 proxmoxMachines.forEach(m => {
@@ -98,7 +107,7 @@ k3sCluster.addDependency(onePassword)
 const datastore = new DataStoreStack(app, "dataStore", {
   stack: "datastore",
   url: "http://10.0.10.150/api/v2.0",
-  key: onePassword.retrieveSecret("truenas-token"),
+  secretName: 'truenas-token',
   ...genericProps,
 })
 datastore.addDependency(onePassword)
