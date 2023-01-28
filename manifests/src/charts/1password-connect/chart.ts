@@ -1,20 +1,20 @@
-import { Helm } from "cdk8s";
-import { ServiceType } from "cdk8s-plus-25";
-import { Construct } from "constructs";
-import { HomelabChart, HomelabChartProps } from "../../common/homelab-charts";
+import { Helm } from 'cdk8s';
+import { ServiceType } from 'cdk8s-plus-25';
+import { Construct } from 'constructs';
+import { HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
 
 export interface OnePasswordConnectChartProps extends HomelabChartProps {
-  name: string
-  serviceType: ServiceType
+  name: string;
+  serviceType: ServiceType;
 }
 
 export class OnePasswordConnectChart extends HomelabChart {
   constructor(scope: Construct, name: string, props: OnePasswordConnectChartProps) {
-    super(scope, name, props)
-    new Helm(this, "helm", {
-      chart: "1password/connect",
+    super(scope, name, props);
+    new Helm(this, 'helm', {
+      chart: '1password/connect',
       helmFlags: [
-        '--namespace', this.namespace
+        '--namespace', this.namespace,
       ],
       values: {
         connect: {
@@ -22,16 +22,16 @@ export class OnePasswordConnectChart extends HomelabChart {
           serviceType: props.serviceType,
         },
         operator: {
-          create: false
-        }
-      }
-    })
+          create: false,
+        },
+      },
+    });
 
     if (props.tls) {
       this.configureTls(props.name, props.tls.certIssuer, props.tls.dnsName, {
         name: props.name,
-        port: 8080
-      })
+        port: 8080,
+      });
     }
   }
 }

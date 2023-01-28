@@ -15,7 +15,7 @@ export class HorizontalRunnerAutoscaler extends ApiObject {
   public static readonly GVK: GroupVersionKind = {
     apiVersion: 'actions.summerwind.dev/v1alpha1',
     kind: 'HorizontalRunnerAutoscaler',
-  }
+  };
 
   /**
    * Renders a Kubernetes manifest for "HorizontalRunnerAutoscaler".
@@ -631,7 +631,7 @@ export class Runner extends ApiObject {
   public static readonly GVK: GroupVersionKind = {
     apiVersion: 'actions.summerwind.dev/v1alpha1',
     kind: 'Runner',
-  }
+  };
 
   /**
    * Renders a Kubernetes manifest for "Runner".
@@ -18001,7 +18001,7 @@ export class RunnerDeployment extends ApiObject {
   public static readonly GVK: GroupVersionKind = {
     apiVersion: 'actions.summerwind.dev/v1alpha1',
     kind: 'RunnerDeployment',
-  }
+  };
 
   /**
    * Renders a Kubernetes manifest for "RunnerDeployment".
@@ -35584,7 +35584,7 @@ export class RunnerReplicaSet extends ApiObject {
   public static readonly GVK: GroupVersionKind = {
     apiVersion: 'actions.summerwind.dev/v1alpha1',
     kind: 'RunnerReplicaSet',
-  }
+  };
 
   /**
    * Renders a Kubernetes manifest for "RunnerReplicaSet".
@@ -53167,7 +53167,7 @@ export class RunnerSet extends ApiObject {
   public static readonly GVK: GroupVersionKind = {
     apiVersion: 'actions.summerwind.dev/v1alpha1',
     kind: 'RunnerSet',
-  }
+  };
 
   /**
    * Renders a Kubernetes manifest for "RunnerSet".

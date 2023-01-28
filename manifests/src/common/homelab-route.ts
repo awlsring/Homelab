@@ -1,18 +1,18 @@
-import { Service } from "cdk8s-plus-25";
-import { IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from "../imports/traefik-traefik.containo.us";
+import { Service } from 'cdk8s-plus-25';
+import { IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from '../imports/traefik-traefik.containo.us';
 
 export class HomelabRoute {
   static generateRoute(
     dnsName: string,
     service: Service,
-    middlewares?: IngressRouteSpecRoutesMiddlewares[]
+    middlewares?: IngressRouteSpecRoutesMiddlewares[],
   ): IngressRouteSpecRoutes {
     let middlewaresList = middlewares ?? [
       {
-        name: "default-headers",
-        namespace: "traefik-system"
-      }
-    ]
+        name: 'default-headers',
+        namespace: 'traefik-system',
+      },
+    ];
 
     return {
       kind: IngressRouteSpecRoutesKind.RULE,
@@ -22,9 +22,9 @@ export class HomelabRoute {
         {
           name: service.name,
           kind: IngressRouteSpecRoutesServicesKind.SERVICE,
-          port: IngressRouteSpecRoutesServicesPort.fromNumber(service.port)
-        }
-      ]
-    }
+          port: IngressRouteSpecRoutesServicesPort.fromNumber(service.port),
+        },
+      ],
+    };
   }
 }
