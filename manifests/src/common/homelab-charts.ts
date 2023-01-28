@@ -1,7 +1,7 @@
 import { Chart, ChartProps } from "cdk8s";
 import { Namespace } from "cdk8s-plus-25";
 import { Construct } from "constructs";
-import { ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
+import { ClusterIssuer } from "../imports/certmanager-cert-manager.io";
 import { GenerateCertForService, GenerateGenericRoute, GenerateIngressRoute, TlsExposedProps } from "../service-utils/service-utils";
 
 export interface HomelabChartProps extends ChartProps {

@@ -1,8 +1,8 @@
 import { Chart, ChartProps } from "cdk8s";
 import { Namespace, Service, ServiceType } from "cdk8s-plus-25";
 import { Construct } from "constructs";
-import { ClusterIssuer } from "../../../imports/certmanager-cert-manager.io";
-import { Middleware } from "../../../imports/traefik-traefik.containo.us";
+import { ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
+import { Middleware } from "../../imports/traefik-traefik.containo.us";
 import { GenerateCertForService, GenerateGenericRoute, GenerateIngressRoute } from "../../service-utils/service-utils";
 
 export interface ClusterExternalIngressChartProps extends ChartProps {

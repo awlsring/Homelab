@@ -1,8 +1,8 @@
 {
   "name": "cdk8s",
   "version": "1.0.0",
-  "main": "main.js",
-  "types": "main.ts",
+  "main": "lib/main.js",
+  "types": "lib/main.d.ts",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
@@ -15,6 +15,46 @@
     "upgrade": "npm i cdk8s@latest cdk8s-cli@latest",
     "upgrade:next": "npm i cdk8s@next cdk8s-cli@next"
   },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.ts?(x)",
+      "<rootDir>/(test|src)/**/*(*.)@(spec|test).ts?(x)"
+    ],
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "clover",
+      "cobertura",
+      "text"
+    ],
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-reports"
+        }
+      ]
+    ],
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.dev.json"
+      }
+    }
+  },
   "dependencies": {
     "cdk8s": "^2.6.10",
     "cdk8s-plus-25": "^2.3.15",
@@ -22,11 +62,24 @@
     "dotenv": "^16.0.3"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.24",
-    "@types/node": "^14.18.36",
-    "cdk8s-cli": "^2.1.97",
-    "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
-    "typescript": "^4.9.4"
+    "@awlsring/projen-commons": "^0.0.7",
+    "@types/jest": "^27",
+    "@types/node": "^14",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
+    "constructs": "^10.1.211",
+    "eslint": "^8",
+    "eslint-import-resolver-node": "^0.3.7",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^27",
+    "jest-junit": "^13",
+    "json-schema": "^0.4.0",
+    "npm-check-updates": "^16",
+    "standard-version": "^9",
+    "ts-jest": "^27",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4",
+    "cdk8s-cli": "^2.1.97"
   }
 }

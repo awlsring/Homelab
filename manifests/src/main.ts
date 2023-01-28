@@ -1,15 +1,15 @@
 import { App } from 'cdk8s';
-import { TraefikCertManagerChart } from './lib/charts/traefik-certmanager/chart';
-import { CertIssuers, LetsEncryptEndpoint } from './lib/charts/traefik-certmanager/cert-manager/chart';
+import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
+import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import * as dotenv from "dotenv";
-import { ClusterExternalIngressChart } from './lib/charts/cluster-external-ingress/chart';
-import { OnePasswordConnectChart } from './lib/charts/1password-connect/chart';
+import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
+import { OnePasswordConnectChart } from './charts/1password-connect/chart';
 import { ServiceType } from 'cdk8s-plus-25';
-import { LonghornChart } from './lib/charts/longhorn/chart';
-import { YargChart } from './lib/charts/yarg/chart';
-import { MosquittoChart } from './lib/charts/mosquitto/chart';
-import { TerraformBackendSurrealChart } from './lib/charts/terraform-backend-surreal/chart';
-import { GithubActionsRunnersChart } from './lib/charts/github-actions-runners/chart';
+import { LonghornChart } from './charts/longhorn/chart';
+import { YargChart } from './charts/yarg/chart';
+import { MosquittoChart } from './charts/mosquitto/chart';
+import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
+import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -54,7 +54,7 @@ const traefikCertmanager = new TraefikCertManagerChart(app, "traefik-cert-manage
 })
 
 const prodIssuer = traefikCertmanager.GetProdCertIssuer()
-const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
+// const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
 
 const longhorn = new LonghornChart(app, "longhorn", {
   createNamespace: true,

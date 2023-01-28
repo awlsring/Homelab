@@ -2,7 +2,7 @@ import { Chart, ChartProps, Helm, JsonPatch } from "cdk8s";
 import { Namespace, ServiceType } from "cdk8s-plus-25";
 import { Container } from "cdk8s-plus-25/lib/imports/k8s";
 import { Construct } from "constructs";
-import { Middleware } from "../../../../imports/traefik-traefik.containo.us"
+import { Middleware } from "../../../imports/traefik-traefik.containo.us"
 
 export interface TraefikChartProps extends ChartProps {
   replicas: number

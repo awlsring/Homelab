@@ -1,7 +1,7 @@
 import { Chart, ChartProps } from "cdk8s";
 import { Construct } from "constructs";
-import { ClusterIssuer } from "../../../imports/certmanager-cert-manager.io";
-import { Middleware } from "../../../imports/traefik-traefik.containo.us";
+import { ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
+import { Middleware } from "../../imports/traefik-traefik.containo.us";
 import { CertManagerChart, CertManagerChartProps } from "./cert-manager/chart";
 import { TraefikChart, TraefikChartProps } from "./traefik/chart";
 import { Dashboard } from "./traefik/dashboard";

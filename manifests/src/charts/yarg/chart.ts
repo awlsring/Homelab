@@ -1,8 +1,8 @@
 import { Size } from "cdk8s";
 import { PersistentVolumeAccessMode } from "cdk8s-plus-25";
-import { KubePersistentVolumeClaim, KubeDeployment, ContainerPort, EnvVar, ResourceRequirements, Volume, KubeService, IntOrString, Quantity } from "cdk8s-plus-25/lib/imports/k8s";
+import { KubePersistentVolumeClaim, KubeDeployment, ContainerPort, EnvVar, ResourceRequirements, Volume, KubeService, Quantity } from "cdk8s-plus-25/lib/imports/k8s";
 import { Construct } from "constructs";
-import { ClusterIssuer } from "../../../imports/certmanager-cert-manager.io";
+import { ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
 import { HomelabChart, HomelabChartProps } from "../../common/homelab-charts";
 import { GenerateCertificateAndIngress } from "../../service-utils/service-utils";
 

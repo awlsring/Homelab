@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
-import { Certificate, ClusterIssuer } from "../../imports/certmanager-cert-manager.io";
-import { IngressRoute, IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from "../../imports/traefik-traefik.containo.us";
+import { Certificate, ClusterIssuer } from "../imports/certmanager-cert-manager.io";
+import { IngressRoute, IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from "../imports/traefik-traefik.containo.us";
 
 export interface TlsExposedProps {
   name: string,

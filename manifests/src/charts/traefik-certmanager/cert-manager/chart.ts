@@ -1,7 +1,7 @@
 import { Chart, ChartProps, Helm } from "cdk8s"
 import { Namespace, Secret } from "cdk8s-plus-25"
 import { Construct } from "constructs"
-import { ClusterIssuer, ClusterIssuerSpecAcmeSolversDns01 } from "../../../../imports/certmanager-cert-manager.io"
+import { ClusterIssuer, ClusterIssuerSpecAcmeSolversDns01 } from "../../../imports/certmanager-cert-manager.io"
 
 export enum LetsEncryptEndpoint {
   STAGING = "https://acme-staging-v02.api.letsencrypt.org/directory",

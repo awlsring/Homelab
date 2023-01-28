@@ -1,7 +1,7 @@
 import { Secret } from "cdk8s-plus-25";
 import { Construct } from "constructs";
-import { ClusterIssuer } from "../../../../imports/certmanager-cert-manager.io";
-import { IngressRoute, IngressRouteProps, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesServicesKind, Middleware } from "../../../../imports/traefik-traefik.containo.us";
+import { ClusterIssuer } from "../../../imports/certmanager-cert-manager.io";
+import { IngressRoute, IngressRouteProps, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesServicesKind, Middleware } from "../../../imports/traefik-traefik.containo.us";
 import { GenerateCertForService } from "../../../service-utils/service-utils";
 import { DashboardOptions } from "./chart";
 
