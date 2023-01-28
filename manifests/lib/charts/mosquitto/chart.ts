@@ -1,7 +1,7 @@
 import { Helm } from "cdk8s"
 import { ServiceType } from "cdk8s-plus-25"
 import { Construct } from "constructs"
-import { HomelabChart, HomelabChartProps } from "../../common/charts"
+import { HomelabChart, HomelabChartProps } from "../../common/homelab-charts"
 
 export interface MosquittoChartProps extends HomelabChartProps {
   storageClass: string

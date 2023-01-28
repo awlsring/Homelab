@@ -1,7 +1,7 @@
 import { Helm } from "cdk8s";
 import { Construct } from "constructs";
 import { HorizontalRunnerAutoscaler, HorizontalRunnerAutoscalerSpecScaleTargetRefKind, RunnerDeployment } from "../../../imports/actions-runner-controller-actions.summerwind.dev";
-import { HomelabChart, HomelabChartProps } from "../../common/charts";
+import { HomelabChart, HomelabChartProps } from "../../common/homelab-charts";
 
 export interface GithubActionsRunnersChartProps extends HomelabChartProps {}
 

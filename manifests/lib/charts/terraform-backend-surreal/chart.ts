@@ -1,6 +1,6 @@
 import { ConfigMap, Deployment, EnvValue, Secret, Service, ServiceType, Volume } from "cdk8s-plus-25";
 import { Construct } from "constructs";
-import { HomelabChart, HomelabChartProps } from "../../common/charts";
+import { HomelabChart, HomelabChartProps } from "../../common/homelab-charts";
 import path = require("path");
 
 export interface TerraformBackendSurrealProps extends HomelabChartProps {}
