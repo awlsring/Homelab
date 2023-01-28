@@ -1,4 +1,4 @@
 language: typescript
-app: node main.js
+app: npx ts-node src/main.ts cdk8s
 imports:
   - k8s
