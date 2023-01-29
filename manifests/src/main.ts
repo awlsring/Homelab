@@ -10,6 +10,7 @@ import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
 import { YargChart } from './charts/yarg/chart';
+import { ExternalIngressChart } from './common/external-ingress/external-ingress-chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
@@ -54,7 +55,7 @@ const traefikCertmanager = new TraefikCertManagerChart(app, 'traefik-cert-manage
 });
 
 const prodIssuer = traefikCertmanager.GetProdCertIssuer();
-// const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
+const stagingIssuer = traefikCertmanager.GetStagingCertIssuer();
 
 const longhorn = new LonghornChart(app, 'longhorn', {
   createNamespace: true,
@@ -108,6 +109,30 @@ new TerraformBackendSurrealChart(app, 'terraform-backend-surreal', {
 new GithubActionsRunnersChart(app, 'github-actions-runners', {
   createNamespace: true,
   namespace: 'github-actions-runners',
+});
+
+new ExternalIngressChart(app, 'truenas-external-ingress', {
+  createNamespace: true,
+  namespace: 'truenas-external',
+  externalName: '10.0.10.150',
+  port: 443,
+  tls: {
+    name: 'truenas',
+    dnsNames: ['truenas.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
+  },
+});
+
+new ExternalIngressChart(app, 'frigate-external-ingress', {
+  createNamespace: true,
+  namespace: 'frigate-external',
+  externalName: '10.0.10.9',
+  port: 5000,
+  tls: {
+    name: 'frigate',
+    dnsNames: ['frigate.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
+  },
 });
 
 app.synth();
