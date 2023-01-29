@@ -28,7 +28,7 @@ export class OnePasswordConnectChart extends HomelabChart {
     });
 
     if (props.tls) {
-      this.configureTls(props.name, props.tls.certIssuer, props.tls.dnsName, {
+      this.configureTls(props.name, props.tls.certIssuer, props.tls.dnsNames, {
         name: props.name,
         port: 8080,
       });

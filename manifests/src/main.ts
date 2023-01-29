@@ -1,113 +1,113 @@
 import { App } from 'cdk8s';
-import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
-import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
-import * as dotenv from "dotenv";
-import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
-import { OnePasswordConnectChart } from './charts/1password-connect/chart';
 import { ServiceType } from 'cdk8s-plus-25';
+import * as dotenv from 'dotenv';
+import { OnePasswordConnectChart } from './charts/1password-connect/chart';
+import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
+import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
 import { LonghornChart } from './charts/longhorn/chart';
-import { YargChart } from './charts/yarg/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
-import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
+import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
+import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
+import { YargChart } from './charts/yarg/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();
 
-const traefikCertmanager = new TraefikCertManagerChart(app, "traefik-cert-manager", {
+const traefikCertmanager = new TraefikCertManagerChart(app, 'traefik-cert-manager', {
   traefik: {
     createNamespace: true,
-    namespace: "traefik-system",
+    namespace: 'traefik-system',
     replicas: 3,
     dashboard: {
-      issuerName: "prod",
-      ingressClass: "traefik-external",
-      domainName: "traefik.awlsring-sea.drigs.org",
+      issuerName: 'prod',
+      ingressClass: 'traefik-external',
+      domainName: 'traefik.awlsring-sea.drigs.org',
       auth: {
         username: process.env.TRAEFIK_USER!,
-        password: process.env.TRAEFIK_PASSWORD!
-      }
-    }
+        password: process.env.TRAEFIK_PASSWORD!,
+      },
+    },
   },
   certManager: {
     createNamespace: true,
-    namespace: "cert-manager",
+    namespace: 'cert-manager',
     replicas: 3,
-    nameservers: ["1.1.1.1", "9.9.9.9"],
+    nameservers: ['1.1.1.1', '9.9.9.9'],
     cloudflareToken: process.env.CLOUDFLARE_CERTMANAGER_TOKEN!,
     certIssuers: [
       {
-        name: "staging",
+        name: 'staging',
         endpoint: LetsEncryptEndpoint.STAGING,
-        email: "drigsnetwork@gmail.com",
+        email: 'drigsnetwork@gmail.com',
         issuer: CertIssuers.CLOUDFLARE,
       },
       {
-        name: "prod",
+        name: 'prod',
         endpoint: LetsEncryptEndpoint.PROD,
-        email: "drigsnetwork@gmail.com",
+        email: 'drigsnetwork@gmail.com',
         issuer: CertIssuers.CLOUDFLARE,
-      }
+      },
     ],
-    dnsZones: ["drigs.org"]
-  }
-})
+    dnsZones: ['drigs.org'],
+  },
+});
 
-const prodIssuer = traefikCertmanager.GetProdCertIssuer()
+const prodIssuer = traefikCertmanager.GetProdCertIssuer();
 // const stagingIssuer = traefikCertmanager.GetStagingCertIssuer()
 
-const longhorn = new LonghornChart(app, "longhorn", {
+const longhorn = new LonghornChart(app, 'longhorn', {
   createNamespace: true,
-  namespace: "longhorn-system",
+  namespace: 'longhorn-system',
   serviceType: ServiceType.LOAD_BALANCER,
-})
+});
 
-new MosquittoChart(app, "mosquitto", {
+new MosquittoChart(app, 'mosquitto', {
   createNamespace: true,
-  namespace: "mosquitto",
+  namespace: 'mosquitto',
   storageClass: longhorn.storageClassName,
-})
+});
 
-new ClusterExternalIngressChart(app, "cluster-external-ingress", {
+new ClusterExternalIngressChart(app, 'cluster-external-ingress', {
   createNamespace: true,
-  namespace: "cluster-external",
+  namespace: 'cluster-external',
   certIssuer: prodIssuer,
   defaultHeaders: traefikCertmanager.deafaultHeaders,
-})
+});
 
-new OnePasswordConnectChart(app, "onepassword-connect", {
+new OnePasswordConnectChart(app, 'onepassword-connect', {
   createNamespace: true,
-  namespace: "onepassword-connect",
-  name: "onepassword-connect",
+  namespace: 'onepassword-connect',
+  name: 'onepassword-connect',
   serviceType: ServiceType.LOAD_BALANCER,
   tls: {
-    name: "onepassword-connect",
+    name: 'onepassword-connect',
     certIssuer: prodIssuer,
-    dnsName: "onepassword.awlsring-sea.drigs.org",
-  }
-})
+    dnsNames: ['onepassword.awlsring-sea.drigs.org'],
+  },
+});
 
-new YargChart(app, "yarg", {
+new YargChart(app, 'yarg', {
   createNamespace: true,
-  namespace: "yarg",
+  namespace: 'yarg',
   certIssuer: prodIssuer,
-  nfsServer: "10.0.100.180",
-  dnsDomain: "awlsring-sea.drigs.org",
-})
+  nfsServer: '10.0.100.180',
+  dnsDomain: 'awlsring-sea.drigs.org',
+});
 
-new TerraformBackendSurrealChart(app, "terraform-backend-surreal", {
+new TerraformBackendSurrealChart(app, 'terraform-backend-surreal', {
   createNamespace: true,
-  namespace: "terraform-backend-surreal",
+  namespace: 'terraform-backend-surreal',
   tls: {
-    name: "tf-backend",
+    name: 'tf-backend',
     certIssuer: prodIssuer,
-    dnsName: "tf-backend.awlsring-sea.drigs.org",
-  }
-})
+    dnsNames: ['tf-backend.awlsring-sea.drigs.org'],
+  },
+});
 
-new GithubActionsRunnersChart(app, "github-actions-runners", {
+new GithubActionsRunnersChart(app, 'github-actions-runners', {
   createNamespace: true,
-  namespace: "github-actions-runners",
-})
+  namespace: 'github-actions-runners',
+});
 
 app.synth();

@@ -1,23 +1,25 @@
 import { Chart, ChartProps } from 'cdk8s';
 import { Namespace } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
+import { HomelabCertificate } from './homelab-certificate';
+import { HomelabRoute, IService } from './homelab-route';
+import { HomelabTraefikIngressRoute } from './homelab-traefik-ingress';
 import { ClusterIssuer } from '../imports/certmanager-cert-manager.io';
-import { GenerateCertForService, GenerateGenericRoute, GenerateIngressRoute, TlsExposedProps } from '../service-utils/service-utils';
+
+export interface ConfigureTlsProps {
+  name: string;
+  certIssuer: ClusterIssuer;
+  dnsNames: string[];
+}
 
 export interface HomelabChartProps extends ChartProps {
   namespace: string;
   createNamespace?: boolean;
-  tls?: TlsExposedProps;
-}
-
-export interface ServiceData {
-  name: string;
-  port: number;
+  tls?: ConfigureTlsProps;
 }
 
 export class HomelabChart extends Chart {
   readonly namespace: string;
-  service?: ServiceData;
 
   constructor(scope: Construct, name: string, props: HomelabChartProps) {
     super(scope, name, props);
@@ -30,25 +32,22 @@ export class HomelabChart extends Chart {
       });
     }
   }
-  configureTls(name: string, certIssuer: ClusterIssuer, dnsName: string, service: ServiceData) {
+
+  configureTls(name: string, certIssuer: ClusterIssuer, dnsNames: string[], service: IService) {
     const certName = `${name}-cert`;
-    GenerateCertForService(this, {
+    const cert = new HomelabCertificate(this, certName, {
       name: certName,
-      namespace: this.namespace,
+      dnsNames: dnsNames,
       issuer: certIssuer,
-      commonName: dnsName,
     });
 
-    GenerateIngressRoute(this, {
-      name: `${name}-route`,
-      namespace: this.namespace,
-      routes: [
-        GenerateGenericRoute(
-          dnsName,
-          service,
-        ),
-      ],
-      certName: certName,
+    const routes = dnsNames.map((dnsName) => {
+      return HomelabRoute.generateRoute(dnsName, service);
+    });
+
+    new HomelabTraefikIngressRoute(this, 'traefik-route', {
+      routes: routes,
+      certificate: cert,
     });
   }
 }

@@ -1,10 +1,14 @@
-import { Service } from 'cdk8s-plus-25';
 import { IngressRouteSpecRoutes, IngressRouteSpecRoutesKind, IngressRouteSpecRoutesMiddlewares, IngressRouteSpecRoutesServicesKind, IngressRouteSpecRoutesServicesPort } from '../imports/traefik-traefik.containo.us';
+
+export interface IService {
+  name: string;
+  port: number;
+};
 
 export class HomelabRoute {
   static generateRoute(
     dnsName: string,
-    service: Service,
+    service: IService,
     middlewares?: IngressRouteSpecRoutesMiddlewares[],
   ): IngressRouteSpecRoutes {
     let middlewaresList = middlewares ?? [

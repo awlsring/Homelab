@@ -1,10 +1,10 @@
 import { Construct } from 'constructs';
-import { Certificate, CertificateProps } from '../imports/certmanager-cert-manager.io';
+import { Certificate, CertificateProps, ClusterIssuer } from '../imports/certmanager-cert-manager.io';
 
 export interface HomelabCertificateProps {
   name: string;
   dnsNames: string[];
-  issuer: string;
+  issuer: ClusterIssuer;
 }
 
 export class HomelabCertificate extends Certificate {
@@ -18,7 +18,7 @@ export class HomelabCertificate extends Certificate {
         secretName: props.name,
         dnsNames: props.dnsNames,
         issuerRef: {
-          name: props.issuer,
+          name: props.issuer.name,
           kind: 'ClusterIssuer',
         },
       },

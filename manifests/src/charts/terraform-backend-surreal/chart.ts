@@ -58,10 +58,7 @@ export class TerraformBackendSurrealChart extends HomelabChart {
     });
 
     if (props.tls) {
-      this.configureTls(props.tls.name, props.tls.certIssuer, props.tls.dnsName, {
-        name: service.name,
-        port: 8032,
-      });
+      this.configureTls(props.tls.name, props.tls.certIssuer, props.tls.dnsNames, service);
     }
 
   }
