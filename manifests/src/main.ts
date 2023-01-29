@@ -3,6 +3,7 @@ import { ServiceType } from 'cdk8s-plus-25';
 import * as dotenv from 'dotenv';
 import { OnePasswordConnectChart } from './charts/1password-connect/chart';
 import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
+import { ExternalIngressChart } from './charts/external-ingress/external-ingress-chart';
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
 import { LonghornChart } from './charts/longhorn/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
@@ -10,7 +11,6 @@ import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
 import { YargChart } from './charts/yarg/chart';
-import { ExternalIngressChart } from './common/external-ingress/external-ingress-chart';
 dotenv.config({ path: __dirname+'/.env' });
 
 const app = new App();

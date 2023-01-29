@@ -1,6 +1,6 @@
 import { Service, ServiceType } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
-import { ConfigureTlsProps, HomelabChart, HomelabChartProps } from '../homelab-charts';
+import { ConfigureTlsProps, HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
 
 export interface ExternalIngressChartProps extends HomelabChartProps {
   externalName: string;
