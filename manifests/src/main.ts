@@ -2,6 +2,7 @@ import { App } from 'cdk8s';
 import { ServiceType } from 'cdk8s-plus-25';
 import * as dotenv from 'dotenv';
 import { OnePasswordConnectChart } from './charts/1password-connect/chart';
+import { AudioBookshelfChart } from './charts/audiobookshelf/chart';
 import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
 import { ExternalIngressChart } from './charts/external-ingress/external-ingress-chart';
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
@@ -132,6 +133,18 @@ new ExternalIngressChart(app, 'frigate-external-ingress', {
     name: 'frigate',
     dnsNames: ['frigate.awlsring-sea.drigs.org'],
     certIssuer: prodIssuer,
+  },
+});
+
+new AudioBookshelfChart(app, 'audiobookshelf', {
+  createNamespace: true,
+  namespace: 'audiobookshelf',
+  nfsServer: '10.0.100.180',
+  mountPath: '/media',
+  tls: {
+    name: 'audiobookshelf',
+    dnsNames: ['audiobookshelf.awlsring-sea.drigs.org'],
+    certIssuer: stagingIssuer,
   },
 });
 
