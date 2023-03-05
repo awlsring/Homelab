@@ -76,6 +76,16 @@ export class YargChart extends HomelabChart {
         port: 8989,
       },
       {
+        name: 'readarr',
+        image: 'lscr.io/linuxserver/readarr:develop',
+        port: 8787,
+      },
+      {
+        name: 'bazarr',
+        image: 'lscr.io/linuxserver/bazarr:latest',
+        port: 6767,
+      },
+      {
         name: 'prowlarr',
         image: 'lscr.io/linuxserver/prowlarr:latest',
         port: 9696,
