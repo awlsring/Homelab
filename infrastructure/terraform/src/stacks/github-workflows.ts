@@ -16,7 +16,7 @@ export class GithubWorkflowsStack extends HomelabStack {
       token: props.githubToken,
     });
 
-    let echoJob = new Job(this, 'build-job', {
+    new Job(this, 'build-job', {
       steps: [
         {
           name: 'echo hello',
@@ -25,7 +25,7 @@ export class GithubWorkflowsStack extends HomelabStack {
       ],
     });
 
-    const proxmoxTest = new Workflow(this, "proxmox-test", {
+    new Workflow(this, "proxmox-test", {
       repoName: props.repoName,
     });
 

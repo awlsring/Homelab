@@ -12,3 +12,4 @@ tsconfig.tsbuildinfo
 !setup.js
 .env
 tmp
+lib

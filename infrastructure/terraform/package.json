@@ -1,12 +1,12 @@
 {
   "name": "cdktf",
   "version": "1.0.0",
-  "main": "main.js",
-  "types": "main.ts",
+  "main": "lib/main.js",
+  "types": "lib/main.d.ts",
   "license": "MPL-2.0",
   "private": true,
   "scripts": {
-    "get": "cdktf get",
+    "get": "cdktf get -o src/.gen",
     "build": "tsc",
     "synth": "npm run compile && cdktf synth",
     "deploy": "npm run compile && cdktf synth && cdktf deploy",
@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@awlsring/cdktf-github-actions": "^0.0.3",
+    "@awlsring/cdktf-proxmox": "^0.0.12",
     "@awlsring/cdktf-surreal-backend": "^0.0.6",
     "cdktf": "^0.14.3",
     "constructs": "^10.1.52",

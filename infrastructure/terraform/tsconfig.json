@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src",
     "alwaysStrict": true,
     "charset": "utf8",
     "declaration": true,
@@ -27,7 +29,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

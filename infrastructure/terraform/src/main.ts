@@ -1,17 +1,18 @@
 import { App } from "cdktf";
-import { ReadMachinesFromYAML } from "./lib/meta/homelab-machine";
-import { DataStoreStack } from "./lib/stacks/data-store";
-import { ClusterStack, NodeProps } from "./lib/stacks/k3s-cluster";
-import { OnePasswordStack } from "./lib/stacks/onepassword";
+import { ReadMachinesFromYAML } from "./meta/homelab-machine";
+import { DataStoreStack } from "./stacks/data-store";
+import { ClusterStack, NodeProps } from "./stacks/k3s-cluster_old";
+import { OnePasswordStack } from "./stacks/onepassword";
 import * as path from 'path';
-import { ReadNodesFromYAML } from "./lib/proxmox/cluster-node";
-import { Memory, StorageSize } from "./lib/proxmox/enums";
-import { CreateOnepasswordSecretsProvider } from "./lib/constructs/secret-provider/onepassword-secret-provider";
+import { ReadNodesFromYAML } from "./proxmox/cluster-node";
+import { Memory, StorageSize } from "./proxmox/enums";
+import { CreateOnepasswordSecretsProvider } from "./constructs/secret-provider/onepassword-secret-provider";
+import { K3SClusterStack } from "./stacks/k3s-cluster";
 require('dotenv').config()
 
 const app = new App();
 
-const machines = ReadMachinesFromYAML(path.join(__dirname, "meta/machines.yaml"));
+const machines = ReadMachinesFromYAML(path.join(__dirname, "../meta/machines.yaml"));
 const proxmoxMachines = machines.filter(m => m.roles.includes("proxmox"));
 
 const onepasswordUrl = process.env.ONEPASSWORD_CONNECT_URL
@@ -50,7 +51,7 @@ const onePassword = new OnePasswordStack(app, "onePassword", {
   ...genericProps,
 })
 
-const clusterNodes = ReadNodesFromYAML(path.join(__dirname, "meta/k3sCluster.yaml"))
+const clusterNodes = ReadNodesFromYAML(path.join(__dirname, "../meta/k3sCluster.yaml"))
 
 let clusterNodeProps: NodeProps[] = [];
 proxmoxMachines.forEach(m => {

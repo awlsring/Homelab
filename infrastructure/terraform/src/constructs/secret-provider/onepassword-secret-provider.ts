@@ -1,8 +1,8 @@
 import { Construct } from 'constructs';
 import { Secret, SecretProvider } from './secret-provider';
-import { DataOnepasswordItem } from '../../../.gen/providers/onepassword/data-onepassword-item';
-import { DataOnepasswordVault } from '../../../.gen/providers/onepassword/data-onepassword-vault';
-import { OnepasswordProvider } from '../../../.gen/providers/onepassword/provider';
+import { DataOnepasswordItem } from '../../.gen/providers/onepassword/data-onepassword-item';
+import { DataOnepasswordVault } from '../../.gen/providers/onepassword/data-onepassword-vault';
+import { OnepasswordProvider } from '../../.gen/providers/onepassword/provider';
 
 export function CreateOnepasswordSecretsProvider(
   scope: Construct,

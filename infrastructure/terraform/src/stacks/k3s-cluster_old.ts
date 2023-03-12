@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
-import { ProxmoxProvider } from "../../.gen/providers/proxmox/provider";
-import { VmQemuDisk, VmQemuNetwork } from "../../.gen/providers/proxmox/vm-qemu";
+import { ProxmoxProvider } from "../.gen/providers/proxmox/provider";
+import { VmQemuDisk, VmQemuNetwork } from "../.gen/providers/proxmox/vm-qemu";
 import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
 import { Memory, StorageSize } from "../proxmox/enums";
 import { VMClone, VMCloneProps } from "../constructs/proxmox/vm-clone";
