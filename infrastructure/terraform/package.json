@@ -10,6 +10,7 @@
     "build": "tsc",
     "synth": "npm run compile && cdktf synth",
     "deploy": "npm run compile && cdktf synth && cdktf deploy",
+    "destroy": "npm run compile && cdktf synth && cdktf destroy",
     "compile": "tsc --pretty",
     "watch": "tsc -w",
     "test": "jest",
@@ -22,7 +23,7 @@
   },
   "dependencies": {
     "@awlsring/cdktf-github-actions": "^0.0.3",
-    "@awlsring/cdktf-proxmox": "^0.0.12",
+    "@awlsring/cdktf-proxmox": "^0.0.15",
     "@awlsring/cdktf-surreal-backend": "^0.0.6",
     "cdktf": "^0.14.3",
     "constructs": "^10.1.52",

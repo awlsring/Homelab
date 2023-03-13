@@ -12,9 +12,22 @@ export interface HomelabMachineNic {
   readonly speed: string;
 }
 
-export interface HomelabMachineDisk {
-  readonly brand: string;
+export interface HomelabMachineNetworkInterface {
+  readonly name: string;
+  readonly speed: string;
+  readonly mac?: string;
+}
+
+export interface HomelabMachineDiskTraits {
+  readonly brand?: string;
+  readonly device: string;
   readonly size: string;
+}
+
+export interface HomelabMachineDisks {
+  readonly ssd?: HomelabMachineDiskTraits[];
+  readonly hdd?: HomelabMachineDiskTraits[];
+  readonly nvme?: HomelabMachineDiskTraits[];
 }
 
 export interface HomelabMachine {
@@ -23,8 +36,8 @@ export interface HomelabMachine {
   readonly networks: string[];
   readonly cpus: HomelabMachineCpu[];
   readonly memory: string;
-  readonly nics: HomelabMachineNic[];
-  readonly disks: Map<string, HomelabMachineDisk>;
+  readonly nics: HomelabMachineNetworkInterface[];
+  readonly disks: HomelabMachineDisks
 }
 
 export interface HomelabMachineFile {

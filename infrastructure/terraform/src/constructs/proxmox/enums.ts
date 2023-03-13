@@ -9,9 +9,11 @@ export enum Memory {
   GB_8 = (GB_1 * 8),
   GB_10 = (GB_1 * 10),
   GB_12 = (GB_1 * 12),
+  GB_14 = (GB_1 * 14),
+  GB_16 = (GB_1 * 16),
 }
 
-export enum StorageSize {
+export enum StorageSizeOld {
   GB_10 = "10G",
   GB_20 = "20G",
   GB_30 = "30G",
@@ -24,6 +26,27 @@ export enum StorageSize {
   GB_100 = "100G",
   GB_110 = "110G",
   GB_490 = "490G"
+}
+
+export enum StorageSize {
+  GB_10 = 10,
+  GB_20 = 20,
+  GB_30 = 30,
+  GB_40 = 40,
+  GB_50 = 50,
+  GB_60 = 60,
+  GB_70 = 70,
+  GB_80 = 80,
+  GB_90 = 90,
+  GB_100 = 100,
+  GB_150 = 150,
+  GB_200 = 200,
+  GB_250 = 250,
+  GB_300 = 300,
+  GB_350 = 350,
+  GB_400 = 400,
+  GB_450 = 450,
+  GB_500 = 500,
 }
 
 export enum OsType {

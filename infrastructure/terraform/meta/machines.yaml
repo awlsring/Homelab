@@ -10,20 +10,31 @@ machines:
         cores: "20"
     memory: "64GB"
     nics:
-      - type: onboard
-        ports: 1
-        speed: 2.5G
-      - type: card
-        ports: 4
-        speed: 1G
+      - name: enp6s0
+        speed: 1GB
+      - name: enp7s0f0
+        speed: 1GB
+      - name: enp7s0f1
+        speed: 1GB
+      - name: enp7s0f2
+        speed: 1GB
+      - name: enp7s0f3
+        speed: 1GB
     disks: 
       ssd: 
         - brand: "Samsung 850 EVO"
+          device: "sda"
           size: "250GB"
       nvme: 
         - brand: "Sabrant Rocket Q"
           size: "1TB"
-  - name: "dominaria"
+          device: "nvme0n1"
+      hdd:
+        - size: "4TB"
+          device: "sdb"
+        - size: "4TB"
+          device: "sdc"
+  - name: "ravnica"
     roles: 
       - "proxmox"
     networks: 
@@ -34,16 +45,18 @@ machines:
         cores: "16"
     memory: "64GB"
     nics:
-      - type: onboard
-        ports: 1
-        speed: 1G
-      - type: card
-        ports: 4
-        speed: 1G
+      - name: enp8s0
+        speed: 1GB
+      - name: enp9s0f0
+        speed: 10GB
+      - name: enp9s0f1
+        speed: 10GB
     disks: 
       ssd: 
         - brand: "Kingston"
           size: "240GB"
+          device: "sda"
       nvme: 
         - brand: "Silicon Power"
           size: "500GB"
+          device: "nvme0n1"
