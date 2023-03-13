@@ -43,6 +43,7 @@ source "proxmox" "ubuntu-server-jammy" {
     vm_name = "${var.template_name}"
     template_description = "${var.template_description}"
 
+    // iso_file = "local:iso/ubuntu-22.04.1-live-server-amd64.iso"
     iso_url = "https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-live-server-amd64.iso"
     iso_checksum = "10f19c5b2b8d6db711582e0e27f5116296c34fe4b313ba45f9b201a5007056cb"
     iso_storage_pool = "local"
@@ -58,7 +59,7 @@ source "proxmox" "ubuntu-server-jammy" {
         disk_size = "30G"
         storage_pool = "local-lvm"
         storage_pool_type = "lvm"
-        type = "virtio"
+        type = "scsi"
     }
 
     # VM CPU Settings
@@ -88,7 +89,7 @@ source "proxmox" "ubuntu-server-jammy" {
         "<f10><wait>"
     ]
     boot = "c"
-    boot_wait = "5s"
+    boot_wait = "30s"
 
     # PACKER Autoinstall Settings
     http_directory = "http" 
