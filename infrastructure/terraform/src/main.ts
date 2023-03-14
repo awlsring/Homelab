@@ -4,7 +4,7 @@ import { ReadMachinesFromYAML } from "./meta/homelab-machine";
 import { DataStoreStack } from "./stacks/data-store";
 import { OnePasswordStack } from "./stacks/onepassword";
 import { Memory, StorageSize } from "./constructs/proxmox/enums";
-import { CreateOnepasswordSecretsProvider } from "./constructs/secret-provider/onepassword-secret-provider";
+import { OnepasswordSecretsProviderModule } from "./constructs/secret-provider/onepassword-secret-provider";
 import { K3SClusterStack } from "./stacks/proxmox/k3s-cluster";
 import { ProxmoxNodeConfigurationStack } from './stacks/proxmox/node-configuration';
 import { ProxmoxStorageConfigurationStack } from './stacks/proxmox/storage-config';
@@ -38,19 +38,16 @@ const projectsProps = {
 }
 
 const providerProps = {
-  secretProvider: {
-    create: CreateOnepasswordSecretsProvider,
-    params: {
-      url: onepasswordUrl,
-      token: onepasswordToken,
-      vault: 'Homelab',
-    },
-  }
+  secretProvider: OnepasswordSecretsProviderModule({
+    url: onepasswordUrl,
+    token: onepasswordToken,
+    vault: 'Homelab',
+  })
 }
 
 const standardProps = {
-  ...providerProps,
   ...projectsProps,
+  ...providerProps,
 }
 
 const onePassword = new OnePasswordStack(app, "onepassword", {

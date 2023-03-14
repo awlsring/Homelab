@@ -1,12 +1,12 @@
 import { TerraformStack } from "cdktf";
 import { Construct } from "constructs";
 import { SurrealBackend } from "@awlsring/cdktf-surreal-backend";
-import { SecretProvider, SecretProviderProps } from "./secret-provider/secret-provider";
+import { SecretProvider } from "./secret-provider/secret-provider";
 
 export interface HomelabStackProps {
   project: string;
   backend: BackendProps;
-  secretProvider?: SecretProviderProps;
+  secretProvider?: (scope: Construct, name: string) => SecretProvider
 }
 
 export interface BackendProps {
@@ -21,7 +21,7 @@ export class HomelabStack extends TerraformStack {
     super(scope, name);
     
     if (props.secretProvider) {
-      this.secretProvider = props.secretProvider.create(this, name, props.secretProvider.params);
+      this.secretProvider = props.secretProvider(this, name);
     }
     
     const stackName = name.replace(/-/g, '_');
