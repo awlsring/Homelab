@@ -1,7 +1,7 @@
 import { TerraformStack } from "cdktf";
 import { Construct } from "constructs";
 import { SurrealBackend } from "@awlsring/cdktf-surreal-backend";
-import { SecretProvider } from "./secret-provider/secret-provider";
+import { SecretProvider } from "../constructs/secret-provider/secret-provider";
 
 export interface HomelabStackProps {
   project: string;

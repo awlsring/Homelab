@@ -2,7 +2,7 @@ import { Construct } from 'constructs';
 
 import { Dataset } from '../.gen/providers/truenas/dataset';
 import { TruenasProvider } from '../.gen/providers/truenas/provider';
-import { HomelabStack, HomelabStackProps } from '../constructs/homelab-stack';
+import { HomelabStack, HomelabStackProps } from './homelab-stack';
 
 export interface DatastoreStackProps extends HomelabStackProps {
   url: string;

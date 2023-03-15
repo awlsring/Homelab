@@ -2,7 +2,7 @@ import { Construct } from "constructs";
 import { OnepasswordProvider } from "../.gen/providers/onepassword/provider";
 import { DataOnepasswordVault } from "../.gen/providers/onepassword/data-onepassword-vault";
 import { DataOnepasswordItem } from "../.gen/providers/onepassword/data-onepassword-item";
-import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
+import { HomelabStack, HomelabStackProps } from "./homelab-stack";
 
 export interface OnepasswordStackProps extends HomelabStackProps {
   url: string;

@@ -1,5 +1,5 @@
 import { Construct } from "constructs";
-import { HomelabStack, HomelabStackProps } from "../constructs/homelab-stack";
+import { HomelabStack, HomelabStackProps } from "./homelab-stack";
 import { GithubProvider } from '@cdktf/provider-github/lib/provider';
 import { Job, Workflow } from "@awlsring/cdktf-github-actions";
 

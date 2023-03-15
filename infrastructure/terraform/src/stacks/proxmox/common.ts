@@ -1,6 +1,6 @@
 import { ProxmoxProvider } from "@awlsring/cdktf-proxmox/lib/base/provider";
 import { Construct } from "constructs";
-import { HomelabStack, HomelabStackProps } from "../../constructs/homelab-stack";
+import { HomelabStack, HomelabStackProps } from "../homelab-stack";
 
 export interface ProviderProps {
   readonly tokenSecret?: string;
