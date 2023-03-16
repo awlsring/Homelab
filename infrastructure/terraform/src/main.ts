@@ -87,6 +87,19 @@ proxmoxMachines.forEach(n => {
   if (!n.disks.nvme) {
     throw new Error(`Machine ${n.name} has no nvme disk`)
   }
+
+  let interfaces: string[]
+  switch (n.name) {
+    case "ravnica":
+      interfaces = ["enp9s0f0"]
+      break;
+    case "dominaria":
+      interfaces = ["enp9s0f1"]
+      break;
+    default:
+      throw new Error(`No interface for ${n.name}`)
+  }
+
   new ProxmoxNodeConfigurationStack(app, `proxmox-${n.name}-config`, {
     ...proxmoxProps,
     node: n.name,
@@ -97,8 +110,7 @@ proxmoxMachines.forEach(n => {
     },
     network: {
       bridge: "vmbr1",
-      bond: "bond0",
-      interfaces: n.nics.filter(n => n.name.includes("s0f")).map(n => n.name), // hacky way to get the interfaces on pcie card
+      interfaces: interfaces
     },
   })
 })
@@ -110,12 +122,13 @@ new K3SClusterStack(app, "k3s-cluster", {
       name: "ravnica",
       template: "ubuntu-jammy-template",
       bridge: "vmbr1",
-      controlNodes: 1,
+      controlNodes: 2,
       workerNodes: 2,
       storage: VM_STORAGE_CLASS
     },
   ],
   gateway: "10.0.100.1",
+  vlan: 100,
   cloudInit: {
     user: "awlsring",
     sshKeys: ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDKBk8jY0K2Vnr2Jcobao0aoYGAyRzUhDbAEjU1JLq47/Azmy/rDOMaX2EEineisEY4gwrDRt2RF2jeb+/bb2oG0LbqypXiWdXHp6FZcQS9ZV9Udurew2WotP7UtTx+VhOoO1Kc2stw1Qw7GFmMNO8FvSotGh+iD/gNvZKTDXNZDK2rNoyvRpij/lNFseF/ir+Pu3DIToAQMGiFi4ApfFGHk68nkpfR8UikI9C0uWkcQwVO4aTOJXRImAitASZ/otmaOfstE79KBNNL7OiIa2nHwvkA8Z7UW8i34WZsY/AG6lZUvX+0ACaCThQgy73YRy3GC1cV4wvCnxA+BtxvYw982WsEvcSv72E/11ii8hq7czlRb4Y9WnnxfG4IB9NesHqsolvHR3nS6KocHMX/Asa6Q09XD0AQYDQiX/7bOq2oSdA5rPjNYNJH5AGowkBZUAglj35u3xx4t3x2CPJza+mBksbejQDCfFL68zh3Occ+AlT1yksqm4xaUgHYU65Aehk= Mac Key"],

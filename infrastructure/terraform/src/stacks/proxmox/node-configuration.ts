@@ -1,7 +1,6 @@
-import { NetworkBond } from "@awlsring/cdktf-proxmox/lib/base/network-bond";
 import { NetworkBridge } from "@awlsring/cdktf-proxmox/lib/base/network-bridge";
 import { ZfsPool } from "@awlsring/cdktf-proxmox/lib/base/zfs-pool";
-import { NetworkHashPolicy, NetworkMode, ZFSRaidLevel } from "@awlsring/cdktf-proxmox";
+import { ZFSRaidLevel } from "@awlsring/cdktf-proxmox";
 import { Construct } from "constructs";
 import { ProxmoxStack, ProxmoxStackProps } from "./common";
 
@@ -13,7 +12,6 @@ export interface ZfsStorageConfiguration {
 
 export interface NetworkConfiguration {
   readonly interfaces: string[];
-  readonly bond: string;
   readonly bridge: string;
 }
 
@@ -40,21 +38,12 @@ export class ProxmoxNodeConfigurationStack extends ProxmoxStack {
   }
 
   private configureNetwork(cfg: NetworkConfiguration) {
-    const bond = new NetworkBond(this, "bond", {
-      nodeAttribute: this.nodeName,
-      name: cfg.bond,
-      interfaces: cfg.interfaces,
-      mode: NetworkMode.LCAP_802_3AD,
-      hashPolicy: NetworkHashPolicy.LAYER_2_3,
-    })
-
-    const bridge = new NetworkBridge(this, "bridge", {
+    return new NetworkBridge(this, "bridge", {
       nodeAttribute: this.nodeName,
       name: cfg.bridge,
       vlanAware: true,
-      interfaces: [bond.name],
+      interfaces: cfg.interfaces,
     })
-    return bridge
   }
 
   constructor(scope: Construct, id: string, props: ProxmoxNodeConfigurationStackProps) {

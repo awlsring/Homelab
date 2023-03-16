@@ -31,6 +31,7 @@ export interface VirtualMachineConfig {
   readonly gateway: string;
   readonly nameserver: string;
   readonly domain: string;
+  readonly vlan?: number;
 }
 
 export interface NodeConfig {
@@ -55,6 +56,7 @@ export interface K3SClusterStackProps extends ProxmoxStackProps {
   readonly cloudInit: CloudInitConfig;
   readonly controlConfig: K3SVirtualMachineConfig;
   readonly workerConfig: K3SVirtualMachineConfig;
+  readonly vlan?: number;
 }
 
 export class K3SClusterStack extends ProxmoxStack {
@@ -96,6 +98,7 @@ export class K3SClusterStack extends ProxmoxStack {
           model: "virtio",
           bridge: cfg.bridge,
           position: 0,
+          vlan: cfg.vlan,
         }
       ],
       cloudInit: {
@@ -147,9 +150,9 @@ export class K3SClusterStack extends ProxmoxStack {
         throw new Error(`At least one worker node must be specified for node ${index}`);
       }
     })
-    if (!(controlAmount % 2)) {
-      throw new Error("The number of control nodes must be an odd number");
-    }
+    // if (!(controlAmount % 2)) {
+    //   throw new Error("The number of control nodes must be an odd number");
+    // }
   }
 
   constructor(scope: Construct, id: string, props: K3SClusterStackProps) {
@@ -191,6 +194,7 @@ export class K3SClusterStack extends ProxmoxStack {
           memory: props.controlConfig.memory,
           diskSize: props.controlConfig.diskSize,
           ipAddress: this.uptickIp(props.controlConfig.startingIp, this.controlNodes.length),
+          vlan: props.vlan,
         }
         this.controlNodes.push(this.buildNode(config));
       }
@@ -206,6 +210,7 @@ export class K3SClusterStack extends ProxmoxStack {
           memory: props.workerConfig.memory,
           diskSize: props.workerConfig.diskSize,
           ipAddress: this.uptickIp(props.workerConfig.startingIp, this.workerNodes.length),
+          vlan: props.vlan,
         }
         this.workerNodes.push(this.buildNode(config));
       }
