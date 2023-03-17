@@ -68,7 +68,7 @@ datastore.addDependency(onePassword)
 const proxmoxProps = {
   ...standardProps,
   proxmox: {
-    endpoint: "https://10.0.10.10:8006",
+    endpoint: "https://10.0.10.11:8006",
     userSecret: "proxmox-login"
   },
 }
@@ -119,11 +119,19 @@ new K3SClusterStack(app, "k3s-cluster", {
   ...proxmoxProps,
   nodes: [
     {
+      name: "dominaria",
+      template: "ubuntu-jammy-template",
+      bridge: "vmbr1",
+      controlNodes: 1,
+      workerNodes: 1,
+      storage: "dom-pool-1"
+    },
+    {
       name: "ravnica",
       template: "ubuntu-jammy-template",
       bridge: "vmbr1",
       controlNodes: 2,
-      workerNodes: 2,
+      workerNodes: 1,
       storage: VM_STORAGE_CLASS
     },
   ],

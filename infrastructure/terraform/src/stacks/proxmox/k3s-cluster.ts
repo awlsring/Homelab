@@ -3,6 +3,7 @@ import { Construct } from "constructs";
 import { VirtualMachine } from "@awlsring/cdktf-proxmox/lib/base/virtual-machine";
 import { DiskInterface } from "@awlsring/cdktf-proxmox";
 import { ProxmoxStack, ProxmoxStackProps } from "./common";
+import * as crypto from "crypto";
 
 export interface K3SVirtualMachineConfig {
   readonly cpus: number;
@@ -31,6 +32,7 @@ export interface VirtualMachineConfig {
   readonly gateway: string;
   readonly nameserver: string;
   readonly domain: string;
+  readonly description?: string;
   readonly vlan?: number;
 }
 
@@ -70,7 +72,7 @@ export class K3SClusterStack extends ProxmoxStack {
       nodeAttribute: cfg.node,
       startOnNodeBoot: true,
       startOnCreate: false,
-      description: "Ubuntu Server 22.04 (Jammy) Template",
+      description: cfg.description ?? "K3S Node",
       clone: {
         source: cfg.template,
         storage: cfg.storage,
@@ -150,9 +152,16 @@ export class K3SClusterStack extends ProxmoxStack {
         throw new Error(`At least one worker node must be specified for node ${index}`);
       }
     })
-    // if (!(controlAmount % 2)) {
-    //   throw new Error("The number of control nodes must be an odd number");
-    // }
+    if (!(controlAmount % 2)) {
+      throw new Error("The number of control nodes must be an odd number");
+    }
+  }
+
+  private generateId(name: string) {
+    const hash = crypto.createHash("sha256");
+    hash.update(name);
+    const hashInt = parseInt(hash.digest("hex").substring(0, 9), 16);
+    return hashInt % 1000000000;
   }
 
   constructor(scope: Construct, id: string, props: K3SClusterStackProps) {
@@ -166,6 +175,7 @@ export class K3SClusterStack extends ProxmoxStack {
     const workerTags = [...commonTags, ...props.workerConfig.tags];
 
     props.nodes.forEach((node) => {
+      const nodeAbbr = node.name.substring(0, 3).toLocaleLowerCase();
       const template = new DataProxmoxTemplate(this, `${node.name}-template`, {
         name: node.template,
         nodeAttribute: node.name,
@@ -183,11 +193,14 @@ export class K3SClusterStack extends ProxmoxStack {
       }
 
       for (let i = 0; i < node.controlNodes; i++) {
-        const clusterId = this.controlNodes.length + 1;
+        const clusterId = i + 1;
+        const name = `k3s-control-${nodeAbbr}-${clusterId}`
+
         const config: VirtualMachineConfig = {
           ...commonConfig,
-          id: props.controlConfig.baseId + this.controlNodes.length,
-          name: `k3s-control-${clusterId}`,
+          id: this.generateId(name),
+          name: name,
+          description: "K3S Control Node",
           tags: controlTags,
           storage: node.storage,
           cpus: props.controlConfig.cpus,
@@ -199,11 +212,14 @@ export class K3SClusterStack extends ProxmoxStack {
         this.controlNodes.push(this.buildNode(config));
       }
       for (let i = 0; i < node.workerNodes; i++) {
-        const clusterId = this.workerNodes.length + 1;
+        const clusterId = i + 1;
+        const name = `k3s-worker-${nodeAbbr}-${clusterId}`
+
         const config: VirtualMachineConfig = {
           ...commonConfig,
-          id: props.workerConfig.baseId + this.workerNodes.length,
-          name: `k3s-worker-${clusterId}`,
+          id: this.generateId(name),
+          name: name,
+          description: "K3S Worker Node",
           tags: workerTags,
           storage: node.storage,
           cpus: props.workerConfig.cpus,
