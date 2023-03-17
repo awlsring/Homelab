@@ -160,8 +160,8 @@ export class K3SClusterStack extends ProxmoxStack {
   private generateId(name: string) {
     const hash = crypto.createHash("sha256");
     hash.update(name);
-    const hashInt = parseInt(hash.digest("hex").substring(0, 9), 16);
-    return hashInt % 1000000000;
+    const id = parseInt(hash.digest("hex").substring(0, 8), 16);
+    return id % 9000000 + 1000000;
   }
 
   constructor(scope: Construct, id: string, props: K3SClusterStackProps) {
