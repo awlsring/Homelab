@@ -11,6 +11,7 @@ import { MosquittoChart } from './charts/mosquitto/chart';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
+import { ValheimChart } from './charts/valheim/chart';
 import { YargChart } from './charts/yarg/chart';
 dotenv.config({ path: __dirname+'/.env' });
 
@@ -145,6 +146,35 @@ new AudioBookshelfChart(app, 'audiobookshelf', {
     name: 'audiobookshelf',
     dnsNames: ['audiobookshelf.awlsring-sea.drigs.org'],
     certIssuer: stagingIssuer,
+  },
+});
+
+new ValheimChart(app, 'valheim', {
+  createNamespace: true,
+  namespace: 'valheim',
+  server: {
+    name: 'Drig Town USA',
+    worldName: 'Drig Town USA',
+    password: {
+      secret: 'server-password',
+    },
+  },
+  persistence: {
+    server: {
+      storageClass: longhorn.storageClassName,
+    },
+    config: {
+      storageClass: longhorn.storageClassName,
+    },
+  },
+  supervisorHttp: {
+    enabled: true,
+    password: {
+      secret: 'supervisor-password',
+    },
+  },
+  statusHttp: {
+    enabled: true,
   },
 });
 
