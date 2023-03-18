@@ -119,20 +119,24 @@ new K3SClusterStack(app, "k3s-cluster", {
   ...proxmoxProps,
   nodes: [
     {
-      name: "dominaria",
-      template: "ubuntu-jammy-template",
-      bridge: "vmbr1",
-      controlNodes: 1,
-      workerNodes: 1,
-      storage: "dom-pool-1"
-    },
-    {
       name: "ravnica",
       template: "ubuntu-jammy-template",
       bridge: "vmbr1",
       controlNodes: 2,
       workerNodes: 1,
-      storage: VM_STORAGE_CLASS
+      storage: VM_STORAGE_CLASS,
+      controlStartingIp: "10.0.100.110",
+      workerStartingIp: "10.0.100.120",
+    },
+    {
+      name: "dominaria",
+      template: "ubuntu-jammy-template",
+      bridge: "vmbr1",
+      controlNodes: 0,
+      workerNodes: 1,
+      storage: "dom-pool-1",
+      controlStartingIp: "10.0.100.115",
+      workerStartingIp: "10.0.100.125",
     },
   ],
   gateway: "10.0.100.1",
@@ -149,7 +153,6 @@ new K3SClusterStack(app, "k3s-cluster", {
     diskSize: StorageSize.GB_30,
     tags: ["control"],
     baseId: 4000,
-    startingIp: "10.0.100.110"
   },
   workerConfig: {
     cpus: 4,
@@ -157,7 +160,6 @@ new K3SClusterStack(app, "k3s-cluster", {
     diskSize: StorageSize.GB_200,
     tags: ["worker"],
     baseId: 5000,
-    startingIp: "10.0.100.120"
   }
 })
 

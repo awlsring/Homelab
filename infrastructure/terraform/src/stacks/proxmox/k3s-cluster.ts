@@ -11,7 +11,6 @@ export interface K3SVirtualMachineConfig {
   readonly diskSize: number;
   readonly tags: string[];
   readonly baseId: number;
-  readonly startingIp: string;
 }
 
 export interface VirtualMachineConfig {
@@ -43,6 +42,8 @@ export interface NodeConfig {
   readonly controlNodes: number;
   readonly workerNodes: number;
   readonly storage: string;
+  readonly controlStartingIp: string;
+  readonly workerStartingIp: string;
 }
 
 export interface CloudInitConfig {
@@ -206,7 +207,7 @@ export class K3SClusterStack extends ProxmoxStack {
           cpus: props.controlConfig.cpus,
           memory: props.controlConfig.memory,
           diskSize: props.controlConfig.diskSize,
-          ipAddress: this.uptickIp(props.controlConfig.startingIp, this.controlNodes.length),
+          ipAddress: this.uptickIp(node.controlStartingIp, i),
           vlan: props.vlan,
         }
         this.controlNodes.push(this.buildNode(config));
@@ -225,7 +226,7 @@ export class K3SClusterStack extends ProxmoxStack {
           cpus: props.workerConfig.cpus,
           memory: props.workerConfig.memory,
           diskSize: props.workerConfig.diskSize,
-          ipAddress: this.uptickIp(props.workerConfig.startingIp, this.workerNodes.length),
+          ipAddress: this.uptickIp(node.workerStartingIp, i),
           vlan: props.vlan,
         }
         this.workerNodes.push(this.buildNode(config));
