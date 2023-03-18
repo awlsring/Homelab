@@ -83,7 +83,7 @@ export class AudioBookshelfChart extends HomelabChart {
     });
 
     const port = { name: appName, port: 80 };
-    new KubeService(this, 'service', {
+    const service = new KubeService(this, 'service', {
       spec: {
         selector: label,
         type: ServiceType.LOAD_BALANCER,
@@ -92,7 +92,7 @@ export class AudioBookshelfChart extends HomelabChart {
     });
 
     if (props.tls) {
-      this.configureTls(props.tls.name, props.tls.certIssuer, props.tls.dnsNames, port);
+      this.configureTls(props.tls.name, props.tls.certIssuer, props.tls.dnsNames, { name: service.name, port: 80 });
     }
 
   }

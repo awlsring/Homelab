@@ -443,7 +443,7 @@ export class ValheimChart extends HomelabChart {
         env.SUPERVISOR_HTTP_USER = EnvValue.fromValue(props.supervisorHttp.username);
       }
       if (props.supervisorHttp.password) {
-        env.SUPERVISOR_HTTP_PASS = this.formPasswordEnvValue('server', props.supervisorHttp.password);;
+        env.SUPERVISOR_HTTP_PASS = this.formPasswordEnvValue('supervisor', props.supervisorHttp.password);;
       }
     }
 

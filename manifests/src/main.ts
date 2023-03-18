@@ -57,7 +57,7 @@ const traefikCertmanager = new TraefikCertManagerChart(app, 'traefik-cert-manage
 });
 
 const prodIssuer = traefikCertmanager.GetProdCertIssuer();
-const stagingIssuer = traefikCertmanager.GetStagingCertIssuer();
+// const stagingIssuer = traefikCertmanager.GetStagingCertIssuer();
 
 const longhorn = new LonghornChart(app, 'longhorn', {
   createNamespace: true,
@@ -145,7 +145,7 @@ new AudioBookshelfChart(app, 'audiobookshelf', {
   tls: {
     name: 'audiobookshelf',
     dnsNames: ['audiobookshelf.awlsring-sea.drigs.org'],
-    certIssuer: stagingIssuer,
+    certIssuer: prodIssuer,
   },
 });
 
