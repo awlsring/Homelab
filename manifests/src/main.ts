@@ -152,29 +152,31 @@ new AudioBookshelfChart(app, 'audiobookshelf', {
 new ValheimChart(app, 'valheim', {
   createNamespace: true,
   namespace: 'valheim',
-  server: {
-    name: 'Drig Town USA',
-    worldName: 'Drig Town USA',
-    password: {
-      secret: 'server-password',
-    },
-  },
-  persistence: {
+  chart: {
     server: {
-      storageClass: longhorn.storageClassName,
+      name: 'Drig Town USA',
+      worldName: 'Drig Town USA',
+      password: {
+        secret: 'server-password',
+      },
     },
-    config: {
-      storageClass: longhorn.storageClassName,
+    persistence: {
+      server: {
+        storageClass: longhorn.storageClassName,
+      },
+      config: {
+        storageClass: longhorn.storageClassName,
+      },
     },
-  },
-  supervisorHttp: {
-    enabled: true,
-    password: {
-      secret: 'supervisor-password',
+    supervisorHttp: {
+      enabled: true,
+      password: {
+        secret: 'supervisor-password',
+      },
     },
-  },
-  statusHttp: {
-    enabled: true,
+    statusHttp: {
+      enabled: true,
+    },
   },
 });
 
