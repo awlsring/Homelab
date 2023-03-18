@@ -6,7 +6,7 @@ import { OnePasswordStack } from "./stacks/onepassword";
 import { Memory, StorageSize } from "./constructs/proxmox/enums";
 import { OnepasswordSecretsProviderModule } from "./constructs/secret-provider/onepassword-secret-provider";
 import { K3SClusterStack } from "./stacks/proxmox/k3s-cluster";
-import { ProxmoxNodeConfigurationStack } from './stacks/proxmox/node-configuration';
+import { ProxmoxNodeConfigurationStack, ProxmoxNodeConfigurationStackProps } from './stacks/proxmox/node-configuration';
 import { ProxmoxStorageConfigurationStack } from './stacks/proxmox/storage-config';
 import { ZFSRaidLevel } from '@awlsring/cdktf-proxmox';
 require('dotenv').config()
@@ -94,25 +94,39 @@ proxmoxMachines.forEach(n => {
       interfaces = ["enp9s0f0"]
       break;
     case "dominaria":
-      interfaces = ["enp9s0f1"]
+      interfaces = ["enp7s0f0"]
       break;
     default:
       throw new Error(`No interface for ${n.name}`)
   }
 
-  new ProxmoxNodeConfigurationStack(app, `proxmox-${n.name}-config`, {
+  const commonProps = {
     ...proxmoxProps,
-    node: n.name,
-    storage: {
-      name: VM_STORAGE_CLASS,
-      disks: n.disks.nvme.map(d => `/dev/${d.device}`),
-      raidLevel: ZFSRaidLevel.SINGLE,
-    },
     network: {
       bridge: "vmbr1",
       interfaces: interfaces
     },
-  })
+  }
+
+  let props: ProxmoxNodeConfigurationStackProps;
+  if (n.name === "ravnica") {
+    props = {
+      ...commonProps,
+      node: n.name,
+      storage: {
+        name: VM_STORAGE_CLASS,
+        disks: n.disks.nvme.map(d => `/dev/${d.device}`),
+        raidLevel: ZFSRaidLevel.SINGLE,
+      },
+    }
+  } else {
+    props = {
+      ...commonProps,
+      node: n.name,
+    }
+  }
+
+  new ProxmoxNodeConfigurationStack(app, `proxmox-${n.name}-config`, props)
 })
 
 new K3SClusterStack(app, "k3s-cluster", {
@@ -123,7 +137,7 @@ new K3SClusterStack(app, "k3s-cluster", {
       template: "ubuntu-jammy-template",
       bridge: "vmbr1",
       controlNodes: 2,
-      workerNodes: 1,
+      workerNodes: 2,
       storage: VM_STORAGE_CLASS,
       controlStartingIp: "10.0.100.110",
       workerStartingIp: "10.0.100.120",

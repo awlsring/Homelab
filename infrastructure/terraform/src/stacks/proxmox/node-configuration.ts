@@ -17,14 +17,14 @@ export interface NetworkConfiguration {
 
 export interface ProxmoxNodeConfigurationStackProps extends ProxmoxStackProps {
   readonly node: string;
-  readonly network: NetworkConfiguration;
-  readonly storage: ZfsStorageConfiguration;
+  readonly network?: NetworkConfiguration;
+  readonly storage?: ZfsStorageConfiguration;
 }
 
 export class ProxmoxNodeConfigurationStack extends ProxmoxStack {
   readonly nodeName: string;
-  readonly pool: ZfsPool;
-  readonly bridge: NetworkBridge;
+  readonly pool?: ZfsPool;
+  readonly bridge?: NetworkBridge;
 
   private configureVmPool(cfg: ZfsStorageConfiguration) {
     const pool = new ZfsPool(this, "zfs-pool", {
@@ -50,7 +50,12 @@ export class ProxmoxNodeConfigurationStack extends ProxmoxStack {
     super(scope, id, props);
     this.nodeName = props.node;
 
-    this.pool = this.configureVmPool(props.storage);
-    this.bridge = this.configureNetwork(props.network);
+    if (props.storage) {
+      this.pool = this.configureVmPool(props.storage);
+    }
+    if (props.network) {
+
+      this.bridge = this.configureNetwork(props.network);
+    }
   }
 }
