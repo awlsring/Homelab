@@ -52,7 +52,7 @@ export class HomelabChart extends Chart {
       return HomelabRoute.generateRoute(dnsName, service, middlewares);
     });
 
-    new HomelabTraefikIngressRoute(this, 'traefik-route', {
+    new HomelabTraefikIngressRoute(this, `${name}-traefik-route`, {
       routes: routes,
       certificate: cert,
     });

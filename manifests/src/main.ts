@@ -1,4 +1,4 @@
-import { App } from 'cdk8s';
+import { App, Size } from 'cdk8s';
 import { ServiceType } from 'cdk8s-plus-25';
 import * as dotenv from 'dotenv';
 import { OnePasswordConnectChart } from './charts/1password-connect/chart';
@@ -8,6 +8,7 @@ import { ExternalIngressChart } from './charts/external-ingress/external-ingress
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
 import { LonghornChart } from './charts/longhorn/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
+import { ServerBoiChart } from './charts/serverboi/chart';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
@@ -166,6 +167,7 @@ new ValheimChart(app, 'valheim', {
       },
       config: {
         storageClass: longhorn.storageClassName,
+        storage: Size.gibibytes(10),
       },
     },
     supervisorHttp: {
@@ -177,6 +179,21 @@ new ValheimChart(app, 'valheim', {
     statusHttp: {
       enabled: true,
     },
+  },
+});
+
+new ServerBoiChart(app, 'serverboi', {
+  createNamespace: true,
+  namespace: 'serverboi',
+  apiTls: {
+    name: 'api',
+    certIssuer: prodIssuer,
+    dnsNames: ['serverboi-api.awlsring-sea.drigs.org'],
+  },
+  discordBotTls: {
+    name: 'discord-bot',
+    certIssuer: prodIssuer,
+    dnsNames: ['serverboi.drigs.org'],
   },
 });
 
