@@ -72,7 +72,7 @@ export class ServerBoiChart extends HomelabChart {
       ],
     });
 
-    new Deployment(this, 'embed-deployment', {
+    const embedDeployment = new Deployment(this, 'embed-deployment', {
       replicas: 1,
       containers: [
         {
@@ -94,7 +94,7 @@ export class ServerBoiChart extends HomelabChart {
       ],
     });
 
-    new Deployment(this, 'status-deployment', {
+    const statusDeployment = new Deployment(this, 'status-deployment', {
       replicas: 1,
       containers: [
         {
@@ -142,5 +142,22 @@ export class ServerBoiChart extends HomelabChart {
 
     this.configureTls(props.discordBotTls.name, props.discordBotTls.certIssuer, props.discordBotTls.dnsNames, discordService);
 
+    this.exposeMetricsEndpoint(apiDeployment);
+    this.exposeMetricsEndpoint(discordBotDeployment);
+    this.exposeMetricsEndpoint(embedDeployment);
+    this.exposeMetricsEndpoint(statusDeployment);
+  }
+
+  private exposeMetricsEndpoint(deployment: Deployment) {
+    new Service(this, `${deployment.name}-metrics`, {
+      type: ServiceType.CLUSTER_IP,
+      selector: deployment,
+      ports: [
+        {
+          port: 9090,
+          targetPort: 9090,
+        },
+      ],
+    });
   }
 }
