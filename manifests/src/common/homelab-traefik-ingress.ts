@@ -8,7 +8,7 @@ export enum ClusterIngressClass {
 
 export interface HomelabTraefikIngressRouteProps {
   routes: IngressRouteSpecRoutes[];
-  certificate: HomelabCertificate;
+  certificate?: HomelabCertificate;
   ingressClass?: ClusterIngressClass;
 }
 
@@ -25,9 +25,9 @@ export class HomelabTraefikIngressRoute extends IngressRoute {
           'websecure',
         ],
         routes: props.routes,
-        tls: {
+        tls: props.certificate ? {
           secretName: props.certificate.secretName,
-        },
+        } : undefined,
       },
     };
 
