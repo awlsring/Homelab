@@ -8,6 +8,7 @@ import { ExternalIngressChart } from './charts/external-ingress/external-ingress
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
 import { LonghornChart } from './charts/longhorn/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
+import { PrometheusOperatorChart } from './charts/prometheus-operator/chart';
 import { ServerBoiChart } from './charts/serverboi/chart';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
@@ -195,6 +196,10 @@ new ServerBoiChart(app, 'serverboi', {
     certIssuer: prodIssuer,
     dnsNames: ['serverboi.drigs.org'],
   },
+});
+
+new PrometheusOperatorChart(app, 'prometheus', {
+  namespace: 'monitoring',
 });
 
 app.synth();
