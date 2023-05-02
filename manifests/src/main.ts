@@ -200,6 +200,22 @@ new ServerBoiChart(app, 'serverboi', {
 
 new PrometheusOperatorChart(app, 'prometheus', {
   namespace: 'monitoring',
+  createNamespace: true,
+  prometheusTls: {
+    name: 'prometheus',
+    certIssuer: prodIssuer,
+    dnsNames: ['prometheus.awlsring-sea.drigs.org'],
+  },
+  grafanaTls: {
+    name: 'grafana',
+    certIssuer: prodIssuer,
+    dnsNames: ['grafana.awlsring-sea.drigs.org'],
+  },
+  alertmanagerTls: {
+    name: 'alerts',
+    certIssuer: prodIssuer,
+    dnsNames: ['alerts.awlsring-sea.drigs.org'],
+  },
 });
 
 app.synth();

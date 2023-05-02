@@ -1,9 +1,16 @@
 import { ApiResource, ClusterRole, ClusterRoleBinding, NonApiResource, ServiceAccount } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
-import { HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
+import { ConfigureTlsProps, HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
+import { IService } from '../../common/homelab-route';
+
+export interface PrometheusOperatorChartProps extends HomelabChartProps {
+  readonly prometheusTls: ConfigureTlsProps;
+  readonly grafanaTls: ConfigureTlsProps;
+  readonly alertmanagerTls: ConfigureTlsProps;
+}
 
 export class PrometheusOperatorChart extends HomelabChart {
-  constructor(scope: Construct, name: string, props: HomelabChartProps) {
+  constructor(scope: Construct, name: string, props: PrometheusOperatorChartProps) {
     super(scope, name, props);
 
     const account = ServiceAccount.fromServiceAccountName(this, 'account', 'prometheus-k8s', {
@@ -39,8 +46,42 @@ export class PrometheusOperatorChart extends HomelabChart {
     const binding = new ClusterRoleBinding(this, 'bind', {
       role: role,
     });
-
     binding.addSubjects(account);
 
+    const promService: IService = {
+      name: 'prometheus-k8s',
+      port: 9090,
+    };
+    this.configureTls(
+      props.prometheusTls.name,
+      props.prometheusTls.certIssuer,
+      props.prometheusTls.dnsNames,
+      promService,
+      props.prometheusTls.middlewares,
+    );
+
+    const grafanaService: IService = {
+      name: 'grafana',
+      port: 3000,
+    };
+    this.configureTls(
+      props.grafanaTls.name,
+      props.grafanaTls.certIssuer,
+      props.grafanaTls.dnsNames,
+      grafanaService,
+      props.grafanaTls.middlewares,
+    );
+
+    const alertmanagerService: IService = {
+      name: 'alertmanager-main',
+      port: 9093,
+    };
+    this.configureTls(
+      props.alertmanagerTls.name,
+      props.alertmanagerTls.certIssuer,
+      props.alertmanagerTls.dnsNames,
+      alertmanagerService,
+      props.alertmanagerTls.middlewares,
+    );
   }
 }
