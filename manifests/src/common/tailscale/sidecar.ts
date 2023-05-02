@@ -26,10 +26,9 @@ export class TailscaleSidecar extends Container {
     }
 
     if (props.authSecret) {
-      if (!props.authSecret.getStringData('TS_AUTHKEY')) {
-        throw new Error('Secret must contain TS_AUTHKEY');
+      if (props.authSecret.getStringData('TS_AUTHKEY')) {
+        env.TS_AUTHKEY = EnvValue.fromSecretValue({ secret: props.authSecret, key: 'TS_AUTHKEY' });
       }
-      env.TS_AUTHKEY = EnvValue.fromSecretValue({ secret: props.authSecret, key: 'TS_AUTHKEY' });
       env.TS_KUBE_SECRET = EnvValue.fromValue(props.authSecret.name);
     }
 

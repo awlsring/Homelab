@@ -21,10 +21,6 @@ export class TailscaleAuthSecret extends Construct {
   constructor(scope: Construct, name: string, props: TailscaleAuthSecretProps) {
     super(scope, name);
 
-    if (props.secret && props.authKey) {
-      throw new Error('Cannot specify both secret and authKey');
-    }
-
     if (props.secret) {
       this.secret = props.secret;
     } else if (props.authKey) {
@@ -34,7 +30,7 @@ export class TailscaleAuthSecret extends Construct {
         },
       });
     } else {
-      throw new Error('Must specify either secret or authKey');
+      this.secret = new Secret(this, 'secret');
     }
 
     this.serviceAccount = this.determineServiceAccount(props.serviceAccount);
