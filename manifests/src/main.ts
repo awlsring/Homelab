@@ -2,19 +2,17 @@ import { App, Size } from 'cdk8s';
 import { ServiceType } from 'cdk8s-plus-25';
 import * as dotenv from 'dotenv';
 import { OnePasswordConnectChart } from './charts/1password-connect/chart';
-import { ArgoWorkflowsChart } from './charts/argo-workflows/chart';
 import { AudioBookshelfChart } from './charts/audiobookshelf/chart';
 import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/chart';
 import { ExternalDnsPiholeChart } from './charts/external-dns/pihole-chart';
 import { ExternalIngressChart } from './charts/external-ingress/external-ingress-chart';
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
+import { ImmichChart, LogLevel as ImmichLogLevel } from './charts/immich/chart';
 import { LonghornChart } from './charts/longhorn/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
 import { DatabaseDriver, LogLevel, PhotoPrismChart } from './charts/photo-prism/chart';
 import { PrometheusOperatorChart } from './charts/prometheus-operator/chart';
 import { ServerBoiChart } from './charts/serverboi/chart';
-import { SwitchboardChart } from './charts/switchboard/chart';
-import { SwitchboardChart as SwitchboardChartDev } from './charts/switchboard/chart_custom';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
@@ -253,6 +251,40 @@ new PhotoPrismChart(app, 'matt-photoprism', {
     name: 'matt-photoprism',
     certIssuer: prodIssuer,
     dnsNames: ['matt-photos.awlsring-sea.drigs.org'],
+  },
+});
+
+new ImmichChart(app, 'immich', {
+  createNamespace: true,
+  namespace: 'immich',
+  options: {
+    dnsName: 'immich.awlsring-sea.drigs.org',
+    generalOptions: {
+      logLevel: ImmichLogLevel.LOG,
+    },
+    uploadShare: {
+      name: 'immich-uploads',
+      server: '10.0.100.180',
+      path: '/mnt/WD-6D-8T/immich-uploads',
+    },
+    photoCollectionShares: [
+      {
+        name: 'photos',
+        server: '10.0.100.180',
+        path: '/mnt/WD-6D-8T/photos',
+      },
+    ],
+    databaseOptions: {
+      hostname: '10.0.100.98',
+      user: 'immich',
+      passwordSecret: 'immich-database-password',
+      database: 'immich',
+    },
+  },
+  tls: {
+    name: 'immich',
+    certIssuer: prodIssuer,
+    dnsNames: ['immich.awlsring-sea.drigs.org'],
   },
 });
 
