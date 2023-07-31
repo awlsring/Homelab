@@ -1,8 +1,6 @@
 import * as path from 'path';
 import { App } from "cdktf";
 import { ReadMachinesFromYAML } from "./meta/homelab-machine";
-import { DataStoreStack } from "./stacks/data-store";
-import { OnePasswordStack } from "./stacks/onepassword";
 import { Memory, StorageSize } from "./constructs/proxmox/enums";
 import { OnepasswordSecretsProviderModule } from "./constructs/secret-provider/onepassword-secret-provider";
 import { K3SClusterStack } from "./stacks/proxmox/k3s-cluster";
@@ -50,21 +48,6 @@ const standardProps = {
   ...projectsProps,
   ...providerProps,
 }
-
-const onePassword = new OnePasswordStack(app, "onepassword", {
-  url: onepasswordUrl,
-  token: onepasswordToken,
-  ...providerProps,
-  ...projectsProps,
-})
-
-const datastore = new DataStoreStack(app, "datastore", {
-  url: "http://10.0.10.150/api/v2.0",
-  secretName: 'truenas-token',
-  ...projectsProps,
-  ...providerProps,
-})
-datastore.addDependency(onePassword)
 
 const proxmoxProps = {
   ...standardProps,
