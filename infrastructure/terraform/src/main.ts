@@ -9,6 +9,7 @@ import { K3SClusterStack } from "./stacks/proxmox/k3s-cluster";
 import { ProxmoxNodeConfigurationStack, ProxmoxNodeConfigurationStackProps } from './stacks/proxmox/node-configuration';
 import { ProxmoxStorageConfigurationStack } from './stacks/proxmox/storage-config';
 import { ZFSRaidLevel } from '@awlsring/cdktf-proxmox';
+import { StorageBackupStack } from './stacks/storage-backup';
 require('dotenv').config()
 
 const app = new App();
@@ -146,7 +147,7 @@ new K3SClusterStack(app, "k3s-cluster", {
       name: "dominaria",
       template: "ubuntu-jammy-template",
       bridge: "vmbr1",
-      controlNodes: 0,
+      controlNodes: 1,
       workerNodes: 1,
       storage: "dom-pool-1",
       controlStartingIp: "10.0.100.115",
@@ -175,6 +176,11 @@ new K3SClusterStack(app, "k3s-cluster", {
     tags: ["worker"],
     baseId: 5000,
   }
+})
+
+new StorageBackupStack(app, "storage-backup", {
+  ...standardProps,
+  secretName: "backblaze-tf-key",
 })
 
 app.synth();

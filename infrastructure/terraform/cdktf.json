@@ -8,8 +8,10 @@
     "paultyng/unifi@0.38.2",
     "1password/onepassword@~>1.1.4",
     "dariusbakunas/truenas@~>0.11.0",
-    "integrations/github@~>5.15.0"
+    "integrations/github@~>5.15.0",
+    "backblaze/b2@~>0.8.4"
   ],
+  "codeMakerOutput": "src/.gen",
   "terraformModules": [],
   "context": {
     "excludeStackIdFromLogicalIds": "true",
