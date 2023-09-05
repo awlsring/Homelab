@@ -2,8 +2,7 @@
 import 'source-map-support/register';
 import { App, Environment } from 'aws-cdk-lib';
 import { MonthlyCostNotifierStack } from './stacks/monthly-cost-notifier-stack';
-import { TrueNasAlertNotifierStack } from './stacks/test-truenas-discord';
-import { LogLevel } from '@awlsring/cdk-aws-discord-notifiers';
+import { TrueNasAlertNotifierStack } from './stacks/truenas-notifier-stack';
 
 const app = new App();
 
@@ -21,14 +20,14 @@ const defaultProps = {
 new MonthlyCostNotifierStack(app, 'MonthlyCostNotifier', {
   ...defaultProps,
   accountId: account,
-  webhook: process.env.DISCORD_WEBHOOK,
+  webhook: process.env.DISCORD_WEBHOOK!,
+  webhookAvatar: "https://m.media-amazon.com/images/I/51XX7JzrbAL.jpg"
 });
 
 new TrueNasAlertNotifierStack(app, 'TrueNasAlertNotifier', {
   ...defaultProps,
-  lambdaOptions: {
-    logLevel: LogLevel.DEBUG,
-  },
   webhook: process.env.DISCORD_WEBHOOK!,
   truenasUrl: "https://truenas.awlsring-sea.drigs.org",
+  displayCurrentAlerts: false,
+  webhookAvatar: "https://avatars.githubusercontent.com/u/53482242?s=200&v=4",
 });

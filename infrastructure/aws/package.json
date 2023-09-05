@@ -7,7 +7,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "cost": "ts-node src/lambdas/typescript/monthly-cost-lambda.ts"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.119",
@@ -22,12 +23,12 @@
     "typescript": "~4.9.4"
   },
   "dependencies": {
-    "@awlsring/cdk-aws-discord-notifiers": "^0.0.165",
-    "aws-cdk-lib": "2.93.0",
+    "@awlsring/cdk-aws-discord-notifiers": "^0.0.170",
+    "@aws-sdk/client-cost-explorer": "^3.398.0",
+    "aws-cdk-lib": "2.55.0",
     "aws-lambda": "^1.0.7",
     "axios": "^1.4.0",
-    "constructs": "^10.0.0",
-    "discord-api-types": "^0.37.54",
+    "constructs": "^10.1.52",
     "pino": "^8.15.0",
     "source-map-support": "^0.5.21"
   }
