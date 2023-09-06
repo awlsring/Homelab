@@ -1,5 +1,5 @@
 import { Size } from 'cdk8s';
-import { Deployment, EnvValue, PersistentVolumeAccessMode, PersistentVolumeClaim, PersistentVolumeClaimProps, Service, ServiceType, Volume } from 'cdk8s-plus-25';
+import { Deployment, EnvValue, PersistentVolumeAccessMode, Service, ServiceType } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
 import { HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
 
@@ -67,11 +67,6 @@ export class HeimdallChart extends HomelabChart {
       this.configureTls(props.tls.name, props.tls.certIssuer, props.tls.dnsNames, service);
     }
 
-  }
-
-  private formPersistanceVolume(name: string, props: PersistentVolumeClaimProps): Volume {
-    let pvc = new PersistentVolumeClaim(this, `${name}-pvc`, props);
-    return Volume.fromPersistentVolumeClaim(this, `${name}-volume`, pvc);
   }
 
 }

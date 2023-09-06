@@ -134,7 +134,7 @@ export class YargChart extends HomelabChart {
           accessModes: [PersistentVolumeAccessMode.READ_WRITE_MANY],
           resources: {
             requests: {
-              storage: Quantity.fromString('500Mi'),
+              storage: Quantity.fromString('5000Mi'),
             },
           },
           storageClassName: 'longhorn',

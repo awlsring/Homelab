@@ -1,5 +1,5 @@
 import { Chart, ChartProps } from 'cdk8s';
-import { Namespace } from 'cdk8s-plus-25';
+import { Namespace, PersistentVolumeClaim, PersistentVolumeClaimProps, Volume } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
 import { HomelabCertificate } from './homelab-certificate';
 import { HomelabRoute, IService } from './homelab-route';
@@ -32,6 +32,11 @@ export class HomelabChart extends Chart {
         },
       });
     }
+  }
+
+  formPersistanceVolume(name: string, props: PersistentVolumeClaimProps): Volume {
+    let pvc = new PersistentVolumeClaim(this, `${name}-pvc`, props);
+    return Volume.fromPersistentVolumeClaim(this, `${name}-volume`, pvc);
   }
 
   configureTls(

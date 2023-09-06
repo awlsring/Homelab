@@ -7,6 +7,7 @@ import { ClusterExternalIngressChart } from './charts/cluster-external-ingress/c
 import { ExternalDnsPiholeChart } from './charts/external-dns/pihole-chart';
 import { ExternalIngressChart } from './charts/external-ingress/external-ingress-chart';
 import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart';
+import { HeimdallChart } from './charts/heimdall/chart';
 import { ImmichChart, LogLevel as ImmichLogLevel } from './charts/immich/chart';
 import { LonghornChart } from './charts/longhorn/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
@@ -260,7 +261,7 @@ new ImmichChart(app, 'immich', {
   options: {
     dnsName: 'immich.awlsring-sea.drigs.org',
     generalOptions: {
-      logLevel: ImmichLogLevel.LOG,
+      logLevel: ImmichLogLevel.DEBUG,
     },
     uploadShare: {
       name: 'immich-uploads',
@@ -285,6 +286,31 @@ new ImmichChart(app, 'immich', {
     name: 'immich',
     certIssuer: prodIssuer,
     dnsNames: ['immich.awlsring-sea.drigs.org'],
+  },
+});
+
+new ExternalIngressChart(app, 'home-assistant-external-ingress', {
+  createNamespace: true,
+  namespace: 'home-assistant-external',
+  externalName: '10.0.10.9',
+  port: 8123,
+  tls: {
+    name: 'home-assistant',
+    dnsNames: ['home.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
+  },
+});
+
+new HeimdallChart(app, 'heimdall', {
+  createNamespace: true,
+  namespace: 'heimdall',
+  options: {
+    timezone: 'America/Los_Angeles',
+  },
+  tls: {
+    name: 'heimdall',
+    dnsNames: ['apps.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
   },
 });
 

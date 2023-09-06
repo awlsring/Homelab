@@ -1,5 +1,5 @@
 import { Size } from 'cdk8s';
-import { Deployment, EnvValue, PersistentVolumeAccessMode, PersistentVolumeClaim, PersistentVolumeClaimProps, Secret, Service, ServiceType, Volume, VolumeMount } from 'cdk8s-plus-25';
+import { Deployment, EnvValue, PersistentVolumeAccessMode, Secret, Service, ServiceType, Volume, VolumeMount } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
 import { ConfigureTlsProps, HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
 import { HomelabService } from '../../common/homelab-service';
@@ -165,11 +165,6 @@ export class ImmichChart extends HomelabChart {
         },
       ],
     });
-  }
-
-  private formPersistanceVolume(name: string, props: PersistentVolumeClaimProps): Volume {
-    let pvc = new PersistentVolumeClaim(this, `${name}-pvc`, props);
-    return Volume.fromPersistentVolumeClaim(this, `${name}-volume`, pvc);
   }
 
   private formEnvironment(options: ImmichOptions): Record<string, EnvValue> {
