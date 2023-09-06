@@ -4,10 +4,17 @@ import { Construct } from 'constructs';
 import { HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
 
 export interface OnePasswordConnectChartProps extends HomelabChartProps {
-  name: string;
-  serviceType: ServiceType;
+  readonly name: string;
+  readonly serviceType: ServiceType;
 }
 
+/*
+* Preconfigured with the following secrets
+* op-credentials: The contents of the 1password-credentials.json
+* onepassword-token: The 1password token issued from secrets automation on 1password website
+*
+* Onepassword Item CRD must be installed. Located in crd/onepassword-item.yaml
+*/
 export class OnePasswordConnectChart extends HomelabChart {
   constructor(scope: Construct, name: string, props: OnePasswordConnectChartProps) {
     super(scope, name, props);
@@ -22,7 +29,7 @@ export class OnePasswordConnectChart extends HomelabChart {
           serviceType: props.serviceType,
         },
         operator: {
-          create: false,
+          create: true,
         },
       },
     });
