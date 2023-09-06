@@ -87,7 +87,7 @@ export class ClusterExternalIngressChart extends Chart {
   makeJellyfin(props: ClusterExternalIngressChartProps) {
     const jellyfin = new Service(this, 'jellyfin', {
       type: ServiceType.EXTERNAL_NAME,
-      externalName: '10.0.10.150',
+      externalName: '10.0.100.99',
       ports: [
         {
           name: 'jellyfin',
