@@ -226,7 +226,7 @@ new ExternalDnsPiholeChart(app, 'external-dns-pihole', {
   namespace: 'external-dns-pihole',
   createNamespace: true,
   address: 'https://dns.awlsring-sea.drigs.org',
-  password: '',
+  passwordSecretName: 'pihole',
 });
 
 new PhotoPrismChart(app, 'matt-photoprism', {

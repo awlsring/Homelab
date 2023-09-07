@@ -1,12 +1,12 @@
-import { ApiResource, ClusterRole, ClusterRoleBinding, Deployment, EnvValue, ISecret, ServiceAccount } from 'cdk8s-plus-25';
+import { ApiResource, ClusterRole, ClusterRoleBinding, Deployment, EnvValue, ServiceAccount } from 'cdk8s-plus-25';
 import { Construct } from 'constructs';
 import { HomelabChart, HomelabChartProps } from '../../common/homelab-charts';
+import { OnepasswordSecret } from '../../common/onepassword-secret';
 
 export interface ExternalDnsPiholeChartProps extends HomelabChartProps {
   readonly address: string;
+  readonly passwordSecretName: string;
   readonly version?: string;
-  readonly password?: string;
-  readonly passwordSecret?: ISecret;
   readonly skipVerify?: boolean;
 }
 
@@ -16,13 +16,10 @@ export class ExternalDnsPiholeChart extends HomelabChart {
   constructor(scope: Construct, name: string, props: ExternalDnsPiholeChartProps) {
     super(scope, name, props);
 
-    if (props.password && props.passwordSecret) {
-      throw new Error('Cannot specify both password and passwordSecret');
-    }
-
-    if (!props.password && !props.passwordSecret) {
-      throw new Error('Must specify either password or passwordSecret');
-    }
+    const onepassSecret = new OnepasswordSecret(this, 'password', {
+      secretName: props.passwordSecretName,
+      vault: 'Homelab',
+    });
 
     const account = new ServiceAccount(this, 'service-account');
 
@@ -57,15 +54,8 @@ export class ExternalDnsPiholeChart extends HomelabChart {
     const env: Record<string, EnvValue> = {
       EXTERNAL_DNS_PIHOLE_SERVER: EnvValue.fromValue(props.address),
       EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY: EnvValue.fromValue(String(props.skipVerify ?? true)),
+      EXTERNAL_DNS_PIHOLE_PASSWORD: onepassSecret.credentialAsEnvValue(),
     };
-
-    if (props.password) {
-      env.EXTERNAL_DNS_PIHOLE_PASSWORD = EnvValue.fromValue(props.password);
-    }
-
-    if (props.passwordSecret) {
-      env.EXTERNAL_DNS_PIHOLE_PASSWORD = EnvValue.fromSecretValue({ secret: props.passwordSecret, key: 'EXTERNAL_DNS_PIHOLE_PASSWORD' });
-    }
 
     this.deployment = new Deployment(this, 'deployment', {
       replicas: 1,
