@@ -14,6 +14,7 @@ import { MosquittoChart } from './charts/mosquitto/chart';
 import { DatabaseDriver, LogLevel, PhotoPrismChart } from './charts/photo-prism/chart';
 import { PrometheusOperatorChart } from './charts/prometheus-operator/chart';
 import { ServerBoiChart } from './charts/serverboi/chart';
+import { TandoorChart, TandoorDatabaseEngine } from './charts/tandoor/chart';
 import { TerraformBackendSurrealChart } from './charts/terraform-backend-surreal/chart';
 import { CertIssuers, LetsEncryptEndpoint } from './charts/traefik-certmanager/cert-manager/chart';
 import { TraefikCertManagerChart } from './charts/traefik-certmanager/chart';
@@ -310,6 +311,28 @@ new HeimdallChart(app, 'heimdall', {
   tls: {
     name: 'heimdall',
     dnsNames: ['apps.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
+  },
+});
+
+new TandoorChart(app, 'tandoor', {
+  createNamespace: true,
+  namespace: 'tandoor',
+  options: {
+    secretKeySecretName: 'tandoor-secret-key',
+    timezone: 'America/Los_Angeles',
+    enableSignUp: true,
+  },
+  databaseOptions: {
+    engine: TandoorDatabaseEngine.POSTGRES,
+    host: '10.0.100.98',
+    user: 'tandoor',
+    passwordSecretName: 'tandoor-database-password',
+    database: 'tandoor',
+  },
+  tls: {
+    name: 'tandoor',
+    dnsNames: ['tandoor.awlsring-sea.drigs.org'],
     certIssuer: prodIssuer,
   },
 });
