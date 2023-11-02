@@ -302,6 +302,18 @@ new ExternalIngressChart(app, 'home-assistant-external-ingress', {
   },
 });
 
+new ExternalIngressChart(app, 'esphome-external-ingress', {
+  createNamespace: true,
+  namespace: 'esphome-external',
+  externalName: '10.0.10.120',
+  port: 6052,
+  tls: {
+    name: 'esphome',
+    dnsNames: ['esphome.awlsring-sea.drigs.org'],
+    certIssuer: prodIssuer,
+  },
+});
+
 new HeimdallChart(app, 'heimdall', {
   createNamespace: true,
   namespace: 'heimdall',
