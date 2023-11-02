@@ -10,6 +10,7 @@ import { GithubActionsRunnersChart } from './charts/github-actions-runners/chart
 import { HeimdallChart } from './charts/heimdall/chart';
 import { ImmichChart, LogLevel as ImmichLogLevel } from './charts/immich/chart';
 import { LonghornChart } from './charts/longhorn/chart';
+import { MetalLBChart, MetalLBType } from './charts/metallb/chart';
 import { MosquittoChart } from './charts/mosquitto/chart';
 import { DatabaseDriver, LogLevel, PhotoPrismChart } from './charts/photo-prism/chart';
 import { PrometheusOperatorChart } from './charts/prometheus-operator/chart';
@@ -347,6 +348,12 @@ new TandoorChart(app, 'tandoor', {
     dnsNames: ['tandoor.awlsring-sea.drigs.org'],
     certIssuer: prodIssuer,
   },
+});
+
+new MetalLBChart(app, 'metallb', {
+  type: MetalLBType.NATIVE,
+  version: 'v0.13.12',
+  addresses: ['10.0.10.200-10.0.10.240'],
 });
 
 app.synth();
