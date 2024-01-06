@@ -4,7 +4,8 @@ import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
 import { ConstructLibraryCdktf } from "projen/lib/cdktf";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
-import { TypeScriptAppProject } from "projen/lib/typescript";
+import { TypeScriptProject } from "projen/lib/typescript";
+import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
 
 // Metadata
 const AUTHOR = "awlsring";
@@ -89,6 +90,15 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
   outdir: "constructs/cdk8s",
 });
 
+new TypeScriptProject({
+  ...subprojectProps,
+  name: "projen-constructs",
+  outdir: "constructs/projen",
+  deps: ["projen", "semver", "uuid"],
+  devDeps: ["@types/semver", "@types/uuid", "@types/jest"],
+  eslint: false,
+});
+
 // Projects
 
 // notifiers
@@ -100,7 +110,7 @@ new AwsCdkTypeScriptApp({
 });
 
 // storage
-new TypeScriptAppProject({
+new CdkTfTypescriptApp({
   ...subprojectProps,
   name: "storage",
   outdir: "infrastructure/storage",

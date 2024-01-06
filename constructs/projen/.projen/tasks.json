@@ -34,45 +34,6 @@
       "name": "default",
       "description": "Synthesize project files"
     },
-    "deploy": {
-      "name": "deploy",
-      "description": "Deploys the cdktf app",
-      "steps": [
-        {
-          "exec": "cdktf deploy",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "destroy": {
-      "name": "destroy",
-      "description": "Destroys the cdktf app",
-      "steps": [
-        {
-          "exec": "cdktf destroy",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "eslint": {
-      "name": "eslint",
-      "description": "Runs eslint against the codebase",
-      "steps": [
-        {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools",
-          "receiveArgs": true
-        }
-      ]
-    },
-    "get": {
-      "name": "get",
-      "description": "Get terraform modules",
-      "steps": [
-        {
-          "exec": "cdktf get"
-        }
-      ]
-    },
     "install": {
       "name": "install",
       "description": "Install project dependencies and update lockfile (non-frozen)",
@@ -93,7 +54,15 @@
     },
     "package": {
       "name": "package",
-      "description": "Creates the distribution package"
+      "description": "Creates the distribution package",
+      "steps": [
+        {
+          "exec": "mkdir -p dist/js"
+        },
+        {
+          "exec": "mv $(pnpm pack) dist/js/"
+        }
+      ]
     },
     "post-compile": {
       "name": "post-compile",
@@ -107,15 +76,6 @@
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
     },
-    "synth": {
-      "name": "synth",
-      "description": "Synthesizes your cdk app into cdktf.out",
-      "steps": [
-        {
-          "exec": "cdktf synth"
-        }
-      ]
-    },
     "test": {
       "name": "test",
       "description": "Run tests",
@@ -123,9 +83,6 @@
         {
           "exec": "jest --passWithNoTests --updateSnapshot",
           "receiveArgs": true
-        },
-        {
-          "spawn": "eslint"
         }
       ]
     },
@@ -146,13 +103,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,cdktf-constructs,constructs,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,projen,ts-jest,ts-node,typescript,cdktf"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@types/semver,@types/uuid,constructs,jest,jest-junit,projen,ts-jest,typescript,semver,uuid"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser cdktf-constructs constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest ts-node typescript cdktf"
+          "exec": "pnpm update @types/jest @types/node @types/semver @types/uuid constructs jest jest-junit projen ts-jest typescript semver uuid"
         },
         {
           "exec": "npx projen"

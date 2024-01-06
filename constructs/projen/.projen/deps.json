@@ -10,40 +10,16 @@
       "type": "build"
     },
     {
-      "name": "@typescript-eslint/eslint-plugin",
-      "version": "^6",
+      "name": "@types/semver",
       "type": "build"
     },
     {
-      "name": "@typescript-eslint/parser",
-      "version": "^6",
-      "type": "build"
-    },
-    {
-      "name": "cdktf-cli",
-      "version": "0.19.2",
-      "type": "build"
-    },
-    {
-      "name": "cdktf-constructs",
+      "name": "@types/uuid",
       "type": "build"
     },
     {
       "name": "constructs",
       "version": "^10.0.0",
-      "type": "build"
-    },
-    {
-      "name": "eslint-import-resolver-typescript",
-      "type": "build"
-    },
-    {
-      "name": "eslint-plugin-import",
-      "type": "build"
-    },
-    {
-      "name": "eslint",
-      "version": "^8",
       "type": "build"
     },
     {
@@ -64,21 +40,19 @@
       "type": "build"
     },
     {
-      "name": "ts-node",
-      "type": "build"
-    },
-    {
       "name": "typescript",
       "type": "build"
     },
     {
-      "name": "cdktf",
-      "version": "^0.19.2",
+      "name": "projen",
       "type": "runtime"
     },
     {
-      "name": "constructs",
-      "version": "^10.3.0",
+      "name": "semver",
+      "type": "runtime"
+    },
+    {
+      "name": "uuid",
       "type": "runtime"
     }
   ],

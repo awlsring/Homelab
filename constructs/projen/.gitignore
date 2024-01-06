@@ -39,8 +39,4 @@ junit.xml
 !/src/
 /lib
 /dist/
-!/.eslintrc.json
-!/cdktf.json
-/cdktf.out/
-/.gen/
 !/project.json

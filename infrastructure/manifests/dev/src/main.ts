@@ -1,5 +1,5 @@
-import { Construct } from 'constructs';
 import { App, Chart, ChartProps, ApiObject } from 'cdk8s';
+import { Construct } from 'constructs';
 
 export class MyChart extends Chart {
   constructor(scope: Construct, id: string, props: ChartProps = { }) {
@@ -8,26 +8,25 @@ export class MyChart extends Chart {
     const label = { app: 'hello-k8s' };
 
 
-
     new ApiObject(this, 'deployment', {
-      apiVersion: "v1",
-      kind: "Pod",
+      apiVersion: 'v1',
+      kind: 'Pod',
       metadata: {
-          namespace: "frontend",
-          name: "nginx",
-          labels: label,
+        namespace: 'frontend',
+        name: 'nginx',
+        labels: label,
       },
       spec: {
-          containers: [{
-              name: "nginx",
-              image: "nginx:1.14-alpine",
-              resources: {
-                  limits: {
-                      memory: "20Mi",
-                      cpu: 0.2,
-                  },
-              },
-          }],
+        containers: [{
+          name: 'nginx',
+          image: 'nginx:1.14-alpine',
+          resources: {
+            limits: {
+              memory: '20Mi',
+              cpu: 0.2,
+            },
+          },
+        }],
       },
     });
   }

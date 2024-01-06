@@ -7,4 +7,5 @@ packages:
   - infrastructure/manifests/dev
   - infrastructure/notifiers
   - infrastructure/manifests/prod
+  - constructs/projen
   - infrastructure/storage

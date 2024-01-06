@@ -1,13 +1,11 @@
 {
   "files": [
-    ".eslintrc.json",
     ".gitattributes",
     ".gitignore",
     ".npmignore",
     ".projen/deps.json",
     ".projen/files.json",
     ".projen/tasks.json",
-    "cdktf.json",
     "LICENSE",
     "project.json",
     "tsconfig.dev.json",
