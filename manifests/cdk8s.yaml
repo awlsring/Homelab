@@ -1,8 +1,0 @@
-output: dist
-pluginsDirectory: /Users/awlsring/.cdk8s/plugins
-language: typescript
-app: npx ts-node src/main.ts cdk8s
-imports:
-  - k8s
-  - github:metallb/metallb@v0.13.12
-  - metallb:=https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
