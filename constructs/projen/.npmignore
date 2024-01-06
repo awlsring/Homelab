@@ -3,7 +3,7 @@
 /test-reports/
 junit.xml
 /coverage/
-/test/
+//
 /tsconfig.dev.json
 /src/
 !/lib/

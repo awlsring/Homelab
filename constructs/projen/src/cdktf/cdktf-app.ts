@@ -3,9 +3,9 @@ import {
   TypeScriptProjectOptions,
 } from "projen/lib/typescript";
 import * as semver from "semver";
-import { CdkTfConfig, CdkTfConfigOptions } from "./config";
-import { CdkTfTasks } from "./tasks";
 import { v5 as uuidv5 } from "uuid";
+import { CdkTfConfig, TerraformDependencyConstraint } from "./config";
+import { CdkTfTasks } from "./tasks";
 
 function generateProjectId(name: string): string {
   return uuidv5(name, "1b671a64-40d5-491e-99b0-da01ff1f3341");
@@ -34,27 +34,47 @@ export interface CdkTfTypescriptAppOptions extends TypeScriptProjectOptions {
   readonly constructsVersion?: string;
 
   /**
-   * Config options for the cdktf.json file
+   * Terraform providers to build
    */
-  readonly cdktfConfigOptions?: CdkTfConfigOptions;
+  readonly terraformProviders?: TerraformDependencyConstraint[];
+
+  /**
+   * The command to run when building the app
+   */
+  readonly app?: string;
+
+  /**
+   * The output directory for the synthesized code
+   */
+  readonly output?: string;
+
+  /**
+   * The output directory for generated provider bindings
+   */
+  readonly codeMakerOutput?: string;
+
+  /**
+   * Unique identifier for the project used to differentiate projects
+   */
+  readonly projectId?: string;
 }
 
 export class CdkTfTypescriptApp extends TypeScriptAppProject {
   constructor(options: CdkTfTypescriptAppOptions) {
     super(options);
-    const projectId =
-      options.cdktfConfigOptions?.projectId ?? generateProjectId(this.name);
+    const projectId = options.projectId ?? generateProjectId(this.name);
 
     const tsConfigFile = this.tsconfig?.fileName;
     if (!tsConfigFile) {
       throw new Error("Expecting tsconfig.json");
     }
 
-    const cdktfConfig = new CdkTfConfig(
-      this,
-      projectId,
-      options.cdktfConfigOptions,
-    );
+    const cdktfConfig = new CdkTfConfig(this, projectId, {
+      app: options.app,
+      output: options.output,
+      codeMakerOutput: options.codeMakerOutput,
+      terraformProviders: options.terraformProviders,
+    });
     new CdkTfTasks(this);
 
     const constructsVersion =

@@ -141,13 +141,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,jest-junit,jest,jsii-diff,jsii-docgen,jsii-pacmak,projen,ts-jest,typescript,aws-cdk-lib,constructs"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,projen,ts-jest,typescript,aws-cdk-lib,constructs"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node jest-junit jest jsii-diff jsii-docgen jsii-pacmak projen ts-jest typescript aws-cdk-lib constructs"
+          "exec": "pnpm update @types/jest @types/node jest jest-junit jsii-diff jsii-docgen jsii-pacmak projen ts-jest typescript aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

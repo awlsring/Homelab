@@ -1,3 +1,3 @@
-test("hello", () => {
+test("pass", () => {
   console.log("pass");
 });

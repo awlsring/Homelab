@@ -1,7 +1,6 @@
 import { MonorepoTsProject } from "@aws/pdk/monorepo";
 import { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } from "projen/lib/awscdk";
 import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
-import { ConstructLibraryCdktf } from "projen/lib/cdktf";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
@@ -24,6 +23,7 @@ const K8S_MINOR_VERSION = 27;
 
 // common props for all projects
 const projectCommonProps = {
+  jsiiVersion: "~5",
   packageManager: NodePackageManager.PNPM,
   author: AUTHOR,
   authorName: AUTHOR,
@@ -75,20 +75,31 @@ const awsCdkConstructs = new AwsCdkConstructLibrary({
   ...subprojectProps,
   name: "cdk-constructs",
   outdir: "constructs/aws-cdk",
+  devDeps: ["@types/jest"],
+  testdir: "",
 });
 
-// cdktf constructs
-const cdktfConstructs = new ConstructLibraryCdktf({
+const cdktfConstructs = new TypeScriptProject({
   ...subprojectProps,
   name: "cdktf-constructs",
   outdir: "constructs/cdktf",
+  deps: [`cdktf@^${CDKTF_VERSION}`, `constructs@^${CONSTRUCTS_VERSION}`],
+  devDeps: [
+    `cdktf-cli@^${CDKTF_VERSION}`,
+    `constructs@^${CONSTRUCTS_VERSION}`,
+    "@types/jest",
+  ],
+  gitignore: ["src/gen"],
+  testdir: "",
 });
+cdktfConstructs.preCompileTask.exec("cdktf get");
 
 // cdk8s constructs
 const cdk8sConstructs = new ConstructLibraryCdk8s({
   ...subprojectProps,
   name: "cdk8s-constructs",
   outdir: "constructs/cdk8s",
+  testdir: "",
 });
 
 new TypeScriptProject({
@@ -97,6 +108,7 @@ new TypeScriptProject({
   outdir: "constructs/projen",
   deps: ["projen", "semver", "uuid"],
   devDeps: ["@types/semver", "@types/uuid", "@types/jest"],
+  testdir: "",
 });
 
 // Projects
@@ -106,8 +118,11 @@ new AwsCdkTypeScriptApp({
   ...subprojectProps,
   name: "notifiers",
   outdir: "infrastructure/notifiers",
-  deps: ["@awlsring/cdk-aws-discord-notifiers", "source-map-support"],
-  devDeps: [awsCdkConstructs.package.packageName],
+  deps: [
+    "@awlsring/cdk-aws-discord-notifiers",
+    "source-map-support",
+    awsCdkConstructs.package.packageName,
+  ],
 });
 
 // storage
@@ -115,7 +130,21 @@ new CdkTfTypescriptApp({
   ...subprojectProps,
   name: "storage",
   outdir: "infrastructure/storage",
-  devDeps: [cdktfConstructs.package.packageName],
+  codeMakerOutput: "src/gen",
+  terraformProviders: [
+    {
+      name: "b2",
+      source: "backblaze/b2",
+      version: "0.8.4",
+    },
+    {
+      name: "truenas",
+      source: "dariusbakunas/truenas",
+      version: "0.11.0",
+    },
+  ],
+  deps: [cdktfConstructs.package.packageName],
+  gitignore: ["src/gen"],
 });
 
 // dev manifests
@@ -123,7 +152,7 @@ new Cdk8sTypeScriptApp({
   ...subprojectProps,
   outdir: "infrastructure/manifests/dev",
   name: "dev-cluster",
-  devDeps: [cdk8sConstructs.package.packageName],
+  deps: [cdk8sConstructs.package.packageName],
 });
 
 // prod manifests
@@ -131,7 +160,7 @@ new Cdk8sTypeScriptApp({
   ...subprojectProps,
   outdir: "infrastructure/manifests/prod",
   name: "prod-cluster",
-  devDeps: [cdk8sConstructs.package.packageName],
+  deps: [cdk8sConstructs.package.packageName],
 });
 
 monorepo.synth();

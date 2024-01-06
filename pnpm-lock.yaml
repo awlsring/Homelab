@@ -84,8 +84,8 @@ importers:
         specifier: ^27
         version: 27.5.2
       '@types/node':
-        specifier: ^16
-        version: 16.18.69
+        specifier: ^18
+        version: 18.19.4
       aws-cdk-lib:
         specifier: 2.118.0
         version: 2.118.0(constructs@10.3.0)
@@ -99,20 +99,20 @@ importers:
         specifier: ^15
         version: 15.0.0
       jsii:
-        specifier: 1.x
-        version: 1.93.0
+        specifier: ~5
+        version: 5.3.2
       jsii-diff:
         specifier: ^1.93.0
         version: 1.93.0
       jsii-docgen:
         specifier: ^10.3.3
-        version: 10.3.3(jsii-rosetta@1.93.0)
+        version: 10.3.3(jsii-rosetta@5.3.2)
       jsii-pacmak:
         specifier: ^1.93.0
         version: 1.93.0
       jsii-rosetta:
-        specifier: 1.x
-        version: 1.93.0
+        specifier: ~5
+        version: 5.3.2
       projen:
         specifier: ^0.78.10
         version: 0.78.10(constructs@10.3.0)
@@ -129,8 +129,8 @@ importers:
         specifier: ^27
         version: 27.5.2
       '@types/node':
-        specifier: ^16
-        version: 16.18.69
+        specifier: ^18
+        version: 18.19.4
       cdk8s:
         specifier: 2.68.23
         version: 2.68.23(constructs@10.3.0)
@@ -144,20 +144,20 @@ importers:
         specifier: ^15
         version: 15.0.0
       jsii:
-        specifier: 1.x
-        version: 1.93.0
+        specifier: ~5
+        version: 5.3.2
       jsii-diff:
         specifier: ^1.93.0
         version: 1.93.0
       jsii-docgen:
         specifier: ^10.3.3
-        version: 10.3.3(jsii-rosetta@1.93.0)
+        version: 10.3.3(jsii-rosetta@5.3.2)
       jsii-pacmak:
         specifier: ^1.93.0
         version: 1.93.0
       jsii-rosetta:
-        specifier: 1.x
-        version: 1.93.0
+        specifier: ~5
+        version: 5.3.2
       projen:
         specifier: ^0.78.10
         version: 0.78.10(constructs@10.3.0)
@@ -169,46 +169,35 @@ importers:
         version: 5.3.3
 
   constructs/cdktf:
-    devDependencies:
-      '@types/jest':
-        specifier: ^27
-        version: 27.5.2
-      '@types/node':
-        specifier: ^16
-        version: 16.18.69
+    dependencies:
       cdktf:
-        specifier: 0.19.2
+        specifier: ^0.19.2
         version: 0.19.2(constructs@10.3.0)
       constructs:
-        specifier: 10.3.0
+        specifier: ^10.3.0
         version: 10.3.0
+    devDependencies:
+      '@types/jest':
+        specifier: ^29.5.11
+        version: 29.5.11
+      '@types/node':
+        specifier: ^18
+        version: 18.19.4
+      cdktf-cli:
+        specifier: ^0.19.2
+        version: 0.19.2(ink@3.2.0)(react@17.0.2)
       jest:
-        specifier: ^27
-        version: 27.5.1(ts-node@10.9.2)
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
       jest-junit:
         specifier: ^15
         version: 15.0.0
-      jsii:
-        specifier: 1.x
-        version: 1.93.0
-      jsii-diff:
-        specifier: ^1.93.0
-        version: 1.93.0
-      jsii-docgen:
-        specifier: ^10.3.3
-        version: 10.3.3(jsii-rosetta@1.93.0)
-      jsii-pacmak:
-        specifier: ^1.93.0
-        version: 1.93.0
-      jsii-rosetta:
-        specifier: 1.x
-        version: 1.93.0
       projen:
         specifier: ^0.78.10
         version: 0.78.10(constructs@10.3.0)
       ts-jest:
-        specifier: ^27
-        version: 27.1.5(@babel/core@7.23.7)(@types/jest@27.5.2)(jest@27.5.1)(typescript@5.3.3)
+        specifier: ^29.1.1
+        version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
@@ -258,6 +247,9 @@ importers:
       cdk8s:
         specifier: ^2.68.23
         version: 2.68.23(constructs@10.3.0)
+      cdk8s-constructs:
+        specifier: ^0.0.0
+        version: link:../../../constructs/cdk8s
       cdk8s-plus-27:
         specifier: ^2.7.70
         version: 2.7.70(cdk8s@2.68.23)(constructs@10.3.0)
@@ -274,9 +266,6 @@ importers:
       cdk8s-cli:
         specifier: ^2.198.27
         version: 2.198.27
-      cdk8s-constructs:
-        specifier: ^0.0.0
-        version: link:../../../constructs/cdk8s
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -298,6 +287,9 @@ importers:
       cdk8s:
         specifier: ^2.68.23
         version: 2.68.23(constructs@10.3.0)
+      cdk8s-constructs:
+        specifier: ^0.0.0
+        version: link:../../../constructs/cdk8s
       cdk8s-plus-27:
         specifier: ^2.7.70
         version: 2.7.70(cdk8s@2.68.23)(constructs@10.3.0)
@@ -314,9 +306,6 @@ importers:
       cdk8s-cli:
         specifier: ^2.198.27
         version: 2.198.27
-      cdk8s-constructs:
-        specifier: ^0.0.0
-        version: link:../../../constructs/cdk8s
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -341,6 +330,9 @@ importers:
       aws-cdk-lib:
         specifier: ^2.118.0
         version: 2.118.0(constructs@10.3.0)
+      cdk-constructs:
+        specifier: ^0.0.6
+        version: 0.0.6(@aws-cdk/assets-docker@0.24.1)(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codecommit@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ecr@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-route53@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sns@0.24.1)(@aws-cdk/cx-api@0.24.1)
       constructs:
         specifier: ^10.3.0
         version: 10.3.0
@@ -357,9 +349,6 @@ importers:
       aws-cdk:
         specifier: ^2.118.0
         version: 2.118.0
-      cdk-constructs:
-        specifier: ^0.0.6
-        version: 0.0.6(@aws-cdk/assets-docker@0.24.1)(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codecommit@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ecr@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-route53@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sns@0.24.1)(@aws-cdk/cx-api@0.24.1)
       esbuild:
         specifier: ^0.19.11
         version: 0.19.11
@@ -387,6 +376,9 @@ importers:
       cdktf:
         specifier: ^0.19.2
         version: 0.19.2(constructs@10.3.0)
+      cdktf-constructs:
+        specifier: ^0.0.0
+        version: link:../../constructs/cdktf
       constructs:
         specifier: ^10.3.0
         version: 10.3.0
@@ -400,9 +392,6 @@ importers:
       cdktf-cli:
         specifier: 0.19.2
         version: 0.19.2(ink@3.2.0)(react@17.0.2)
-      cdktf-constructs:
-        specifier: ^0.0.0
-        version: link:../../constructs/cdktf
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -491,7 +480,7 @@ packages:
       - '@aws-cdk/aws-sns'
       - '@aws-cdk/aws-sqs'
       - '@aws-cdk/aws-stepfunctions'
-    dev: true
+    dev: false
 
   /@aws-cdk/assets@0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-yd7l8pUeKKps0H/0oHw5u3exE3gtUKJ9EtKvdhWRvv8TNDc+qLmE79Nne4dBii69GqYhYAyQ0up3hChSpd4PeQ==}
@@ -505,7 +494,7 @@ packages:
       '@aws-cdk/aws-s3': 0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
       '@aws-cdk/cx-api': 0.24.1
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-autoscaling-api@0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-5ut5E3dugxn8WBx1uWStq8ING7oJqSmu3T6I2QfS4S42J1cE6DYAGBJQB1YXIba3EmU9z7b/wjJYA2NJ9niAag==}
@@ -516,7 +505,7 @@ packages:
     dependencies:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-certificatemanager@0.24.1(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-iBEKiuPh7Ogm79+mN1fOsa8HKxbKCI+wv2ynr78PUqZzRTMJRAUv20vFWnyhbUuBD4EGzc/GqUSThG+iEhcrKw==}
@@ -526,7 +515,7 @@ packages:
     dependencies:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-cloudformation@0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-lambda@0.24.1)(@aws-cdk/aws-sns@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-+i7xvs2VXEYO+zgeRQ6J/gLu4dhMATAb7S83v4lzdJf7cubN+vSFjkeXONBhiZZduI7yH+LRdfD6AWf7zKLN9g==}
@@ -543,7 +532,7 @@ packages:
       '@aws-cdk/aws-lambda': 0.24.1(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ec2@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-logs@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/aws-sqs@0.24.1)(@aws-cdk/aws-stepfunctions@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-sns': 0.24.1(@aws-cdk/aws-autoscaling-api@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-lambda@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sqs@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-cloudfront@0.24.1(@aws-cdk/aws-route53@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-sI9YopyAe1a/VKf/Q29QG5iCt2tXWZl0wf2S/AvoNUqEPqeIz73RLAlbmFildqXIMzLNFGBZVyhgnmk/V1fTug==}
@@ -559,7 +548,7 @@ packages:
       '@aws-cdk/aws-route53': 0.24.1(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-ec2@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-s3': 0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-cloudwatch@0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-6OObWgolxWkNWR+wwLQo0hd7XX7Hf3NkYfDqEYZmbGyxTuNrDNrotKZAtN4ZHxZ9tdOqqLCU9TkmJW1me8D2MQ==}
@@ -570,7 +559,7 @@ packages:
     dependencies:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-codebuild@0.24.1(@aws-cdk/assets-docker@0.24.1)(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codecommit@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ecr@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-GUsBpTJ4ucYmyUTaNFdNKTM2X6jgygBA00GRP4auqax8QrogI6P5GcpQZXQ4LYkFBzniiG09P9MzoaH8NZVfXg==}
@@ -599,7 +588,7 @@ packages:
       '@aws-cdk/aws-kms': 0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-s3': 0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-codecommit@0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-WXNKzq9O8mjN5DTtrXFUIHwf2PPTyhxijvlIavslVshVAqUX6Izv4U0lVk6Qw18zkzYH8gCQQfNRpahmAzjm5g==}
@@ -613,7 +602,7 @@ packages:
       '@aws-cdk/aws-events': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-codepipeline-api@0.24.1(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-TwNEPv8TY3+Re9e4JCv673tTZV7y2FVWWw55WxBYnxmUkpZ3zmw2DJRecZGgfbUrvMrrcUcYlH+L58Lc5ypWTQ==}
@@ -626,7 +615,7 @@ packages:
       '@aws-cdk/aws-events': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-codepipeline@0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/aws-sns@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-SOMCl2uV1Ryi6N4W1fdgp9EGFyESJBmWzGGh8hea/n2yNAT0LhXv0n0ZvXhcSb1/3aa2OgfcjXs8xekfEvSihQ==}
@@ -645,7 +634,7 @@ packages:
       '@aws-cdk/aws-s3': 0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-sns': 0.24.1(@aws-cdk/aws-autoscaling-api@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-lambda@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sqs@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-cognito-identitypool-alpha@2.118.0-alpha.0(aws-cdk-lib@2.118.0)(constructs@10.3.0):
     resolution: {integrity: sha512-0GGnYyxa4aMkzqr8SSmVW8m429oHM5lMGbOxdXVMzAGD2IHxAX13UooH9Xu2X8I8rMyWLWR5N6C8nHUdgffJhA==}
@@ -667,7 +656,7 @@ packages:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
       '@aws-cdk/cx-api': 0.24.1
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-ecr@0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-Xk1+BddnyRGvOwkZwTFA+J01P5PYjSJwVT6JN4kaAAzb19zCBR7FxUZwIIN3bd2T3MX/we9/zX6vuOqWqy4Q3Q==}
@@ -682,7 +671,7 @@ packages:
       '@aws-cdk/aws-events': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-events@0.24.1(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-WOp9J8mPINnS8yn4h2FkAYg7dzFWyVh7qirvIgU+eXXDlvnTKZls+qTiK9gQGDAHOGHgIh3+3+UMk63FFt1now==}
@@ -692,7 +681,7 @@ packages:
     dependencies:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-iam@0.24.1(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-T3ufqkW3WVBGOnDPvDGqrdpODzVgzL/SBUDYK1csquPeyqbnUqnUYqcrq+ewafozuxLasx6aeWGehdFl/8Y6+Q==}
@@ -701,7 +690,7 @@ packages:
       '@aws-cdk/cdk': ^0.24.1
     dependencies:
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-kms@0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-1to7on8d6OO75kDyhK7E9uXNVuJpBWFTGHOp36P/egRYeP9HKZfpcJ9/AE3lNdY9H6sP+AZNAOoUEDfC0xNKGg==}
@@ -712,7 +701,7 @@ packages:
     dependencies:
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-lambda@0.24.1(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ec2@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-logs@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-s3@0.24.1)(@aws-cdk/aws-sqs@0.24.1)(@aws-cdk/aws-stepfunctions@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-Zy3ugkesE51zmEPV1Kk6zStm5w6Clp/8jq1IvyrJj+UkkfWkVOHUrG4o5RVKKQ8f72/2iw6I18pxDqhY8t7WHQ==}
@@ -744,7 +733,7 @@ packages:
       '@aws-cdk/aws-stepfunctions': 0.24.1(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
       '@aws-cdk/cx-api': 0.24.1
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-logs@0.24.1(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-GFKuBrWgqYwMjcr9kVSgK05THqfoHynuxoC2UZcsYmnXa3MgElva0LwQBBMGbmVSN9tXeCPEbF1caaAJk6+o0g==}
@@ -757,7 +746,7 @@ packages:
       '@aws-cdk/aws-cloudwatch': 0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-route53@0.24.1(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-ec2@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-gmfawP6cuV3nQGr1DobQyWN5mrrqcpTGU5UwnK2CsWc8m2DxjJUV+ZUeDEKckQmUp/0msHf65YvzacB8vn5/Fg==}
@@ -773,7 +762,7 @@ packages:
     transitivePeerDependencies:
       - '@aws-cdk/aws-cloudwatch'
       - '@aws-cdk/aws-iam'
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-s3-notifications@0.24.1(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-EgDuxQ/D4xzUM6gi2DBbbrty26tOArFORFzPiFxvkIBk/hkbmqH0Hy3gOpAFdIUqAW3MNwA7HtDPSayipEI82w==}
@@ -782,7 +771,7 @@ packages:
       '@aws-cdk/cdk': ^0.24.1
     dependencies:
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-s3@0.24.1(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-ABBB0OS1ApZa476cmHJ9fwKxxXnRSGAJOA4x+De/Bo++1kvXM5m1bNtmAw4THAXtVvEXyYDSXEsymKAt663SBA==}
@@ -801,7 +790,7 @@ packages:
       '@aws-cdk/aws-kms': 0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-s3-notifications': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-sns@0.24.1(@aws-cdk/aws-autoscaling-api@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-lambda@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sqs@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-MjHBxom+BgFeuO4/PfgysO3TeJjc+yc84Xwj3sgm5k+SFuCOL8k/cdDKTVsbw208mjEX7LRlaNoqAm28r0VgsA==}
@@ -824,7 +813,7 @@ packages:
       '@aws-cdk/aws-s3-notifications': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-sqs': 0.24.1(@aws-cdk/aws-autoscaling-api@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-sqs@0.24.1(@aws-cdk/aws-autoscaling-api@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-RVRtGEKlrC7V4Co+60W42i77d0h58rRdVqJq2VsdIfbEu3AitjtNhpPJiDJg95XBWw1+ZzKjcxspyPzZDWq5RA==}
@@ -843,7 +832,7 @@ packages:
       '@aws-cdk/aws-kms': 0.24.1(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-s3-notifications': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/aws-stepfunctions@0.24.1(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/cdk@0.24.1):
     resolution: {integrity: sha512-A4vEVYmVckBAHBjm3fpNSnNHb4UFAAzN/oejexLr28GkmSNBFmG/74PliV9Q5rfNoQzSYRIRauEAxxYhQyvcYQ==}
@@ -858,7 +847,7 @@ packages:
       '@aws-cdk/aws-events': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/aws-iam': 0.24.1(@aws-cdk/cdk@0.24.1)
       '@aws-cdk/cdk': 0.24.1(@aws-cdk/cx-api@0.24.1)
-    dev: true
+    dev: false
 
   /@aws-cdk/cdk@0.24.1(@aws-cdk/cx-api@0.24.1):
     resolution: {integrity: sha512-nnm1NR76DvlOYELVJugQ5OPUUW+LcAZRJs5y79g034O1wRJ53eAB7g2MhrCDzx9aRBPF27485O96Y3PBhw5HGw==}
@@ -867,7 +856,7 @@ packages:
       '@aws-cdk/cx-api': ^0.24.1
     dependencies:
       '@aws-cdk/cx-api': 0.24.1
-    dev: true
+    dev: false
     bundledDependencies:
       - json-diff
       - js-base64
@@ -875,7 +864,7 @@ packages:
   /@aws-cdk/cx-api@0.24.1:
     resolution: {integrity: sha512-bD27TFZkb3Tvn0lZZWRE04u7P8gMPIOlWJn+L0xg6VZ50CqgLgCh6BTBlgAx1/q9XcAldFh4XomB5mGlEwzu2Q==}
     engines: {node: '>= 8.10.0'}
-    dev: true
+    dev: false
 
   /@aws/pdk@0.22.48(@aws-cdk/aws-cognito-identitypool-alpha@2.118.0-alpha.0)(aws-cdk-lib@2.118.0)(cdk-nag@2.28.1)(constructs@10.3.0)(projen@0.78.10):
     resolution: {integrity: sha512-I1cqWrZgtt9N4XR2dv7IVpE0mv1ETi83OX99pd8Pt0CendwUfRlEf9JNsGB1Sdbsod3i4fpj3FyfkpBgBq2xhQ==}
@@ -1285,7 +1274,7 @@ packages:
       ink-spinner: 4.0.3(ink@3.2.0)(react@17.0.2)
       ink-testing-library: 2.1.0
       ink-use-stdout-dimensions: 1.0.5(ink@3.2.0)(react@17.0.2)
-      jsii: 5.2.44
+      jsii: 5.3.2
       jsii-pacmak: 1.93.0
       jsii-srcmak: 0.1.999
       lodash.isequal: 4.5.0
@@ -3890,7 +3879,7 @@ packages:
       - '@aws-cdk/aws-s3-notifications'
       - '@aws-cdk/aws-sns'
       - '@aws-cdk/cx-api'
-    dev: true
+    dev: false
 
   /cdk-nag@2.28.1(aws-cdk-lib@2.118.0)(constructs@10.3.0):
     resolution: {integrity: sha512-uai5a+rKBCt6BMFxhRerEi9LXOxgfTq2X6rFUmpJrJ8iLnkKgDJK+Zhm91Jn0oQ3j7dxErme/zKJWXPFVJqKGw==}
@@ -4001,7 +3990,7 @@ packages:
       https-proxy-agent: 5.0.1
       ink-select-input: 4.2.2(ink@3.2.0)(react@17.0.2)
       ink-table: 3.1.0(ink@3.2.0)(react@17.0.2)
-      jsii: 5.2.44
+      jsii: 5.3.2
       jsii-pacmak: 1.93.0
       minimatch: 5.1.6
       node-fetch: 2.7.0
@@ -4606,6 +4595,7 @@ packages:
   /delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
     engines: {node: '>=0.4.0'}
+    requiresBuild: true
 
   /delegates@1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
@@ -7460,7 +7450,7 @@ packages:
       - supports-color
     dev: true
 
-  /jsii-docgen@10.3.3(jsii-rosetta@1.93.0):
+  /jsii-docgen@10.3.3(jsii-rosetta@5.3.2):
     resolution: {integrity: sha512-BG52Tq8+t6w8vTYHszC88L1iJiiNJDyTME5V+ZTVkm2U+EVkMLk3Cm3ynL/ZNj7+0f32sQPqwKGJJOVaasaZMw==}
     hasBin: true
     peerDependencies:
@@ -7472,7 +7462,7 @@ packages:
       glob: 8.1.0
       glob-promise: 6.0.5(glob@8.1.0)
       jsii-reflect: 1.93.0
-      jsii-rosetta: 1.93.0
+      jsii-rosetta: 5.3.2
       semver: 7.5.4
       yargs: 16.2.0
     dev: true
@@ -8013,6 +8003,7 @@ packages:
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
+    requiresBuild: true
 
   /mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}

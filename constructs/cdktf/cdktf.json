@@ -1,0 +1,8 @@
+{
+  "language": "typescript",
+  "app": "echo",
+  "terraformProviders": ["1password/onepassword@~>1.1.4"],
+  "codeMakerOutput": "src/gen",
+  "terraformModules": [],
+  "projectId": "c1fcee13-0b28-4756-9956-43149e76531a"
+}

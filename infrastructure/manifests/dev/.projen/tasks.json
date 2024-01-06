@@ -118,13 +118,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,cdk8s-cli,cdk8s-constructs,constructs,jest,jest-junit,projen,ts-jest,typescript,cdk8s-plus-27,cdk8s"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,cdk8s-cli,constructs,jest,jest-junit,projen,ts-jest,typescript,cdk8s-constructs,cdk8s-plus-27,cdk8s"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node cdk8s-cli cdk8s-constructs constructs jest jest-junit projen ts-jest typescript cdk8s-plus-27 cdk8s"
+          "exec": "pnpm update @types/jest @types/node cdk8s-cli constructs jest jest-junit projen ts-jest typescript cdk8s-constructs cdk8s-plus-27 cdk8s"
         },
         {
           "exec": "npx projen"

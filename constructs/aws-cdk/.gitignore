@@ -33,7 +33,7 @@ jspm_packages/
 junit.xml
 /coverage/
 !/.npmrc
-!/test/
+!//
 !/tsconfig.dev.json
 !/src/
 /lib

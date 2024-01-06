@@ -15,10 +15,6 @@
       "type": "build"
     },
     {
-      "name": "cdktf-constructs",
-      "type": "build"
-    },
-    {
       "name": "constructs",
       "version": "^10.0.0",
       "type": "build"
@@ -47,6 +43,10 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "cdktf-constructs",
+      "type": "runtime"
     },
     {
       "name": "cdktf",

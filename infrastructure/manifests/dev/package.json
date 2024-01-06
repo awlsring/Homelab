@@ -28,7 +28,6 @@
     "@types/jest": "^29.5.11",
     "@types/node": "^18",
     "cdk8s-cli": "^2.198.27",
-    "cdk8s-constructs": "^0.0.0",
     "constructs": "^10.0.0",
     "jest": "^29.7.0",
     "jest-junit": "^15",
@@ -38,6 +37,7 @@
   },
   "dependencies": {
     "cdk8s": "^2.68.23",
+    "cdk8s-constructs": "^0.0.0",
     "cdk8s-plus-27": "^2.7.70",
     "constructs": "^10.3.0"
   },

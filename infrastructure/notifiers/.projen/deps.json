@@ -15,10 +15,6 @@
       "type": "build"
     },
     {
-      "name": "cdk-constructs",
-      "type": "build"
-    },
-    {
       "name": "esbuild",
       "type": "build"
     },
@@ -54,6 +50,10 @@
     {
       "name": "aws-cdk-lib",
       "version": "^2.118.0",
+      "type": "runtime"
+    },
+    {
+      "name": "cdk-constructs",
       "type": "runtime"
     },
     {

@@ -15,10 +15,6 @@
       "type": "build"
     },
     {
-      "name": "cdk8s-constructs",
-      "type": "build"
-    },
-    {
       "name": "constructs",
       "version": "^10.0.0",
       "type": "build"
@@ -43,6 +39,10 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "cdk8s-constructs",
+      "type": "runtime"
     },
     {
       "name": "cdk8s-plus-27",

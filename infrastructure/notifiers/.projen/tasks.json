@@ -146,13 +146,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,aws-cdk,cdk-constructs,esbuild,jest,jest-junit,projen,ts-jest,ts-node,typescript,@awlsring/cdk-aws-discord-notifiers,aws-cdk-lib,constructs,source-map-support"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,aws-cdk,esbuild,jest,jest-junit,projen,ts-jest,ts-node,typescript,@awlsring/cdk-aws-discord-notifiers,aws-cdk-lib,cdk-constructs,constructs,source-map-support"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node aws-cdk cdk-constructs esbuild jest jest-junit projen ts-jest ts-node typescript @awlsring/cdk-aws-discord-notifiers aws-cdk-lib constructs source-map-support"
+          "exec": "pnpm update @types/jest @types/node aws-cdk esbuild jest jest-junit projen ts-jest ts-node typescript @awlsring/cdk-aws-discord-notifiers aws-cdk-lib cdk-constructs constructs source-map-support"
         },
         {
           "exec": "npx projen"

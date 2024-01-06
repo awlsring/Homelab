@@ -30,7 +30,6 @@
     "@types/jest": "^29.5.11",
     "@types/node": "^18",
     "cdktf-cli": "0.19.2",
-    "cdktf-constructs": "^0.0.0",
     "constructs": "^10.0.0",
     "jest": "^29.7.0",
     "jest-junit": "^15",
@@ -41,6 +40,7 @@
   },
   "dependencies": {
     "cdktf": "^0.19.2",
+    "cdktf-constructs": "^0.0.0",
     "constructs": "^10.3.0"
   },
   "keywords": [

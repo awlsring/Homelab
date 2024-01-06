@@ -29,6 +29,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+src/gen
 /test-reports/
 junit.xml
 /coverage/
@@ -41,5 +42,5 @@ junit.xml
 /dist/
 !/cdktf.json
 /cdktf.out/
-/.gen/
+/src/gen/
 !/project.json

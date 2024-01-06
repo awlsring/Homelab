@@ -3,7 +3,7 @@
 /test-reports/
 junit.xml
 /coverage/
-/test/
+//
 /tsconfig.dev.json
 /src/
 !/lib/
@@ -16,5 +16,4 @@ dist
 /.idea/
 /.projenrc.js
 tsconfig.tsbuildinfo
-!.jsii
 /.gitattributes
