@@ -57,6 +57,7 @@ const monorepo = new MonorepoTsProject({
 
 const subprojectProps = {
   ...projectCommonProps,
+  eslint: false,
   parent: monorepo,
   constructsVersion: CONSTRUCTS_VERSION,
   cdkVersion: AWS_CDK_VERSION,
@@ -96,7 +97,6 @@ new TypeScriptProject({
   outdir: "constructs/projen",
   deps: ["projen", "semver", "uuid"],
   devDeps: ["@types/semver", "@types/uuid", "@types/jest"],
-  eslint: false,
 });
 
 // Projects
@@ -106,6 +106,7 @@ new AwsCdkTypeScriptApp({
   ...subprojectProps,
   name: "notifiers",
   outdir: "infrastructure/notifiers",
+  deps: ["@awlsring/cdk-aws-discord-notifiers", "source-map-support"],
   devDeps: [awsCdkConstructs.package.packageName],
 });
 

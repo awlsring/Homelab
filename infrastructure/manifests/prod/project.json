@@ -79,13 +79,6 @@
         "cwd": "infrastructure/manifests/prod"
       }
     },
-    "eslint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "pnpm exec projen eslint",
-        "cwd": "infrastructure/manifests/prod"
-      }
-    },
     "synth": {
       "executor": "nx:run-commands",
       "options": {

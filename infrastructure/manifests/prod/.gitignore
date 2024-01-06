@@ -39,6 +39,5 @@ junit.xml
 !/src/
 /lib
 /dist/
-!/.eslintrc.json
 !/cdk8s.yaml
 !/project.json

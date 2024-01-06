@@ -54,16 +54,6 @@
         }
       ]
     },
-    "eslint": {
-      "name": "eslint",
-      "description": "Runs eslint against the codebase",
-      "steps": [
-        {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools",
-          "receiveArgs": true
-        }
-      ]
-    },
     "get": {
       "name": "get",
       "description": "Get terraform modules",
@@ -123,9 +113,6 @@
         {
           "exec": "jest --passWithNoTests --updateSnapshot",
           "receiveArgs": true
-        },
-        {
-          "spawn": "eslint"
         }
       ]
     },
@@ -146,13 +133,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,cdktf-constructs,constructs,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,projen,ts-jest,ts-node,typescript,cdktf"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,cdktf-constructs,constructs,jest,jest-junit,projen,ts-jest,ts-node,typescript,cdktf"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser cdktf-constructs constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest ts-node typescript cdktf"
+          "exec": "pnpm update @types/jest @types/node cdktf-constructs constructs jest jest-junit projen ts-jest ts-node typescript cdktf"
         },
         {
           "exec": "npx projen"

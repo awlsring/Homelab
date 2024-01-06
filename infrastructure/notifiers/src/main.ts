@@ -1,23 +1,33 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
-};
+#!/usr/bin/env node
+import "source-map-support/register";
+import { App, Environment } from "aws-cdk-lib";
+import { MonthlyCostNotifierStack } from "./stacks/monthly-cost-notifier-stack";
+import { TrueNasAlertNotifierStack } from "./stacks/truenas-notifier-stack";
 
 const app = new App();
 
-new MyStack(app, 'notifiers-dev', { env: devEnv });
-// new MyStack(app, 'notifiers-prod', { env: prodEnv });
+const account = "787585406569";
 
-app.synth();
+const env: Environment = {
+  account: account,
+  region: "us-west-2",
+};
+
+const defaultProps = {
+  env: env,
+};
+
+new MonthlyCostNotifierStack(app, "MonthlyCostNotifier", {
+  ...defaultProps,
+  accountId: account,
+  webhook: process.env.DISCORD_WEBHOOK!,
+  webhookAvatar: "https://m.media-amazon.com/images/I/51XX7JzrbAL.jpg",
+});
+
+new TrueNasAlertNotifierStack(app, "TrueNasAlertNotifier", {
+  ...defaultProps,
+  webhook: process.env.DISCORD_WEBHOOK!,
+  truenasUrl: "https://truenas.awlsring-sea.drigs.org",
+  displayCurrentAlerts: false,
+  webhookAvatar: "https://avatars.githubusercontent.com/u/53482242?s=200&v=4",
+});

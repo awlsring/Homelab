@@ -86,27 +86,12 @@ importers:
       '@types/node':
         specifier: ^16
         version: 16.18.69
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       aws-cdk-lib:
         specifier: 2.118.0
         version: 2.118.0(constructs@10.3.0)
       constructs:
         specifier: 10.3.0
         version: 10.3.0
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^27
         version: 27.5.1(ts-node@10.9.2)
@@ -146,27 +131,12 @@ importers:
       '@types/node':
         specifier: ^16
         version: 16.18.69
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       cdk8s:
         specifier: 2.68.23
         version: 2.68.23(constructs@10.3.0)
       constructs:
         specifier: 10.3.0
         version: 10.3.0
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^27
         version: 27.5.1(ts-node@10.9.2)
@@ -206,27 +176,12 @@ importers:
       '@types/node':
         specifier: ^16
         version: 16.18.69
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       cdktf:
         specifier: 0.19.2
         version: 0.19.2(constructs@10.3.0)
       constructs:
         specifier: 10.3.0
         version: 10.3.0
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^27
         version: 27.5.1(ts-node@10.9.2)
@@ -316,27 +271,12 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.4
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       cdk8s-cli:
         specifier: ^2.198.27
         version: 2.198.27
       cdk8s-constructs:
         specifier: ^0.0.0
         version: link:../../../constructs/cdk8s
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -371,27 +311,12 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.4
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       cdk8s-cli:
         specifier: ^2.198.27
         version: 2.198.27
       cdk8s-constructs:
         specifier: ^0.0.0
         version: link:../../../constructs/cdk8s
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -410,12 +335,18 @@ importers:
 
   infrastructure/notifiers:
     dependencies:
+      '@awlsring/cdk-aws-discord-notifiers':
+        specifier: ^0.0.293
+        version: 0.0.293(aws-cdk-lib@2.118.0)(constructs@10.3.0)
       aws-cdk-lib:
         specifier: ^2.118.0
         version: 2.118.0(constructs@10.3.0)
       constructs:
         specifier: ^10.3.0
         version: 10.3.0
+      source-map-support:
+        specifier: ^0.5.21
+        version: 0.5.21
     devDependencies:
       '@types/jest':
         specifier: ^29.5.11
@@ -423,12 +354,6 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.4
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       aws-cdk:
         specifier: ^2.118.0
         version: 2.118.0
@@ -438,15 +363,6 @@ importers:
       esbuild:
         specifier: ^0.19.11
         version: 0.19.11
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -481,27 +397,12 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.4
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^6
-        version: 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.56.0)(typescript@5.3.3)
-      '@typescript-eslint/parser':
-        specifier: ^6
-        version: 6.17.0(eslint@8.56.0)(typescript@5.3.3)
       cdktf-cli:
         specifier: 0.19.2
         version: 0.19.2(ink@3.2.0)(react@17.0.2)
       cdktf-constructs:
         specifier: ^0.0.0
         version: link:../../constructs/cdktf
-      eslint:
-        specifier: ^8
-        version: 8.56.0
-      eslint-import-resolver-typescript:
-        specifier: ^3.6.1
-        version: 3.6.1(@typescript-eslint/parser@6.17.0)(eslint-plugin-import@2.29.1)(eslint@8.56.0)
-      eslint-plugin-import:
-        specifier: ^2.29.1
-        version: 2.29.1(@typescript-eslint/parser@6.17.0)(eslint-import-resolver-typescript@3.6.1)(eslint@8.56.0)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
@@ -535,6 +436,24 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.20
     dev: true
+
+  /@awlsring/cdk-aws-discord-notifiers@0.0.293(aws-cdk-lib@2.118.0)(constructs@10.3.0):
+    resolution: {integrity: sha512-z3sRN+ZRVMUN3zhKU+vmvDgX0v1Yl3Rn7ay1pXQiw0dlQwRVS2I3zeLbtSlsGS1qSrMuF5Wrx/uGmA+jklwXLw==}
+    peerDependencies:
+      aws-cdk-lib: ^2.55.0
+      constructs: ^10.1.52
+    dependencies:
+      aws-cdk-lib: 2.118.0(constructs@10.3.0)
+      constructs: 10.3.0
+    dev: false
+    bundledDependencies:
+      - '@aws-sdk/client-cost-explorer'
+      - '@types/aws-lambda'
+      - '@types/node-fetch'
+      - '@types/pino'
+      - aws-lambda
+      - node-fetch
+      - pino
 
   /@aws-cdk/asset-awscli-v1@2.2.201:
     resolution: {integrity: sha512-INZqcwDinNaIdb5CtW3ez5s943nX5stGBQS6VOP2JDlOFP81hM3fds/9NDknipqfUkZM43dx+HgVvkXYXXARCQ==}
@@ -3837,7 +3756,6 @@ packages:
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
-    dev: true
 
   /buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
@@ -4802,7 +4720,7 @@ packages:
     dependencies:
       semver: 7.5.4
       shelljs: 0.8.5
-      typescript: 5.4.0-dev.20240105
+      typescript: 5.4.0-dev.20240106
     dev: true
 
   /duplexer@0.1.2:
@@ -9643,12 +9561,10 @@ packages:
     dependencies:
       buffer-from: 1.1.2
       source-map: 0.6.1
-    dev: true
 
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-    dev: true
 
   /source-map@0.7.4:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
@@ -10351,8 +10267,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@5.4.0-dev.20240105:
-    resolution: {integrity: sha512-EShumrhMWO0vjg0BpYtIOOWicTRcWnku+fJfLxnjo4P4h3/Zkz9jkmAbtWqb1c6SPNNrL1zGgVNX38dYZlMinQ==}
+  /typescript@5.4.0-dev.20240106:
+    resolution: {integrity: sha512-6QrXfZ24bd5drgl7W3lNn+l/uvh8BkS9cwDf2AIlgASAEJZhrh/fEbNm0mCvUJV95/x5o5kjs6fEp4wBeX7SMQ==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

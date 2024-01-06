@@ -34,16 +34,6 @@
       "name": "default",
       "description": "Synthesize project files"
     },
-    "eslint": {
-      "name": "eslint",
-      "description": "Runs eslint against the codebase",
-      "steps": [
-        {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools",
-          "receiveArgs": true
-        }
-      ]
-    },
     "import": {
       "name": "import",
       "description": "Imports API objects to your app by generating constructs.",
@@ -108,9 +98,6 @@
         {
           "exec": "jest --passWithNoTests --updateSnapshot",
           "receiveArgs": true
-        },
-        {
-          "spawn": "eslint"
         }
       ]
     },
@@ -131,13 +118,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,cdk8s-cli,cdk8s-constructs,constructs,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest,jest-junit,projen,ts-jest,typescript,cdk8s-plus-27,cdk8s"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,cdk8s-cli,cdk8s-constructs,constructs,jest,jest-junit,projen,ts-jest,typescript,cdk8s-plus-27,cdk8s"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser cdk8s-cli cdk8s-constructs constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest typescript cdk8s-plus-27 cdk8s"
+          "exec": "pnpm update @types/jest @types/node cdk8s-cli cdk8s-constructs constructs jest jest-junit projen ts-jest typescript cdk8s-plus-27 cdk8s"
         },
         {
           "exec": "npx projen"
