@@ -1,5 +1,5 @@
 {
-  "name": "prod-cluster",
+  "name": "system-manifests",
   "repository": {
     "type": "git",
     "url": "github:awlsring/Homelab"

@@ -4,6 +4,7 @@ import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
+import { CdkAnsApp } from "./constructs/projen/src/cdkans/cdkans-app";
 import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
 
 // Metadata
@@ -15,6 +16,7 @@ const REPOSITORY = "github:awlsring/Homelab";
 // CDK Versioning
 const CONSTRUCTS_VERSION = "10.3.0";
 const AWS_CDK_VERSION = "2.118.0";
+const CDKANS_VERSION = "0.0.0";
 const CDKTF_VERSION = "0.19.2";
 const CDK8S_VERSION = "2.68.23";
 const CDK8S_CLI_VERSION = "2.198.27";
@@ -61,6 +63,7 @@ const subprojectProps = {
   parent: monorepo,
   constructsVersion: CONSTRUCTS_VERSION,
   cdkVersion: AWS_CDK_VERSION,
+  cdkansVersion: CDKANS_VERSION,
   cdktfVersion: CDKTF_VERSION,
   cdk8sVersion: CDK8S_VERSION,
   cdk8sPlusVersion: CDK8S_PLUS_VERSION,
@@ -147,19 +150,30 @@ new CdkTfTypescriptApp({
   gitignore: ["src/gen"],
 });
 
-// dev manifests
+new CdkAnsApp({
+  ...subprojectProps,
+  name: "cluster",
+  outdir: "infrastructure/cluster",
+});
+
 new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "infrastructure/manifests/dev",
-  name: "dev-cluster",
+  outdir: "manifests/system",
+  name: "system-manifests",
   deps: [cdk8sConstructs.package.packageName],
 });
 
-// prod manifests
 new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "infrastructure/manifests/prod",
-  name: "prod-cluster",
+  outdir: "manifests/platform",
+  name: "platform-manifests",
+  deps: [cdk8sConstructs.package.packageName],
+});
+
+new Cdk8sTypeScriptApp({
+  ...subprojectProps,
+  outdir: "manifests/applications",
+  name: "app-manifests",
   deps: [cdk8sConstructs.package.packageName],
 });
 

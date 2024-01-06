@@ -1,5 +1,5 @@
 {
-  "name": "dev-cluster",
+  "name": "app-manifests",
   "repository": {
     "type": "git",
     "url": "github:awlsring/Homelab"
