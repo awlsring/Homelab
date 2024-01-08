@@ -4,7 +4,6 @@ import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
-import { CdkAnsApp } from "./constructs/projen/src/cdkans/cdkans-app";
 import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
 
 // Metadata
@@ -150,11 +149,27 @@ new CdkTfTypescriptApp({
   gitignore: ["src/gen"],
 });
 
-new CdkAnsApp({
-  ...subprojectProps,
-  name: "cluster",
-  outdir: "infrastructure/cluster",
-});
+// new CdkAnsApp({
+//   ...subprojectProps,
+//   name: "cluster",
+//   outdir: "infrastructure/cluster",
+//   imports: [
+//     {
+//       type: ImportType.MODULE,
+//       namespace: "ansible.builtin",
+//       source: {
+//         repo: "https://github.com/ansible/ansible.git",
+//       },
+//     },
+//     {
+//       type: ImportType.MODULE,
+//       namespace: "ansible.posix",
+//       source: {
+//         repo: "https://github.com/ansible-collections/ansible.posix.git",
+//       },
+//     },
+//   ],
+// });
 
 new Cdk8sTypeScriptApp({
   ...subprojectProps,

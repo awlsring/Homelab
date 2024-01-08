@@ -1,7 +1,7 @@
 import { Component, Project, Task } from "projen";
 
 /**
- * Adds standard AWS CDK tasks to your project.
+ * Adds standard CDKTF tasks to your project.
  */
 export class CdkTfTasks extends Component {
   /**

@@ -80,7 +80,6 @@
       "constructs/aws-cdk",
       "constructs/cdk8s",
       "constructs/cdktf",
-      "infrastructure/cluster",
       "infrastructure/notifiers",
       "manifests/platform",
       "constructs/projen",

@@ -4,10 +4,14 @@ export enum ImportType {
   MODULE = "module",
 }
 
+export interface CodeSource {
+  readonly repo: string;
+}
+
 export interface ImportSpec {
   readonly type: ImportType;
   readonly namespace: string;
-  readonly source: string;
+  readonly source: CodeSource;
 }
 
 export interface CdkAnsConfigOptions {

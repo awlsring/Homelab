@@ -242,43 +242,6 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  infrastructure/cluster:
-    dependencies:
-      cdk-ans:
-        specifier: ^0.0.0
-        version: 0.0.0(constructs@10.3.0)
-      constructs:
-        specifier: ^10.3.0
-        version: 10.3.0
-    devDependencies:
-      '@types/jest':
-        specifier: ^29.5.11
-        version: 29.5.11
-      '@types/node':
-        specifier: ^18
-        version: 18.19.4
-      cdk-ans-cli:
-        specifier: 0.0.0
-        version: 0.0.0
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
-      jest-junit:
-        specifier: ^15
-        version: 15.0.0
-      projen:
-        specifier: ^0.78.10
-        version: 0.78.10(constructs@10.3.0)
-      ts-jest:
-        specifier: ^29.1.1
-        version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
-      ts-node:
-        specifier: ^10.9.2
-        version: 10.9.2(@types/node@18.19.4)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
   infrastructure/notifiers:
     dependencies:
       '@awlsring/cdk-aws-discord-notifiers':
@@ -2396,18 +2359,6 @@ packages:
       ajv: 8.12.0
     dev: true
 
-  /@kwsites/file-exists@1.1.1:
-    resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
-    dependencies:
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@kwsites/promise-deferred@1.1.1:
-    resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
-    dev: true
-
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -3946,45 +3897,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /cdk-ans-cli@0.0.0:
-    resolution: {integrity: sha512-VqQqqUkznTE+xFRdV9viHd5kDAsxmSUqBjFPXKmSGAyWnfnY4QAJ8steKR0bGufKDvg3nxHQoGAatnLP/VEGPw==}
-    hasBin: true
-    dependencies:
-      '@types/node': 16.18.69
-      ajv: 8.12.0
-      axios: 1.6.5
-      cdk-ans: 0.0.0(constructs@10.3.0)
-      codemaker: 1.93.0
-      colors: 1.4.0
-      constructs: 10.3.0
-      fs-extra: 8.1.0
-      jsii-pacmak: 1.93.0
-      jsii-srcmak: 0.1.999
-      json2jsii: 0.3.389
-      semver: 7.5.4
-      shelljs: 0.8.5
-      simple-git: 3.22.0
-      sscaff: 2.0.388
-      table: 6.8.1
-      tmp: 0.2.1
-      yaml: 2.3.4
-      yargs: 15.4.1
-    transitivePeerDependencies:
-      - debug
-      - supports-color
-    dev: true
-
-  /cdk-ans@0.0.0(constructs@10.3.0):
-    resolution: {integrity: sha512-BjxfAuH/wUKpD3hUD/LuyqYzw3vIeiFIae19oCb981IIASiMgRvwGUfQ0TG+7ksORSxTlvYNB7TS1joemIVSyg==}
-    peerDependencies:
-      constructs: ^10
-    dependencies:
-      constructs: 10.3.0
-    bundledDependencies:
-      - fast-json-patch
-      - follow-redirects
-      - yaml
-
   /cdk-constructs@0.0.6(@aws-cdk/assets-docker@0.24.1)(@aws-cdk/assets@0.24.1)(@aws-cdk/aws-cloudwatch@0.24.1)(@aws-cdk/aws-codecommit@0.24.1)(@aws-cdk/aws-codepipeline-api@0.24.1)(@aws-cdk/aws-ecr@0.24.1)(@aws-cdk/aws-events@0.24.1)(@aws-cdk/aws-iam@0.24.1)(@aws-cdk/aws-kms@0.24.1)(@aws-cdk/aws-route53@0.24.1)(@aws-cdk/aws-s3-notifications@0.24.1)(@aws-cdk/aws-sns@0.24.1)(@aws-cdk/cx-api@0.24.1):
     resolution: {integrity: sha512-Xee9nySrAEB+7Yr/pgQRVRq2wVWacqW1+oXdyD7gmoKggaLpMU5m1YFuAoSw5BJjKC1CqJhp/cLkKBQpoG5uXA==}
     dependencies:
@@ -4838,7 +4750,7 @@ packages:
     dependencies:
       semver: 7.5.4
       shelljs: 0.8.5
-      typescript: 5.4.0-dev.20240106
+      typescript: 5.4.0-dev.20240107
     dev: true
 
   /duplexer@0.1.2:
@@ -7787,15 +7699,6 @@ packages:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
     dev: true
 
-  /json2jsii@0.3.389:
-    resolution: {integrity: sha512-ct6j/QAj/jvGN0Oie3kd2aJ7a6UaB2m+TsDs3OjevqZEb2eE0m9iD5kjISaiIR1PNFl00kOZpILXi0cE/WIxuA==}
-    engines: {node: '>= 16.14.0'}
-    dependencies:
-      camelcase: 6.3.0
-      json-schema: 0.4.0
-      snake-case: 3.0.4
-    dev: true
-
   /json2jsii@0.4.3:
     resolution: {integrity: sha512-9PNmX7v94XVR5RiblCvtoCbFy3HALnRqZWLT8LSXEE7wujudmMXzdSFyyK0YwYd7dxpzNXirPf6eoQG5xL9N5A==}
     engines: {node: '>= 16.14.0'}
@@ -9604,16 +9507,6 @@ packages:
       simple-concat: 1.0.1
     dev: true
 
-  /simple-git@3.22.0:
-    resolution: {integrity: sha512-6JujwSs0ac82jkGjMHiCnTifvf1crOiY/+tfs/Pqih6iow7VrpNKRRNdWm6RtaXpvvv/JGNYhlUtLhGFqHF+Yw==}
-    dependencies:
-      '@kwsites/file-exists': 1.1.1
-      '@kwsites/promise-deferred': 1.1.1
-      debug: 4.3.4
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
     requiresBuild: true
@@ -9750,10 +9643,6 @@ packages:
   /sscaff@1.2.274:
     resolution: {integrity: sha512-sztRa50SL1LVxZnF1au6QT1SC2z0S1oEOyi2Kpnlg6urDns93aL32YxiJcNkLcY+VHFtVqm/SRv4cb+6LeoBQA==}
     engines: {node: '>= 12.13.0'}
-    dev: true
-
-  /sscaff@2.0.388:
-    resolution: {integrity: sha512-rt47eYRwZSSwTiawj2C5Eh2I7+DBRCFrjw5med2H1G1x6EnkfoYjKnmCkI4xMoYjdkC4HWPDl8SLSoMVV+iAzA==}
     dev: true
 
   /ssri@10.0.5:
@@ -10409,8 +10298,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@5.4.0-dev.20240106:
-    resolution: {integrity: sha512-6QrXfZ24bd5drgl7W3lNn+l/uvh8BkS9cwDf2AIlgASAEJZhrh/fEbNm0mCvUJV95/x5o5kjs6fEp4wBeX7SMQ==}
+  /typescript@5.4.0-dev.20240107:
+    resolution: {integrity: sha512-6EfwZFaO82JLhOUsgQ3+c4lHuYS4WAQ6xBC767qWwJGf7BKYYeSFUkSptSkNhWOdeCEhdooudx22mkU8LphAPg==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

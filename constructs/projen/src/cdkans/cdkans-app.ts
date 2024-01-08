@@ -63,5 +63,7 @@ export class CdkAnsApp extends TypeScriptAppProject {
     this.addDevDeps(`cdk-ans-cli@${cdkansVersion}`);
     this.addDevDeps("ts-node");
     this.addKeywords("cdkans");
+    // this.preCompileTask.exec(`cdkans import`);
+    this.postCompileTask.exec(`npx ts-node src/main.ts`);
   }
 }

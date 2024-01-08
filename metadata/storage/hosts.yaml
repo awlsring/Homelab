@@ -1,0 +1,4 @@
+hosts:
+  - name: phyrexia
+    system: truenas
+    mac: 00:00:00:00:00:00
