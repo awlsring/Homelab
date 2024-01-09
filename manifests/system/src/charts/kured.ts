@@ -20,7 +20,6 @@ export class KuredChart extends HomelabChart {
       values: {
         configuration: {
           annotateNodes: true,
-          rebootSentinelCommand: 'sh -c "! needs-restarting --reboothint"',
           timeZone: "America/Los_Angeles",
         },
       },

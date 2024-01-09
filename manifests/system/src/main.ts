@@ -4,22 +4,19 @@ import {
   CERT_ISSUER_NAME_STAGING,
   CertIssuerName,
   LetsEncryptEndpoint,
-  ServiceType,
 } from "cdk8s-constructs";
-import { OnePasswordConnectChart } from "./charts/1password-connect";
 import { CertManagerChart } from "./charts/cert-manager";
-import { CloudflareExternalDnsChart } from "./charts/external-dns";
+import { ExternalDnsChart } from "./charts/external-dns";
 import { KuredChart } from "./charts/kured";
-import { LonghornChart } from "./charts/longhorn";
-import { MonitoringChart } from "./charts/monitoring-chart";
-import { TraefikV2Chart } from "./charts/traefik2";
+import { MonitoringChart } from "./charts/monitoring";
+import { NginxIngressChart } from "./charts/nginx";
+import { RookCephChart } from "./charts/rook-ceph";
 
 const app = new App();
 
-new LonghornChart(app, "longhorn");
+new NginxIngressChart(app, "nginx-ingress");
 
 const certIssuerCommon = {
-  endpoint: LetsEncryptEndpoint.STAGING,
   email: "drigsnetwork@gmail.com",
   issuer: CertIssuerName.CLOUDFLARE,
   dnsZones: ["drigs.org"],
@@ -33,18 +30,18 @@ new CertManagerChart(app, "cert-manager", {
   certIssuers: [
     {
       name: CERT_ISSUER_NAME_STAGING,
+      endpoint: LetsEncryptEndpoint.STAGING,
       ...certIssuerCommon,
     },
     {
       name: CERT_ISSUER_NAME_PROD,
+      endpoint: LetsEncryptEndpoint.PROD,
       ...certIssuerCommon,
     },
   ],
 });
 
-new TraefikV2Chart(app, "traefik", {
-  replicas: 3,
-});
+new RookCephChart(app, "rook-ceph");
 
 // new OnePasswordConnectChart(app, "1password-connect", {
 //   serviceType: ServiceType.LOAD_BALANCER,
@@ -57,10 +54,20 @@ new TraefikV2Chart(app, "traefik", {
 
 new MonitoringChart(app, "monitoring");
 
-new CloudflareExternalDnsChart(app, "external-dns", {
-  cloudflareTokenSecretRef: {
-    name: "cloudflare-api-key",
-    key: "TOKEN",
+new ExternalDnsChart(app, "external-dns", {
+  imageTag: "v0.14.0",
+  pihole: {
+    address: "http://10.10.10.10",
+    passwordSecretRef: {
+      name: "pihole-password",
+      key: "EXTERNAL_DNS_PIHOLE_PASSWORD",
+    },
+  },
+  cloudflare: {
+    tokenSecretRef: {
+      name: "cloudflare-api-key",
+      key: "TOKEN",
+    },
   },
 });
 

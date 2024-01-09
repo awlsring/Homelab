@@ -1,5 +1,5 @@
 import { Helm } from "cdk8s";
-import { HomelabChart, HomelabChartProps, ServiceType } from "cdk8s-constructs";
+import { HomelabChart, HomelabChartProps } from "cdk8s-constructs";
 import { PersistentVolumeAccessMode } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 
@@ -16,33 +16,17 @@ export class MonitoringChart extends HomelabChart {
       createNamespace: true,
     });
 
-    const serviceLoadBalancer = {
-      service: {
-        type: ServiceType.LOAD_BALANCER,
-      },
-    };
-
-    const longhornStorage = {
-      volumeClaimTemplate: {
-        spec: {
-          storageClassName: "longhorn",
-          accessModes: [PersistentVolumeAccessMode.READ_WRITE_ONCE],
-          resources: {
-            requests: {
-              storage: "40Gi",
-            },
-          },
-        },
-      },
-    };
-
     new Helm(this, "helm", {
       chart: "prometheus-community/kube-prometheus-stack",
       helmFlags: ["--namespace", MONITORING_NAMESPACE],
       values: {
         alertmanager: {
           enabled: true,
-          ...serviceLoadBalancer,
+          ...this.makeIngress(
+            "prod",
+            "alerts.us-drig-1.drigs.org",
+            "alertmanager-tls",
+          ),
           alertmanagerSpec: {
             storage: {
               ...this.makeVolumeClaimTemplate("2Gi"),
@@ -51,7 +35,11 @@ export class MonitoringChart extends HomelabChart {
         },
         grafana: {
           enabled: true,
-          ...serviceLoadBalancer,
+          ...this.makeIngress(
+            "prod",
+            "grafana.us-drig-1.drigs.org",
+            "grafana-tls",
+          ),
           forceDeployDatasources: true,
           forceDeployDashboards: true,
           additionalDataSources: [
@@ -64,8 +52,11 @@ export class MonitoringChart extends HomelabChart {
         },
         prometheus: {
           enabled: true,
-          ...serviceLoadBalancer,
-          ...longhornStorage,
+          ...this.makeIngress(
+            "prod",
+            "prometheus.us-drig-1.drigs.org",
+            "prometheus-tls",
+          ),
           prometheusSpec: {
             storageSpec: {
               ...this.makeVolumeClaimTemplate("40Gi"),
@@ -80,11 +71,33 @@ export class MonitoringChart extends HomelabChart {
     });
   }
 
+  private makeIngress(issuer: string, domain: string, secretName: string) {
+    return {
+      ingress: {
+        enabled: true,
+        annotations: {
+          "cert-manager.io/cluster-issuer": issuer,
+          "cert-manager.io/duration": "2160h",
+          "cert-manager.io/renew-before": "360h",
+        },
+        hosts: [domain],
+        paths: ["/"],
+        tls: [
+          {
+            hosts: [domain],
+            secretName: secretName,
+          },
+        ],
+        ingressClassName: "nginx",
+      },
+    };
+  }
+
   private makeVolumeClaimTemplate(size: string) {
     return {
       volumeClaimTemplate: {
         spec: {
-          storageClassName: "longhorn",
+          storageClassName: "ceph-block",
           accessModes: [PersistentVolumeAccessMode.READ_WRITE_ONCE],
           resources: {
             requests: {
