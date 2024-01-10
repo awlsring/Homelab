@@ -15,6 +15,7 @@ import { NginxIngressChart } from "./charts/nginx";
 import { NodeFeatureDiscoveryChart } from "./charts/node-feature-discovery";
 import { OnePasswordConnectChart } from "./charts/onepassword-connect";
 import { RookCephChart } from "./charts/rook-ceph";
+import { ExternalSecretsChart } from "./charts/external-secrets";
 
 const BLOCK_STORAGE_CLASS = "ceph-block";
 
@@ -84,6 +85,8 @@ new OnePasswordConnectChart(app, "1password-connect", {
     issuer: CERT_ISSUER_NAME_PROD,
   },
 });
+
+new ExternalSecretsChart(app, "external-secrets");
 
 new KuredChart(app, "kured");
 
