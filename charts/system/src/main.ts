@@ -8,6 +8,7 @@ import {
 import { CertManagerChart } from "./charts/cert-manager";
 import { DeschedulerChart } from "./charts/descheduler";
 import { ExternalDnsChart } from "./charts/external-dns";
+import { IntelDevicePluginsChart } from "./charts/intel-device-operator";
 import { KuredChart } from "./charts/kured";
 import { MonitoringChart } from "./charts/monitoring";
 import { NginxIngressChart } from "./charts/nginx";
@@ -90,5 +91,7 @@ new KuredChart(app, "kured");
 new DeschedulerChart(app, "descheduler");
 
 new NodeFeatureDiscoveryChart(app, "node-feature-discovery");
+
+new IntelDevicePluginsChart(app, "intel-device-plugins");
 
 app.synth();
