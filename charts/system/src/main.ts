@@ -11,6 +11,7 @@ import { ExternalDnsChart } from "./charts/external-dns";
 import { KuredChart } from "./charts/kured";
 import { MonitoringChart } from "./charts/monitoring";
 import { NginxIngressChart } from "./charts/nginx";
+import { NodeFeatureDiscoveryChart } from "./charts/node-feature-discovery";
 import { RookCephChart } from "./charts/rook-ceph";
 
 const BLOCK_STORAGE_CLASS = "ceph-block";
@@ -87,5 +88,7 @@ new ExternalDnsChart(app, "external-dns", {
 new KuredChart(app, "kured");
 
 new DeschedulerChart(app, "descheduler");
+
+new NodeFeatureDiscoveryChart(app, "node-feature-discovery");
 
 app.synth();

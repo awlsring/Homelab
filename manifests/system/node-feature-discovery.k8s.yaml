@@ -1,0 +1,524 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: node-feature-discovery
+  namespace: node-feature-discovery
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4
+  namespace: node-feature-discovery
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-gc
+  namespace: node-feature-discovery
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-worker
+  namespace: node-feature-discovery
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-master-conf
+  namespace: node-feature-discovery
+data:
+  nfd-master.conf: "null"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-topology-updater-conf
+  namespace: node-feature-discovery
+data:
+  nfd-topology-updater.conf: "null"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-worker-conf
+  namespace: node-feature-discovery
+data:
+  nfd-worker.conf: "null"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4
+  namespace: node-feature-discovery
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+      - nodes/status
+    verbs:
+      - get
+      - patch
+      - update
+      - list
+  - apiGroups:
+      - nfd.k8s-sigs.io
+    resources:
+      - nodefeatures
+      - nodefeaturerules
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - coordination.k8s.io
+    resourceNames:
+      - nfd-master.nfd.kubernetes.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-gc
+  namespace: node-feature-discovery
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/proxy
+    verbs:
+      - get
+  - apiGroups:
+      - topology.node.k8s.io
+    resources:
+      - noderesourcetopologies
+    verbs:
+      - delete
+      - list
+  - apiGroups:
+      - nfd.k8s-sigs.io
+    resources:
+      - nodefeatures
+    verbs:
+      - delete
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4
+  namespace: node-feature-discovery
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: node-feature-discovery-helm-c8fbb0a4
+subjects:
+  - kind: ServiceAccount
+    name: node-feature-discovery-helm-c8fbb0a4
+    namespace: node-feature-discovery
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-gc
+  namespace: node-feature-discovery
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: node-feature-discovery-helm-c8fbb0a4-gc
+subjects:
+  - kind: ServiceAccount
+    name: node-feature-discovery-helm-c8fbb0a4-gc
+    namespace: node-feature-discovery
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-worker
+  namespace: node-feature-discovery
+rules:
+  - apiGroups:
+      - nfd.k8s-sigs.io
+    resources:
+      - nodefeatures
+    verbs:
+      - create
+      - get
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+  name: node-feature-discovery-helm-c8fbb0a4-worker
+  namespace: node-feature-discovery
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: node-feature-discovery-helm-c8fbb0a4-worker
+subjects:
+  - kind: ServiceAccount
+    name: node-feature-discovery-helm-c8fbb0a4-worker
+    namespace: node-feature-discovery
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+    role: worker
+  name: node-feature-discovery-helm-c8fbb0a4-worker
+  namespace: node-feature-discovery
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+      app.kubernetes.io/name: node-feature-discovery
+      role: worker
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+        app.kubernetes.io/name: node-feature-discovery
+        role: worker
+    spec:
+      containers:
+        - args:
+            - -metrics=8081
+          command:
+            - nfd-worker
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+          image: registry.k8s.io/nfd/node-feature-discovery:v0.15.0
+          imagePullPolicy: IfNotPresent
+          name: worker
+          ports:
+            - containerPort: 8081
+              name: metrics
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /host-boot
+              name: host-boot
+              readOnly: true
+            - mountPath: /host-etc/os-release
+              name: host-os-release
+              readOnly: true
+            - mountPath: /host-sys
+              name: host-sys
+              readOnly: true
+            - mountPath: /host-usr/lib
+              name: host-usr-lib
+              readOnly: true
+            - mountPath: /host-lib
+              name: host-lib
+              readOnly: true
+            - mountPath: /etc/kubernetes/node-feature-discovery/source.d/
+              name: source-d
+              readOnly: true
+            - mountPath: /etc/kubernetes/node-feature-discovery/features.d/
+              name: features-d
+              readOnly: true
+            - mountPath: /etc/kubernetes/node-feature-discovery
+              name: nfd-worker-conf
+              readOnly: true
+      dnsPolicy: ClusterFirstWithHostNet
+      securityContext: {}
+      serviceAccountName: node-feature-discovery-helm-c8fbb0a4-worker
+      volumes:
+        - hostPath:
+            path: /boot
+          name: host-boot
+        - hostPath:
+            path: /etc/os-release
+          name: host-os-release
+        - hostPath:
+            path: /sys
+          name: host-sys
+        - hostPath:
+            path: /usr/lib
+          name: host-usr-lib
+        - hostPath:
+            path: /lib
+          name: host-lib
+        - hostPath:
+            path: /etc/kubernetes/node-feature-discovery/source.d/
+          name: source-d
+        - hostPath:
+            path: /etc/kubernetes/node-feature-discovery/features.d/
+          name: features-d
+        - configMap:
+            items:
+              - key: nfd-worker.conf
+                path: nfd-worker.conf
+            name: node-feature-discovery-helm-c8fbb0a4-worker-conf
+          name: nfd-worker-conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+    role: master
+  name: node-feature-discovery-helm-c8fbb0a4-master
+  namespace: node-feature-discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+      app.kubernetes.io/name: node-feature-discovery
+      role: master
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+        app.kubernetes.io/name: node-feature-discovery
+        role: master
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: In
+                    values:
+                      - ""
+              weight: 1
+            - preference:
+                matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: In
+                    values:
+                      - ""
+              weight: 1
+      containers:
+        - args:
+            - -crd-controller=true
+            - -metrics=8081
+          command:
+            - nfd-master
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          image: registry.k8s.io/nfd/node-feature-discovery:v0.15.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            grpc:
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          name: master
+          ports:
+            - containerPort: 8080
+              name: grpc
+            - containerPort: 8081
+              name: metrics
+          readinessProbe:
+            failureThreshold: 10
+            grpc:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /etc/kubernetes/node-feature-discovery
+              name: nfd-master-conf
+              readOnly: true
+      enableServiceLinks: false
+      securityContext: {}
+      serviceAccountName: node-feature-discovery-helm-c8fbb0a4
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Equal
+          value: ""
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Equal
+          value: ""
+      volumes:
+        - configMap:
+            items:
+              - key: nfd-master.conf
+                path: nfd-master.conf
+            name: node-feature-discovery-helm-c8fbb0a4-master-conf
+          name: nfd-master-conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: node-feature-discovery
+    app.kubernetes.io/version: v0.15.0
+    helm.sh/chart: node-feature-discovery-0.15.0
+    role: gc
+  name: node-feature-discovery-helm-c8fbb0a4-gc
+  namespace: node-feature-discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+      app.kubernetes.io/name: node-feature-discovery
+      role: gc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: node-feature-discovery-helm-c8fbb0a4
+        app.kubernetes.io/name: node-feature-discovery
+        role: gc
+    spec:
+      containers:
+        - args:
+            - -gc-interval=1h
+          command:
+            - nfd-gc
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          image: registry.k8s.io/nfd/node-feature-discovery:v0.15.0
+          imagePullPolicy: IfNotPresent
+          name: gc
+          ports:
+            - containerPort: 8081
+              name: metrics
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+      dnsPolicy: ClusterFirstWithHostNet
+      securityContext: {}
+      serviceAccountName: node-feature-discovery-helm-c8fbb0a4-gc
