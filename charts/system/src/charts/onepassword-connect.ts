@@ -29,27 +29,27 @@ export class OnePasswordConnectChart extends HomelabChart {
       chart: "1password/connect",
       helmFlags: ["--namespace", NAMESPACE],
       values: {
-        connect: {},
-        tls: {
-          enabled: true,
-          secretName: INGRESS_SECRET_NAME,
-        },
-        ingress: {
-          enabled: true,
-          annotations: {
-            "cert-manager.io/cluster-issuer": props.ingress.issuer,
-            "cert-manager.io/duration": "2160h",
-            "cert-manager.io/renew-before": "360h",
+        connect: {
+          tls: {
+            enabled: true,
+            secretName: INGRESS_SECRET_NAME,
           },
-          hosts: [props.ingress.domain],
-          paths: ["/"],
-          tls: [
-            {
-              hosts: [props.ingress.domain],
-              secretName: INGRESS_SECRET_NAME,
+          ingress: {
+            enabled: true,
+            annotations: {
+              "cert-manager.io/cluster-issuer": props.ingress.issuer,
+              "cert-manager.io/duration": "2160h",
+              "cert-manager.io/renew-before": "360h",
             },
-          ],
-          ingressClassName: "nginx",
+            hosts: [{ host: props.ingress.domain, paths: ["/"] }],
+            tls: [
+              {
+                hosts: [props.ingress.domain],
+                secretName: INGRESS_SECRET_NAME,
+              },
+            ],
+            ingressClassName: "nginx",
+          },
         },
       },
     });
