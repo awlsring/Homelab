@@ -1,5 +1,5 @@
 {
-  "name": "platform-manifests",
+  "name": "app-charts",
   "repository": {
     "type": "git",
     "url": "github:awlsring/Homelab"

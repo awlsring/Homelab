@@ -1,12 +1,32 @@
-import { Helm } from "cdk8s";
+import { Duration, Helm, Size } from "cdk8s";
 import { HomelabChart, HomelabChartProps } from "cdk8s-constructs";
 import { PersistentVolumeAccessMode } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 
 const MONITORING_NAMESPACE = "monitoring";
 
+// Prometheus defaults
+const DEFAULT_PROMETHEUS_RETENTION = Duration.days(7);
+const DEFAULT_PROMETHEUS_STORAGE_SIZE = Size.gibibytes(100);
+
+// Alertmanager defaults
+const DEFAULT_ALERTMANAGER_STORAGE_SIZE = Size.gibibytes(2);
+
+// common defaults
+const DEFAULT_STORAGE_CLASS = "default";
+
 export interface MonitoringChartProps
-  extends Omit<HomelabChartProps, "namespace"> {}
+  extends Omit<HomelabChartProps, "namespace"> {
+  readonly prometheus?: {
+    readonly storageSize?: Size;
+    readonly storageClass?: string;
+    readonly retention?: Duration;
+  };
+  readonly alertmanager?: {
+    readonly storageSize?: Size;
+    readonly storageClass?: string;
+  };
+}
 
 export class MonitoringChart extends HomelabChart {
   constructor(scope: Construct, name: string, props?: MonitoringChartProps) {
@@ -29,7 +49,11 @@ export class MonitoringChart extends HomelabChart {
           ),
           alertmanagerSpec: {
             storage: {
-              ...this.makeVolumeClaimTemplate("2Gi"),
+              ...this.makeVolumeClaimTemplate(
+                props?.alertmanager?.storageSize ??
+                  DEFAULT_ALERTMANAGER_STORAGE_SIZE,
+                props?.alertmanager?.storageClass ?? DEFAULT_STORAGE_CLASS,
+              ),
             },
           },
         },
@@ -58,8 +82,15 @@ export class MonitoringChart extends HomelabChart {
             "prometheus-tls",
           ),
           prometheusSpec: {
+            retention: this.durationToString(
+              props?.prometheus?.retention ?? DEFAULT_PROMETHEUS_RETENTION,
+            ),
             storageSpec: {
-              ...this.makeVolumeClaimTemplate("40Gi"),
+              ...this.makeVolumeClaimTemplate(
+                props?.prometheus?.storageSize ??
+                  DEFAULT_PROMETHEUS_STORAGE_SIZE,
+                props?.prometheus?.storageClass ?? DEFAULT_STORAGE_CLASS,
+              ),
             },
             ruleSelectorNilUsesHelmValues: false,
             serviceMonitorSelectorNilUsesHelmValues: false,
@@ -69,6 +100,37 @@ export class MonitoringChart extends HomelabChart {
         },
       },
     });
+  }
+
+  private sizeToString(size: Size): string {
+    const totalKibibytes = size.toKibibytes();
+    const totalMebibytes = totalKibibytes / 1024;
+    const totalGibibytes = totalMebibytes / 1024;
+    const totalTebibytes = totalGibibytes / 1024;
+
+    if (totalTebibytes >= 1) {
+      return `${Math.ceil(totalTebibytes)}Ti`;
+    } else if (totalGibibytes >= 1) {
+      return `${Math.ceil(totalGibibytes)}Gi`;
+    } else if (totalMebibytes >= 1) {
+      return `${Math.ceil(totalMebibytes)}Mi`;
+    } else {
+      return `${Math.ceil(totalKibibytes)}Ki`;
+    }
+  }
+
+  private durationToString(duration: Duration): string {
+    const totalHours = duration.toHours();
+    const totalDays = Math.floor(totalHours / 24);
+    const totalYears = Math.floor(totalDays / 365);
+
+    if (totalYears > 0) {
+      return `${totalYears}y`;
+    } else if (totalDays > 0) {
+      return `${totalDays}d`;
+    } else {
+      return `${totalHours}h`;
+    }
   }
 
   private makeIngress(issuer: string, domain: string, secretName: string) {
@@ -93,15 +155,15 @@ export class MonitoringChart extends HomelabChart {
     };
   }
 
-  private makeVolumeClaimTemplate(size: string) {
+  private makeVolumeClaimTemplate(size: Size, storageClass: string) {
     return {
       volumeClaimTemplate: {
         spec: {
-          storageClassName: "ceph-block",
+          storageClassName: storageClass,
           accessModes: [PersistentVolumeAccessMode.READ_WRITE_ONCE],
           resources: {
             requests: {
-              storage: size,
+              storage: this.sizeToString(size),
             },
           },
         },

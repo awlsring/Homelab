@@ -1,96 +1,96 @@
 {
-  "name": "system-manifests",
-  "root": "manifests/system",
+  "name": "platform-charts",
+  "root": "charts/platform",
   "targets": {
     "default": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen default",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "pre-compile": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen pre-compile",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "compile": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen compile",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "post-compile": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen post-compile",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen test",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "package": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen package",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "build": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen build",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen test:watch",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "post-upgrade": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen post-upgrade",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "upgrade": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen upgrade",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "watch": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen watch",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "synth": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen synth",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     },
     "import": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpm exec projen import",
-        "cwd": "manifests/system"
+        "cwd": "charts/platform"
       }
     }
   },

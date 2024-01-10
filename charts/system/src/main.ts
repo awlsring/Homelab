@@ -1,4 +1,4 @@
-import { App } from "cdk8s";
+import { App, Duration, Size } from "cdk8s";
 import {
   CERT_ISSUER_NAME_PROD,
   CERT_ISSUER_NAME_STAGING,
@@ -11,6 +11,8 @@ import { KuredChart } from "./charts/kured";
 import { MonitoringChart } from "./charts/monitoring";
 import { NginxIngressChart } from "./charts/nginx";
 import { RookCephChart } from "./charts/rook-ceph";
+
+const BLOCK_STORAGE_CLASS = "ceph-block";
 
 const app = new App();
 
@@ -52,7 +54,17 @@ new RookCephChart(app, "rook-ceph");
 //   },
 // });
 
-new MonitoringChart(app, "monitoring");
+new MonitoringChart(app, "monitoring", {
+  prometheus: {
+    storageSize: Size.gibibytes(300),
+    storageClass: BLOCK_STORAGE_CLASS,
+    retention: Duration.days(5),
+  },
+  alertmanager: {
+    storageSize: Size.gibibytes(2),
+    storageClass: BLOCK_STORAGE_CLASS,
+  },
+});
 
 new ExternalDnsChart(app, "external-dns", {
   imageTag: "v0.14.0",

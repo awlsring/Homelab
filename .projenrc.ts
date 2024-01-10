@@ -5,6 +5,7 @@ import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
 import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
+import { Project } from "projen";
 
 // Metadata
 const AUTHOR = "awlsring";
@@ -171,25 +172,32 @@ new CdkTfTypescriptApp({
 //   ],
 // });
 
+// Charts
 new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "manifests/system",
-  name: "system-manifests",
+  outdir: "charts/system",
+  name: "system-charts",
   deps: [cdk8sConstructs.package.packageName],
 });
 
 new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "manifests/platform",
-  name: "platform-manifests",
+  outdir: "charts/platform",
+  name: "platform-charts",
   deps: [cdk8sConstructs.package.packageName],
 });
 
 new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "manifests/applications",
-  name: "app-manifests",
+  outdir: "charts/applications",
+  name: "app-charts",
   deps: [cdk8sConstructs.package.packageName],
+});
+
+new Project({
+  ...subprojectProps,
+  outdir: "manifests",
+  name: "manifests",
 });
 
 monorepo.synth();
