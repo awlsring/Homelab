@@ -13,6 +13,7 @@ import { KuredChart } from "./charts/kured";
 import { MonitoringChart } from "./charts/monitoring";
 import { NginxIngressChart } from "./charts/nginx";
 import { NodeFeatureDiscoveryChart } from "./charts/node-feature-discovery";
+import { OnePasswordConnectChart } from "./charts/onepassword-connect";
 import { RookCephChart } from "./charts/rook-ceph";
 
 const BLOCK_STORAGE_CLASS = "ceph-block";
@@ -48,15 +49,6 @@ new CertManagerChart(app, "cert-manager", {
 
 new RookCephChart(app, "rook-ceph");
 
-// new OnePasswordConnectChart(app, "1password-connect", {
-//   serviceType: ServiceType.LOAD_BALANCER,
-//   tls: {
-//     name: "1password-connect",
-//     certIssuerName: CERT_ISSUER_NAME_PROD,
-//     dnsNames: ["connect.awlsring-sea.drigs.org"],
-//   },
-// });
-
 new MonitoringChart(app, "monitoring", {
   prometheus: {
     storageSize: Size.gibibytes(300),
@@ -83,6 +75,13 @@ new ExternalDnsChart(app, "external-dns", {
       name: "cloudflare-api-key",
       key: "TOKEN",
     },
+  },
+});
+
+new OnePasswordConnectChart(app, "1password-connect", {
+  ingress: {
+    domain: "connect.us-drig-1.drigs.org",
+    issuer: CERT_ISSUER_NAME_PROD,
   },
 });
 
