@@ -2375,6 +2375,121 @@ The tree node.
 ---
 
 
+### OnepasswordSecretPassword <a name="OnepasswordSecretPassword" id="cdk8s-constructs.OnepasswordSecretPassword"></a>
+
+https://external-secrets.io/latest/provider/1password-automation/.
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.OnepasswordSecretPassword.Initializer"></a>
+
+```typescript
+import { OnepasswordSecretPassword } from 'cdk8s-constructs'
+
+new OnepasswordSecretPassword(scope: Construct, name: string, props: ExternalSecretProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ExternalSecretProps">ExternalSecretProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ExternalSecretProps">ExternalSecretProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.OnepasswordSecretPassword.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.OnepasswordSecretPassword.isConstruct"></a>
+
+```typescript
+import { OnepasswordSecretPassword } from 'cdk8s-constructs'
+
+OnepasswordSecretPassword.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.OnepasswordSecretPassword.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.OnepasswordSecretPassword.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### ServersTransport <a name="ServersTransport" id="cdk8s-constructs.ServersTransport"></a>
 
 ServersTransport is the CRD implementation of a ServersTransport.
@@ -3886,6 +4001,56 @@ public readonly middlewares: Middleware[];
 ```
 
 - *Type:* <a href="#cdk8s-constructs.Middleware">Middleware</a>[]
+
+---
+
+### ExternalSecretProps <a name="ExternalSecretProps" id="cdk8s-constructs.ExternalSecretProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ExternalSecretProps.Initializer"></a>
+
+```typescript
+import { ExternalSecretProps } from 'cdk8s-constructs'
+
+const externalSecretProps: ExternalSecretProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretKey">secretKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretStore">secretStore</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretStoreType">secretStoreType</a></code> | <code><a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a></code> | *No description.* |
+
+---
+
+##### `secretKey`<sup>Required</sup> <a name="secretKey" id="cdk8s-constructs.ExternalSecretProps.property.secretKey"></a>
+
+```typescript
+public readonly secretKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `secretStore`<sup>Required</sup> <a name="secretStore" id="cdk8s-constructs.ExternalSecretProps.property.secretStore"></a>
+
+```typescript
+public readonly secretStore: string;
+```
+
+- *Type:* string
+
+---
+
+##### `secretStoreType`<sup>Required</sup> <a name="secretStoreType" id="cdk8s-constructs.ExternalSecretProps.property.secretStoreType"></a>
+
+```typescript
+public readonly secretStoreType: SecretStoreType;
+```
+
+- *Type:* <a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a>
 
 ---
 
@@ -12415,6 +12580,27 @@ Service.
 ##### `TRAEFIK_SERVICE` <a name="TRAEFIK_SERVICE" id="cdk8s-constructs.MiddlewareSpecErrorsServiceKind.TRAEFIK_SERVICE"></a>
 
 TraefikService.
+
+---
+
+
+### SecretStoreType <a name="SecretStoreType" id="cdk8s-constructs.SecretStoreType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.SecretStoreType.STANDARD">STANDARD</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SecretStoreType.CLUSTER">CLUSTER</a></code> | *No description.* |
+
+---
+
+##### `STANDARD` <a name="STANDARD" id="cdk8s-constructs.SecretStoreType.STANDARD"></a>
+
+---
+
+
+##### `CLUSTER` <a name="CLUSTER" id="cdk8s-constructs.SecretStoreType.CLUSTER"></a>
 
 ---
 
