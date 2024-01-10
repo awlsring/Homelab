@@ -9,3 +9,4 @@ export * from "./constructs/traefik/route";
 export * from "./constructs/secret-reference";
 export * from "./imports/traefik.containo.us";
 export { Middleware, MiddlewareProps } from "./constructs/traefik/middleware";
+export * from "./constructs/external-secrets/onepassword-secret-store";

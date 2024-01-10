@@ -79,14 +79,14 @@ new ExternalDnsChart(app, "external-dns", {
   },
 });
 
+new ExternalSecretsChart(app, "external-secrets");
+
 new OnePasswordConnectChart(app, "1password-connect", {
   ingress: {
     domain: "connect.us-drig-1.drigs.org",
     issuer: CERT_ISSUER_NAME_PROD,
   },
 });
-
-new ExternalSecretsChart(app, "external-secrets");
 
 new KuredChart(app, "kured");
 

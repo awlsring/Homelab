@@ -1,5 +1,9 @@
 import { Helm } from "cdk8s";
-import { HomelabChart, HomelabChartProps } from "cdk8s-constructs";
+import {
+  HomelabChart,
+  HomelabChartProps,
+  OnePasswordClusterSecretStore,
+} from "cdk8s-constructs";
 import { Construct } from "constructs";
 
 const NAMESPACE = "onepassword-connect";
@@ -51,6 +55,15 @@ export class OnePasswordConnectChart extends HomelabChart {
             ingressClassName: "nginx",
           },
         },
+      },
+    });
+
+    new OnePasswordClusterSecretStore(this, "onepassword-secret-store", {
+      connectHost: props.ingress.domain,
+      vaults: ["Homelab"],
+      connectTokenRef: {
+        name: "onepassword-token",
+        key: "token",
       },
     });
   }
