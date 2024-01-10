@@ -6,6 +6,7 @@ import {
   LetsEncryptEndpoint,
 } from "cdk8s-constructs";
 import { CertManagerChart } from "./charts/cert-manager";
+import { DeschedulerChart } from "./charts/descheduler";
 import { ExternalDnsChart } from "./charts/external-dns";
 import { KuredChart } from "./charts/kured";
 import { MonitoringChart } from "./charts/monitoring";
@@ -84,5 +85,7 @@ new ExternalDnsChart(app, "external-dns", {
 });
 
 new KuredChart(app, "kured");
+
+new DeschedulerChart(app, "descheduler");
 
 app.synth();
