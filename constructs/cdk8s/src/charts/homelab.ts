@@ -4,7 +4,7 @@ import { HomelabCertificate } from "../constructs/cert-manager/homelab-certifica
 import { HomelabTraefikIngressRoute } from "../constructs/traefik/ingress-route";
 import { Middleware } from "../constructs/traefik/middleware";
 import { HomelabRoute, IService } from "../constructs/traefik/route";
-import { Namespace } from "../k8s/namespace";
+import { Namespace } from "../constructs/kube/namespace";
 
 export interface ConfigureTlsProps {
   readonly name: string;

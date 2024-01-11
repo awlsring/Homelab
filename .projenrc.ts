@@ -1,11 +1,11 @@
 import { MonorepoTsProject } from "@aws/pdk/monorepo";
+import { Project } from "projen";
 import { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } from "projen/lib/awscdk";
 import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
 import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
-import { Project } from "projen";
 
 // Metadata
 const AUTHOR = "awlsring";
@@ -102,6 +102,7 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
   ...subprojectProps,
   name: "cdk8s-constructs",
   outdir: "constructs/cdk8s",
+  deps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
   testdir: "",
 });
 
