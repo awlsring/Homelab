@@ -2,6 +2,298 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### ArrApp <a name="ArrApp" id="cdk8s-constructs.ArrApp"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ArrApp.Initializer"></a>
+
+```typescript
+import { ArrApp } from 'cdk8s-constructs'
+
+new ArrApp(scope: Construct, name: string, props: ArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrApp.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrApp.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrApp.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ArrAppProps">ArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ArrApp.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ArrApp.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.ArrApp.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ArrAppProps">ArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ArrApp.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ArrApp.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ArrApp.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ArrApp.isConstruct"></a>
+
+```typescript
+import { ArrApp } from 'cdk8s-constructs'
+
+ArrApp.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ArrApp.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrApp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ArrApp.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrApp.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrApp.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ArrApp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.ArrApp.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ArrApp.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.ArrApp.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### BazarrApp <a name="BazarrApp" id="cdk8s-constructs.BazarrApp"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.BazarrApp.Initializer"></a>
+
+```typescript
+import { BazarrApp } from 'cdk8s-constructs'
+
+new BazarrApp(scope: Construct, name: string, props: BazarrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrApp.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrApp.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrApp.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.BazarrAppProps">BazarrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.BazarrApp.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.BazarrApp.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.BazarrApp.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.BazarrAppProps">BazarrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrApp.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.BazarrApp.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrApp.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.BazarrApp.isConstruct"></a>
+
+```typescript
+import { BazarrApp } from 'cdk8s-constructs'
+
+BazarrApp.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.BazarrApp.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrApp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.BazarrApp.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrApp.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrApp.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.BazarrApp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.BazarrApp.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.BazarrApp.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.BazarrApp.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### CertIssuer <a name="CertIssuer" id="cdk8s-constructs.CertIssuer"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.CertIssuer.Initializer"></a>
@@ -50833,6 +51125,298 @@ Returns the apiVersion and kind for "io.k8s.api.storage.v1alpha1.VolumeAttribute
 
 ---
 
+### Lidarr <a name="Lidarr" id="cdk8s-constructs.Lidarr"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Lidarr.Initializer"></a>
+
+```typescript
+import { Lidarr } from 'cdk8s-constructs'
+
+new Lidarr(scope: Construct, name: string, props: DeclaredMediaArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Lidarr.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Lidarr.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Lidarr.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Lidarr.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Lidarr.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Lidarr.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Lidarr.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Lidarr.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Lidarr.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Lidarr.isConstruct"></a>
+
+```typescript
+import { Lidarr } from 'cdk8s-constructs'
+
+Lidarr.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Lidarr.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Lidarr.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Lidarr.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Lidarr.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Lidarr.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Lidarr.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Lidarr.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Lidarr.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Lidarr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### MediaArrApp <a name="MediaArrApp" id="cdk8s-constructs.MediaArrApp"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.MediaArrApp.Initializer"></a>
+
+```typescript
+import { MediaArrApp } from 'cdk8s-constructs'
+
+new MediaArrApp(scope: Construct, name: string, props: MediaArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.MediaArrApp.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrApp.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrApp.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.MediaArrAppProps">MediaArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.MediaArrApp.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.MediaArrApp.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.MediaArrApp.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.MediaArrAppProps">MediaArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.MediaArrApp.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.MediaArrApp.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.MediaArrApp.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.MediaArrApp.isConstruct"></a>
+
+```typescript
+import { MediaArrApp } from 'cdk8s-constructs'
+
+MediaArrApp.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.MediaArrApp.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.MediaArrApp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.MediaArrApp.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrApp.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrApp.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.MediaArrApp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.MediaArrApp.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.MediaArrApp.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.MediaArrApp.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### Middleware <a name="Middleware" id="cdk8s-constructs.Middleware"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.Middleware.Initializer"></a>
@@ -51651,6 +52235,557 @@ The tree node.
 ---
 
 
+### PrometheusRule <a name="PrometheusRule" id="cdk8s-constructs.PrometheusRule"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.PrometheusRule.Initializer"></a>
+
+```typescript
+import { PrometheusRule } from 'cdk8s-constructs'
+
+new PrometheusRule(scope: Construct, name: string, props: PrometheusRuleProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRule.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRule.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRule.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.PrometheusRuleProps">PrometheusRuleProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.PrometheusRule.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.PrometheusRule.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.PrometheusRule.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.PrometheusRuleProps">PrometheusRuleProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRule.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.PrometheusRule.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRule.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.PrometheusRule.isConstruct"></a>
+
+```typescript
+import { PrometheusRule } from 'cdk8s-constructs'
+
+PrometheusRule.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.PrometheusRule.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRule.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.PrometheusRule.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
+### ProwlarrArrApp <a name="ProwlarrArrApp" id="cdk8s-constructs.ProwlarrArrApp"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ProwlarrArrApp.Initializer"></a>
+
+```typescript
+import { ProwlarrArrApp } from 'cdk8s-constructs'
+
+new ProwlarrArrApp(scope: Construct, name: string, props: ArrAppOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ArrAppOptions">ArrAppOptions</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.ProwlarrArrApp.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ArrAppOptions">ArrAppOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ProwlarrArrApp.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ProwlarrArrApp.isConstruct"></a>
+
+```typescript
+import { ProwlarrArrApp } from 'cdk8s-constructs'
+
+ProwlarrArrApp.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ProwlarrArrApp.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ProwlarrArrApp.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ProwlarrArrApp.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.ProwlarrArrApp.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ProwlarrArrApp.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.ProwlarrArrApp.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### Radarr <a name="Radarr" id="cdk8s-constructs.Radarr"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Radarr.Initializer"></a>
+
+```typescript
+import { Radarr } from 'cdk8s-constructs'
+
+new Radarr(scope: Construct, name: string, props: DeclaredMediaArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Radarr.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Radarr.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Radarr.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Radarr.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Radarr.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Radarr.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Radarr.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Radarr.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Radarr.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Radarr.isConstruct"></a>
+
+```typescript
+import { Radarr } from 'cdk8s-constructs'
+
+Radarr.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Radarr.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Radarr.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Radarr.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Radarr.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Radarr.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Radarr.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Radarr.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Radarr.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Radarr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### Readarr <a name="Readarr" id="cdk8s-constructs.Readarr"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Readarr.Initializer"></a>
+
+```typescript
+import { Readarr } from 'cdk8s-constructs'
+
+new Readarr(scope: Construct, name: string, props: DeclaredMediaArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Readarr.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Readarr.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Readarr.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Readarr.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Readarr.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Readarr.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Readarr.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Readarr.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Readarr.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Readarr.isConstruct"></a>
+
+```typescript
+import { Readarr } from 'cdk8s-constructs'
+
+Readarr.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Readarr.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Readarr.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Readarr.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Readarr.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Readarr.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Readarr.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Readarr.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Readarr.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Readarr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### ServersTransport <a name="ServersTransport" id="cdk8s-constructs.ServersTransport"></a>
 
 ServersTransport is the CRD implementation of a ServersTransport.
@@ -51992,6 +53127,265 @@ public readonly GVK: GroupVersionKind;
 Returns the apiVersion and kind for "ServersTransport".
 
 ---
+
+### ServiceMonitor <a name="ServiceMonitor" id="cdk8s-constructs.ServiceMonitor"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ServiceMonitor.Initializer"></a>
+
+```typescript
+import { ServiceMonitor } from 'cdk8s-constructs'
+
+new ServiceMonitor(scope: Construct, name: string, props: ServiceMonitorProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ServiceMonitorProps">ServiceMonitorProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ServiceMonitor.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ServiceMonitor.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.ServiceMonitor.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ServiceMonitorProps">ServiceMonitorProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ServiceMonitor.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ServiceMonitor.isConstruct"></a>
+
+```typescript
+import { ServiceMonitor } from 'cdk8s-constructs'
+
+ServiceMonitor.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ServiceMonitor.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitor.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ServiceMonitor.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
+### Sonarr <a name="Sonarr" id="cdk8s-constructs.Sonarr"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Sonarr.Initializer"></a>
+
+```typescript
+import { Sonarr } from 'cdk8s-constructs'
+
+new Sonarr(scope: Construct, name: string, props: DeclaredMediaArrAppProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Sonarr.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Sonarr.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Sonarr.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Sonarr.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Sonarr.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Sonarr.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.DeclaredMediaArrAppProps">DeclaredMediaArrAppProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Sonarr.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Sonarr.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Sonarr.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Sonarr.isConstruct"></a>
+
+```typescript
+import { Sonarr } from 'cdk8s-constructs'
+
+Sonarr.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Sonarr.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Sonarr.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Sonarr.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Sonarr.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Sonarr.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Sonarr.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Sonarr.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Sonarr.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Sonarr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
 
 ### TlsOption <a name="TlsOption" id="cdk8s-constructs.TlsOption"></a>
 
@@ -53237,6 +54631,327 @@ For example, "v1"
 
 ---
 
+### ArrAppApplicationOption <a name="ArrAppApplicationOption" id="cdk8s-constructs.ArrAppApplicationOption"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ArrAppApplicationOption.Initializer"></a>
+
+```typescript
+import { ArrAppApplicationOption } from 'cdk8s-constructs'
+
+const arrAppApplicationOption: ArrAppApplicationOption = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrAppApplicationOption.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppApplicationOption.property.port">port</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ArrAppApplicationOption.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Required</sup> <a name="port" id="cdk8s-constructs.ArrAppApplicationOption.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+### ArrAppOptions <a name="ArrAppOptions" id="cdk8s-constructs.ArrAppOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ArrAppOptions.Initializer"></a>
+
+```typescript
+import { ArrAppOptions } from 'cdk8s-constructs'
+
+const arrAppOptions: ArrAppOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.metrics">metrics</a></code> | <code><a href="#cdk8s-constructs.MetricOptions">MetricOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.volumeMounts">volumeMounts</a></code> | <code>cdk8s-plus-27.VolumeMount[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppOptions.property.webPort">webPort</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.ArrAppOptions.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ArrAppOptions.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `deployment`<sup>Optional</sup> <a name="deployment" id="cdk8s-constructs.ArrAppOptions.property.deployment"></a>
+
+```typescript
+public readonly deployment: DeploymentOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ArrAppOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `metrics`<sup>Optional</sup> <a name="metrics" id="cdk8s-constructs.ArrAppOptions.property.metrics"></a>
+
+```typescript
+public readonly metrics: MetricOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MetricOptions">MetricOptions</a>
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.ArrAppOptions.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volumeMounts`<sup>Optional</sup> <a name="volumeMounts" id="cdk8s-constructs.ArrAppOptions.property.volumeMounts"></a>
+
+```typescript
+public readonly volumeMounts: VolumeMount[];
+```
+
+- *Type:* cdk8s-plus-27.VolumeMount[]
+
+---
+
+##### `webPort`<sup>Optional</sup> <a name="webPort" id="cdk8s-constructs.ArrAppOptions.property.webPort"></a>
+
+```typescript
+public readonly webPort: number;
+```
+
+- *Type:* number
+
+---
+
+### ArrAppProps <a name="ArrAppProps" id="cdk8s-constructs.ArrAppProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ArrAppProps.Initializer"></a>
+
+```typescript
+import { ArrAppProps } from 'cdk8s-constructs'
+
+const arrAppProps: ArrAppProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.app">app</a></code> | <code><a href="#cdk8s-constructs.ArrAppApplicationOption">ArrAppApplicationOption</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.metrics">metrics</a></code> | <code><a href="#cdk8s-constructs.MetricOptions">MetricOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.volumeMounts">volumeMounts</a></code> | <code>cdk8s-plus-27.VolumeMount[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppProps.property.webPort">webPort</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `app`<sup>Required</sup> <a name="app" id="cdk8s-constructs.ArrAppProps.property.app"></a>
+
+```typescript
+public readonly app: ArrAppApplicationOption;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ArrAppApplicationOption">ArrAppApplicationOption</a>
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.ArrAppProps.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `image`<sup>Required</sup> <a name="image" id="cdk8s-constructs.ArrAppProps.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ArrAppProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `deployment`<sup>Optional</sup> <a name="deployment" id="cdk8s-constructs.ArrAppProps.property.deployment"></a>
+
+```typescript
+public readonly deployment: DeploymentOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ArrAppProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `metrics`<sup>Optional</sup> <a name="metrics" id="cdk8s-constructs.ArrAppProps.property.metrics"></a>
+
+```typescript
+public readonly metrics: MetricOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MetricOptions">MetricOptions</a>
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.ArrAppProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volumeMounts`<sup>Optional</sup> <a name="volumeMounts" id="cdk8s-constructs.ArrAppProps.property.volumeMounts"></a>
+
+```typescript
+public readonly volumeMounts: VolumeMount[];
+```
+
+- *Type:* cdk8s-plus-27.VolumeMount[]
+
+---
+
+##### `webPort`<sup>Optional</sup> <a name="webPort" id="cdk8s-constructs.ArrAppProps.property.webPort"></a>
+
+```typescript
+public readonly webPort: number;
+```
+
+- *Type:* number
+
+---
+
+### ArrAppStorageOptions <a name="ArrAppStorageOptions" id="cdk8s-constructs.ArrAppStorageOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ArrAppStorageOptions.Initializer"></a>
+
+```typescript
+import { ArrAppStorageOptions } from 'cdk8s-constructs'
+
+const arrAppStorageOptions: ArrAppStorageOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ArrAppStorageOptions.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppStorageOptions.property.media">media</a></code> | <code><a href="#cdk8s-constructs.MediaVolumeOptions">MediaVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ArrAppStorageOptions.property.downloads">downloads</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.ArrAppStorageOptions.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `media`<sup>Required</sup> <a name="media" id="cdk8s-constructs.ArrAppStorageOptions.property.media"></a>
+
+```typescript
+public readonly media: MediaVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MediaVolumeOptions">MediaVolumeOptions</a>
+
+---
+
+##### `downloads`<sup>Optional</sup> <a name="downloads" id="cdk8s-constructs.ArrAppStorageOptions.property.downloads"></a>
+
+```typescript
+public readonly downloads: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
 ### AuditAnnotationV1Alpha1 <a name="AuditAnnotationV1Alpha1" id="cdk8s-constructs.AuditAnnotationV1Alpha1"></a>
 
 AuditAnnotation describes how to produce an audit annotation for an API request.
@@ -53670,6 +55385,161 @@ public readonly readOnly: boolean;
 readOnly defaults to false (read/write).
 
 ReadOnly here will force the ReadOnly setting in VolumeMounts.
+
+---
+
+### BazarrAppProps <a name="BazarrAppProps" id="cdk8s-constructs.BazarrAppProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BazarrAppProps.Initializer"></a>
+
+```typescript
+import { BazarrAppProps } from 'cdk8s-constructs'
+
+const bazarrAppProps: BazarrAppProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.metrics">metrics</a></code> | <code><a href="#cdk8s-constructs.MetricOptions">MetricOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.volumeMounts">volumeMounts</a></code> | <code>cdk8s-plus-27.VolumeMount[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.webPort">webPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrAppProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.BazarrStorageApp">BazarrStorageApp</a></code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.BazarrAppProps.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.BazarrAppProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `deployment`<sup>Optional</sup> <a name="deployment" id="cdk8s-constructs.BazarrAppProps.property.deployment"></a>
+
+```typescript
+public readonly deployment: DeploymentOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.BazarrAppProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `metrics`<sup>Optional</sup> <a name="metrics" id="cdk8s-constructs.BazarrAppProps.property.metrics"></a>
+
+```typescript
+public readonly metrics: MetricOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MetricOptions">MetricOptions</a>
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.BazarrAppProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volumeMounts`<sup>Optional</sup> <a name="volumeMounts" id="cdk8s-constructs.BazarrAppProps.property.volumeMounts"></a>
+
+```typescript
+public readonly volumeMounts: VolumeMount[];
+```
+
+- *Type:* cdk8s-plus-27.VolumeMount[]
+
+---
+
+##### `webPort`<sup>Optional</sup> <a name="webPort" id="cdk8s-constructs.BazarrAppProps.property.webPort"></a>
+
+```typescript
+public readonly webPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.BazarrAppProps.property.storage"></a>
+
+```typescript
+public readonly storage: BazarrStorageApp;
+```
+
+- *Type:* <a href="#cdk8s-constructs.BazarrStorageApp">BazarrStorageApp</a>
+
+---
+
+### BazarrStorageApp <a name="BazarrStorageApp" id="cdk8s-constructs.BazarrStorageApp"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BazarrStorageApp.Initializer"></a>
+
+```typescript
+import { BazarrStorageApp } from 'cdk8s-constructs'
+
+const bazarrStorageApp: BazarrStorageApp = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BazarrStorageApp.property.movies">movies</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BazarrStorageApp.property.tv">tv</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `movies`<sup>Optional</sup> <a name="movies" id="cdk8s-constructs.BazarrStorageApp.property.movies"></a>
+
+```typescript
+public readonly movies: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `tv`<sup>Optional</sup> <a name="tv" id="cdk8s-constructs.BazarrStorageApp.property.tv"></a>
+
+```typescript
+public readonly tv: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
 
 ---
 
@@ -55126,6 +56996,56 @@ public readonly middlewares: Middleware[];
 ```
 
 - *Type:* <a href="#cdk8s-constructs.Middleware">Middleware</a>[]
+
+---
+
+### ConfigVolumeOptions <a name="ConfigVolumeOptions" id="cdk8s-constructs.ConfigVolumeOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ConfigVolumeOptions.Initializer"></a>
+
+```typescript
+import { ConfigVolumeOptions } from 'cdk8s-constructs'
+
+const configVolumeOptions: ConfigVolumeOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ConfigVolumeOptions.property.configVolume">configVolume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ConfigVolumeOptions.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ConfigVolumeOptions.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configVolume`<sup>Optional</sup> <a name="configVolume" id="cdk8s-constructs.ConfigVolumeOptions.property.configVolume"></a>
+
+```typescript
+public readonly configVolume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.ConfigVolumeOptions.property.size"></a>
+
+```typescript
+public readonly size: Size;
+```
+
+- *Type:* cdk8s.Size
+
+---
+
+##### `storageClass`<sup>Optional</sup> <a name="storageClass" id="cdk8s-constructs.ConfigVolumeOptions.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -57305,6 +59225,161 @@ Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
 
 ---
 
+### DeclaredMediaArrAppProps <a name="DeclaredMediaArrAppProps" id="cdk8s-constructs.DeclaredMediaArrAppProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.DeclaredMediaArrAppProps.Initializer"></a>
+
+```typescript
+import { DeclaredMediaArrAppProps } from 'cdk8s-constructs'
+
+const declaredMediaArrAppProps: DeclaredMediaArrAppProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.metrics">metrics</a></code> | <code><a href="#cdk8s-constructs.MetricOptions">MetricOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.volumeMounts">volumeMounts</a></code> | <code>cdk8s-plus-27.VolumeMount[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.webPort">webPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DeclaredMediaArrAppProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.DelcaredMediaArrAppStorage">DelcaredMediaArrAppStorage</a></code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `deployment`<sup>Optional</sup> <a name="deployment" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.deployment"></a>
+
+```typescript
+public readonly deployment: DeploymentOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `metrics`<sup>Optional</sup> <a name="metrics" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.metrics"></a>
+
+```typescript
+public readonly metrics: MetricOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MetricOptions">MetricOptions</a>
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volumeMounts`<sup>Optional</sup> <a name="volumeMounts" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.volumeMounts"></a>
+
+```typescript
+public readonly volumeMounts: VolumeMount[];
+```
+
+- *Type:* cdk8s-plus-27.VolumeMount[]
+
+---
+
+##### `webPort`<sup>Optional</sup> <a name="webPort" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.webPort"></a>
+
+```typescript
+public readonly webPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.DeclaredMediaArrAppProps.property.storage"></a>
+
+```typescript
+public readonly storage: DelcaredMediaArrAppStorage;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DelcaredMediaArrAppStorage">DelcaredMediaArrAppStorage</a>
+
+---
+
+### DelcaredMediaArrAppStorage <a name="DelcaredMediaArrAppStorage" id="cdk8s-constructs.DelcaredMediaArrAppStorage"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.DelcaredMediaArrAppStorage.Initializer"></a>
+
+```typescript
+import { DelcaredMediaArrAppStorage } from 'cdk8s-constructs'
+
+const delcaredMediaArrAppStorage: DelcaredMediaArrAppStorage = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.DelcaredMediaArrAppStorage.property.media">media</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.DelcaredMediaArrAppStorage.property.downloads">downloads</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `media`<sup>Required</sup> <a name="media" id="cdk8s-constructs.DelcaredMediaArrAppStorage.property.media"></a>
+
+```typescript
+public readonly media: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `downloads`<sup>Optional</sup> <a name="downloads" id="cdk8s-constructs.DelcaredMediaArrAppStorage.property.downloads"></a>
+
+```typescript
+public readonly downloads: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
 ### DeleteOptions <a name="DeleteOptions" id="cdk8s-constructs.DeleteOptions"></a>
 
 DeleteOptions may be provided when deleting an API object.
@@ -57425,6 +59500,34 @@ public readonly propagationPolicy: string;
 Whether and how garbage collection will be performed.
 
 Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
+
+---
+
+### DeploymentOptions <a name="DeploymentOptions" id="cdk8s-constructs.DeploymentOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.DeploymentOptions.Initializer"></a>
+
+```typescript
+import { DeploymentOptions } from 'cdk8s-constructs'
+
+const deploymentOptions: DeploymentOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.DeploymentOptions.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.DeploymentOptions.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -60741,6 +62844,67 @@ public readonly strategy: DeploymentStrategy;
 - *Default:* RollingUpdate with maxSurge and maxUnavailable set to 25%.
 
 Specifies the strategy used to replace old Pods by new ones.
+
+---
+
+### HomelabIngressOptions <a name="HomelabIngressOptions" id="cdk8s-constructs.HomelabIngressOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.HomelabIngressOptions.Initializer"></a>
+
+```typescript
+import { HomelabIngressOptions } from 'cdk8s-constructs'
+
+const homelabIngressOptions: HomelabIngressOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.ingressClass">ingressClass</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.type">type</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+
+---
+
+##### `certIssuer`<sup>Required</sup> <a name="certIssuer" id="cdk8s-constructs.HomelabIngressOptions.property.certIssuer"></a>
+
+```typescript
+public readonly certIssuer: string;
+```
+
+- *Type:* string
+
+---
+
+##### `hostname`<sup>Required</sup> <a name="hostname" id="cdk8s-constructs.HomelabIngressOptions.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ingressClass`<sup>Required</sup> <a name="ingressClass" id="cdk8s-constructs.HomelabIngressOptions.property.ingressClass"></a>
+
+```typescript
+public readonly ingressClass: string;
+```
+
+- *Type:* string
+
+---
+
+##### `type`<sup>Optional</sup> <a name="type" id="cdk8s-constructs.HomelabIngressOptions.property.type"></a>
+
+```typescript
+public readonly type: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
 
 ---
 
@@ -73863,6 +76027,183 @@ The policy cares about an operation if it matches _any_ Rule.
 
 ---
 
+### MediaArrAppProps <a name="MediaArrAppProps" id="cdk8s-constructs.MediaArrAppProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.MediaArrAppProps.Initializer"></a>
+
+```typescript
+import { MediaArrAppProps } from 'cdk8s-constructs'
+
+const mediaArrAppProps: MediaArrAppProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.metrics">metrics</a></code> | <code><a href="#cdk8s-constructs.MetricOptions">MetricOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.volumeMounts">volumeMounts</a></code> | <code>cdk8s-plus-27.VolumeMount[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.webPort">webPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.app">app</a></code> | <code><a href="#cdk8s-constructs.ArrAppApplicationOption">ArrAppApplicationOption</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaArrAppProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.ArrAppStorageOptions">ArrAppStorageOptions</a></code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.MediaArrAppProps.property.config"></a>
+
+```typescript
+public readonly config: ConfigVolumeOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ConfigVolumeOptions">ConfigVolumeOptions</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.MediaArrAppProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `deployment`<sup>Optional</sup> <a name="deployment" id="cdk8s-constructs.MediaArrAppProps.property.deployment"></a>
+
+```typescript
+public readonly deployment: DeploymentOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.DeploymentOptions">DeploymentOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.MediaArrAppProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `metrics`<sup>Optional</sup> <a name="metrics" id="cdk8s-constructs.MediaArrAppProps.property.metrics"></a>
+
+```typescript
+public readonly metrics: MetricOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.MetricOptions">MetricOptions</a>
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.MediaArrAppProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volumeMounts`<sup>Optional</sup> <a name="volumeMounts" id="cdk8s-constructs.MediaArrAppProps.property.volumeMounts"></a>
+
+```typescript
+public readonly volumeMounts: VolumeMount[];
+```
+
+- *Type:* cdk8s-plus-27.VolumeMount[]
+
+---
+
+##### `webPort`<sup>Optional</sup> <a name="webPort" id="cdk8s-constructs.MediaArrAppProps.property.webPort"></a>
+
+```typescript
+public readonly webPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `app`<sup>Required</sup> <a name="app" id="cdk8s-constructs.MediaArrAppProps.property.app"></a>
+
+```typescript
+public readonly app: ArrAppApplicationOption;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ArrAppApplicationOption">ArrAppApplicationOption</a>
+
+---
+
+##### `image`<sup>Required</sup> <a name="image" id="cdk8s-constructs.MediaArrAppProps.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.MediaArrAppProps.property.storage"></a>
+
+```typescript
+public readonly storage: ArrAppStorageOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ArrAppStorageOptions">ArrAppStorageOptions</a>
+
+---
+
+### MediaVolumeOptions <a name="MediaVolumeOptions" id="cdk8s-constructs.MediaVolumeOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.MediaVolumeOptions.Initializer"></a>
+
+```typescript
+import { MediaVolumeOptions } from 'cdk8s-constructs'
+
+const mediaVolumeOptions: MediaVolumeOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.MediaVolumeOptions.property.mountPath">mountPath</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MediaVolumeOptions.property.volume">volume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `mountPath`<sup>Required</sup> <a name="mountPath" id="cdk8s-constructs.MediaVolumeOptions.property.mountPath"></a>
+
+```typescript
+public readonly mountPath: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volume`<sup>Required</sup> <a name="volume" id="cdk8s-constructs.MediaVolumeOptions.property.volume"></a>
+
+```typescript
+public readonly volume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
 ### MetricIdentifierV2 <a name="MetricIdentifierV2" id="cdk8s-constructs.MetricIdentifierV2"></a>
 
 MetricIdentifier defines the name and optionally selector for a metric.
@@ -73907,6 +76248,78 @@ public readonly selector: LabelSelector;
 selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping.
 
 When unset, just the metricName will be used to gather metrics.
+
+---
+
+### MetricOptions <a name="MetricOptions" id="cdk8s-constructs.MetricOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.MetricOptions.Initializer"></a>
+
+```typescript
+import { MetricOptions } from 'cdk8s-constructs'
+
+const metricOptions: MetricOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.MetricOptions.property.application">application</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MetricOptions.property.enableAdditionalMetrics">enableAdditionalMetrics</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MetricOptions.property.enableUnknownQueueMetrics">enableUnknownQueueMetrics</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MetricOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.MetricOptions.property.prometheusRule">prometheusRule</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `application`<sup>Required</sup> <a name="application" id="cdk8s-constructs.MetricOptions.property.application"></a>
+
+```typescript
+public readonly application: string;
+```
+
+- *Type:* string
+
+---
+
+##### `enableAdditionalMetrics`<sup>Optional</sup> <a name="enableAdditionalMetrics" id="cdk8s-constructs.MetricOptions.property.enableAdditionalMetrics"></a>
+
+```typescript
+public readonly enableAdditionalMetrics: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `enableUnknownQueueMetrics`<sup>Optional</sup> <a name="enableUnknownQueueMetrics" id="cdk8s-constructs.MetricOptions.property.enableUnknownQueueMetrics"></a>
+
+```typescript
+public readonly enableUnknownQueueMetrics: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.MetricOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `prometheusRule`<sup>Optional</sup> <a name="prometheusRule" id="cdk8s-constructs.MetricOptions.property.prometheusRule"></a>
+
+```typescript
+public readonly prometheusRule: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -83071,6 +85484,145 @@ sources is the list of volume projections.
 
 ---
 
+### PrometheusRuleGroupOptions <a name="PrometheusRuleGroupOptions" id="cdk8s-constructs.PrometheusRuleGroupOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PrometheusRuleGroupOptions.Initializer"></a>
+
+```typescript
+import { PrometheusRuleGroupOptions } from 'cdk8s-constructs'
+
+const prometheusRuleGroupOptions: PrometheusRuleGroupOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupOptions.property.rules">rules</a></code> | <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions">PrometheusRuleGroupRuleOptions</a>[]</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.PrometheusRuleGroupOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `rules`<sup>Required</sup> <a name="rules" id="cdk8s-constructs.PrometheusRuleGroupOptions.property.rules"></a>
+
+```typescript
+public readonly rules: PrometheusRuleGroupRuleOptions[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions">PrometheusRuleGroupRuleOptions</a>[]
+
+---
+
+### PrometheusRuleGroupRuleOptions <a name="PrometheusRuleGroupRuleOptions" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.Initializer"></a>
+
+```typescript
+import { PrometheusRuleGroupRuleOptions } from 'cdk8s-constructs'
+
+const prometheusRuleGroupRuleOptions: PrometheusRuleGroupRuleOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.alert">alert</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.expression">expression</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.for">for</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.annotations">annotations</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.labels">labels</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+
+---
+
+##### `alert`<sup>Required</sup> <a name="alert" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.alert"></a>
+
+```typescript
+public readonly alert: string;
+```
+
+- *Type:* string
+
+---
+
+##### `expression`<sup>Required</sup> <a name="expression" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.expression"></a>
+
+```typescript
+public readonly expression: string;
+```
+
+- *Type:* string
+
+---
+
+##### `for`<sup>Required</sup> <a name="for" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.for"></a>
+
+```typescript
+public readonly for: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+##### `annotations`<sup>Optional</sup> <a name="annotations" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.annotations"></a>
+
+```typescript
+public readonly annotations: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `labels`<sup>Optional</sup> <a name="labels" id="cdk8s-constructs.PrometheusRuleGroupRuleOptions.property.labels"></a>
+
+```typescript
+public readonly labels: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+### PrometheusRuleProps <a name="PrometheusRuleProps" id="cdk8s-constructs.PrometheusRuleProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PrometheusRuleProps.Initializer"></a>
+
+```typescript
+import { PrometheusRuleProps } from 'cdk8s-constructs'
+
+const prometheusRuleProps: PrometheusRuleProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PrometheusRuleProps.property.groups">groups</a></code> | <code><a href="#cdk8s-constructs.PrometheusRuleGroupOptions">PrometheusRuleGroupOptions</a>[]</code> | *No description.* |
+
+---
+
+##### `groups`<sup>Required</sup> <a name="groups" id="cdk8s-constructs.PrometheusRuleProps.property.groups"></a>
+
+```typescript
+public readonly groups: PrometheusRuleGroupOptions[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.PrometheusRuleGroupOptions">PrometheusRuleGroupOptions</a>[]
+
+---
+
 ### QueuingConfiguration <a name="QueuingConfiguration" id="cdk8s-constructs.QueuingConfiguration"></a>
 
 QueuingConfiguration holds the configuration parameters for queuing.
@@ -86527,6 +89079,106 @@ public readonly cidrs: string[];
 - *Type:* string[]
 
 CIDRs defines the IP blocks in CIDR notation (e.g. "192.168.0.0/24" or "2001:db8::/64") from which to assign service cluster IPs. Max of two CIDRs is allowed, one of each IP family. This field is immutable.
+
+---
+
+### ServiceMonitorEndpoint <a name="ServiceMonitorEndpoint" id="cdk8s-constructs.ServiceMonitorEndpoint"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ServiceMonitorEndpoint.Initializer"></a>
+
+```typescript
+import { ServiceMonitorEndpoint } from 'cdk8s-constructs'
+
+const serviceMonitorEndpoint: ServiceMonitorEndpoint = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.path">path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.port">port</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.interval">interval</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.scrapeTimeout">scrapeTimeout</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="cdk8s-constructs.ServiceMonitorEndpoint.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Required</sup> <a name="port" id="cdk8s-constructs.ServiceMonitorEndpoint.property.port"></a>
+
+```typescript
+public readonly port: string;
+```
+
+- *Type:* string
+
+---
+
+##### `interval`<sup>Optional</sup> <a name="interval" id="cdk8s-constructs.ServiceMonitorEndpoint.property.interval"></a>
+
+```typescript
+public readonly interval: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+##### `scrapeTimeout`<sup>Optional</sup> <a name="scrapeTimeout" id="cdk8s-constructs.ServiceMonitorEndpoint.property.scrapeTimeout"></a>
+
+```typescript
+public readonly scrapeTimeout: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+### ServiceMonitorProps <a name="ServiceMonitorProps" id="cdk8s-constructs.ServiceMonitorProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ServiceMonitorProps.Initializer"></a>
+
+```typescript
+import { ServiceMonitorProps } from 'cdk8s-constructs'
+
+const serviceMonitorProps: ServiceMonitorProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ServiceMonitorProps.property.endpoints">endpoints</a></code> | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint">ServiceMonitorEndpoint</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorProps.property.matchLabels">matchLabels</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+
+---
+
+##### `endpoints`<sup>Required</sup> <a name="endpoints" id="cdk8s-constructs.ServiceMonitorProps.property.endpoints"></a>
+
+```typescript
+public readonly endpoints: ServiceMonitorEndpoint[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.ServiceMonitorEndpoint">ServiceMonitorEndpoint</a>[]
+
+---
+
+##### `matchLabels`<sup>Required</sup> <a name="matchLabels" id="cdk8s-constructs.ServiceMonitorProps.property.matchLabels"></a>
+
+```typescript
+public readonly matchLabels: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
 
 ---
 

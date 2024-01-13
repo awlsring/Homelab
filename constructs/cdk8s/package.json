@@ -44,6 +44,7 @@
   },
   "peerDependencies": {
     "cdk8s": "^2.68.23",
+    "cdk8s-plus-27": "^2.7.70",
     "constructs": "^10.3.0"
   },
   "dependencies": {

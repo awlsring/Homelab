@@ -58,6 +58,11 @@
       "type": "build"
     },
     {
+      "name": "cdk8s-plus-27",
+      "version": "^2.7.70",
+      "type": "peer"
+    },
+    {
       "name": "cdk8s",
       "version": "^2.68.23",
       "type": "peer"

@@ -2,6 +2,7 @@ import { App } from "cdk8s";
 import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "./charts/audiobookshelf";
 import { JellyfinChart } from "./charts/jellyfin";
+import { YarrgChart } from "./charts/yarrg";
 
 const app = new App();
 
@@ -40,4 +41,23 @@ new AudioBookshelfChart(app, "audiobookshelf", {
     certIssuer: "prod",
   },
 });
+
+new YarrgChart(app, "yarrg", {
+  createNamespace: true,
+  namespace: "yarrg",
+  ingress: {
+    ingressClass: "nginx",
+    certIssuer: "prod",
+  },
+  radarr: {
+    hostname: "radarr.us-drig-1.drigs.org",
+    metrics: true,
+  },
+  mediaStorage: {
+    server: "10.0.100.149",
+    serverPath: "/mnt/WD-6D-8T/fin",
+    mountPath: "/media",
+  },
+});
+
 app.synth();

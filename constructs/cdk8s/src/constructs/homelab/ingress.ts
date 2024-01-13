@@ -5,8 +5,16 @@ import {
   IngressProps,
   Secret,
   Service,
+  ServiceType,
 } from "cdk8s-plus-27";
 import { Construct } from "constructs";
+
+export interface HomelabIngressOptions {
+  readonly ingressClass: string;
+  readonly type?: ServiceType;
+  readonly hostname: string;
+  readonly certIssuer: string;
+}
 
 export interface HomelabIngressProps {
   readonly service: Service;

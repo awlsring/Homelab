@@ -103,6 +103,7 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
   name: "cdk8s-constructs",
   outdir: "constructs/cdk8s",
   deps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
+  peerDeps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
   testdir: "",
 });
 
