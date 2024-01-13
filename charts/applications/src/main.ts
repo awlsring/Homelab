@@ -1,8 +1,22 @@
 import { App } from "cdk8s";
 import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "./charts/audiobookshelf";
+import { JellyfinChart } from "./charts/jellyfin";
 
 const app = new App();
+
+new JellyfinChart(app, "jellyfin", {
+  createNamespace: true,
+  namespace: "jellyfin",
+  imageTag: "10.7.0",
+  configStorage: {
+    storageClassName: "ceph-block",
+  },
+  cacheStorage: {
+    storageClassName: "ceph-block",
+  },
+  mediaShares: [],
+});
 
 new AudioBookshelfChart(app, "audiobookshelf", {
   createNamespace: true,

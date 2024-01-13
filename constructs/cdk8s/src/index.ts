@@ -15,3 +15,4 @@ export * from "./constructs/external-secrets/onepassword-secret-store";
 export * from "./constructs/external-secrets/onepassword-secret-password";
 export * from "./imports/k8s";
 export * from "./constructs/homelab/ingress";
+export * from "./constructs/homelab/deployment";

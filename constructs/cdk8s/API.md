@@ -539,6 +539,712 @@ The default namespace for all objects in this chart.
 ---
 
 
+### HomelabDeployment <a name="HomelabDeployment" id="cdk8s-constructs.HomelabDeployment"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabDeployment.Initializer"></a>
+
+```typescript
+import { HomelabDeployment } from 'cdk8s-constructs'
+
+new HomelabDeployment(scope: Construct, name: string, props: HomelabDeploymentProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.HomelabDeploymentProps">HomelabDeploymentProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.HomelabDeployment.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.HomelabDeployment.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.HomelabDeployment.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeploymentProps">HomelabDeploymentProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.addContainer">addContainer</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.addHostAlias">addHostAlias</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.addInitContainer">addInitContainer</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.addVolume">addVolume</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.attachContainer">attachContainer</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toNetworkPolicyPeerConfig">toNetworkPolicyPeerConfig</a></code> | Return the configuration of this peer. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toPodSelector">toPodSelector</a></code> | Convert the peer into a pod selector, if possible. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toPodSelectorConfig">toPodSelectorConfig</a></code> | Return the configuration of this selector. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toSubjectConfiguration">toSubjectConfiguration</a></code> | Return the subject configuration. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.select">select</a></code> | Configure selectors for this workload. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.exposeViaIngress">exposeViaIngress</a></code> | Expose a deployment via an ingress. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.exposeViaService">exposeViaService</a></code> | Expose a deployment via a service. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.markHasAutoscaler">markHasAutoscaler</a></code> | Called on all IScalable targets when they are associated with an autoscaler. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.toScalingTarget">toScalingTarget</a></code> | Return the target spec properties of this Scalable. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.addGpuToContainer">addGpuToContainer</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.HomelabDeployment.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.HomelabDeployment.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.HomelabDeployment.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
+##### `addContainer` <a name="addContainer" id="cdk8s-constructs.HomelabDeployment.addContainer"></a>
+
+```typescript
+public addContainer(cont: ContainerProps): Container
+```
+
+###### `cont`<sup>Required</sup> <a name="cont" id="cdk8s-constructs.HomelabDeployment.addContainer.parameter.cont"></a>
+
+- *Type:* cdk8s-plus-27.ContainerProps
+
+---
+
+##### `addHostAlias` <a name="addHostAlias" id="cdk8s-constructs.HomelabDeployment.addHostAlias"></a>
+
+```typescript
+public addHostAlias(hostAlias: HostAlias): void
+```
+
+###### `hostAlias`<sup>Required</sup> <a name="hostAlias" id="cdk8s-constructs.HomelabDeployment.addHostAlias.parameter.hostAlias"></a>
+
+- *Type:* cdk8s-plus-27.HostAlias
+
+---
+
+##### `addInitContainer` <a name="addInitContainer" id="cdk8s-constructs.HomelabDeployment.addInitContainer"></a>
+
+```typescript
+public addInitContainer(cont: ContainerProps): Container
+```
+
+###### `cont`<sup>Required</sup> <a name="cont" id="cdk8s-constructs.HomelabDeployment.addInitContainer.parameter.cont"></a>
+
+- *Type:* cdk8s-plus-27.ContainerProps
+
+---
+
+##### `addVolume` <a name="addVolume" id="cdk8s-constructs.HomelabDeployment.addVolume"></a>
+
+```typescript
+public addVolume(vol: Volume): void
+```
+
+###### `vol`<sup>Required</sup> <a name="vol" id="cdk8s-constructs.HomelabDeployment.addVolume.parameter.vol"></a>
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `attachContainer` <a name="attachContainer" id="cdk8s-constructs.HomelabDeployment.attachContainer"></a>
+
+```typescript
+public attachContainer(cont: Container): void
+```
+
+###### `cont`<sup>Required</sup> <a name="cont" id="cdk8s-constructs.HomelabDeployment.attachContainer.parameter.cont"></a>
+
+- *Type:* cdk8s-plus-27.Container
+
+---
+
+##### `toNetworkPolicyPeerConfig` <a name="toNetworkPolicyPeerConfig" id="cdk8s-constructs.HomelabDeployment.toNetworkPolicyPeerConfig"></a>
+
+```typescript
+public toNetworkPolicyPeerConfig(): NetworkPolicyPeerConfig
+```
+
+Return the configuration of this peer.
+
+> [INetworkPolicyPeer.toNetworkPolicyPeerConfig()](INetworkPolicyPeer.toNetworkPolicyPeerConfig())
+
+##### `toPodSelector` <a name="toPodSelector" id="cdk8s-constructs.HomelabDeployment.toPodSelector"></a>
+
+```typescript
+public toPodSelector(): IPodSelector
+```
+
+Convert the peer into a pod selector, if possible.
+
+> [INetworkPolicyPeer.toPodSelector()](INetworkPolicyPeer.toPodSelector())
+
+##### `toPodSelectorConfig` <a name="toPodSelectorConfig" id="cdk8s-constructs.HomelabDeployment.toPodSelectorConfig"></a>
+
+```typescript
+public toPodSelectorConfig(): PodSelectorConfig
+```
+
+Return the configuration of this selector.
+
+> [IPodSelector.toPodSelectorConfig()](IPodSelector.toPodSelectorConfig())
+
+##### `toSubjectConfiguration` <a name="toSubjectConfiguration" id="cdk8s-constructs.HomelabDeployment.toSubjectConfiguration"></a>
+
+```typescript
+public toSubjectConfiguration(): SubjectConfiguration
+```
+
+Return the subject configuration.
+
+> [ISubect.toSubjectConfiguration()](ISubect.toSubjectConfiguration())
+
+##### `select` <a name="select" id="cdk8s-constructs.HomelabDeployment.select"></a>
+
+```typescript
+public select(selectors: LabelSelector): void
+```
+
+Configure selectors for this workload.
+
+###### `selectors`<sup>Required</sup> <a name="selectors" id="cdk8s-constructs.HomelabDeployment.select.parameter.selectors"></a>
+
+- *Type:* cdk8s-plus-27.LabelSelector
+
+---
+
+##### `exposeViaIngress` <a name="exposeViaIngress" id="cdk8s-constructs.HomelabDeployment.exposeViaIngress"></a>
+
+```typescript
+public exposeViaIngress(path: string, options?: ExposeDeploymentViaIngressOptions): Ingress
+```
+
+Expose a deployment via an ingress.
+
+This will first expose the deployment with a service, and then expose the service via an ingress.
+
+###### `path`<sup>Required</sup> <a name="path" id="cdk8s-constructs.HomelabDeployment.exposeViaIngress.parameter.path"></a>
+
+- *Type:* string
+
+The ingress path to register under.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="cdk8s-constructs.HomelabDeployment.exposeViaIngress.parameter.options"></a>
+
+- *Type:* cdk8s-plus-27.ExposeDeploymentViaIngressOptions
+
+Additional options.
+
+---
+
+##### `exposeViaService` <a name="exposeViaService" id="cdk8s-constructs.HomelabDeployment.exposeViaService"></a>
+
+```typescript
+public exposeViaService(options?: DeploymentExposeViaServiceOptions): Service
+```
+
+Expose a deployment via a service.
+
+This is equivalent to running `kubectl expose deployment <deployment-name>`.
+
+###### `options`<sup>Optional</sup> <a name="options" id="cdk8s-constructs.HomelabDeployment.exposeViaService.parameter.options"></a>
+
+- *Type:* cdk8s-plus-27.DeploymentExposeViaServiceOptions
+
+Options to determine details of the service and port exposed.
+
+---
+
+##### `markHasAutoscaler` <a name="markHasAutoscaler" id="cdk8s-constructs.HomelabDeployment.markHasAutoscaler"></a>
+
+```typescript
+public markHasAutoscaler(): void
+```
+
+Called on all IScalable targets when they are associated with an autoscaler.
+
+> [IScalable.markHasAutoscaler()](IScalable.markHasAutoscaler())
+
+##### `toScalingTarget` <a name="toScalingTarget" id="cdk8s-constructs.HomelabDeployment.toScalingTarget"></a>
+
+```typescript
+public toScalingTarget(): ScalingTarget
+```
+
+Return the target spec properties of this Scalable.
+
+> [IScalable.toScalingTarget()](IScalable.toScalingTarget())
+
+##### `addGpuToContainer` <a name="addGpuToContainer" id="cdk8s-constructs.HomelabDeployment.addGpuToContainer"></a>
+
+```typescript
+public addGpuToContainer(gpu: GpuType, containerIndex?: number): void
+```
+
+###### `gpu`<sup>Required</sup> <a name="gpu" id="cdk8s-constructs.HomelabDeployment.addGpuToContainer.parameter.gpu"></a>
+
+- *Type:* <a href="#cdk8s-constructs.GpuType">GpuType</a>
+
+---
+
+###### `containerIndex`<sup>Optional</sup> <a name="containerIndex" id="cdk8s-constructs.HomelabDeployment.addGpuToContainer.parameter.containerIndex"></a>
+
+- *Type:* number
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.HomelabDeployment.isConstruct"></a>
+
+```typescript
+import { HomelabDeployment } from 'cdk8s-constructs'
+
+HomelabDeployment.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.HomelabDeployment.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.automountServiceAccountToken">automountServiceAccountToken</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.containers">containers</a></code> | <code>cdk8s-plus-27.Container[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.dns">dns</a></code> | <code>cdk8s-plus-27.PodDns</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.hostAliases">hostAliases</a></code> | <code>cdk8s-plus-27.HostAlias[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.initContainers">initContainers</a></code> | <code>cdk8s-plus-27.Container[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.podMetadata">podMetadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | The metadata of pods in this workload. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.securityContext">securityContext</a></code> | <code>cdk8s-plus-27.PodSecurityContext</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.volumes">volumes</a></code> | <code>cdk8s-plus-27.Volume[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.dockerRegistryAuth">dockerRegistryAuth</a></code> | <code>cdk8s-plus-27.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.hostNetwork">hostNetwork</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.restartPolicy">restartPolicy</a></code> | <code>cdk8s-plus-27.RestartPolicy</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.serviceAccount">serviceAccount</a></code> | <code>cdk8s-plus-27.IServiceAccount</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.terminationGracePeriod">terminationGracePeriod</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.connections">connections</a></code> | <code>cdk8s-plus-27.PodConnections</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.matchExpressions">matchExpressions</a></code> | <code>cdk8s-plus-27.LabelSelectorRequirement[]</code> | The expression matchers this workload will use in order to select pods. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.matchLabels">matchLabels</a></code> | <code>{[ key: string ]: string}</code> | The label matchers this workload will use in order to select pods. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.scheduling">scheduling</a></code> | <code>cdk8s-plus-27.WorkloadScheduling</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.minReady">minReady</a></code> | <code>cdk8s.Duration</code> | Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.progressDeadline">progressDeadline</a></code> | <code>cdk8s.Duration</code> | The maximum duration for a deployment to make progress before it is considered to be failed. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.strategy">strategy</a></code> | <code>cdk8s-plus-27.DeploymentStrategy</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.replicas">replicas</a></code> | <code>number</code> | Number of desired pods. |
+| <code><a href="#cdk8s-constructs.HomelabDeployment.property.hasAutoscaler">hasAutoscaler</a></code> | <code>boolean</code> | If this is a target of an autoscaler. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.HomelabDeployment.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.HomelabDeployment.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.HomelabDeployment.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.HomelabDeployment.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.HomelabDeployment.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.HomelabDeployment.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.HomelabDeployment.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.HomelabDeployment.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.HomelabDeployment.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `automountServiceAccountToken`<sup>Required</sup> <a name="automountServiceAccountToken" id="cdk8s-constructs.HomelabDeployment.property.automountServiceAccountToken"></a>
+
+```typescript
+public readonly automountServiceAccountToken: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `containers`<sup>Required</sup> <a name="containers" id="cdk8s-constructs.HomelabDeployment.property.containers"></a>
+
+```typescript
+public readonly containers: Container[];
+```
+
+- *Type:* cdk8s-plus-27.Container[]
+
+---
+
+##### `dns`<sup>Required</sup> <a name="dns" id="cdk8s-constructs.HomelabDeployment.property.dns"></a>
+
+```typescript
+public readonly dns: PodDns;
+```
+
+- *Type:* cdk8s-plus-27.PodDns
+
+---
+
+##### `hostAliases`<sup>Required</sup> <a name="hostAliases" id="cdk8s-constructs.HomelabDeployment.property.hostAliases"></a>
+
+```typescript
+public readonly hostAliases: HostAlias[];
+```
+
+- *Type:* cdk8s-plus-27.HostAlias[]
+
+---
+
+##### `initContainers`<sup>Required</sup> <a name="initContainers" id="cdk8s-constructs.HomelabDeployment.property.initContainers"></a>
+
+```typescript
+public readonly initContainers: Container[];
+```
+
+- *Type:* cdk8s-plus-27.Container[]
+
+---
+
+##### `podMetadata`<sup>Required</sup> <a name="podMetadata" id="cdk8s-constructs.HomelabDeployment.property.podMetadata"></a>
+
+```typescript
+public readonly podMetadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+The metadata of pods in this workload.
+
+---
+
+##### `securityContext`<sup>Required</sup> <a name="securityContext" id="cdk8s-constructs.HomelabDeployment.property.securityContext"></a>
+
+```typescript
+public readonly securityContext: PodSecurityContext;
+```
+
+- *Type:* cdk8s-plus-27.PodSecurityContext
+
+---
+
+##### `volumes`<sup>Required</sup> <a name="volumes" id="cdk8s-constructs.HomelabDeployment.property.volumes"></a>
+
+```typescript
+public readonly volumes: Volume[];
+```
+
+- *Type:* cdk8s-plus-27.Volume[]
+
+---
+
+##### `dockerRegistryAuth`<sup>Optional</sup> <a name="dockerRegistryAuth" id="cdk8s-constructs.HomelabDeployment.property.dockerRegistryAuth"></a>
+
+```typescript
+public readonly dockerRegistryAuth: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+
+---
+
+##### `hostNetwork`<sup>Optional</sup> <a name="hostNetwork" id="cdk8s-constructs.HomelabDeployment.property.hostNetwork"></a>
+
+```typescript
+public readonly hostNetwork: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `restartPolicy`<sup>Optional</sup> <a name="restartPolicy" id="cdk8s-constructs.HomelabDeployment.property.restartPolicy"></a>
+
+```typescript
+public readonly restartPolicy: RestartPolicy;
+```
+
+- *Type:* cdk8s-plus-27.RestartPolicy
+
+---
+
+##### `serviceAccount`<sup>Optional</sup> <a name="serviceAccount" id="cdk8s-constructs.HomelabDeployment.property.serviceAccount"></a>
+
+```typescript
+public readonly serviceAccount: IServiceAccount;
+```
+
+- *Type:* cdk8s-plus-27.IServiceAccount
+
+---
+
+##### `terminationGracePeriod`<sup>Optional</sup> <a name="terminationGracePeriod" id="cdk8s-constructs.HomelabDeployment.property.terminationGracePeriod"></a>
+
+```typescript
+public readonly terminationGracePeriod: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="cdk8s-constructs.HomelabDeployment.property.connections"></a>
+
+```typescript
+public readonly connections: PodConnections;
+```
+
+- *Type:* cdk8s-plus-27.PodConnections
+
+---
+
+##### `matchExpressions`<sup>Required</sup> <a name="matchExpressions" id="cdk8s-constructs.HomelabDeployment.property.matchExpressions"></a>
+
+```typescript
+public readonly matchExpressions: LabelSelectorRequirement[];
+```
+
+- *Type:* cdk8s-plus-27.LabelSelectorRequirement[]
+
+The expression matchers this workload will use in order to select pods.
+
+Returns a a copy. Use `select()` to add expression matchers.
+
+---
+
+##### `matchLabels`<sup>Required</sup> <a name="matchLabels" id="cdk8s-constructs.HomelabDeployment.property.matchLabels"></a>
+
+```typescript
+public readonly matchLabels: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+The label matchers this workload will use in order to select pods.
+
+Returns a a copy. Use `select()` to add label matchers.
+
+---
+
+##### `scheduling`<sup>Required</sup> <a name="scheduling" id="cdk8s-constructs.HomelabDeployment.property.scheduling"></a>
+
+```typescript
+public readonly scheduling: WorkloadScheduling;
+```
+
+- *Type:* cdk8s-plus-27.WorkloadScheduling
+
+---
+
+##### `minReady`<sup>Required</sup> <a name="minReady" id="cdk8s-constructs.HomelabDeployment.property.minReady"></a>
+
+```typescript
+public readonly minReady: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+---
+
+##### `progressDeadline`<sup>Required</sup> <a name="progressDeadline" id="cdk8s-constructs.HomelabDeployment.property.progressDeadline"></a>
+
+```typescript
+public readonly progressDeadline: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+---
+
+##### `strategy`<sup>Required</sup> <a name="strategy" id="cdk8s-constructs.HomelabDeployment.property.strategy"></a>
+
+```typescript
+public readonly strategy: DeploymentStrategy;
+```
+
+- *Type:* cdk8s-plus-27.DeploymentStrategy
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.HomelabDeployment.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+Number of desired pods.
+
+---
+
+##### `hasAutoscaler`<sup>Required</sup> <a name="hasAutoscaler" id="cdk8s-constructs.HomelabDeployment.property.hasAutoscaler"></a>
+
+```typescript
+public readonly hasAutoscaler: boolean;
+```
+
+- *Type:* boolean
+
+If this is a target of an autoscaler.
+
+---
+
+
 ### HomelabIngress <a name="HomelabIngress" id="cdk8s-constructs.HomelabIngress"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabIngress.Initializer"></a>
@@ -59674,6 +60380,370 @@ public readonly tls: ConfigureTlsProps;
 
 ---
 
+### HomelabDeploymentProps <a name="HomelabDeploymentProps" id="cdk8s-constructs.HomelabDeploymentProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.HomelabDeploymentProps.Initializer"></a>
+
+```typescript
+import { HomelabDeploymentProps } from 'cdk8s-constructs'
+
+const homelabDeploymentProps: HomelabDeploymentProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadata</code> | Metadata that all persisted resources must have, which includes all objects users must create. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.automountServiceAccountToken">automountServiceAccountToken</a></code> | <code>boolean</code> | Indicates whether a service account token should be automatically mounted. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.containers">containers</a></code> | <code>cdk8s-plus-27.ContainerProps[]</code> | List of containers belonging to the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.dns">dns</a></code> | <code>cdk8s-plus-27.PodDnsProps</code> | DNS settings for the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.dockerRegistryAuth">dockerRegistryAuth</a></code> | <code>cdk8s-plus-27.ISecret</code> | A secret containing docker credentials for authenticating to a registry. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.hostAliases">hostAliases</a></code> | <code>cdk8s-plus-27.HostAlias[]</code> | HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.hostNetwork">hostNetwork</a></code> | <code>boolean</code> | Host network for the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.initContainers">initContainers</a></code> | <code>cdk8s-plus-27.ContainerProps[]</code> | List of initialization containers belonging to the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.isolate">isolate</a></code> | <code>boolean</code> | Isolates the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.restartPolicy">restartPolicy</a></code> | <code>cdk8s-plus-27.RestartPolicy</code> | Restart policy for all containers within the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.securityContext">securityContext</a></code> | <code>cdk8s-plus-27.PodSecurityContextProps</code> | SecurityContext holds pod-level security attributes and common container settings. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.serviceAccount">serviceAccount</a></code> | <code>cdk8s-plus-27.IServiceAccount</code> | A service account provides an identity for processes that run in a Pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.terminationGracePeriod">terminationGracePeriod</a></code> | <code>cdk8s.Duration</code> | Grace period until the pod is terminated. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.volumes">volumes</a></code> | <code>cdk8s-plus-27.Volume[]</code> | List of volumes that can be mounted by containers belonging to the pod. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.podMetadata">podMetadata</a></code> | <code>cdk8s.ApiObjectMetadata</code> | The pod metadata of this workload. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.select">select</a></code> | <code>boolean</code> | Automatically allocates a pod label selector for this workload and add it to the pod metadata. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.spread">spread</a></code> | <code>boolean</code> | Automatically spread pods across hostname and zones. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.minReady">minReady</a></code> | <code>cdk8s.Duration</code> | Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.progressDeadline">progressDeadline</a></code> | <code>cdk8s.Duration</code> | The maximum duration for a deployment to make progress before it is considered to be failed. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.replicas">replicas</a></code> | <code>number</code> | Number of desired pods. |
+| <code><a href="#cdk8s-constructs.HomelabDeploymentProps.property.strategy">strategy</a></code> | <code>cdk8s-plus-27.DeploymentStrategy</code> | Specifies the strategy used to replace old Pods by new ones. |
+
+---
+
+##### `metadata`<sup>Optional</sup> <a name="metadata" id="cdk8s-constructs.HomelabDeploymentProps.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadata;
+```
+
+- *Type:* cdk8s.ApiObjectMetadata
+
+Metadata that all persisted resources must have, which includes all objects users must create.
+
+---
+
+##### `automountServiceAccountToken`<sup>Optional</sup> <a name="automountServiceAccountToken" id="cdk8s-constructs.HomelabDeploymentProps.property.automountServiceAccountToken"></a>
+
+```typescript
+public readonly automountServiceAccountToken: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Indicates whether a service account token should be automatically mounted.
+
+> [https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
+
+---
+
+##### `containers`<sup>Optional</sup> <a name="containers" id="cdk8s-constructs.HomelabDeploymentProps.property.containers"></a>
+
+```typescript
+public readonly containers: ContainerProps[];
+```
+
+- *Type:* cdk8s-plus-27.ContainerProps[]
+- *Default:* No containers. Note that a pod spec must include at least one container.
+
+List of containers belonging to the pod.
+
+Containers cannot currently be
+added or removed. There must be at least one container in a Pod.
+
+You can add additionnal containers using `podSpec.addContainer()`
+
+---
+
+##### `dns`<sup>Optional</sup> <a name="dns" id="cdk8s-constructs.HomelabDeploymentProps.property.dns"></a>
+
+```typescript
+public readonly dns: PodDnsProps;
+```
+
+- *Type:* cdk8s-plus-27.PodDnsProps
+- *Default:* policy: DnsPolicy.CLUSTER_FIRST  hostnameAsFQDN: false
+
+DNS settings for the pod.
+
+> [https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+
+---
+
+##### `dockerRegistryAuth`<sup>Optional</sup> <a name="dockerRegistryAuth" id="cdk8s-constructs.HomelabDeploymentProps.property.dockerRegistryAuth"></a>
+
+```typescript
+public readonly dockerRegistryAuth: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+- *Default:* No auth. Images are assumed to be publicly available.
+
+A secret containing docker credentials for authenticating to a registry.
+
+---
+
+##### `hostAliases`<sup>Optional</sup> <a name="hostAliases" id="cdk8s-constructs.HomelabDeploymentProps.property.hostAliases"></a>
+
+```typescript
+public readonly hostAliases: HostAlias[];
+```
+
+- *Type:* cdk8s-plus-27.HostAlias[]
+
+HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+
+---
+
+##### `hostNetwork`<sup>Optional</sup> <a name="hostNetwork" id="cdk8s-constructs.HomelabDeploymentProps.property.hostNetwork"></a>
+
+```typescript
+public readonly hostNetwork: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Host network for the pod.
+
+---
+
+##### `initContainers`<sup>Optional</sup> <a name="initContainers" id="cdk8s-constructs.HomelabDeploymentProps.property.initContainers"></a>
+
+```typescript
+public readonly initContainers: ContainerProps[];
+```
+
+- *Type:* cdk8s-plus-27.ContainerProps[]
+- *Default:* No init containers.
+
+List of initialization containers belonging to the pod.
+
+Init containers are executed in order prior to containers being started.
+If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy.
+The name for an init container or normal container must be unique among all containers.
+Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes.
+The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit
+for each resource type, and then using the max of of that value or the sum of the normal containers.
+Limits are applied to init containers in a similar fashion.
+
+Init containers cannot currently be added ,removed or updated.
+
+> [https://kubernetes.io/docs/concepts/workloads/pods/init-containers/](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/)
+
+---
+
+##### `isolate`<sup>Optional</sup> <a name="isolate" id="cdk8s-constructs.HomelabDeploymentProps.property.isolate"></a>
+
+```typescript
+public readonly isolate: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Isolates the pod.
+
+This will prevent any ingress or egress connections to / from this pod.
+You can however allow explicit connections post instantiation by using the `.connections` property.
+
+---
+
+##### `restartPolicy`<sup>Optional</sup> <a name="restartPolicy" id="cdk8s-constructs.HomelabDeploymentProps.property.restartPolicy"></a>
+
+```typescript
+public readonly restartPolicy: RestartPolicy;
+```
+
+- *Type:* cdk8s-plus-27.RestartPolicy
+- *Default:* RestartPolicy.ALWAYS
+
+Restart policy for all containers within the pod.
+
+> [https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+
+---
+
+##### `securityContext`<sup>Optional</sup> <a name="securityContext" id="cdk8s-constructs.HomelabDeploymentProps.property.securityContext"></a>
+
+```typescript
+public readonly securityContext: PodSecurityContextProps;
+```
+
+- *Type:* cdk8s-plus-27.PodSecurityContextProps
+- *Default:* fsGroupChangePolicy: FsGroupChangePolicy.FsGroupChangePolicy.ALWAYS   ensureNonRoot: true
+
+SecurityContext holds pod-level security attributes and common container settings.
+
+---
+
+##### `serviceAccount`<sup>Optional</sup> <a name="serviceAccount" id="cdk8s-constructs.HomelabDeploymentProps.property.serviceAccount"></a>
+
+```typescript
+public readonly serviceAccount: IServiceAccount;
+```
+
+- *Type:* cdk8s-plus-27.IServiceAccount
+- *Default:* No service account.
+
+A service account provides an identity for processes that run in a Pod.
+
+When you (a human) access the cluster (for example, using kubectl), you are
+authenticated by the apiserver as a particular User Account (currently this
+is usually admin, unless your cluster administrator has customized your
+cluster). Processes in containers inside pods can also contact the
+apiserver. When they do, they are authenticated as a particular Service
+Account (for example, default).
+
+> [https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
+
+---
+
+##### `terminationGracePeriod`<sup>Optional</sup> <a name="terminationGracePeriod" id="cdk8s-constructs.HomelabDeploymentProps.property.terminationGracePeriod"></a>
+
+```typescript
+public readonly terminationGracePeriod: Duration;
+```
+
+- *Type:* cdk8s.Duration
+- *Default:* Duration.seconds(30)
+
+Grace period until the pod is terminated.
+
+---
+
+##### `volumes`<sup>Optional</sup> <a name="volumes" id="cdk8s-constructs.HomelabDeploymentProps.property.volumes"></a>
+
+```typescript
+public readonly volumes: Volume[];
+```
+
+- *Type:* cdk8s-plus-27.Volume[]
+- *Default:* No volumes.
+
+List of volumes that can be mounted by containers belonging to the pod.
+
+You can also add volumes later using `podSpec.addVolume()`
+
+> [https://kubernetes.io/docs/concepts/storage/volumes](https://kubernetes.io/docs/concepts/storage/volumes)
+
+---
+
+##### `podMetadata`<sup>Optional</sup> <a name="podMetadata" id="cdk8s-constructs.HomelabDeploymentProps.property.podMetadata"></a>
+
+```typescript
+public readonly podMetadata: ApiObjectMetadata;
+```
+
+- *Type:* cdk8s.ApiObjectMetadata
+
+The pod metadata of this workload.
+
+---
+
+##### `select`<sup>Optional</sup> <a name="select" id="cdk8s-constructs.HomelabDeploymentProps.property.select"></a>
+
+```typescript
+public readonly select: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Automatically allocates a pod label selector for this workload and add it to the pod metadata.
+
+This ensures this workload manages pods created by
+its pod template.
+
+---
+
+##### `spread`<sup>Optional</sup> <a name="spread" id="cdk8s-constructs.HomelabDeploymentProps.property.spread"></a>
+
+```typescript
+public readonly spread: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Automatically spread pods across hostname and zones.
+
+> [https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints)
+
+---
+
+##### `minReady`<sup>Optional</sup> <a name="minReady" id="cdk8s-constructs.HomelabDeploymentProps.property.minReady"></a>
+
+```typescript
+public readonly minReady: Duration;
+```
+
+- *Type:* cdk8s.Duration
+- *Default:* Duration.seconds(0)
+
+Minimum duration for which a newly created pod should be ready without any of its container crashing, for it to be considered available.
+
+Zero means the pod will be considered available as soon as it is ready.
+
+> [https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#min-ready-seconds)
+
+---
+
+##### `progressDeadline`<sup>Optional</sup> <a name="progressDeadline" id="cdk8s-constructs.HomelabDeploymentProps.property.progressDeadline"></a>
+
+```typescript
+public readonly progressDeadline: Duration;
+```
+
+- *Type:* cdk8s.Duration
+- *Default:* Duration.seconds(600)
+
+The maximum duration for a deployment to make progress before it is considered to be failed.
+
+The deployment controller will continue
+to process failed deployments and a condition with a ProgressDeadlineExceeded
+reason will be surfaced in the deployment status.
+
+Note that progress will not be estimated during the time a deployment is paused.
+
+> [https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#progress-deadline-seconds)
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.HomelabDeploymentProps.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+- *Default:* 2
+
+Number of desired pods.
+
+---
+
+##### `strategy`<sup>Optional</sup> <a name="strategy" id="cdk8s-constructs.HomelabDeploymentProps.property.strategy"></a>
+
+```typescript
+public readonly strategy: DeploymentStrategy;
+```
+
+- *Type:* cdk8s-plus-27.DeploymentStrategy
+- *Default:* RollingUpdate with maxSurge and maxUnavailable set to 25%.
+
+Specifies the strategy used to replace old Pods by new ones.
+
+---
+
 ### HomelabIngressProps <a name="HomelabIngressProps" id="cdk8s-constructs.HomelabIngressProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.HomelabIngressProps.Initializer"></a>
@@ -93243,6 +94313,21 @@ public readonly port: number;
 ---
 
 ##### `TRAEFIC_EXTERNAL` <a name="TRAEFIC_EXTERNAL" id="cdk8s-constructs.ClusterIngressClass.TRAEFIC_EXTERNAL"></a>
+
+---
+
+
+### GpuType <a name="GpuType" id="cdk8s-constructs.GpuType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GpuType.INTEL_INTEGRATED">INTEL_INTEGRATED</a></code> | *No description.* |
+
+---
+
+##### `INTEL_INTEGRATED` <a name="INTEL_INTEGRATED" id="cdk8s-constructs.GpuType.INTEL_INTEGRATED"></a>
 
 ---
 
