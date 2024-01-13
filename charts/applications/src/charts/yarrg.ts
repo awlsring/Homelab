@@ -1,11 +1,25 @@
 import {
   HomelabChart,
   HomelabChartProps,
-  MetricOptions,
+  Lidarr,
+  Bazarr,
   Radarr,
+  Readarr,
+  Sonarr,
+  Prowlarr,
 } from "cdk8s-constructs";
 import { Volume } from "cdk8s-plus-27";
 import { Construct } from "constructs";
+
+export interface CreateArrAppOptions {
+  readonly name: string;
+  readonly media: Volume;
+  readonly ingress: string;
+  readonly issuer: string;
+  readonly hostname: string;
+  readonly metrics?: boolean;
+  readonly imageTag?: string;
+}
 
 export interface ArrAppOptions {
   readonly imageTag?: string;
@@ -19,6 +33,11 @@ export interface YarrgChartProps extends HomelabChartProps {
     readonly certIssuer: string;
   };
   readonly radarr?: ArrAppOptions;
+  readonly sonarr?: ArrAppOptions;
+  readonly lidarr?: ArrAppOptions;
+  readonly readarr?: ArrAppOptions;
+  readonly bazarr?: ArrAppOptions;
+  readonly prowlarr?: ArrAppOptions;
   readonly mediaStorage: {
     readonly server: string;
     readonly serverPath: string;
@@ -37,29 +56,118 @@ export class YarrgChart extends HomelabChart {
       server: props.mediaStorage.server,
       path: props.mediaStorage.serverPath,
     });
+    const mediaMount = {
+      volume: mediaVol,
+      path: "/media",
+    };
 
     if (props.radarr) {
-      let metrics: MetricOptions | undefined = undefined;
-      if (props.radarr.metrics) {
-        metrics = {
-          application: "radarr",
-          prometheusRule: true,
-        };
-      }
       new Radarr(this, "radarr", {
         config: {
           storageClass: "ceph-block",
         },
         storage: {
-          media: mediaVol,
+          media: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.radarr.hostname,
           certIssuer: props.ingress.certIssuer,
         },
-        metrics: metrics,
+        metrics: this.makeMetricsField("radarr", props.radarr.metrics),
       });
     }
+
+    if (props.sonarr) {
+      new Sonarr(this, "sonarr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        storage: {
+          media: mediaMount,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.sonarr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+        metrics: this.makeMetricsField("sonarr", props.sonarr.metrics),
+      });
+    }
+
+    if (props.lidarr) {
+      new Lidarr(this, "lidarr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        storage: {
+          media: mediaMount,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.lidarr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+        metrics: this.makeMetricsField("lidarr", props.lidarr.metrics),
+      });
+    }
+
+    if (props.readarr) {
+      new Readarr(this, "readarr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        storage: {
+          media: mediaMount,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.readarr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+        metrics: this.makeMetricsField("readarr", props.readarr.metrics),
+      });
+    }
+
+    if (props.bazarr) {
+      new Bazarr(this, "bazarr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        storage: {
+          movies: mediaMount,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.bazarr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+        metrics: this.makeMetricsField("bazarr", props.bazarr.metrics),
+      });
+    }
+
+    if (props.prowlarr) {
+      new Prowlarr(this, "prowlarr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.prowlarr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+        metrics: this.makeMetricsField("prowlarr", props.prowlarr.metrics),
+      });
+    }
+  }
+
+  private makeMetricsField(name: string, metrics?: boolean) {
+    if (metrics) {
+      return {
+        application: name,
+        prometheusRule: true,
+      };
+    }
+    return undefined;
   }
 }

@@ -51,7 +51,21 @@ new YarrgChart(app, "yarrg", {
   },
   radarr: {
     hostname: "radarr.us-drig-1.drigs.org",
-    metrics: true,
+  },
+  sonarr: {
+    hostname: "sonarr.us-drig-1.drigs.org",
+  },
+  lidarr: {
+    hostname: "lidarr.us-drig-1.drigs.org",
+  },
+  readarr: {
+    hostname: "readarr.us-drig-1.drigs.org",
+  },
+  bazarr: {
+    hostname: "bazarr.us-drig-1.drigs.org",
+  },
+  prowlarr: {
+    hostname: "prowlarr.us-drig-1.drigs.org",
   },
   mediaStorage: {
     server: "10.0.100.149",

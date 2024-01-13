@@ -53,6 +53,7 @@ export interface ArrAppOptions {
   readonly config: ConfigVolumeOptions;
   readonly metrics?: MetricOptions;
   readonly volumeMounts?: VolumeMount[];
+  readonly probe?: ProbeOptions;
   readonly webPort?: number;
   readonly timezone?: string;
   readonly imageTag?: string;
@@ -63,6 +64,10 @@ export interface ArrAppApplicationOption {
   readonly port: number;
 }
 
+export interface ProbeOptions {
+  readonly liveness?: Probe;
+}
+
 export interface ArrAppProps {
   readonly app: ArrAppApplicationOption;
   readonly deployment?: DeploymentOptions;
@@ -70,6 +75,7 @@ export interface ArrAppProps {
   readonly metrics?: MetricOptions;
   readonly config: ConfigVolumeOptions;
   readonly volumeMounts?: VolumeMount[];
+  readonly probe?: ProbeOptions;
   readonly image: string;
   readonly webPort?: number;
   readonly timezone?: string;
@@ -110,22 +116,6 @@ export class ArrApp extends Construct {
       periodSeconds: Duration.seconds(10),
     });
 
-    const livenessProbe = Probe.fromCommand(
-      [
-        "/usr/bin/env",
-        "bash",
-        "-c",
-        `curl --fail localhost:${props.app.port}/api/v3/system/status?apiKey=\`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml\``,
-      ],
-      {
-        failureThreshold: 5,
-        initialDelaySeconds: Duration.seconds(60),
-        periodSeconds: Duration.seconds(10),
-        successThreshold: 1,
-        timeoutSeconds: Duration.seconds(10),
-      },
-    );
-
     const containers: ContainerProps[] = [
       {
         securityContext: {
@@ -155,7 +145,7 @@ export class ArrApp extends Construct {
         volumeMounts: volumeMounts,
         readiness: readinessProbe,
         startup: startupProbe,
-        liveness: livenessProbe,
+        liveness: props.probe?.liveness,
       },
     ];
     if (props.metrics) {
