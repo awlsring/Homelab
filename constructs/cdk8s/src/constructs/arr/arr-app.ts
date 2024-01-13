@@ -20,7 +20,6 @@ import { HomelabIngress, HomelabIngressOptions } from "../homelab/ingress";
 import { PrometheusRule } from "../prometheus/prometheus-rule";
 import { ServiceMonitor } from "../prometheus/service-monitor";
 
-const DEFAULT_WEB_PORT = 80;
 const DEFAULT_TIME_ZONE = "Etc/UTC";
 const DEFAULT_IMAGE_TAG = "latest";
 const PUID = 1000;
@@ -95,12 +94,28 @@ export class ArrApp extends Construct {
       path: "/config",
     });
 
+    const startupProbe = Probe.fromTcpSocket({
+      port: props.app.port,
+      initialDelaySeconds: Duration.seconds(0),
+      failureThreshold: 30,
+      timeoutSeconds: Duration.seconds(1),
+      periodSeconds: Duration.seconds(5),
+    });
+
+    const readinessProbe = Probe.fromTcpSocket({
+      port: props.app.port,
+      initialDelaySeconds: Duration.seconds(0),
+      failureThreshold: 3,
+      timeoutSeconds: Duration.seconds(1),
+      periodSeconds: Duration.seconds(10),
+    });
+
     const livenessProbe = Probe.fromCommand(
       [
         "/usr/bin/env",
         "bash",
         "-c",
-        `curl --fail localhost:${props.app.port}/api/v3/system/status?apiKey=\`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`,
+        `curl --fail localhost:${props.app.port}/api/v3/system/status?apiKey=\`IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml\``,
       ],
       {
         failureThreshold: 5,
@@ -114,6 +129,8 @@ export class ArrApp extends Construct {
     const containers: ContainerProps[] = [
       {
         securityContext: {
+          privileged: true,
+          allowPrivilegeEscalation: true,
           ensureNonRoot: false,
           readOnlyRootFilesystem: false,
         },
@@ -136,11 +153,13 @@ export class ArrApp extends Construct {
           TZ: EnvValue.fromValue(props.timezone ?? DEFAULT_TIME_ZONE),
         },
         volumeMounts: volumeMounts,
+        readiness: readinessProbe,
+        startup: startupProbe,
         liveness: livenessProbe,
       },
     ];
     if (props.metrics) {
-      containers.push(this.createExportarrSidecar(props.metrics));
+      containers.push(this.createExportarrSidecar(props.metrics, configVol));
     }
 
     this.deployment = new HomelabDeployment(this, "deployment", {
@@ -196,7 +215,7 @@ export class ArrApp extends Construct {
                     description: `${props.app.name} exportarr has disappeared from Prometheus service discovery.`,
                     summary: "Exportarr is down",
                   },
-                  expression: "exportarr_queue_count > 100",
+                  expression: `absent(up{job=~".*home-assistant-radarr.*"} == 1)`,
                   for: Duration.minutes(5),
                   labels: {
                     severity: "critical",
@@ -225,7 +244,11 @@ export class ArrApp extends Construct {
       type: props.ingress.type ?? ServiceType.CLUSTER_IP,
       selector: this.deployment,
       ports: [
-        { port: props.app.port, targetPort: props.webPort ?? DEFAULT_WEB_PORT },
+        {
+          port: props.app.port,
+          protocol: Protocol.TCP,
+          name: "http",
+        },
       ],
     });
 
@@ -237,7 +260,10 @@ export class ArrApp extends Construct {
     });
   }
 
-  private createExportarrSidecar(options: MetricOptions): ContainerProps {
+  private createExportarrSidecar(
+    options: MetricOptions,
+    configVol: Volume,
+  ): ContainerProps {
     const image = `${EXPORTARR_IMAGE}:${options.imageTag ?? DEFAULT_IMAGE_TAG}`;
     const env: Record<string, EnvValue> = {
       URL: EnvValue.fromValue("http://localhost"),
@@ -276,17 +302,23 @@ export class ArrApp extends Construct {
       args: [options.application],
       resources: {
         cpu: {
-          limit: Cpu.millis(100),
-          request: Cpu.millis(500),
+          limit: Cpu.millis(500),
+          request: Cpu.millis(100),
         },
         memory: {
           limit: Size.mebibytes(256),
           request: Size.mebibytes(64),
         },
       },
+      volumeMounts: [
+        {
+          volume: configVol,
+          path: "/config",
+        },
+      ],
       name: EXPORTARR_NAME,
       image: image,
-      ports: [{ name: "monitoring", number: EXPORTARR_PORT }],
+      ports: [{ name: "metrics", number: EXPORTARR_PORT }],
       envVariables: env,
       liveness: liveness,
       readiness: readiness,
