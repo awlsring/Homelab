@@ -2037,6 +2037,163 @@ The tree node.
 ---
 
 
+### Immich <a name="Immich" id="cdk8s-constructs.Immich"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Immich.Initializer"></a>
+
+```typescript
+import { Immich } from 'cdk8s-constructs'
+
+new Immich(scope: Construct, name: string, props: ImmichProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Immich.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Immich.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Immich.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ImmichProps">ImmichProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Immich.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Immich.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Immich.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ImmichProps">ImmichProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Immich.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Immich.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Immich.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Immich.isConstruct"></a>
+
+```typescript
+import { Immich } from 'cdk8s-constructs'
+
+Immich.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Immich.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Immich.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Immich.property.machineLearningService">machineLearningService</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Immich.property.microservicesService">microservicesService</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Immich.property.postgresService">postgresService</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Immich.property.redisService">redisService</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Immich.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `machineLearningService`<sup>Required</sup> <a name="machineLearningService" id="cdk8s-constructs.Immich.property.machineLearningService"></a>
+
+```typescript
+public readonly machineLearningService: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+##### `microservicesService`<sup>Required</sup> <a name="microservicesService" id="cdk8s-constructs.Immich.property.microservicesService"></a>
+
+```typescript
+public readonly microservicesService: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+##### `postgresService`<sup>Required</sup> <a name="postgresService" id="cdk8s-constructs.Immich.property.postgresService"></a>
+
+```typescript
+public readonly postgresService: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+##### `redisService`<sup>Required</sup> <a name="redisService" id="cdk8s-constructs.Immich.property.redisService"></a>
+
+```typescript
+public readonly redisService: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### IngressRoute <a name="IngressRoute" id="cdk8s-constructs.IngressRoute"></a>
 
 IngressRoute is the CRD implementation of a Traefik HTTP Router.
@@ -64208,6 +64365,770 @@ paths is a collection of paths that map requests to backends.
 
 ---
 
+### ImmichGeneralOptions <a name="ImmichGeneralOptions" id="cdk8s-constructs.ImmichGeneralOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichGeneralOptions.Initializer"></a>
+
+```typescript
+import { ImmichGeneralOptions } from 'cdk8s-constructs'
+
+const immichGeneralOptions: ImmichGeneralOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.immichVersion">immichVersion</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.loginMessage">loginMessage</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.logLevel">logLevel</a></code> | <code><a href="#cdk8s-constructs.ImmichLogLevel">ImmichLogLevel</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.mediaLocation">mediaLocation</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.nodeEnvironment">nodeEnvironment</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeneralOptions.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `immichVersion`<sup>Optional</sup> <a name="immichVersion" id="cdk8s-constructs.ImmichGeneralOptions.property.immichVersion"></a>
+
+```typescript
+public readonly immichVersion: string;
+```
+
+- *Type:* string
+
+---
+
+##### `loginMessage`<sup>Optional</sup> <a name="loginMessage" id="cdk8s-constructs.ImmichGeneralOptions.property.loginMessage"></a>
+
+```typescript
+public readonly loginMessage: string;
+```
+
+- *Type:* string
+
+---
+
+##### `logLevel`<sup>Optional</sup> <a name="logLevel" id="cdk8s-constructs.ImmichGeneralOptions.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: ImmichLogLevel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichLogLevel">ImmichLogLevel</a>
+
+---
+
+##### `mediaLocation`<sup>Optional</sup> <a name="mediaLocation" id="cdk8s-constructs.ImmichGeneralOptions.property.mediaLocation"></a>
+
+```typescript
+public readonly mediaLocation: string;
+```
+
+- *Type:* string
+
+---
+
+##### `nodeEnvironment`<sup>Optional</sup> <a name="nodeEnvironment" id="cdk8s-constructs.ImmichGeneralOptions.property.nodeEnvironment"></a>
+
+```typescript
+public readonly nodeEnvironment: string;
+```
+
+- *Type:* string
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.ImmichGeneralOptions.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
+### ImmichGeocodingOptions <a name="ImmichGeocodingOptions" id="cdk8s-constructs.ImmichGeocodingOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichGeocodingOptions.Initializer"></a>
+
+```typescript
+import { ImmichGeocodingOptions } from 'cdk8s-constructs'
+
+const immichGeocodingOptions: ImmichGeocodingOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichGeocodingOptions.property.disable">disable</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeocodingOptions.property.dumpDir">dumpDir</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichGeocodingOptions.property.percision">percision</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `disable`<sup>Optional</sup> <a name="disable" id="cdk8s-constructs.ImmichGeocodingOptions.property.disable"></a>
+
+```typescript
+public readonly disable: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `dumpDir`<sup>Optional</sup> <a name="dumpDir" id="cdk8s-constructs.ImmichGeocodingOptions.property.dumpDir"></a>
+
+```typescript
+public readonly dumpDir: string;
+```
+
+- *Type:* string
+
+---
+
+##### `percision`<sup>Optional</sup> <a name="percision" id="cdk8s-constructs.ImmichGeocodingOptions.property.percision"></a>
+
+```typescript
+public readonly percision: number;
+```
+
+- *Type:* number
+
+---
+
+### ImmichMachineLearningCacheOptions <a name="ImmichMachineLearningCacheOptions" id="cdk8s-constructs.ImmichMachineLearningCacheOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichMachineLearningCacheOptions.Initializer"></a>
+
+```typescript
+import { ImmichMachineLearningCacheOptions } from 'cdk8s-constructs'
+
+const immichMachineLearningCacheOptions: ImmichMachineLearningCacheOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningCacheOptions.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningCacheOptions.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `size`<sup>Required</sup> <a name="size" id="cdk8s-constructs.ImmichMachineLearningCacheOptions.property.size"></a>
+
+```typescript
+public readonly size: Size;
+```
+
+- *Type:* cdk8s.Size
+
+---
+
+##### `storageClass`<sup>Required</sup> <a name="storageClass" id="cdk8s-constructs.ImmichMachineLearningCacheOptions.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
+
+---
+
+### ImmichMachineLearningOptions <a name="ImmichMachineLearningOptions" id="cdk8s-constructs.ImmichMachineLearningOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichMachineLearningOptions.Initializer"></a>
+
+```typescript
+import { ImmichMachineLearningOptions } from 'cdk8s-constructs'
+
+const immichMachineLearningOptions: ImmichMachineLearningOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.cache">cache</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.cacheFolder">cacheFolder</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.classificationModel">classificationModel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.clipImageModel">clipImageModel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.clipTextModel">clipTextModel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.eagerStartup">eagerStartup</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.faceRecognitionModel">faceRecognitionModel</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.minimumFaceScore">minimumFaceScore</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.minimumTagScore">minimumTagScore</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.modelTtl">modelTtl</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions.property.transformerCache">transformerCache</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cache`<sup>Optional</sup> <a name="cache" id="cdk8s-constructs.ImmichMachineLearningOptions.property.cache"></a>
+
+```typescript
+public readonly cache: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `cacheFolder`<sup>Optional</sup> <a name="cacheFolder" id="cdk8s-constructs.ImmichMachineLearningOptions.property.cacheFolder"></a>
+
+```typescript
+public readonly cacheFolder: string;
+```
+
+- *Type:* string
+
+---
+
+##### `classificationModel`<sup>Optional</sup> <a name="classificationModel" id="cdk8s-constructs.ImmichMachineLearningOptions.property.classificationModel"></a>
+
+```typescript
+public readonly classificationModel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `clipImageModel`<sup>Optional</sup> <a name="clipImageModel" id="cdk8s-constructs.ImmichMachineLearningOptions.property.clipImageModel"></a>
+
+```typescript
+public readonly clipImageModel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `clipTextModel`<sup>Optional</sup> <a name="clipTextModel" id="cdk8s-constructs.ImmichMachineLearningOptions.property.clipTextModel"></a>
+
+```typescript
+public readonly clipTextModel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `eagerStartup`<sup>Optional</sup> <a name="eagerStartup" id="cdk8s-constructs.ImmichMachineLearningOptions.property.eagerStartup"></a>
+
+```typescript
+public readonly eagerStartup: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `faceRecognitionModel`<sup>Optional</sup> <a name="faceRecognitionModel" id="cdk8s-constructs.ImmichMachineLearningOptions.property.faceRecognitionModel"></a>
+
+```typescript
+public readonly faceRecognitionModel: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ImmichMachineLearningOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `minimumFaceScore`<sup>Optional</sup> <a name="minimumFaceScore" id="cdk8s-constructs.ImmichMachineLearningOptions.property.minimumFaceScore"></a>
+
+```typescript
+public readonly minimumFaceScore: number;
+```
+
+- *Type:* number
+
+---
+
+##### `minimumTagScore`<sup>Optional</sup> <a name="minimumTagScore" id="cdk8s-constructs.ImmichMachineLearningOptions.property.minimumTagScore"></a>
+
+```typescript
+public readonly minimumTagScore: number;
+```
+
+- *Type:* number
+
+---
+
+##### `modelTtl`<sup>Optional</sup> <a name="modelTtl" id="cdk8s-constructs.ImmichMachineLearningOptions.property.modelTtl"></a>
+
+```typescript
+public readonly modelTtl: number;
+```
+
+- *Type:* number
+
+---
+
+##### `transformerCache`<sup>Optional</sup> <a name="transformerCache" id="cdk8s-constructs.ImmichMachineLearningOptions.property.transformerCache"></a>
+
+```typescript
+public readonly transformerCache: string;
+```
+
+- *Type:* string
+
+---
+
+### ImmichMicroservicesOptions <a name="ImmichMicroservicesOptions" id="cdk8s-constructs.ImmichMicroservicesOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichMicroservicesOptions.Initializer"></a>
+
+```typescript
+import { ImmichMicroservicesOptions } from 'cdk8s-constructs'
+
+const immichMicroservicesOptions: ImmichMicroservicesOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichMicroservicesOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ImmichMicroservicesOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+### ImmichPhotoVolumeOptions <a name="ImmichPhotoVolumeOptions" id="cdk8s-constructs.ImmichPhotoVolumeOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichPhotoVolumeOptions.Initializer"></a>
+
+```typescript
+import { ImmichPhotoVolumeOptions } from 'cdk8s-constructs'
+
+const immichPhotoVolumeOptions: ImmichPhotoVolumeOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichPhotoVolumeOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPhotoVolumeOptions.property.volume">volume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ImmichPhotoVolumeOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `volume`<sup>Required</sup> <a name="volume" id="cdk8s-constructs.ImmichPhotoVolumeOptions.property.volume"></a>
+
+```typescript
+public readonly volume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+### ImmichPostgresOptions <a name="ImmichPostgresOptions" id="cdk8s-constructs.ImmichPostgresOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichPostgresOptions.Initializer"></a>
+
+```typescript
+import { ImmichPostgresOptions } from 'cdk8s-constructs'
+
+const immichPostgresOptions: ImmichPostgresOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.passwordSecret">passwordSecret</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.user">user</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichPostgresOptions.property.port">port</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `database`<sup>Required</sup> <a name="database" id="cdk8s-constructs.ImmichPostgresOptions.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `passwordSecret`<sup>Required</sup> <a name="passwordSecret" id="cdk8s-constructs.ImmichPostgresOptions.property.passwordSecret"></a>
+
+```typescript
+public readonly passwordSecret: string;
+```
+
+- *Type:* string
+
+---
+
+##### `storageClass`<sup>Required</sup> <a name="storageClass" id="cdk8s-constructs.ImmichPostgresOptions.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
+
+---
+
+##### `user`<sup>Required</sup> <a name="user" id="cdk8s-constructs.ImmichPostgresOptions.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.ImmichPostgresOptions.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.ImmichPostgresOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+### ImmichProps <a name="ImmichProps" id="cdk8s-constructs.ImmichProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichProps.Initializer"></a>
+
+```typescript
+import { ImmichProps } from 'cdk8s-constructs'
+
+const immichProps: ImmichProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.postgresOptions">postgresOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichPostgresOptions">ImmichPostgresOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.redisOptions">redisOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichRedisOptions">ImmichRedisOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.serverOptions">serverOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichServerOptions">ImmichServerOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.uploadShare">uploadShare</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.externalApiUrl">externalApiUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.generalOptions">generalOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichGeneralOptions">ImmichGeneralOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.geocoding">geocoding</a></code> | <code><a href="#cdk8s-constructs.ImmichGeocodingOptions">ImmichGeocodingOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.machineLearningOptions">machineLearningOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions">ImmichMachineLearningOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.microservicesOptions">microservicesOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.photoCollectionShares">photoCollectionShares</a></code> | <code><a href="#cdk8s-constructs.ImmichPhotoVolumeOptions">ImmichPhotoVolumeOptions</a>[]</code> | *No description.* |
+
+---
+
+##### `postgresOptions`<sup>Required</sup> <a name="postgresOptions" id="cdk8s-constructs.ImmichProps.property.postgresOptions"></a>
+
+```typescript
+public readonly postgresOptions: ImmichPostgresOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichPostgresOptions">ImmichPostgresOptions</a>
+
+---
+
+##### `redisOptions`<sup>Required</sup> <a name="redisOptions" id="cdk8s-constructs.ImmichProps.property.redisOptions"></a>
+
+```typescript
+public readonly redisOptions: ImmichRedisOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichRedisOptions">ImmichRedisOptions</a>
+
+---
+
+##### `serverOptions`<sup>Required</sup> <a name="serverOptions" id="cdk8s-constructs.ImmichProps.property.serverOptions"></a>
+
+```typescript
+public readonly serverOptions: ImmichServerOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichServerOptions">ImmichServerOptions</a>
+
+---
+
+##### `uploadShare`<sup>Required</sup> <a name="uploadShare" id="cdk8s-constructs.ImmichProps.property.uploadShare"></a>
+
+```typescript
+public readonly uploadShare: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `externalApiUrl`<sup>Optional</sup> <a name="externalApiUrl" id="cdk8s-constructs.ImmichProps.property.externalApiUrl"></a>
+
+```typescript
+public readonly externalApiUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `generalOptions`<sup>Optional</sup> <a name="generalOptions" id="cdk8s-constructs.ImmichProps.property.generalOptions"></a>
+
+```typescript
+public readonly generalOptions: ImmichGeneralOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichGeneralOptions">ImmichGeneralOptions</a>
+
+---
+
+##### `geocoding`<sup>Optional</sup> <a name="geocoding" id="cdk8s-constructs.ImmichProps.property.geocoding"></a>
+
+```typescript
+public readonly geocoding: ImmichGeocodingOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichGeocodingOptions">ImmichGeocodingOptions</a>
+
+---
+
+##### `machineLearningOptions`<sup>Optional</sup> <a name="machineLearningOptions" id="cdk8s-constructs.ImmichProps.property.machineLearningOptions"></a>
+
+```typescript
+public readonly machineLearningOptions: ImmichMachineLearningOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichMachineLearningOptions">ImmichMachineLearningOptions</a>
+
+---
+
+##### `microservicesOptions`<sup>Optional</sup> <a name="microservicesOptions" id="cdk8s-constructs.ImmichProps.property.microservicesOptions"></a>
+
+```typescript
+public readonly microservicesOptions: ImmichMicroservicesOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a>
+
+---
+
+##### `photoCollectionShares`<sup>Optional</sup> <a name="photoCollectionShares" id="cdk8s-constructs.ImmichProps.property.photoCollectionShares"></a>
+
+```typescript
+public readonly photoCollectionShares: ImmichPhotoVolumeOptions[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.ImmichPhotoVolumeOptions">ImmichPhotoVolumeOptions</a>[]
+
+---
+
+### ImmichRedisOptions <a name="ImmichRedisOptions" id="cdk8s-constructs.ImmichRedisOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichRedisOptions.Initializer"></a>
+
+```typescript
+import { ImmichRedisOptions } from 'cdk8s-constructs'
+
+const immichRedisOptions: ImmichRedisOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.create">create</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.dbIndex">dbIndex</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.password">password</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.port">port</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.socket">socket</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.url">url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichRedisOptions.property.user">user</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `create`<sup>Required</sup> <a name="create" id="cdk8s-constructs.ImmichRedisOptions.property.create"></a>
+
+```typescript
+public readonly create: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `dbIndex`<sup>Optional</sup> <a name="dbIndex" id="cdk8s-constructs.ImmichRedisOptions.property.dbIndex"></a>
+
+```typescript
+public readonly dbIndex: number;
+```
+
+- *Type:* number
+
+---
+
+##### `hostname`<sup>Optional</sup> <a name="hostname" id="cdk8s-constructs.ImmichRedisOptions.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ImmichRedisOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `password`<sup>Optional</sup> <a name="password" id="cdk8s-constructs.ImmichRedisOptions.property.password"></a>
+
+```typescript
+public readonly password: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.ImmichRedisOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+##### `socket`<sup>Optional</sup> <a name="socket" id="cdk8s-constructs.ImmichRedisOptions.property.socket"></a>
+
+```typescript
+public readonly socket: string;
+```
+
+- *Type:* string
+
+---
+
+##### `url`<sup>Optional</sup> <a name="url" id="cdk8s-constructs.ImmichRedisOptions.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+##### `user`<sup>Optional</sup> <a name="user" id="cdk8s-constructs.ImmichRedisOptions.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
+### ImmichServerOptions <a name="ImmichServerOptions" id="cdk8s-constructs.ImmichServerOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichServerOptions.Initializer"></a>
+
+```typescript
+import { ImmichServerOptions } from 'cdk8s-constructs'
+
+const immichServerOptions: ImmichServerOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichServerOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichServerOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichServerOptions.property.uploadLocation">uploadLocation</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ImmichServerOptions.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ImmichServerOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `uploadLocation`<sup>Optional</sup> <a name="uploadLocation" id="cdk8s-constructs.ImmichServerOptions.property.uploadLocation"></a>
+
+```typescript
+public readonly uploadLocation: string;
+```
+
+- *Type:* string
+
+---
+
 ### IngressBackend <a name="IngressBackend" id="cdk8s-constructs.IngressBackend"></a>
 
 IngressBackend describes all endpoints for a given service and port.
@@ -97692,6 +98613,45 @@ public readonly port: number;
 ---
 
 ##### `INTEL_INTEGRATED` <a name="INTEL_INTEGRATED" id="cdk8s-constructs.GpuType.INTEL_INTEGRATED"></a>
+
+---
+
+
+### ImmichLogLevel <a name="ImmichLogLevel" id="cdk8s-constructs.ImmichLogLevel"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ImmichLogLevel.VERBOSE">VERBOSE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichLogLevel.DEBUG">DEBUG</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichLogLevel.LOG">LOG</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichLogLevel.WARN">WARN</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichLogLevel.ERROR">ERROR</a></code> | *No description.* |
+
+---
+
+##### `VERBOSE` <a name="VERBOSE" id="cdk8s-constructs.ImmichLogLevel.VERBOSE"></a>
+
+---
+
+
+##### `DEBUG` <a name="DEBUG" id="cdk8s-constructs.ImmichLogLevel.DEBUG"></a>
+
+---
+
+
+##### `LOG` <a name="LOG" id="cdk8s-constructs.ImmichLogLevel.LOG"></a>
+
+---
+
+
+##### `WARN` <a name="WARN" id="cdk8s-constructs.ImmichLogLevel.WARN"></a>
+
+---
+
+
+##### `ERROR` <a name="ERROR" id="cdk8s-constructs.ImmichLogLevel.ERROR"></a>
 
 ---
 

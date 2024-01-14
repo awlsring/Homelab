@@ -1,6 +1,7 @@
 import { App } from "cdk8s";
 import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "./charts/audiobookshelf";
+import { ImmichChart } from "./charts/immich";
 import { JellyfinChart } from "./charts/jellyfin";
 import { YarrgChart } from "./charts/yarrg";
 
@@ -77,6 +78,33 @@ new YarrgChart(app, "yarrg", {
     server: "10.0.100.149",
     serverPath: "/mnt/WD-6D-8T/fin",
     mountPath: "/media",
+  },
+});
+
+new ImmichChart(app, "immich", {
+  createNamespace: true,
+  namespace: "immich",
+  mediaStorage: {
+    server: "10.0.10.180",
+    serverPath: "/mnt/WD-6D-8T/immich-uploads",
+    mountPath: "/uploads",
+  },
+  ingress: {
+    ingressClass: "nginx",
+    hostname: "immich.us-drig-1.drigs.org",
+    certIssuer: "prod",
+    type: ServiceType.LOAD_BALANCER,
+  },
+  database: {
+    username: "immich",
+    passwordSecret: "immich-database-password",
+    database: "immich",
+    storageClass: "ceph-block",
+  },
+  machineLearning: {
+    cache: {
+      storageClass: "ceph-block",
+    },
   },
 });
 

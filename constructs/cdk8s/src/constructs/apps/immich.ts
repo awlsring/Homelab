@@ -28,7 +28,6 @@ const REDIS_IMAGE = "redis:6.2-alpine";
 const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.1.11";
 
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
-const IMMICH_PROXY_SERVER_PORT = 2283;
 const IMMICH_SERVER_PORT = 3001;
 
 const IMMICH_MICROSERVICES_IMAGE = "ghcr.io/immich-app/immich-server";
@@ -124,10 +123,10 @@ export interface ImmichProps {
   readonly generalOptions?: ImmichGeneralOptions;
   readonly geocoding?: ImmichGeocodingOptions;
   readonly serverOptions: ImmichServerOptions;
-  readonly microservicesOptions: ImmichMicroservicesOptions;
+  readonly microservicesOptions?: ImmichMicroservicesOptions;
   readonly redisOptions: ImmichRedisOptions;
   readonly postgresOptions: ImmichPostgresOptions;
-  readonly machineLearningOptions: ImmichMachineLearningOptions;
+  readonly machineLearningOptions?: ImmichMachineLearningOptions;
   readonly externalApiUrl?: string;
 }
 
@@ -170,8 +169,12 @@ export class Immich extends Construct {
     });
 
     this.buildServer(props.serverOptions, env, volumeMounts);
-    this.buildMicroservices(props.microservicesOptions, env, volumeMounts);
-    this.buildMachineLearning(props.machineLearningOptions, env);
+    this.buildMicroservices(
+      props.microservicesOptions ?? {},
+      env,
+      volumeMounts,
+    );
+    this.buildMachineLearning(props.machineLearningOptions ?? {}, env);
     this.buildDb(props.postgresOptions, env);
     this.buildRedis(env);
   }
@@ -489,15 +492,17 @@ export class Immich extends Construct {
       ports: [
         {
           name: "http",
-          port: IMMICH_PROXY_SERVER_PORT,
+          port: IMMICH_SERVER_PORT,
           targetPort: IMMICH_SERVER_PORT,
         },
       ],
     });
 
     new HomelabIngress(this, "server-ingress", {
-      ...options.ingress,
+      certIssuer: options.ingress.certIssuer,
       service: service,
+      hostname: options.ingress.hostname,
+      ingressClassName: options.ingress.ingressClass,
     });
 
     return deployment;
@@ -587,13 +592,13 @@ export class Immich extends Construct {
         },
       },
       liveness: Probe.fromHttpGet("/ping", {
-        port: IMMICH_SERVER_PORT,
+        port: IMMICH_MACHINE_LEARNING_PORT,
         initialDelaySeconds: Duration.seconds(0),
         periodSeconds: Duration.seconds(10),
         timeoutSeconds: Duration.seconds(1),
       }),
       readiness: Probe.fromHttpGet("/ping", {
-        port: IMMICH_SERVER_PORT,
+        port: IMMICH_MACHINE_LEARNING_PORT,
         failureThreshold: 3,
         initialDelaySeconds: Duration.seconds(0),
         periodSeconds: Duration.seconds(10),
@@ -612,6 +617,8 @@ export class Immich extends Construct {
     return deployment;
   }
 
+  // TODO: make this a stateful set and configure a bit better.
+  // potentially pass this in
   private buildRedis(env: Record<string, EnvValue>): Deployment {
     const deployment = new Deployment(this, "redis-deployment", {
       replicas: 1,
@@ -621,6 +628,7 @@ export class Immich extends Construct {
       name: "redis",
       image: REDIS_IMAGE,
       envVariables: env,
+      ports: [{ name: "redis", number: REDIS_PORT }],
       resources: {
         cpu: {
           request: Cpu.millis(200),
