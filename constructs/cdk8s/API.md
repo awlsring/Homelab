@@ -52235,6 +52235,143 @@ The tree node.
 ---
 
 
+### PersistantVolume <a name="PersistantVolume" id="cdk8s-constructs.PersistantVolume"></a>
+
+Creates a persistant volume claim and volume.
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.PersistantVolume.Initializer"></a>
+
+```typescript
+import { PersistantVolume } from 'cdk8s-constructs'
+
+new PersistantVolume(scope: Construct, name: string, props: PersistantVolumeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PersistantVolume.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistantVolume.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistantVolume.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.PersistantVolumeProps">PersistantVolumeProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.PersistantVolume.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.PersistantVolume.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.PersistantVolume.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.PersistantVolumeProps">PersistantVolumeProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PersistantVolume.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.PersistantVolume.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PersistantVolume.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.PersistantVolume.isConstruct"></a>
+
+```typescript
+import { PersistantVolume } from 'cdk8s-constructs'
+
+PersistantVolume.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.PersistantVolume.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PersistantVolume.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.PersistantVolume.property.claim">claim</a></code> | <code>cdk8s-plus-27.PersistentVolumeClaim</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistantVolume.property.volume">volume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.PersistantVolume.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `claim`<sup>Required</sup> <a name="claim" id="cdk8s-constructs.PersistantVolume.property.claim"></a>
+
+```typescript
+public readonly claim: PersistentVolumeClaim;
+```
+
+- *Type:* cdk8s-plus-27.PersistentVolumeClaim
+
+---
+
+##### `volume`<sup>Required</sup> <a name="volume" id="cdk8s-constructs.PersistantVolume.property.volume"></a>
+
+```typescript
+public readonly volume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+
 ### PrometheusRule <a name="PrometheusRule" id="cdk8s-constructs.PrometheusRule"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.PrometheusRule.Initializer"></a>
@@ -82549,6 +82686,56 @@ public readonly resource: string;
 - *Type:* string
 
 Resource is the resource of the object being referenced.
+
+---
+
+### PersistantVolumeProps <a name="PersistantVolumeProps" id="cdk8s-constructs.PersistantVolumeProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PersistantVolumeProps.Initializer"></a>
+
+```typescript
+import { PersistantVolumeProps } from 'cdk8s-constructs'
+
+const persistantVolumeProps: PersistantVolumeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PersistantVolumeProps.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistantVolumeProps.property.accessModes">accessModes</a></code> | <code>cdk8s-plus-27.PersistentVolumeAccessMode[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistantVolumeProps.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `size`<sup>Required</sup> <a name="size" id="cdk8s-constructs.PersistantVolumeProps.property.size"></a>
+
+```typescript
+public readonly size: Size;
+```
+
+- *Type:* cdk8s.Size
+
+---
+
+##### `accessModes`<sup>Optional</sup> <a name="accessModes" id="cdk8s-constructs.PersistantVolumeProps.property.accessModes"></a>
+
+```typescript
+public readonly accessModes: PersistentVolumeAccessMode[];
+```
+
+- *Type:* cdk8s-plus-27.PersistentVolumeAccessMode[]
+
+---
+
+##### `storageClass`<sup>Optional</sup> <a name="storageClass" id="cdk8s-constructs.PersistantVolumeProps.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
 
 ---
 

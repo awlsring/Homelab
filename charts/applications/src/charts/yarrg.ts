@@ -13,16 +13,6 @@ import {
 import { Volume } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 
-export interface CreateArrAppOptions {
-  readonly name: string;
-  readonly media: Volume;
-  readonly ingress: string;
-  readonly issuer: string;
-  readonly hostname: string;
-  readonly metrics?: boolean;
-  readonly imageTag?: string;
-}
-
 export interface AppOptions {
   readonly hostname: string;
   readonly imageTag?: string;
@@ -53,7 +43,7 @@ export interface YarrgChartProps extends HomelabChartProps {
 }
 
 /**
- * A stack to deploy server arr charts
+ * A stack to deploy server arr charts and resillio for syncing
  */
 export class YarrgChart extends HomelabChart {
   constructor(scope: Construct, name: string, props: YarrgChartProps) {
