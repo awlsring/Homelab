@@ -67,6 +67,12 @@ new YarrgChart(app, "yarrg", {
   prowlarr: {
     hostname: "prowlarr.us-drig-1.drigs.org",
   },
+  requesterr: {
+    hostname: "requesterr.us-drig-1.drigs.org",
+  },
+  resillio: {
+    hostname: "resillio.us-drig-1.drigs.org",
+  },
   mediaStorage: {
     server: "10.0.100.149",
     serverPath: "/mnt/WD-6D-8T/fin",

@@ -1,5 +1,4 @@
-import { Duration } from "cdk8s";
-import { Probe, VolumeMount } from "cdk8s-plus-27";
+import { VolumeMount } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 import { ArrApp, ArrAppOptions } from "./arr-app";
 
@@ -18,22 +17,22 @@ export interface BazarrAppProps extends ArrAppOptions {
 
 export class Bazarr extends ArrApp {
   constructor(scope: Construct, name: string, props: BazarrAppProps) {
-    const liveness = Probe.fromCommand(
-      [
-        "/usr/bin/env",
-        "bash",
-        "-c",
-        `API_KEY=$(grep 'apikey:' /config/config/config.yaml | awk '{print $2}' | tr -d "'" | awk '{$1=$1};1')
-echo $API_KEY && curl --fail localhost:${PORT}/api/v1/system/health?apiKey=$API_KEY`,
-      ],
-      {
-        failureThreshold: 5,
-        initialDelaySeconds: Duration.seconds(60),
-        periodSeconds: Duration.seconds(10),
-        successThreshold: 1,
-        timeoutSeconds: Duration.seconds(10),
-      },
-    );
+    //     const liveness = Probe.fromCommand(
+    //       [
+    //         "/usr/bin/env",
+    //         "bash",
+    //         "-c",
+    //         `API_KEY=$(grep 'apikey:' /config/config/config.yaml | awk '{print $2}' | tr -d "'" | awk '{$1=$1};1')
+    // echo $API_KEY && curl --fail localhost:${PORT}/api/v1/system/health?apiKey=$API_KEY`,
+    //       ],
+    //       {
+    //         failureThreshold: 5,
+    //         initialDelaySeconds: Duration.seconds(60),
+    //         periodSeconds: Duration.seconds(10),
+    //         successThreshold: 1,
+    //         timeoutSeconds: Duration.seconds(10),
+    //       },
+    //     );
     const volumeMounts: VolumeMount[] = [];
     if (props.storage.movies) {
       volumeMounts.push(props.storage.movies);
@@ -46,9 +45,9 @@ echo $API_KEY && curl --fail localhost:${PORT}/api/v1/system/health?apiKey=$API_
         name: APPLICATION_NAME,
         port: PORT,
       },
-      probe: props.probe ?? {
-        liveness,
-      },
+      // probe: props.probe ?? {
+      //   liveness,
+      // },
       image: IMAGE,
       volumeMounts: volumeMounts,
       ...props,

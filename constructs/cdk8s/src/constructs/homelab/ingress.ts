@@ -19,6 +19,7 @@ export interface HomelabIngressOptions {
 export interface HomelabIngressProps {
   readonly service: Service;
   readonly hostname: string;
+  readonly port?: number;
   readonly ingressClassName?: string;
   readonly certIssuer?: string;
   readonly certSecretName?: string;
@@ -26,6 +27,9 @@ export interface HomelabIngressProps {
 
 export class HomelabIngress extends Ingress {
   constructor(scope: Construct, name: string, props: HomelabIngressProps) {
+    const backend = IngressBackend.fromService(props.service, {
+      port: props.port,
+    });
     const certSecret = new Secret(
       scope,
       props.certSecretName ?? `${props.service.name}-tls`,
@@ -34,7 +38,7 @@ export class HomelabIngress extends Ingress {
       rules: [
         {
           host: props.hostname,
-          backend: IngressBackend.fromService(props.service),
+          backend: backend,
         },
       ],
       tls: [

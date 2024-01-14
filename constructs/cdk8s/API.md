@@ -52786,6 +52786,298 @@ public readonly service: Service;
 ---
 
 
+### Requesterr <a name="Requesterr" id="cdk8s-constructs.Requesterr"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Requesterr.Initializer"></a>
+
+```typescript
+import { Requesterr } from 'cdk8s-constructs'
+
+new Requesterr(scope: Construct, name: string, props: RequesterrProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Requesterr.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Requesterr.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Requesterr.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.RequesterrProps">RequesterrProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Requesterr.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Requesterr.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Requesterr.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.RequesterrProps">RequesterrProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Requesterr.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Requesterr.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Requesterr.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Requesterr.isConstruct"></a>
+
+```typescript
+import { Requesterr } from 'cdk8s-constructs'
+
+Requesterr.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Requesterr.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Requesterr.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Requesterr.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Requesterr.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Requesterr.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Requesterr.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Requesterr.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Requesterr.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Requesterr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### ResilioSync <a name="ResilioSync" id="cdk8s-constructs.ResilioSync"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ResilioSync.Initializer"></a>
+
+```typescript
+import { ResilioSync } from 'cdk8s-constructs'
+
+new ResilioSync(scope: Construct, name: string, props: ResilioSyncProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSync.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSync.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSync.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ResilioSyncProps">ResilioSyncProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ResilioSync.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ResilioSync.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.ResilioSync.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ResilioSyncProps">ResilioSyncProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSync.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ResilioSync.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSync.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ResilioSync.isConstruct"></a>
+
+```typescript
+import { ResilioSync } from 'cdk8s-constructs'
+
+ResilioSync.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ResilioSync.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSync.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ResilioSync.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSync.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSync.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ResilioSync.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.ResilioSync.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ResilioSync.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.ResilioSync.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### ServersTransport <a name="ServersTransport" id="cdk8s-constructs.ServersTransport"></a>
 
 ServersTransport is the CRD implementation of a ServersTransport.
@@ -62971,6 +63263,7 @@ const homelabIngressProps: HomelabIngressProps = { ... }
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certSecretName">certSecretName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.ingressClassName">ingressClassName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressProps.property.port">port</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -63021,6 +63314,16 @@ public readonly ingressClassName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.HomelabIngressProps.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -82249,6 +82552,45 @@ Resource is the resource of the object being referenced.
 
 ---
 
+### PersistentVolumeClaimOptions <a name="PersistentVolumeClaimOptions" id="cdk8s-constructs.PersistentVolumeClaimOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PersistentVolumeClaimOptions.Initializer"></a>
+
+```typescript
+import { PersistentVolumeClaimOptions } from 'cdk8s-constructs'
+
+const persistentVolumeClaimOptions: PersistentVolumeClaimOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.PersistentVolumeClaimOptions.property.size"></a>
+
+```typescript
+public readonly size: Size;
+```
+
+- *Type:* cdk8s.Size
+
+---
+
+##### `storageClass`<sup>Optional</sup> <a name="storageClass" id="cdk8s-constructs.PersistentVolumeClaimOptions.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
+
+---
+
 ### PersistentVolumeClaimSpec <a name="PersistentVolumeClaimSpec" id="cdk8s-constructs.PersistentVolumeClaimSpec"></a>
 
 PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes.
@@ -86350,6 +86692,145 @@ public readonly template: PodTemplateSpec;
 Template is the object that describes the pod that will be created if insufficient replicas are detected.
 
 This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+
+---
+
+### RequesterrProps <a name="RequesterrProps" id="cdk8s-constructs.RequesterrProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.RequesterrProps.Initializer"></a>
+
+```typescript
+import { RequesterrProps } from 'cdk8s-constructs'
+
+const requesterrProps: RequesterrProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.RequesterrProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RequesterrProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RequesterrProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.RequesterrProps.property.config"></a>
+
+```typescript
+public readonly config: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.RequesterrProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.RequesterrProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+### ResilioSyncProps <a name="ResilioSyncProps" id="cdk8s-constructs.ResilioSyncProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ResilioSyncProps.Initializer"></a>
+
+```typescript
+import { ResilioSyncProps } from 'cdk8s-constructs'
+
+const resilioSyncProps: ResilioSyncProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSyncProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSyncProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.ResilioSyncStorageProps">ResilioSyncStorageProps</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSyncProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.ResilioSyncProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.ResilioSyncProps.property.storage"></a>
+
+```typescript
+public readonly storage: ResilioSyncStorageProps;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ResilioSyncStorageProps">ResilioSyncStorageProps</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ResilioSyncProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+### ResilioSyncStorageProps <a name="ResilioSyncStorageProps" id="cdk8s-constructs.ResilioSyncStorageProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ResilioSyncStorageProps.Initializer"></a>
+
+```typescript
+import { ResilioSyncStorageProps } from 'cdk8s-constructs'
+
+const resilioSyncStorageProps: ResilioSyncStorageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ResilioSyncStorageProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ResilioSyncStorageProps.property.sync">sync</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.ResilioSyncStorageProps.property.config"></a>
+
+```typescript
+public readonly config: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `sync`<sup>Required</sup> <a name="sync" id="cdk8s-constructs.ResilioSyncStorageProps.property.sync"></a>
+
+```typescript
+public readonly sync: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
 
 ---
 

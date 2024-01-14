@@ -15,10 +15,10 @@ import {
   VolumeMount,
 } from "cdk8s-plus-27";
 import { Construct } from "constructs";
-import { HomelabDeployment } from "../homelab/deployment";
-import { HomelabIngress, HomelabIngressOptions } from "../homelab/ingress";
-import { PrometheusRule } from "../prometheus/prometheus-rule";
-import { ServiceMonitor } from "../prometheus/service-monitor";
+import { HomelabDeployment } from "../../homelab/deployment";
+import { HomelabIngress, HomelabIngressOptions } from "../../homelab/ingress";
+import { PrometheusRule } from "../../prometheus/prometheus-rule";
+import { ServiceMonitor } from "../../prometheus/service-monitor";
 
 const DEFAULT_TIME_ZONE = "Etc/UTC";
 const DEFAULT_IMAGE_TAG = "latest";

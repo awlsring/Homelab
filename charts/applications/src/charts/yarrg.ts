@@ -7,6 +7,8 @@ import {
   Readarr,
   Sonarr,
   Prowlarr,
+  Requesterr,
+  ResilioSync,
 } from "cdk8s-constructs";
 import { Volume } from "cdk8s-plus-27";
 import { Construct } from "constructs";
@@ -21,10 +23,13 @@ export interface CreateArrAppOptions {
   readonly imageTag?: string;
 }
 
-export interface ArrAppOptions {
-  readonly imageTag?: string;
-  readonly metrics?: boolean;
+export interface AppOptions {
   readonly hostname: string;
+  readonly imageTag?: string;
+}
+
+export interface ArrAppOptions extends AppOptions {
+  readonly metrics?: boolean;
 }
 
 export interface YarrgChartProps extends HomelabChartProps {
@@ -36,8 +41,10 @@ export interface YarrgChartProps extends HomelabChartProps {
   readonly sonarr?: ArrAppOptions;
   readonly lidarr?: ArrAppOptions;
   readonly readarr?: ArrAppOptions;
-  readonly bazarr?: ArrAppOptions;
+  readonly bazarr?: AppOptions;
   readonly prowlarr?: ArrAppOptions;
+  readonly requesterr?: AppOptions;
+  readonly resillio?: AppOptions;
   readonly mediaStorage: {
     readonly server: string;
     readonly serverPath: string;
@@ -142,7 +149,6 @@ export class YarrgChart extends HomelabChart {
           hostname: props.bazarr.hostname,
           certIssuer: props.ingress.certIssuer,
         },
-        metrics: this.makeMetricsField("bazarr", props.bazarr.metrics),
       });
     }
 
@@ -157,6 +163,35 @@ export class YarrgChart extends HomelabChart {
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("prowlarr", props.prowlarr.metrics),
+      });
+    }
+
+    if (props.requesterr) {
+      new Requesterr(this, "requesterr", {
+        config: {
+          storageClass: "ceph-block",
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.requesterr.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
+      });
+    }
+
+    if (props.resillio) {
+      new ResilioSync(this, "resillio", {
+        storage: {
+          config: {
+            storageClass: "ceph-block",
+          },
+          sync: mediaVol,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.resillio.hostname,
+          certIssuer: props.ingress.certIssuer,
+        },
       });
     }
   }
