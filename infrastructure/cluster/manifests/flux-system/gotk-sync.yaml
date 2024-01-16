@@ -20,7 +20,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/cluster/manifests
+  path: ./infrastructure/cluster/manifests/charts
   prune: true
   sourceRef:
     kind: GitRepository
