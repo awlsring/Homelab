@@ -1,11 +1,10 @@
 import { MonorepoTsProject } from "@aws/pdk/monorepo";
-import { Project } from "projen";
 import { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } from "projen/lib/awscdk";
 import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
-import { CdkTfTypescriptApp } from "./constructs/projen/src/cdktf/cdktf-app";
+import { CdkTfTypescriptApp } from "./packages/projects/src/cdktf/cdktf-app";
 
 // Metadata
 const AUTHOR = "awlsring";
@@ -77,15 +76,16 @@ const subprojectProps = {
 const awsCdkConstructs = new AwsCdkConstructLibrary({
   ...subprojectProps,
   name: "cdk-constructs",
-  outdir: "constructs/aws-cdk",
+  outdir: "packages/aws-cdk-constructs",
   devDeps: ["@types/jest"],
   testdir: "",
 });
 
+// cdktf constructs
 const cdktfConstructs = new TypeScriptProject({
   ...subprojectProps,
   name: "cdktf-constructs",
-  outdir: "constructs/cdktf",
+  outdir: "packages/cdktf-constructs",
   deps: [`cdktf@^${CDKTF_VERSION}`, `constructs@^${CONSTRUCTS_VERSION}`],
   devDeps: [
     `cdktf-cli@^${CDKTF_VERSION}`,
@@ -101,7 +101,7 @@ cdktfConstructs.preCompileTask.exec("cdktf get");
 const cdk8sConstructs = new ConstructLibraryCdk8s({
   ...subprojectProps,
   name: "cdk8s-constructs",
-  outdir: "constructs/cdk8s",
+  outdir: "packages/cdk8s-constructs",
   deps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
   peerDeps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
   testdir: "",
@@ -109,8 +109,8 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
 
 new TypeScriptProject({
   ...subprojectProps,
-  name: "projen-constructs",
-  outdir: "constructs/projen",
+  name: "projen-projects",
+  outdir: "packages/projects",
   deps: ["projen", "semver", "uuid"],
   devDeps: ["@types/semver", "@types/uuid", "@types/jest"],
   testdir: "",
@@ -175,31 +175,14 @@ new CdkTfTypescriptApp({
 // });
 
 // Charts
-new Cdk8sTypeScriptApp({
+const cluster = new Cdk8sTypeScriptApp({
   ...subprojectProps,
-  outdir: "charts/system",
-  name: "system-charts",
+  outdir: "infrastructure/cluster/manifests",
+  name: "main-cluster",
   deps: [cdk8sConstructs.package.packageName],
 });
-
-new Cdk8sTypeScriptApp({
-  ...subprojectProps,
-  outdir: "charts/platform",
-  name: "platform-charts",
-  deps: [cdk8sConstructs.package.packageName],
-});
-
-new Cdk8sTypeScriptApp({
-  ...subprojectProps,
-  outdir: "charts/applications",
-  name: "app-charts",
-  deps: [cdk8sConstructs.package.packageName],
-});
-
-new Project({
-  ...subprojectProps,
-  outdir: "manifests",
-  name: "manifests",
-});
+cluster.postCompileTask.exec(
+  "rm -rf charts && mkdir -p charts && cp -r dist/* charts",
+);
 
 monorepo.synth();

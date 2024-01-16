@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-config-pvc-c8ddd027
+  namespace: jellyfin
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-cache-pvc-c81bd255
+  namespace: jellyfin
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin-deployment-c8d9d037
+  namespace: jellyfin
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: jellyfin-deployment-c8e9d4e2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: jellyfin-deployment-c8e9d4e2
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: Etc/UTC
+          image: lscr.io/linuxserver/jellyfin:10.7.0
+          imagePullPolicy: Always
+          name: jellyfin
+          ports:
+            - containerPort: 8096
+          resources:
+            limits:
+              gpu.intel.com/i915: "1"
+              cpu: 4000m
+              memory: 8192Mi
+            requests:
+              gpu.intel.com/i915: "1"
+              cpu: 500m
+              memory: 1024Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /config
+              name: pvc-jellyfin-config-pvc-c8ddd027
+            - mountPath: /cache
+              name: pvc-jellyfin-cache-pvc-c81bd255
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-jellyfin-config-pvc-c8ddd027
+          persistentVolumeClaim:
+            claimName: jellyfin-config-pvc-c8ddd027
+            readOnly: false
+        - name: pvc-jellyfin-cache-pvc-c81bd255
+          persistentVolumeClaim:
+            claimName: jellyfin-cache-pvc-c81bd255
+            readOnly: false
