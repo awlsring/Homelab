@@ -16,4 +16,5 @@ dist
 /.idea/
 /.projenrc.js
 tsconfig.tsbuildinfo
+!.jsii
 /.gitattributes

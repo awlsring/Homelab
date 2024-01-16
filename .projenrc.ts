@@ -1,6 +1,7 @@
 import { MonorepoTsProject } from "@aws/pdk/monorepo";
 import { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } from "projen/lib/awscdk";
 import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
+import { ConstructLibraryCdktf } from "projen/lib/cdktf";
 import { GithubCredentials } from "projen/lib/github";
 import { NodePackageManager } from "projen/lib/javascript";
 import { TypeScriptProject } from "projen/lib/typescript";
@@ -82,20 +83,13 @@ const awsCdkConstructs = new AwsCdkConstructLibrary({
 });
 
 // cdktf constructs
-const cdktfConstructs = new TypeScriptProject({
+const cdktfConstructs = new ConstructLibraryCdktf({
   ...subprojectProps,
   name: "cdktf-constructs",
   outdir: "packages/cdktf-constructs",
-  deps: [`cdktf@^${CDKTF_VERSION}`, `constructs@^${CONSTRUCTS_VERSION}`],
-  devDeps: [
-    `cdktf-cli@^${CDKTF_VERSION}`,
-    `constructs@^${CONSTRUCTS_VERSION}`,
-    "@types/jest",
-  ],
   gitignore: ["src/gen"],
   testdir: "",
 });
-cdktfConstructs.preCompileTask.exec("cdktf get");
 
 // cdk8s constructs
 const cdk8sConstructs = new ConstructLibraryCdk8s({

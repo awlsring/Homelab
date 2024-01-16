@@ -35,9 +35,11 @@ junit.xml
 /coverage/
 !/.npmrc
 !//
-!/tsconfig.json
 !/tsconfig.dev.json
 !/src/
 /lib
 /dist/
+.jsii
+tsconfig.json
+!/API.md
 !/project.json

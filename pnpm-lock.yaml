@@ -302,13 +302,6 @@ importers:
         version: 5.3.3
 
   packages/cdktf-constructs:
-    dependencies:
-      cdktf:
-        specifier: ^0.19.2
-        version: 0.19.2(constructs@10.3.0)
-      constructs:
-        specifier: ^10.3.0
-        version: 10.3.0
     devDependencies:
       '@types/jest':
         specifier: ^29.5.11
@@ -316,15 +309,33 @@ importers:
       '@types/node':
         specifier: ^18
         version: 18.19.4
-      cdktf-cli:
-        specifier: ^0.19.2
-        version: 0.19.2(ink@3.2.0)(react@17.0.2)
+      cdktf:
+        specifier: 0.19.2
+        version: 0.19.2(constructs@10.3.0)
+      constructs:
+        specifier: 10.3.0
+        version: 10.3.0
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
       jest-junit:
         specifier: ^15
         version: 15.0.0
+      jsii:
+        specifier: ~5
+        version: 5.3.2
+      jsii-diff:
+        specifier: ^1.93.0
+        version: 1.93.0
+      jsii-docgen:
+        specifier: ^10.3.3
+        version: 10.3.3(jsii-rosetta@5.3.2)
+      jsii-pacmak:
+        specifier: ^1.93.0
+        version: 1.93.0
+      jsii-rosetta:
+        specifier: ~5
+        version: 5.3.2
       projen:
         specifier: ^0.78.10
         version: 0.78.10(constructs@10.3.0)
@@ -3164,6 +3175,7 @@ packages:
 
   /asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+    requiresBuild: true
 
   /at-least-node@1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
@@ -3936,6 +3948,7 @@ packages:
   /combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
+    requiresBuild: true
     dependencies:
       delayed-stream: 1.0.0
 
@@ -7069,6 +7082,7 @@ packages:
   /mime-types@2.1.35:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
+    requiresBuild: true
     dependencies:
       mime-db: 1.52.0
 

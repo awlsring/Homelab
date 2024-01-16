@@ -21,18 +21,36 @@
         }
       ]
     },
+    "compat": {
+      "name": "compat",
+      "description": "Perform API compatibility check against latest version",
+      "steps": [
+        {
+          "exec": "jsii-diff npm:$(node -p \"require('./package.json').name\") -k --ignore-file .compatignore || (echo \"\nUNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .compatignore to skip.\n\" && exit 1)"
+        }
+      ]
+    },
     "compile": {
       "name": "compile",
       "description": "Only compile",
       "steps": [
         {
-          "exec": "tsc --build"
+          "exec": "jsii --silence-warnings=reserved-word"
         }
       ]
     },
     "default": {
       "name": "default",
       "description": "Synthesize project files"
+    },
+    "docgen": {
+      "name": "docgen",
+      "description": "Generate API.md from .jsii manifest",
+      "steps": [
+        {
+          "exec": "jsii-docgen -o API.md"
+        }
+      ]
     },
     "install": {
       "name": "install",
@@ -57,16 +75,36 @@
       "description": "Creates the distribution package",
       "steps": [
         {
-          "exec": "mkdir -p dist/js"
-        },
+          "exec": "if [ ! -z ${CI} ]; then rsync -a . .repo --exclude .git --exclude node_modules && rm -rf dist && mv .repo dist; else npx projen package-all; fi"
+        }
+      ]
+    },
+    "package-all": {
+      "name": "package-all",
+      "description": "Packages artifacts for all target languages",
+      "steps": [
         {
-          "exec": "mv $(pnpm pack) dist/js/"
+          "spawn": "package:js"
+        }
+      ]
+    },
+    "package:js": {
+      "name": "package:js",
+      "description": "Create js language bindings",
+      "steps": [
+        {
+          "exec": "jsii-pacmak -v --target js"
         }
       ]
     },
     "post-compile": {
       "name": "post-compile",
-      "description": "Runs after successful compilation"
+      "description": "Runs after successful compilation",
+      "steps": [
+        {
+          "spawn": "docgen"
+        }
+      ]
     },
     "post-upgrade": {
       "name": "post-upgrade",
@@ -74,12 +112,7 @@
     },
     "pre-compile": {
       "name": "pre-compile",
-      "description": "Prepare the project for compilation",
-      "steps": [
-        {
-          "exec": "cdktf get"
-        }
-      ]
+      "description": "Prepare the project for compilation"
     },
     "test": {
       "name": "test",
@@ -108,13 +141,13 @@
       },
       "steps": [
         {
-          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,cdktf-cli,constructs,jest,jest-junit,projen,ts-jest,typescript,cdktf"
+          "exec": "pnpx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,constructs,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,projen,ts-jest,typescript"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
         },
         {
-          "exec": "pnpm update @types/jest @types/node cdktf-cli constructs jest jest-junit projen ts-jest typescript cdktf"
+          "exec": "pnpm update @types/jest @types/node constructs jest jest-junit jsii-diff jsii-docgen jsii-pacmak projen ts-jest typescript"
         },
         {
           "exec": "npx projen"
@@ -129,7 +162,7 @@
       "description": "Watch & compile in the background",
       "steps": [
         {
-          "exec": "tsc --build -w"
+          "exec": "jsii -w --silence-warnings=reserved-word"
         }
       ]
     }

@@ -1,5 +1,5 @@
 import { App } from "cdktf";
-import { OnepasswordSecretsProviderModule } from "cdktf-constructs";
+import { OnepasswordSecretProviderFactory } from "cdktf-constructs";
 import { StorageBackupStack } from "./stacks/storage-backup";
 
 const app = new App();
@@ -26,7 +26,7 @@ const projectsProps = {
 };
 
 const providerProps = {
-  secretProvider: OnepasswordSecretsProviderModule({
+  secretProvider: new OnepasswordSecretProviderFactory({
     url: onepasswordUrl,
     token: onepasswordToken,
     vault: "Homelab",
