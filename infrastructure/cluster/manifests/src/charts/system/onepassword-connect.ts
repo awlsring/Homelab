@@ -31,7 +31,7 @@ export class OnePasswordConnectChart extends HomelabChart {
     super(scope, name, props);
     new Helm(this, "helm", {
       chart: "1password/connect",
-      helmFlags: ["--namespace", NAMESPACE],
+      helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         connect: {
           tls: {

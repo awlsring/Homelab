@@ -1,4 +1,4 @@
-import { Helm, Include } from "cdk8s";
+import { Helm } from "cdk8s";
 import { HomelabChart, HomelabChartProps } from "cdk8s-constructs";
 import { Construct } from "constructs";
 
@@ -19,13 +19,9 @@ export class NodeFeatureDiscoveryChart extends HomelabChart {
       createNamespace: true,
     });
 
-    new Include(this, "crds", {
-      url: "https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/deployment/base/nfd-crds/nfd-api-crds.yaml",
-    });
-
     new Helm(this, "helm", {
       chart: "nfd/node-feature-discovery",
-      helmFlags: ["--namespace", NAMESPACE],
+      helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
     });
   }
 }

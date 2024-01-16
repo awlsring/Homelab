@@ -20,7 +20,7 @@ export class RookCephChart extends HomelabChart {
 
     new Helm(this, "operator", {
       chart: "rook-release/rook-ceph",
-      helmFlags: ["--namespace", NAMESPACE],
+      helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         serviceMonitor: {
           enabled: true,

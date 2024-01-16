@@ -25,7 +25,7 @@ export class CertManagerChart extends HomelabChart {
 
     new Helm(this, "helm", {
       chart: "jetstack/cert-manager",
-      helmFlags: ["--namespace", CERT_MANAGER_NAMESPACE],
+      helmFlags: ["--namespace", CERT_MANAGER_NAMESPACE, "--include-crds"],
       values: {
         installCRDs: true,
         replicaCount: props.replicas ?? 1,

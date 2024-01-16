@@ -17,7 +17,7 @@ export class NginxIngressChart extends HomelabChart {
 
     new Helm(this, "helm", {
       chart: "ingress-nginx/ingress-nginx",
-      helmFlags: ["--namespace", NAMESPACE],
+      helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         controller: {
           allowSnippetAnnotations: true,

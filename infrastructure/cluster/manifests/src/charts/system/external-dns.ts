@@ -31,41 +31,9 @@ export class ExternalDnsChart extends HomelabChart {
       createNamespace: true,
     });
 
-    // new Helm(this, "pihole", {
-    //   chart: "external-dns/external-dns",
-    //   helmFlags: ["--namespace", EXTERNAL_DNS_NAMESPACE],
-    //   values: {
-    //     serviceAccount: {
-    //       name: "external-dns",
-    //     },
-    //     image: {
-    //       tag: props.imageTag,
-    //     },
-    //     provider: "pihole",
-    //     env: [
-    //       {
-    //         name: "EXTERNAL_DNS_PIHOLE_PASSWORD",
-    //         valueFrom: {
-    //           secretKeyRef: {
-    //             name: props.pihole.passwordSecretRef.name,
-    //             key: props.pihole.passwordSecretRef.key,
-    //           },
-    //         },
-    //       },
-    //     ],
-    //     triggerLoopOnEvent: true,
-    //     metrics: {
-    //       enabled: true,
-    //       serviceMonitor: {
-    //         enabled: true,
-    //       },
-    //     },
-    //   },
-    // });
-
     new Helm(this, "helm", {
       chart: "external-dns/external-dns",
-      helmFlags: ["--namespace", EXTERNAL_DNS_NAMESPACE],
+      helmFlags: ["--namespace", EXTERNAL_DNS_NAMESPACE, "--include-crds"],
       values: {
         serviceAccount: {
           name: "external-dns",

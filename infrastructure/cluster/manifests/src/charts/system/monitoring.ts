@@ -38,7 +38,7 @@ export class MonitoringChart extends HomelabChart {
 
     new Helm(this, "helm", {
       chart: "prometheus-community/kube-prometheus-stack",
-      helmFlags: ["--namespace", MONITORING_NAMESPACE],
+      helmFlags: ["--namespace", MONITORING_NAMESPACE, "--include-crds"],
       values: {
         alertmanager: {
           enabled: true,

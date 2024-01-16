@@ -17,7 +17,7 @@ export class DeschedulerChart extends HomelabChart {
 
     new Helm(this, "helm", {
       chart: "descheduler/descheduler",
-      helmFlags: ["--namespace", NAMESPACE],
+      helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
     });
   }
 }

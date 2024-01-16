@@ -16,7 +16,7 @@ export class KuredChart extends HomelabChart {
 
     new Helm(this, "helm", {
       chart: "kubereboot/kured",
-      helmFlags: ["--namespace", KURED_NAMESPACE],
+      helmFlags: ["--namespace", KURED_NAMESPACE, "--include-crds"],
       values: {
         configuration: {
           annotateNodes: true,
