@@ -20,8 +20,10 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/cluster/manifests/charts
+  path: ./infrastructure/cluster/manifests
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+  ignore:
+    - "**/cdk8s.yaml"
