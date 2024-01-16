@@ -12,8 +12,8 @@ spec:
   secretRef:
     name: flux-system
   url: https://github.com/awlsring/Homelab.git
-  ignore:
-    - "**/cdk8s.yaml"
+  ignore: |
+    cdk8s.yaml
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -22,7 +22,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./infrastructure/cluster/manifests
+  path: ./infrastructure/cluster/manifests/flux-system
   prune: true
   sourceRef:
     kind: GitRepository
