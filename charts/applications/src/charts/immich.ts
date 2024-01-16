@@ -4,6 +4,7 @@ import {
   HomelabChartProps,
   HomelabIngressOptions,
   Immich,
+  ImmichPhotoVolumeOptions,
 } from "cdk8s-constructs";
 import { Volume } from "cdk8s-plus-27";
 import { Construct } from "constructs";
@@ -16,11 +17,15 @@ export interface ImmichChartProps extends HomelabChartProps {
     readonly passwordSecret: string;
     readonly storageClass: string;
   };
-  readonly mediaStorage: {
+  readonly uploadStorage: {
     readonly server: string;
     readonly serverPath: string;
-    readonly mountPath: string;
   };
+  readonly externalCollections: {
+    readonly server: string;
+    readonly serverPath: string;
+    readonly name: string;
+  }[];
   readonly machineLearning: {
     readonly cache: {
       readonly storageClass: string;
@@ -34,12 +39,25 @@ export class ImmichChart extends HomelabChart {
     super(scope, name, props);
 
     const nfsPhotos = Volume.fromNfs(this, "nfs-vol", "media", {
-      server: props.mediaStorage.server,
-      path: props.mediaStorage.serverPath,
+      server: props.uploadStorage.server,
+      path: props.uploadStorage.serverPath,
     });
+
+    const externalCollections: ImmichPhotoVolumeOptions[] =
+      props.externalCollections.map((collection) => {
+        const vol = Volume.fromNfs(this, collection.server, collection.name, {
+          server: collection.server,
+          path: collection.serverPath,
+        });
+        return {
+          name: collection.name,
+          volume: vol,
+        };
+      });
 
     new Immich(this, "app", {
       uploadShare: nfsPhotos,
+      photoCollectionShares: externalCollections,
       serverOptions: {
         ingress: props.ingress,
       },

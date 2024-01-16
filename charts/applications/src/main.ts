@@ -84,11 +84,17 @@ new YarrgChart(app, "yarrg", {
 new ImmichChart(app, "immich", {
   createNamespace: true,
   namespace: "immich",
-  mediaStorage: {
+  uploadStorage: {
     server: "10.0.10.180",
     serverPath: "/mnt/WD-6D-8T/immich-uploads",
-    mountPath: "/uploads",
   },
+  externalCollections: [
+    {
+      server: "10.0.10.180",
+      serverPath: "/mnt/WD-6D-8T/photos",
+      name: "photos",
+    },
+  ],
   ingress: {
     ingressClass: "nginx",
     hostname: "immich.us-drig-1.drigs.org",
