@@ -2,17 +2,17 @@ import { Construct } from "constructs";
 import {
   Secret,
   ISecretProvider,
-  ISecretProviderFactory,
+  ISecretProviderCreator,
 } from "./secret-provider";
 import { DataOnepasswordItem } from "../gen/providers/onepassword/data-onepassword-item";
 import { DataOnepasswordVault } from "../gen/providers/onepassword/data-onepassword-vault";
 import { OnepasswordProvider } from "../gen/providers/onepassword/provider";
 
-export class OnepasswordSecretProviderFactory
-  implements ISecretProviderFactory
+export class OnepasswordSecretProviderCreator
+  implements ISecretProviderCreator
 {
   constructor(private readonly props: OnepasswordSecretProviderProps) {}
-  createSecretProvider(scope: Construct, name: string): ISecretProvider {
+  create(scope: Construct, name: string): ISecretProvider {
     return new OnepasswordSecretProvider(scope, name, this.props);
   }
 }

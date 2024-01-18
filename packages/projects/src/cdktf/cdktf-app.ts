@@ -93,5 +93,7 @@ export class CdkTfTypescriptApp extends TypeScriptAppProject {
     this.addDevDeps(`cdktf-cli@${options.cdktfVersion}`);
     this.addDevDeps("ts-node");
     this.addKeywords("cdktf");
+    this.preCompileTask.exec("cdktf get");
+    this.postCompileTask.exec("cdktf synth");
   }
 }

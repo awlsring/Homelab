@@ -9,6 +9,6 @@ export interface ISecretProvider {
   retrieveSecret(name: string): Secret;
 }
 
-export interface ISecretProviderFactory {
-  createSecretProvider(scope: Construct, name: string): ISecretProvider;
+export interface ISecretProviderCreator {
+  create(scope: Construct, name: string): ISecretProvider;
 }

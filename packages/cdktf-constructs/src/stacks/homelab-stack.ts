@@ -1,14 +1,15 @@
-import { TerraformStack } from "cdktf";
+import { TerraformBackend, TerraformStack } from "cdktf";
 import { Construct } from "constructs";
 import {
   ISecretProvider,
-  ISecretProviderFactory,
+  ISecretProviderCreator,
 } from "../secret-provider/secret-provider";
+import { IBackendCreator } from "../backend/backend-producer";
 
 export interface HomelabStackProps {
   readonly project: string;
-  readonly backend: BackendProps;
-  readonly secretProviderFactory?: ISecretProviderFactory;
+  readonly backendCreator: IBackendCreator;
+  readonly secretProviderCreator?: ISecretProviderCreator;
 }
 
 export interface BackendProps {
@@ -18,15 +19,15 @@ export interface BackendProps {
 }
 
 export class HomelabStack extends TerraformStack {
+  readonly backend: TerraformBackend;
   readonly secretProvider?: ISecretProvider;
   constructor(scope: Construct, name: string, props: HomelabStackProps) {
     super(scope, name);
 
-    if (props.secretProviderFactory) {
-      this.secretProvider = props.secretProviderFactory.createSecretProvider(
-        this,
-        name,
-      );
+    this.backend = props.backendCreator.create(this);
+
+    if (props.secretProviderCreator) {
+      this.secretProvider = props.secretProviderCreator.create(this, name);
     }
   }
 }

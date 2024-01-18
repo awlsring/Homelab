@@ -78,47 +78,7 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  infrastructure/cluster/manifests:
-    dependencies:
-      cdk8s:
-        specifier: ^2.68.23
-        version: 2.68.23(constructs@10.3.0)
-      cdk8s-constructs:
-        specifier: ^0.0.0
-        version: link:../../../packages/cdk8s-constructs
-      cdk8s-plus-27:
-        specifier: ^2.7.70
-        version: 2.7.70(cdk8s@2.68.23)(constructs@10.3.0)
-      constructs:
-        specifier: ^10.3.0
-        version: 10.3.0
-    devDependencies:
-      '@types/jest':
-        specifier: ^29.5.11
-        version: 29.5.11
-      '@types/node':
-        specifier: ^18
-        version: 18.19.4
-      cdk8s-cli:
-        specifier: ^2.198.27
-        version: 2.198.27
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
-      jest-junit:
-        specifier: ^15
-        version: 15.0.0
-      projen:
-        specifier: ^0.78.10
-        version: 0.78.10(constructs@10.3.0)
-      ts-jest:
-        specifier: ^29.1.1
-        version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
-  infrastructure/notifiers:
+  infrastructure/aws:
     dependencies:
       '@awlsring/cdk-aws-discord-notifiers':
         specifier: ^0.0.293
@@ -132,9 +92,6 @@ importers:
       constructs:
         specifier: ^10.3.0
         version: 10.3.0
-      source-map-support:
-        specifier: ^0.5.21
-        version: 0.5.21
     devDependencies:
       '@types/jest':
         specifier: ^29.5.11
@@ -167,7 +124,47 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
-  infrastructure/storage:
+  infrastructure/kubernetes:
+    dependencies:
+      cdk8s:
+        specifier: ^2.68.23
+        version: 2.68.23(constructs@10.3.0)
+      cdk8s-constructs:
+        specifier: ^0.0.0
+        version: link:../../packages/cdk8s-constructs
+      cdk8s-plus-27:
+        specifier: ^2.7.70
+        version: 2.7.70(cdk8s@2.68.23)(constructs@10.3.0)
+      constructs:
+        specifier: ^10.3.0
+        version: 10.3.0
+    devDependencies:
+      '@types/jest':
+        specifier: ^29.5.11
+        version: 29.5.11
+      '@types/node':
+        specifier: ^18
+        version: 18.19.4
+      cdk8s-cli:
+        specifier: ^2.198.27
+        version: 2.198.27
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@18.19.4)(ts-node@10.9.2)
+      jest-junit:
+        specifier: ^15
+        version: 15.0.0
+      projen:
+        specifier: ^0.78.10
+        version: 0.78.10(constructs@10.3.0)
+      ts-jest:
+        specifier: ^29.1.1
+        version: 29.1.1(@babel/core@7.23.7)(esbuild@0.19.11)(jest@29.7.0)(typescript@5.3.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+
+  infrastructure/terraform:
     dependencies:
       cdktf:
         specifier: ^0.19.2
@@ -178,6 +175,9 @@ importers:
       constructs:
         specifier: ^10.3.0
         version: 10.3.0
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
     devDependencies:
       '@types/jest':
         specifier: ^29.5.11
@@ -3429,6 +3429,7 @@ packages:
 
   /buffer-from@1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
+    dev: true
 
   /buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
@@ -4343,7 +4344,6 @@ packages:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
     requiresBuild: true
-    optional: true
 
   /downlevel-dts@0.11.0:
     resolution: {integrity: sha512-vo835pntK7kzYStk7xUHDifiYJvXxVhUapt85uk2AI94gUUAQX9HNRtrcMHNSc3YHJUEHGbYIGsM99uIbgAtxw==}
@@ -4351,7 +4351,7 @@ packages:
     dependencies:
       semver: 7.5.4
       shelljs: 0.8.5
-      typescript: 5.4.0-dev.20240115
+      typescript: 5.4.0-dev.20240117
     dev: true
 
   /duplexer@0.1.2:
@@ -8582,10 +8582,12 @@ packages:
     dependencies:
       buffer-from: 1.1.2
       source-map: 0.6.1
+    dev: true
 
   /source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    dev: true
 
   /spawn-please@2.0.2:
     resolution: {integrity: sha512-KM8coezO6ISQ89c1BzyWNtcn2V2kAVtwIXd3cN/V5a0xPYc1F/vydrRc01wsKFEQ/p+V1a4sw4z2yMITIXrgGw==}
@@ -9225,8 +9227,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typescript@5.4.0-dev.20240115:
-    resolution: {integrity: sha512-p3nYa7pku8FHvfLDyiDcplZbKXEQTcZqtvXN6JTBu/u5cNLinBzOiKA3cVfHcgudzCUMtU5ke94dpwFNr+U3qw==}
+  /typescript@5.4.0-dev.20240117:
+    resolution: {integrity: sha512-Ur4g3jvhZbV2NzF66R3fbCY5ejasRHkTudu4zamw9OnEx44VHiFVvimXazZR5ldUIXDbeDTveEPYf+h/M8/HFQ==}
     engines: {node: '>=14.17'}
     hasBin: true
     dev: true

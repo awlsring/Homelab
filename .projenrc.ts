@@ -101,6 +101,7 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
   testdir: "",
 });
 
+// projen projects
 new TypeScriptProject({
   ...subprojectProps,
   name: "projen-projects",
@@ -112,23 +113,22 @@ new TypeScriptProject({
 
 // Projects
 
-// notifiers
+// aws resources
 new AwsCdkTypeScriptApp({
   ...subprojectProps,
-  name: "notifiers",
-  outdir: "infrastructure/notifiers",
+  name: "aws",
+  outdir: "infrastructure/aws",
   deps: [
     "@awlsring/cdk-aws-discord-notifiers",
-    "source-map-support",
     awsCdkConstructs.package.packageName,
   ],
 });
 
-// storage
+// terraform resources
 new CdkTfTypescriptApp({
   ...subprojectProps,
-  name: "storage",
-  outdir: "infrastructure/storage",
+  name: "terraform",
+  outdir: "infrastructure/terraform",
   codeMakerOutput: "src/gen",
   terraformProviders: [
     {
@@ -142,9 +142,20 @@ new CdkTfTypescriptApp({
       version: "0.11.0",
     },
   ],
-  deps: [cdktfConstructs.package.packageName],
-  gitignore: ["src/gen"],
+  deps: [cdktfConstructs.package.packageName, "dotenv"],
+  gitignore: ["src/gen", ".env"],
 });
+
+// Charts
+const cluster = new Cdk8sTypeScriptApp({
+  ...subprojectProps,
+  outdir: "infrastructure/kubernetes",
+  name: "kubernetes",
+  deps: [cdk8sConstructs.package.packageName],
+});
+cluster.postCompileTask.exec(
+  "rm -rf charts && mkdir -p charts && cp -r dist/* charts",
+);
 
 // new CdkAnsApp({
 //   ...subprojectProps,
@@ -167,16 +178,5 @@ new CdkTfTypescriptApp({
 //     },
 //   ],
 // });
-
-// Charts
-const cluster = new Cdk8sTypeScriptApp({
-  ...subprojectProps,
-  outdir: "infrastructure/cluster/manifests",
-  name: "main-cluster",
-  deps: [cdk8sConstructs.package.packageName],
-});
-cluster.postCompileTask.exec(
-  "rm -rf charts && mkdir -p charts && cp -r dist/* charts",
-);
 
 monorepo.synth();
