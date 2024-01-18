@@ -1,11 +1,11 @@
 import { Construct } from "constructs";
 import { ClusterSecretStoreV1Beta1 } from "../../imports/external-secrets.io";
-import { SecretReference } from "../secret-reference";
+import { NamespaceSecretReference } from "../secret-reference";
 
 export interface OnePasswordSecretStoreProps {
   readonly connectHost: string;
   readonly vaults: string[];
-  readonly connectTokenRef: SecretReference;
+  readonly connectTokenRef: NamespaceSecretReference;
 }
 
 export class OnePasswordClusterSecretStore extends Construct {
@@ -39,7 +39,7 @@ export class OnePasswordClusterSecretStore extends Construct {
   private vaultListToRecord(vaults: string[]): Record<string, number> {
     const vaultsRecord: Record<string, number> = {};
     vaults.forEach((vault, i) => {
-      vaultsRecord[vault] = i;
+      vaultsRecord[vault] = i + 1;
     });
     return vaultsRecord;
   }

@@ -28,16 +28,15 @@ export class OnePasswordConnectChart extends HomelabChart {
     name: string,
     props: OnePasswordConnectChartProps,
   ) {
-    super(scope, name, props);
+    super(scope, name, {
+      namespace: NAMESPACE,
+      ...props,
+    });
     new Helm(this, "helm", {
       chart: "1password/connect",
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         connect: {
-          tls: {
-            enabled: true,
-            secretName: INGRESS_SECRET_NAME,
-          },
           ingress: {
             enabled: true,
             annotations: {
@@ -59,11 +58,13 @@ export class OnePasswordConnectChart extends HomelabChart {
     });
 
     new OnePasswordClusterSecretStore(this, "onepassword-secret-store", {
-      connectHost: props.ingress.domain,
+      connectHost:
+        "http://onepassword-connect.onepassword-connect.svc.cluster.local:8080",
       vaults: ["Homelab"],
       connectTokenRef: {
         name: "onepassword-token",
         key: "token",
+        namespace: NAMESPACE,
       },
     });
   }

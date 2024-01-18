@@ -4,7 +4,7 @@ import { assignSystemCharts } from "./modules/system";
 
 const app = new App();
 
-assignApplicationsCharts(app);
 assignSystemCharts(app);
+assignApplicationsCharts(app);
 
 app.synth();

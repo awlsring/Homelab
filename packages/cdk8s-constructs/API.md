@@ -81664,6 +81664,56 @@ public readonly name: string;
 
 ---
 
+### NamespaceSecretReference <a name="NamespaceSecretReference" id="cdk8s-constructs.NamespaceSecretReference"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.NamespaceSecretReference.Initializer"></a>
+
+```typescript
+import { NamespaceSecretReference } from 'cdk8s-constructs'
+
+const namespaceSecretReference: NamespaceSecretReference = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.NamespaceSecretReference.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NamespaceSecretReference.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NamespaceSecretReference.property.namespace">namespace</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.NamespaceSecretReference.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `key`<sup>Optional</sup> <a name="key" id="cdk8s-constructs.NamespaceSecretReference.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+---
+
+##### `namespace`<sup>Optional</sup> <a name="namespace" id="cdk8s-constructs.NamespaceSecretReference.property.namespace"></a>
+
+```typescript
+public readonly namespace: string;
+```
+
+- *Type:* string
+
+---
+
 ### NamespaceSpec <a name="NamespaceSpec" id="cdk8s-constructs.NamespaceSpec"></a>
 
 NamespaceSpec describes the attributes on a Namespace.
@@ -83079,7 +83129,7 @@ const onePasswordSecretStoreProps: OnePasswordSecretStoreProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.connectHost">connectHost</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.connectTokenRef">connectTokenRef</a></code> | <code><a href="#cdk8s-constructs.SecretReference">SecretReference</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.connectTokenRef">connectTokenRef</a></code> | <code><a href="#cdk8s-constructs.NamespaceSecretReference">NamespaceSecretReference</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.vaults">vaults</a></code> | <code>string[]</code> | *No description.* |
 
 ---
@@ -83097,10 +83147,10 @@ public readonly connectHost: string;
 ##### `connectTokenRef`<sup>Required</sup> <a name="connectTokenRef" id="cdk8s-constructs.OnePasswordSecretStoreProps.property.connectTokenRef"></a>
 
 ```typescript
-public readonly connectTokenRef: SecretReference;
+public readonly connectTokenRef: NamespaceSecretReference;
 ```
 
-- *Type:* <a href="#cdk8s-constructs.SecretReference">SecretReference</a>
+- *Type:* <a href="#cdk8s-constructs.NamespaceSecretReference">NamespaceSecretReference</a>
 
 ---
 
