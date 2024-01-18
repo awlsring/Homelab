@@ -4,11 +4,11 @@ import { Construct } from "constructs";
 
 const NAMESPACE = "cnpg-system";
 
-export interface CloudnativePqChartProps
+export interface CloudnativePgChartProps
   extends Omit<HomelabChartProps, "namespace"> {}
 
-export class CloudnativePqChart extends HomelabChart {
-  constructor(scope: Construct, name: string, props?: CloudnativePqChartProps) {
+export class CloudnativePgChart extends HomelabChart {
+  constructor(scope: Construct, name: string, props?: CloudnativePgChartProps) {
     super(scope, name, {
       ...props,
       namespace: NAMESPACE,

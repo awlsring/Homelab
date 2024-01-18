@@ -8,19 +8,19 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+  name: cnpg-helm-c8c43f88-cloudnative-pg
   namespace: cnpg-system
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
@@ -33,7 +33,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
@@ -8852,12 +8852,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+  name: cnpg-helm-c8c43f88-cloudnative-pg
   namespace: cnpg-system
 rules:
   - apiGroups:
@@ -9196,12 +9196,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg-view
+  name: cnpg-helm-c8c43f88-cloudnative-pg-view
   namespace: cnpg-system
 rules:
   - apiGroups:
@@ -9220,12 +9220,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg-edit
+  name: cnpg-helm-c8c43f88-cloudnative-pg-edit
   namespace: cnpg-system
 rules:
   - apiGroups:
@@ -9246,27 +9246,27 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+  name: cnpg-helm-c8c43f88-cloudnative-pg
   namespace: cnpg-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+  name: cnpg-helm-c8c43f88-cloudnative-pg
 subjects:
   - kind: ServiceAccount
-    name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+    name: cnpg-helm-c8c43f88-cloudnative-pg
     namespace: cnpg-system
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
@@ -9279,7 +9279,7 @@ spec:
       port: 443
       targetPort: webhook-server
   selector:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/name: cloudnative-pg
   type: ClusterIP
 ---
@@ -9287,23 +9287,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
     helm.sh/chart: cloudnative-pg-0.20.0
-  name: cloudnative-pq-helm-c83ad125-cloudnative-pg
+  name: cnpg-helm-c8c43f88-cloudnative-pg
   namespace: cnpg-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+      app.kubernetes.io/instance: cnpg-helm-c8c43f88
       app.kubernetes.io/name: cloudnative-pg
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+        app.kubernetes.io/instance: cnpg-helm-c8c43f88
         app.kubernetes.io/name: cloudnative-pg
     spec:
       containers:
@@ -9365,7 +9365,7 @@ spec:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: cloudnative-pq-helm-c83ad125-cloudnative-pg
+      serviceAccountName: cnpg-helm-c8c43f88-cloudnative-pg
       terminationGracePeriodSeconds: 10
       volumes:
         - emptyDir: {}
@@ -9380,7 +9380,7 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
@@ -9456,7 +9456,7 @@ apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
   labels:
-    app.kubernetes.io/instance: cloudnative-pq-helm-c83ad125
+    app.kubernetes.io/instance: cnpg-helm-c8c43f88
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/version: 1.22.0
