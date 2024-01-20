@@ -31,6 +31,6 @@ export class StorageBackupStack extends HomelabStack {
           fileNamePrefix: "",
         },
       ],
-    }).importFrom("d49bbc606017a19087920d13");
+    });
   }
 }

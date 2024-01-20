@@ -1,13 +1,21 @@
 import { App } from "cdktf";
 import {
-  LocalBackendCreator,
   OnepasswordSecretProviderCreator,
+  PostgresBackendCreator,
 } from "cdktf-constructs";
 import { StorageBackupStack } from "./stacks/storage/storage-backup";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = new App();
+
+const pgUser = process.env.POSTGRES_USER;
+const pgPassword = process.env.POSTGRES_PASSWORD;
+const pgAddress = process.env.POSTGRES_ADDRESS;
+const pgDatabase = process.env.POSTGRES_DATABASE;
+if (!pgUser || !pgPassword || !pgAddress || !pgDatabase) {
+  throw new Error("Missing postgres configuration");
+}
 
 const onepasswordUrl = process.env.ONEPASSWORD_CONNECT_URL;
 const onepasswordToken = process.env.ONEPASSWORD_CONNECT_TOKEN;
@@ -17,7 +25,12 @@ if (!onepasswordToken || !onepasswordUrl) {
 
 const projectsProps = {
   project: "homelab",
-  backendCreator: new LocalBackendCreator({}),
+  backendCreator: new PostgresBackendCreator({
+    address: pgAddress,
+    database: pgDatabase,
+    user: pgUser,
+    password: pgPassword,
+  }),
   secretProviderCreator: new OnepasswordSecretProviderCreator({
     url: onepasswordUrl,
     token: onepasswordToken,

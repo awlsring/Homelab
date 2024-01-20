@@ -708,6 +708,67 @@ public readonly vault: string;
 
 ---
 
+### PostgresBackendProps <a name="PostgresBackendProps" id="cdktf-constructs.PostgresBackendProps"></a>
+
+#### Initializer <a name="Initializer" id="cdktf-constructs.PostgresBackendProps.Initializer"></a>
+
+```typescript
+import { PostgresBackendProps } from 'cdktf-constructs'
+
+const postgresBackendProps: PostgresBackendProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdktf-constructs.PostgresBackendProps.property.address">address</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdktf-constructs.PostgresBackendProps.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdktf-constructs.PostgresBackendProps.property.password">password</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdktf-constructs.PostgresBackendProps.property.user">user</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `address`<sup>Required</sup> <a name="address" id="cdktf-constructs.PostgresBackendProps.property.address"></a>
+
+```typescript
+public readonly address: string;
+```
+
+- *Type:* string
+
+---
+
+##### `database`<sup>Required</sup> <a name="database" id="cdktf-constructs.PostgresBackendProps.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `password`<sup>Required</sup> <a name="password" id="cdktf-constructs.PostgresBackendProps.property.password"></a>
+
+```typescript
+public readonly password: string;
+```
+
+- *Type:* string
+
+---
+
+##### `user`<sup>Required</sup> <a name="user" id="cdktf-constructs.PostgresBackendProps.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
 ### RemoteBackendProps <a name="RemoteBackendProps" id="cdktf-constructs.RemoteBackendProps"></a>
 
 #### Initializer <a name="Initializer" id="cdktf-constructs.RemoteBackendProps.Initializer"></a>
@@ -957,6 +1018,53 @@ public create(scope: Construct, name: string): ISecretProvider
 
 
 
+### PostgresBackendCreator <a name="PostgresBackendCreator" id="cdktf-constructs.PostgresBackendCreator"></a>
+
+- *Implements:* <a href="#cdktf-constructs.IBackendCreator">IBackendCreator</a>
+
+#### Initializers <a name="Initializers" id="cdktf-constructs.PostgresBackendCreator.Initializer"></a>
+
+```typescript
+import { PostgresBackendCreator } from 'cdktf-constructs'
+
+new PostgresBackendCreator(props: PostgresBackendProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdktf-constructs.PostgresBackendCreator.Initializer.parameter.props">props</a></code> | <code><a href="#cdktf-constructs.PostgresBackendProps">PostgresBackendProps</a></code> | *No description.* |
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdktf-constructs.PostgresBackendCreator.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdktf-constructs.PostgresBackendProps">PostgresBackendProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdktf-constructs.PostgresBackendCreator.create">create</a></code> | *No description.* |
+
+---
+
+##### `create` <a name="create" id="cdktf-constructs.PostgresBackendCreator.create"></a>
+
+```typescript
+public create(scope: Construct): TerraformBackend
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdktf-constructs.PostgresBackendCreator.create.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+
+
+
 ### RemoteBackendCreator <a name="RemoteBackendCreator" id="cdktf-constructs.RemoteBackendCreator"></a>
 
 - *Implements:* <a href="#cdktf-constructs.IBackendCreator">IBackendCreator</a>
@@ -1008,7 +1116,7 @@ public create(scope: Construct): TerraformBackend
 
 ### IBackendCreator <a name="IBackendCreator" id="cdktf-constructs.IBackendCreator"></a>
 
-- *Implemented By:* <a href="#cdktf-constructs.CloudBackendCreator">CloudBackendCreator</a>, <a href="#cdktf-constructs.LocalBackendCreator">LocalBackendCreator</a>, <a href="#cdktf-constructs.RemoteBackendCreator">RemoteBackendCreator</a>, <a href="#cdktf-constructs.IBackendCreator">IBackendCreator</a>
+- *Implemented By:* <a href="#cdktf-constructs.CloudBackendCreator">CloudBackendCreator</a>, <a href="#cdktf-constructs.LocalBackendCreator">LocalBackendCreator</a>, <a href="#cdktf-constructs.PostgresBackendCreator">PostgresBackendCreator</a>, <a href="#cdktf-constructs.RemoteBackendCreator">RemoteBackendCreator</a>, <a href="#cdktf-constructs.IBackendCreator">IBackendCreator</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
