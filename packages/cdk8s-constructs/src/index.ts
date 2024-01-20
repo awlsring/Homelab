@@ -36,3 +36,4 @@ export * from "./constructs/external-ingress/external-ingress";
 export * from "./constructs/annotations/annotation";
 export * from "./constructs/annotations/kube-ingress-annotations";
 export * from "./constructs/annotations/nginx-ingress-annotations";
+export * from "./constructs/grafana/dashboard";

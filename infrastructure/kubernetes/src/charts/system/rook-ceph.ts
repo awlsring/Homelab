@@ -1,5 +1,11 @@
+import * as path from "path";
 import { Helm } from "cdk8s";
-import { HomelabChart, HomelabChartProps, ServiceType } from "cdk8s-constructs";
+import {
+  GrafanaDashboard,
+  HomelabChart,
+  HomelabChartProps,
+  ServiceType,
+} from "cdk8s-constructs";
 import { Construct } from "constructs";
 
 const NAMESPACE = "rook-ceph";
@@ -72,5 +78,11 @@ export class RookCephChart extends HomelabChart {
         },
       },
     });
+
+    GrafanaDashboard.fromFile(
+      this,
+      "ceph-dashboard",
+      path.join(__dirname, "..", "..", "..", "dashboards", "Ceph_Cluster.json"),
+    );
   }
 }

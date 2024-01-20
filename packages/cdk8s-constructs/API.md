@@ -925,6 +925,112 @@ If this is omitted, the ApiResource should represent all objects of the given ty
 ---
 
 
+### GrafanaDashboard <a name="GrafanaDashboard" id="cdk8s-constructs.GrafanaDashboard"></a>
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GrafanaDashboard.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.GrafanaDashboard.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GrafanaDashboard.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.GrafanaDashboard.fromFile">fromFile</a></code> | *No description.* |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.GrafanaDashboard.isConstruct"></a>
+
+```typescript
+import { GrafanaDashboard } from 'cdk8s-constructs'
+
+GrafanaDashboard.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.GrafanaDashboard.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromFile` <a name="fromFile" id="cdk8s-constructs.GrafanaDashboard.fromFile"></a>
+
+```typescript
+import { GrafanaDashboard } from 'cdk8s-constructs'
+
+GrafanaDashboard.fromFile(scope: Construct, name: string, file: string)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.GrafanaDashboard.fromFile.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.GrafanaDashboard.fromFile.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `file`<sup>Required</sup> <a name="file" id="cdk8s-constructs.GrafanaDashboard.fromFile.parameter.file"></a>
+
+- *Type:* string
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GrafanaDashboard.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.GrafanaDashboard.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### HomelabCertificate <a name="HomelabCertificate" id="cdk8s-constructs.HomelabCertificate"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabCertificate.Initializer"></a>
@@ -63689,6 +63795,56 @@ public readonly readOnly: boolean;
 readOnly here will force the Glusterfs volume to be mounted with read-only permissions.
 
 Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+---
+
+### GrafanaDashboardProps <a name="GrafanaDashboardProps" id="cdk8s-constructs.GrafanaDashboardProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GrafanaDashboardProps.Initializer"></a>
+
+```typescript
+import { GrafanaDashboardProps } from 'cdk8s-constructs'
+
+const grafanaDashboardProps: GrafanaDashboardProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GrafanaDashboardProps.property.data">data</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GrafanaDashboardProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GrafanaDashboardProps.property.dashboardLabelOverride">dashboardLabelOverride</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `data`<sup>Required</sup> <a name="data" id="cdk8s-constructs.GrafanaDashboardProps.property.data"></a>
+
+```typescript
+public readonly data: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.GrafanaDashboardProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dashboardLabelOverride`<sup>Optional</sup> <a name="dashboardLabelOverride" id="cdk8s-constructs.GrafanaDashboardProps.property.dashboardLabelOverride"></a>
+
+```typescript
+public readonly dashboardLabelOverride: string;
+```
+
+- *Type:* string
 
 ---
 
