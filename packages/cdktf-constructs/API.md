@@ -54,6 +54,7 @@ new HomelabStack(scope: Construct, name: string, props: HomelabStackProps)
 | <code><a href="#cdktf-constructs.HomelabStack.registerIncomingCrossStackReference">registerIncomingCrossStackReference</a></code> | *No description.* |
 | <code><a href="#cdktf-constructs.HomelabStack.registerOutgoingCrossStackReference">registerOutgoingCrossStackReference</a></code> | *No description.* |
 | <code><a href="#cdktf-constructs.HomelabStack.runAllValidations">runAllValidations</a></code> | Run all validations on the stack. |
+| <code><a href="#cdktf-constructs.HomelabStack.toHclTerraform">toHclTerraform</a></code> | *No description.* |
 | <code><a href="#cdktf-constructs.HomelabStack.toTerraform">toTerraform</a></code> | *No description.* |
 
 ---
@@ -175,6 +176,12 @@ public runAllValidations(): void
 ```
 
 Run all validations on the stack.
+
+##### `toHclTerraform` <a name="toHclTerraform" id="cdktf-constructs.HomelabStack.toHclTerraform"></a>
+
+```typescript
+public toHclTerraform(): {[ key: string ]: any}
+```
 
 ##### `toTerraform` <a name="toTerraform" id="cdktf-constructs.HomelabStack.toTerraform"></a>
 

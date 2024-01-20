@@ -20,6 +20,7 @@ export class PostgresBackendCreator implements IBackendCreator {
   create(scope: Construct): TerraformBackend {
     return new PgBackend(scope, {
       connStr: this.makeConnectionString(),
+      schemaName: scope.node.id,
     });
   }
 }

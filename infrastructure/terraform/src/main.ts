@@ -3,6 +3,7 @@ import {
   OnepasswordSecretProviderCreator,
   PostgresBackendCreator,
 } from "cdktf-constructs";
+import { UnifiNetworkStack } from "./stacks/network/unifi";
 import { StorageBackupStack } from "./stacks/storage/storage-backup";
 import dotenv from "dotenv";
 dotenv.config();
@@ -41,6 +42,11 @@ const projectsProps = {
 new StorageBackupStack(app, "storage-backup", {
   ...projectsProps,
   secretName: "backblaze-tf-key",
+});
+
+new UnifiNetworkStack(app, "unifi-network", {
+  ...projectsProps,
+  secretName: "unifi-terraform",
 });
 
 app.synth();

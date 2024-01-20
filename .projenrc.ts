@@ -17,7 +17,7 @@ const REPOSITORY = "github:awlsring/Homelab";
 const CONSTRUCTS_VERSION = "10.3.0";
 const AWS_CDK_VERSION = "2.118.0";
 const CDKANS_VERSION = "0.0.0";
-const CDKTF_VERSION = "0.19.2";
+const CDKTF_VERSION = "0.20.1";
 const CDK8S_VERSION = "2.68.23";
 const CDK8S_CLI_VERSION = "2.198.27";
 const CDK8S_PLUS_VERSION = "2.7.70";
@@ -90,6 +90,7 @@ const cdktfConstructs = new ConstructLibraryCdktf({
   gitignore: ["src/gen"],
   testdir: "",
 });
+cdktfConstructs.preCompileTask.exec("cdktf get");
 
 // cdk8s constructs
 const cdk8sConstructs = new ConstructLibraryCdk8s({
@@ -140,6 +141,11 @@ new CdkTfTypescriptApp({
       name: "truenas",
       source: "dariusbakunas/truenas",
       version: "0.11.0",
+    },
+    {
+      name: "unifi",
+      source: "paultyng/unifi",
+      version: "0.41.0",
     },
   ],
   deps: [cdktfConstructs.package.packageName, "dotenv"],
