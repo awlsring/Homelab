@@ -33,3 +33,6 @@ export * from "./constructs/apps/resillio";
 export * from "./constructs/apps/immich";
 export * from "./constructs/cnpq/cluster";
 export * from "./constructs/external-ingress/external-ingress";
+export * from "./constructs/annotations/annotation";
+export * from "./constructs/annotations/kube-ingress-annotations";
+export * from "./constructs/annotations/nginx-ingress-annotations";

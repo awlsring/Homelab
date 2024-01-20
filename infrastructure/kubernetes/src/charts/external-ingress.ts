@@ -1,4 +1,5 @@
 import {
+  Annotation,
   ExternalIngress,
   HomelabChart,
   HomelabChartProps,
@@ -10,6 +11,10 @@ export interface ExternalIngressTarget {
   readonly address: string;
   readonly hostname: string;
   readonly port: number;
+  readonly servicePort?: number;
+  readonly ingressAnnotations?: Annotation[];
+  readonly certIssuerOverride?: string;
+  readonly ingressClassOverride?: string;
 }
 
 export interface ExternalIngressChartProps extends HomelabChartProps {
@@ -40,8 +45,10 @@ export class ExternalIngressChart extends HomelabChart {
       address: target.address,
       hostname: target.hostname,
       port: target.port,
-      ingressClassName: ingress,
-      certIssuer: certIssuer,
+      ingressClassName: target.ingressClassOverride ?? ingress,
+      certIssuer: target.certIssuerOverride ?? certIssuer,
+      servicePort: target.servicePort,
+      ingressAnnotations: target.ingressAnnotations,
     });
   }
 }

@@ -9,6 +9,9 @@ import {
 } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 import { Endpoints } from "../kube/endpoints";
+import { Annotation } from "../annotations/annotation";
+
+const DEFAULT_SERVICE_PORT = 80;
 
 export interface ExternalIngressProps {
   readonly address: string;
@@ -17,14 +20,18 @@ export interface ExternalIngressProps {
   readonly ingressClassName: string;
   readonly certIssuer: string;
   readonly certSecretName?: string;
+  readonly servicePort?: number;
+  readonly ingressAnnotations?: Annotation[];
 }
 
 export class ExternalIngress extends Ingress {
   constructor(scope: Construct, name: string, props: ExternalIngressProps) {
+    const servicePort = props.servicePort ?? DEFAULT_SERVICE_PORT;
+
     const service = new Service(scope, `${name}-svc`, {
       ports: [
         {
-          port: 80,
+          port: servicePort,
           targetPort: props.port,
         },
       ],
@@ -32,7 +39,7 @@ export class ExternalIngress extends Ingress {
       type: ServiceType.CLUSTER_IP,
     });
 
-    new Endpoints(scope, "endpoint", {
+    new Endpoints(scope, `${name}-endpoint`, {
       service: service,
       address: props.address,
     });
@@ -42,7 +49,7 @@ export class ExternalIngress extends Ingress {
       props.certSecretName ?? `${service.name}-tls`,
     );
     const backend = IngressBackend.fromService(service, {
-      port: 80,
+      port: servicePort,
     });
     const ingressProps: IngressProps = {
       rules: [
@@ -67,6 +74,11 @@ export class ExternalIngress extends Ingress {
       );
       this.metadata.addAnnotation("cert-manager.io/duration", "2160h");
       this.metadata.addAnnotation("cert-manager.io/renew-before", "360h");
+    }
+    if (props.ingressAnnotations) {
+      props.ingressAnnotations.forEach((annotation) => {
+        this.metadata.addAnnotation(annotation.key, annotation.value);
+      });
     }
     this.apiObject.addJsonPatch(
       JsonPatch.add("/spec/ingressClassName", props.ingressClassName),

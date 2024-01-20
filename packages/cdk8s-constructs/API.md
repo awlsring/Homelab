@@ -55600,6 +55600,45 @@ If any of the selectors match, then the ClusterRole's permissions will be added
 
 ---
 
+### Annotation <a name="Annotation" id="cdk8s-constructs.Annotation"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.Annotation.Initializer"></a>
+
+```typescript
+import { Annotation } from 'cdk8s-constructs'
+
+const annotation: Annotation = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Annotation.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Annotation.property.value">value</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="cdk8s-constructs.Annotation.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="cdk8s-constructs.Annotation.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* string
+
+---
+
 ### ApiServiceSpec <a name="ApiServiceSpec" id="cdk8s-constructs.ApiServiceSpec"></a>
 
 APIServiceSpec contains information for locating and communicating with a server.
@@ -62600,6 +62639,8 @@ const externalIngressProps: ExternalIngressProps = { ... }
 | <code><a href="#cdk8s-constructs.ExternalIngressProps.property.ingressClassName">ingressClassName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExternalIngressProps.property.port">port</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExternalIngressProps.property.certSecretName">certSecretName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.ingressAnnotations">ingressAnnotations</a></code> | <code><a href="#cdk8s-constructs.Annotation">Annotation</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.servicePort">servicePort</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -62660,6 +62701,26 @@ public readonly certSecretName: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `ingressAnnotations`<sup>Optional</sup> <a name="ingressAnnotations" id="cdk8s-constructs.ExternalIngressProps.property.ingressAnnotations"></a>
+
+```typescript
+public readonly ingressAnnotations: Annotation[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.Annotation">Annotation</a>[]
+
+---
+
+##### `servicePort`<sup>Optional</sup> <a name="servicePort" id="cdk8s-constructs.ExternalIngressProps.property.servicePort"></a>
+
+```typescript
+public readonly servicePort: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -98394,6 +98455,46 @@ public readonly value: string | number;
 ---
 
 
+### KubeIngressAnnotations <a name="KubeIngressAnnotations" id="cdk8s-constructs.KubeIngressAnnotations"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.KubeIngressAnnotations.Initializer"></a>
+
+```typescript
+import { KubeIngressAnnotations } from 'cdk8s-constructs'
+
+new KubeIngressAnnotations()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.KubeIngressAnnotations.configurationSnippet">configurationSnippet</a></code> | *No description.* |
+
+---
+
+##### `configurationSnippet` <a name="configurationSnippet" id="cdk8s-constructs.KubeIngressAnnotations.configurationSnippet"></a>
+
+```typescript
+import { KubeIngressAnnotations } from 'cdk8s-constructs'
+
+KubeIngressAnnotations.configurationSnippet(snippet: string)
+```
+
+###### `snippet`<sup>Required</sup> <a name="snippet" id="cdk8s-constructs.KubeIngressAnnotations.configurationSnippet.parameter.snippet"></a>
+
+- *Type:* string
+
+---
+
+
+
 ### MiddlewareSpecCircuitBreakerCheckPeriod <a name="MiddlewareSpecCircuitBreakerCheckPeriod" id="cdk8s-constructs.MiddlewareSpecCircuitBreakerCheckPeriod"></a>
 
 CheckPeriod is the interval between successive checks of the circuit breaker condition (when in standby state).
@@ -98764,6 +98865,139 @@ public readonly value: string | number;
 - *Type:* string | number
 
 ---
+
+
+### NginxIngressAnnotations <a name="NginxIngressAnnotations" id="cdk8s-constructs.NginxIngressAnnotations"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.NginxIngressAnnotations.Initializer"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+new NginxIngressAnnotations()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.appRoot">appRoot</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.backendProtocolHTTPS">backendProtocolHTTPS</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.corsAllowHeaders">corsAllowHeaders</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.corsAllowMethods">corsAllowMethods</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.corsAllowOrigin">corsAllowOrigin</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.corsEnabled">corsEnabled</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.proxyBodySize">proxyBodySize</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.NginxIngressAnnotations.serverSnippets">serverSnippets</a></code> | *No description.* |
+
+---
+
+##### `appRoot` <a name="appRoot" id="cdk8s-constructs.NginxIngressAnnotations.appRoot"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.appRoot(target: string)
+```
+
+###### `target`<sup>Required</sup> <a name="target" id="cdk8s-constructs.NginxIngressAnnotations.appRoot.parameter.target"></a>
+
+- *Type:* string
+
+---
+
+##### `backendProtocolHTTPS` <a name="backendProtocolHTTPS" id="cdk8s-constructs.NginxIngressAnnotations.backendProtocolHTTPS"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.backendProtocolHTTPS()
+```
+
+##### `corsAllowHeaders` <a name="corsAllowHeaders" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowHeaders"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.corsAllowHeaders(headers: string[])
+```
+
+###### `headers`<sup>Required</sup> <a name="headers" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowHeaders.parameter.headers"></a>
+
+- *Type:* string[]
+
+---
+
+##### `corsAllowMethods` <a name="corsAllowMethods" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowMethods"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.corsAllowMethods(methods: string[])
+```
+
+###### `methods`<sup>Required</sup> <a name="methods" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowMethods.parameter.methods"></a>
+
+- *Type:* string[]
+
+---
+
+##### `corsAllowOrigin` <a name="corsAllowOrigin" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowOrigin"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.corsAllowOrigin(origin: string)
+```
+
+###### `origin`<sup>Required</sup> <a name="origin" id="cdk8s-constructs.NginxIngressAnnotations.corsAllowOrigin.parameter.origin"></a>
+
+- *Type:* string
+
+---
+
+##### `corsEnabled` <a name="corsEnabled" id="cdk8s-constructs.NginxIngressAnnotations.corsEnabled"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.corsEnabled()
+```
+
+##### `proxyBodySize` <a name="proxyBodySize" id="cdk8s-constructs.NginxIngressAnnotations.proxyBodySize"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.proxyBodySize(size: string)
+```
+
+###### `size`<sup>Required</sup> <a name="size" id="cdk8s-constructs.NginxIngressAnnotations.proxyBodySize.parameter.size"></a>
+
+- *Type:* string
+
+---
+
+##### `serverSnippets` <a name="serverSnippets" id="cdk8s-constructs.NginxIngressAnnotations.serverSnippets"></a>
+
+```typescript
+import { NginxIngressAnnotations } from 'cdk8s-constructs'
+
+NginxIngressAnnotations.serverSnippets(snippets: string[])
+```
+
+###### `snippets`<sup>Required</sup> <a name="snippets" id="cdk8s-constructs.NginxIngressAnnotations.serverSnippets.parameter.snippets"></a>
+
+- *Type:* string[]
+
+---
+
 
 
 ### Quantity <a name="Quantity" id="cdk8s-constructs.Quantity"></a>
