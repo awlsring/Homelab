@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: external-ingress
+  namespace: external-ingress
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-ingress-frigate-svc-c8980b75
+  namespace: external-ingress
+spec:
+  clusterIP: None
+  externalIPs: []
+  ports:
+    - port: 80
+      targetPort: 5000
+  selector: {}
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-ingress-frigate-svc-c8980b75
+  namespace: external-ingress
+subsets:
+  - addresses:
+      - ip: 10.0.10.9
+    ports:
+      - port: 5000
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ext-external-ingress-frigate-svc-c8980b75-tls-c868130f
+  namespace: external-ingress
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: external-ingress-frigate-c802f980
+  namespace: external-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: frigate.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: external-ingress-frigate-svc-c8980b75
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - frigate.us-drig-1.drigs.org
+      secretName: ext-external-ingress-frigate-svc-c8980b75-tls-c868130f

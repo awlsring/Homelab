@@ -538,6 +538,393 @@ The tree node.
 ---
 
 
+### ExternalIngress <a name="ExternalIngress" id="cdk8s-constructs.ExternalIngress"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ExternalIngress.Initializer"></a>
+
+```typescript
+import { ExternalIngress } from 'cdk8s-constructs'
+
+new ExternalIngress(scope: Construct, name: string, props: ExternalIngressProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalIngress.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngress.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ExternalIngressProps">ExternalIngressProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ExternalIngress.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ExternalIngress.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.ExternalIngress.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ExternalIngressProps">ExternalIngressProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalIngress.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addDefaultBackend">addDefaultBackend</a></code> | Defines the default backend for this ingress. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addHostDefaultBackend">addHostDefaultBackend</a></code> | Specify a default backend for a specific host name. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addHostRule">addHostRule</a></code> | Adds an ingress rule applied to requests to a specific host and a specific HTTP path (the `Host` header matches this value). |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addRule">addRule</a></code> | Adds an ingress rule applied to requests sent to a specific HTTP path. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addRules">addRules</a></code> | Adds rules to this ingress. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.addTls">addTls</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ExternalIngress.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.ExternalIngress.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.ExternalIngress.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
+##### `addDefaultBackend` <a name="addDefaultBackend" id="cdk8s-constructs.ExternalIngress.addDefaultBackend"></a>
+
+```typescript
+public addDefaultBackend(backend: IngressBackend): void
+```
+
+Defines the default backend for this ingress.
+
+A default backend capable of
+servicing requests that don't match any rule.
+
+###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.ExternalIngress.addDefaultBackend.parameter.backend"></a>
+
+- *Type:* cdk8s-plus-27.IngressBackend
+
+The backend to use for requests that do not match any rule.
+
+---
+
+##### `addHostDefaultBackend` <a name="addHostDefaultBackend" id="cdk8s-constructs.ExternalIngress.addHostDefaultBackend"></a>
+
+```typescript
+public addHostDefaultBackend(host: string, backend: IngressBackend): void
+```
+
+Specify a default backend for a specific host name.
+
+This backend will be used as a catch-all for requests
+targeted to this host name (the `Host` header matches this value).
+
+###### `host`<sup>Required</sup> <a name="host" id="cdk8s-constructs.ExternalIngress.addHostDefaultBackend.parameter.host"></a>
+
+- *Type:* string
+
+The host name to match.
+
+---
+
+###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.ExternalIngress.addHostDefaultBackend.parameter.backend"></a>
+
+- *Type:* cdk8s-plus-27.IngressBackend
+
+The backend to route to.
+
+---
+
+##### `addHostRule` <a name="addHostRule" id="cdk8s-constructs.ExternalIngress.addHostRule"></a>
+
+```typescript
+public addHostRule(host: string, path: string, backend: IngressBackend, pathType?: HttpIngressPathType): void
+```
+
+Adds an ingress rule applied to requests to a specific host and a specific HTTP path (the `Host` header matches this value).
+
+###### `host`<sup>Required</sup> <a name="host" id="cdk8s-constructs.ExternalIngress.addHostRule.parameter.host"></a>
+
+- *Type:* string
+
+The host name.
+
+---
+
+###### `path`<sup>Required</sup> <a name="path" id="cdk8s-constructs.ExternalIngress.addHostRule.parameter.path"></a>
+
+- *Type:* string
+
+The HTTP path.
+
+---
+
+###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.ExternalIngress.addHostRule.parameter.backend"></a>
+
+- *Type:* cdk8s-plus-27.IngressBackend
+
+The backend to route requests to.
+
+---
+
+###### `pathType`<sup>Optional</sup> <a name="pathType" id="cdk8s-constructs.ExternalIngress.addHostRule.parameter.pathType"></a>
+
+- *Type:* cdk8s-plus-27.HttpIngressPathType
+
+How the path is matched against request paths.
+
+---
+
+##### `addRule` <a name="addRule" id="cdk8s-constructs.ExternalIngress.addRule"></a>
+
+```typescript
+public addRule(path: string, backend: IngressBackend, pathType?: HttpIngressPathType): void
+```
+
+Adds an ingress rule applied to requests sent to a specific HTTP path.
+
+###### `path`<sup>Required</sup> <a name="path" id="cdk8s-constructs.ExternalIngress.addRule.parameter.path"></a>
+
+- *Type:* string
+
+The HTTP path.
+
+---
+
+###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.ExternalIngress.addRule.parameter.backend"></a>
+
+- *Type:* cdk8s-plus-27.IngressBackend
+
+The backend to route requests to.
+
+---
+
+###### `pathType`<sup>Optional</sup> <a name="pathType" id="cdk8s-constructs.ExternalIngress.addRule.parameter.pathType"></a>
+
+- *Type:* cdk8s-plus-27.HttpIngressPathType
+
+How the path is matched against request paths.
+
+---
+
+##### `addRules` <a name="addRules" id="cdk8s-constructs.ExternalIngress.addRules"></a>
+
+```typescript
+public addRules(rules: IngressRule): void
+```
+
+Adds rules to this ingress.
+
+###### `rules`<sup>Required</sup> <a name="rules" id="cdk8s-constructs.ExternalIngress.addRules.parameter.rules"></a>
+
+- *Type:* cdk8s-plus-27.IngressRule
+
+The rules to add.
+
+---
+
+##### `addTls` <a name="addTls" id="cdk8s-constructs.ExternalIngress.addTls"></a>
+
+```typescript
+public addTls(tls: IngressTls[]): void
+```
+
+###### `tls`<sup>Required</sup> <a name="tls" id="cdk8s-constructs.ExternalIngress.addTls.parameter.tls"></a>
+
+- *Type:* cdk8s-plus-27.IngressTls[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalIngress.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ExternalIngress.isConstruct"></a>
+
+```typescript
+import { ExternalIngress } from 'cdk8s-constructs'
+
+ExternalIngress.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ExternalIngress.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.ExternalIngress.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ExternalIngress.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.ExternalIngress.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.ExternalIngress.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.ExternalIngress.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.ExternalIngress.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ExternalIngress.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.ExternalIngress.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.ExternalIngress.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.ExternalIngress.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+
 ### HomelabCertificate <a name="HomelabCertificate" id="cdk8s-constructs.HomelabCertificate"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabCertificate.Initializer"></a>
@@ -62187,6 +62574,89 @@ public readonly description: string;
 
 ```typescript
 public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+### ExternalIngressProps <a name="ExternalIngressProps" id="cdk8s-constructs.ExternalIngressProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ExternalIngressProps.Initializer"></a>
+
+```typescript
+import { ExternalIngressProps } from 'cdk8s-constructs'
+
+const externalIngressProps: ExternalIngressProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.address">address</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.ingressClassName">ingressClassName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.port">port</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalIngressProps.property.certSecretName">certSecretName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `address`<sup>Required</sup> <a name="address" id="cdk8s-constructs.ExternalIngressProps.property.address"></a>
+
+```typescript
+public readonly address: string;
+```
+
+- *Type:* string
+
+---
+
+##### `certIssuer`<sup>Required</sup> <a name="certIssuer" id="cdk8s-constructs.ExternalIngressProps.property.certIssuer"></a>
+
+```typescript
+public readonly certIssuer: string;
+```
+
+- *Type:* string
+
+---
+
+##### `hostname`<sup>Required</sup> <a name="hostname" id="cdk8s-constructs.ExternalIngressProps.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ingressClassName`<sup>Required</sup> <a name="ingressClassName" id="cdk8s-constructs.ExternalIngressProps.property.ingressClassName"></a>
+
+```typescript
+public readonly ingressClassName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Required</sup> <a name="port" id="cdk8s-constructs.ExternalIngressProps.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+##### `certSecretName`<sup>Optional</sup> <a name="certSecretName" id="cdk8s-constructs.ExternalIngressProps.property.certSecretName"></a>
+
+```typescript
+public readonly certSecretName: string;
 ```
 
 - *Type:* string
