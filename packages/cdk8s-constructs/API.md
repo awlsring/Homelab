@@ -418,6 +418,126 @@ public readonly name: string;
 ---
 
 
+### Cluster <a name="Cluster" id="cdk8s-constructs.Cluster"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Cluster.Initializer"></a>
+
+```typescript
+import { Cluster } from 'cdk8s-constructs'
+
+new Cluster(scope: Construct, name: string, props: ClusterProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Cluster.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Cluster.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Cluster.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ClusterProps">ClusterProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Cluster.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Cluster.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Cluster.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ClusterProps">ClusterProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Cluster.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.Cluster.exposeWithPrimaryService">exposeWithPrimaryService</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Cluster.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `exposeWithPrimaryService` <a name="exposeWithPrimaryService" id="cdk8s-constructs.Cluster.exposeWithPrimaryService"></a>
+
+```typescript
+public exposeWithPrimaryService(): Service
+```
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Cluster.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Cluster.isConstruct"></a>
+
+```typescript
+import { Cluster } from 'cdk8s-constructs'
+
+Cluster.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Cluster.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Cluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Cluster.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### HomelabCertificate <a name="HomelabCertificate" id="cdk8s-constructs.HomelabCertificate"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabCertificate.Initializer"></a>
@@ -56990,6 +57110,151 @@ The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Def
 
 ---
 
+### ClusterDatabaseOptions <a name="ClusterDatabaseOptions" id="cdk8s-constructs.ClusterDatabaseOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterDatabaseOptions.Initializer"></a>
+
+```typescript
+import { ClusterDatabaseOptions } from 'cdk8s-constructs'
+
+const clusterDatabaseOptions: ClusterDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterDatabaseOptions.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterDatabaseOptions.property.initCommands">initCommands</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterDatabaseOptions.property.password">password</a></code> | <code><a href="#cdk8s-constructs.SecretReference">SecretReference</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterDatabaseOptions.property.username">username</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `database`<sup>Optional</sup> <a name="database" id="cdk8s-constructs.ClusterDatabaseOptions.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `initCommands`<sup>Optional</sup> <a name="initCommands" id="cdk8s-constructs.ClusterDatabaseOptions.property.initCommands"></a>
+
+```typescript
+public readonly initCommands: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `password`<sup>Optional</sup> <a name="password" id="cdk8s-constructs.ClusterDatabaseOptions.property.password"></a>
+
+```typescript
+public readonly password: SecretReference;
+```
+
+- *Type:* <a href="#cdk8s-constructs.SecretReference">SecretReference</a>
+
+---
+
+##### `username`<sup>Optional</sup> <a name="username" id="cdk8s-constructs.ClusterDatabaseOptions.property.username"></a>
+
+```typescript
+public readonly username: string;
+```
+
+- *Type:* string
+
+---
+
+### ClusterProps <a name="ClusterProps" id="cdk8s-constructs.ClusterProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterProps.Initializer"></a>
+
+```typescript
+import { ClusterProps } from 'cdk8s-constructs'
+
+const clusterProps: ClusterProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.instances">instances</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.database">database</a></code> | <code><a href="#cdk8s-constructs.ClusterDatabaseOptions">ClusterDatabaseOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.enableMonitoring">enableMonitoring</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterProps.property.updateStrategy">updateStrategy</a></code> | <code><a href="#cdk8s-constructs.PrimaryUpdateStrategy">PrimaryUpdateStrategy</a></code> | *No description.* |
+
+---
+
+##### `instances`<sup>Required</sup> <a name="instances" id="cdk8s-constructs.ClusterProps.property.instances"></a>
+
+```typescript
+public readonly instances: number;
+```
+
+- *Type:* number
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.ClusterProps.property.storage"></a>
+
+```typescript
+public readonly storage: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `database`<sup>Optional</sup> <a name="database" id="cdk8s-constructs.ClusterProps.property.database"></a>
+
+```typescript
+public readonly database: ClusterDatabaseOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ClusterDatabaseOptions">ClusterDatabaseOptions</a>
+
+---
+
+##### `enableMonitoring`<sup>Optional</sup> <a name="enableMonitoring" id="cdk8s-constructs.ClusterProps.property.enableMonitoring"></a>
+
+```typescript
+public readonly enableMonitoring: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.ClusterProps.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `updateStrategy`<sup>Optional</sup> <a name="updateStrategy" id="cdk8s-constructs.ClusterProps.property.updateStrategy"></a>
+
+```typescript
+public readonly updateStrategy: PrimaryUpdateStrategy;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PrimaryUpdateStrategy">PrimaryUpdateStrategy</a>
+- *Default:* PrimaryUpdateStrategy.UNSUPERVISED
+
+---
+
 ### ClusterTrustBundleProjection <a name="ClusterTrustBundleProjection" id="cdk8s-constructs.ClusterTrustBundleProjection"></a>
 
 ClusterTrustBundleProjection describes how to select a set of ClusterTrustBundle objects and project their contents into the pod filesystem.
@@ -98904,6 +99169,27 @@ without any filesystem on it. This mode is useful to provide a Pod the fastest p
 to access a volume, without any filesystem layer between the Pod
 and the volume. On the other hand, the application running in
 the Pod must know how to handle a raw block device
+
+---
+
+
+### PrimaryUpdateStrategy <a name="PrimaryUpdateStrategy" id="cdk8s-constructs.PrimaryUpdateStrategy"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PrimaryUpdateStrategy.UNSUPERVISED">UNSUPERVISED</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PrimaryUpdateStrategy.SUPERVISED">SUPERVISED</a></code> | *No description.* |
+
+---
+
+##### `UNSUPERVISED` <a name="UNSUPERVISED" id="cdk8s-constructs.PrimaryUpdateStrategy.UNSUPERVISED"></a>
+
+---
+
+
+##### `SUPERVISED` <a name="SUPERVISED" id="cdk8s-constructs.PrimaryUpdateStrategy.SUPERVISED"></a>
 
 ---
 

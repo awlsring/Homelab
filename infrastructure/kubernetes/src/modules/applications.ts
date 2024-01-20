@@ -1,8 +1,9 @@
-import { App } from "cdk8s";
+import { App, Size } from "cdk8s";
 import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "../charts/applications/audiobookshelf";
 import { ImmichChart } from "../charts/applications/immich";
 import { JellyfinChart } from "../charts/applications/jellyfin";
+import { TerraformBackendChart } from "../charts/applications/terraform-backend";
 import { YarrgChart } from "../charts/applications/yarrg";
 
 export function assignApplicationsCharts(app: App) {
@@ -110,6 +111,16 @@ export function assignApplicationsCharts(app: App) {
       cache: {
         storageClass: "ceph-block",
       },
+    },
+  });
+
+  new TerraformBackendChart(app, "terraform-backend", {
+    createNamespace: true,
+    namespace: "terraform-backend",
+    instances: 2,
+    storage: {
+      storageClass: "ceph-block",
+      size: Size.gibibytes(1),
     },
   });
 }

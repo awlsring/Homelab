@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: terraform-backend
+  namespace: terraform-backend
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: terraform-backend-cluster-c824bab6
+  namespace: terraform-backend
+spec:
+  bootstrap:
+    initdb:
+      database: terraform
+      owner: terraform
+  instances: 2
+  monitoring: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 1Gi
+    storageClass: ceph-block
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: terraform-backend-cluster-service-c8d4c41a
+  namespace: terraform-backend
+spec:
+  externalIPs: []
+  ports:
+    - name: postgresql
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    cnpg.io/cluster: terraform-backend-cluster-c824bab6
+    cnpg.io/instanceRole: primary
+    role: primary
+  type: LoadBalancer

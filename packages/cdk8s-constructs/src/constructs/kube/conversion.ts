@@ -1,4 +1,21 @@
-import { Duration } from "cdk8s";
+import { Duration, Size } from "cdk8s";
+
+export function SizeToString(size: Size): string {
+  const totalGibibytes = Math.floor(size.toGibibytes());
+  const totalTebibytes = Math.floor(totalGibibytes / 1024);
+  const totalPebibytes = Math.floor(totalTebibytes / 1024);
+  const totalExbibytes = Math.floor(totalPebibytes / 1024);
+
+  if (totalExbibytes > 0) {
+    return `${totalExbibytes}Ei`;
+  } else if (totalPebibytes > 0) {
+    return `${totalPebibytes}Pi`;
+  } else if (totalTebibytes > 0) {
+    return `${totalTebibytes}Ti`;
+  } else {
+    return `${totalGibibytes}Gi`;
+  }
+}
 
 export function DurationToString(duration: Duration): string {
   const totalSeconds = Math.floor(duration.toSeconds());
