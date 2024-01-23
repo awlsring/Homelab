@@ -10,14 +10,26 @@ export function assignApplicationsCharts(app: App) {
   new JellyfinChart(app, "jellyfin", {
     createNamespace: true,
     namespace: "jellyfin",
-    imageTag: "10.7.0",
+    imageTag: "10.8.13",
+    ingress: {
+      ingressClass: "nginx",
+      hostname: "fin.us-drig-1.drigs.org",
+      certIssuer: "prod",
+    },
     configStorage: {
       storageClassName: "ceph-block",
     },
     cacheStorage: {
       storageClassName: "ceph-block",
     },
-    mediaShares: [],
+    mediaShares: [
+      {
+        name: "media",
+        server: "10.0.10.180",
+        serverPath: "/mnt/WD-6D-8T/fin",
+        mountPath: "/media",
+      },
+    ],
   });
 
   new AudioBookshelfChart(app, "audiobookshelf", {

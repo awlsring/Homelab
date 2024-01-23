@@ -60,11 +60,12 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/jellyfin:10.7.0
+          image: lscr.io/linuxserver/jellyfin:10.8.13
           imagePullPolicy: Always
           name: jellyfin
           ports:
             - containerPort: 8096
+              name: http
           resources:
             limits:
               gpu.intel.com/i915: "1"
@@ -75,8 +76,8 @@ spec:
               cpu: 500m
               memory: 1024Mi
           securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
+            allowPrivilegeEscalation: true
+            privileged: true
             readOnlyRootFilesystem: false
             runAsNonRoot: false
           volumeMounts:
@@ -84,15 +85,14 @@ spec:
               name: pvc-jellyfin-config-pvc-c8ddd027
             - mountPath: /cache
               name: pvc-jellyfin-cache-pvc-c81bd255
+            - mountPath: /media
+              name: media
       dnsPolicy: ClusterFirst
       hostNetwork: false
       restartPolicy: Always
       securityContext:
-        fsGroup: 1000
         fsGroupChangePolicy: Always
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
+        runAsNonRoot: false
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
       volumes:
@@ -104,3 +104,57 @@ spec:
           persistentVolumeClaim:
             claimName: jellyfin-cache-pvc-c81bd255
             readOnly: false
+        - name: media
+          nfs:
+            path: /mnt/WD-6D-8T/fin
+            server: 10.0.10.180
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-service-c8e0992d
+  namespace: jellyfin
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 8096
+      targetPort: 8096
+  selector:
+    cdk8s.io/metadata.addr: jellyfin-deployment-c8e9d4e2
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jellyfin-jellyfin-service-c8e0992d-tls-c81b43ca
+  namespace: jellyfin
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: jellyfin-ingress-c84bf669
+  namespace: jellyfin
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: fin.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: jellyfin-service-c8e0992d
+                port:
+                  number: 8096
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - fin.us-drig-1.drigs.org
+      secretName: jellyfin-jellyfin-service-c8e0992d-tls-c81b43ca

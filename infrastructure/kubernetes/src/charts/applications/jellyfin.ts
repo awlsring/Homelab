@@ -4,6 +4,8 @@ import {
   HomelabChart,
   HomelabChartProps,
   HomelabDeployment,
+  HomelabIngress,
+  HomelabIngressOptions,
 } from "cdk8s-constructs";
 import {
   Cpu,
@@ -11,6 +13,8 @@ import {
   EnvValue,
   PersistentVolumeAccessMode,
   PersistentVolumeClaim,
+  Service,
+  ServiceType,
   Volume,
   VolumeMount,
 } from "cdk8s-plus-27";
@@ -20,12 +24,12 @@ const DEFAULT_IMAGE_TAG = "latest";
 const DEFAULT_TIME_ZONE = "Etc/UTC";
 const PUID = 1000;
 const PGID = 1000;
-const FSGRP = 1000;
 const DEFAULT_PORT = 8096;
 
 export interface JellyfinChartProps extends HomelabChartProps {
   readonly timezone?: string;
   readonly imageTag?: string;
+  readonly ingress: HomelabIngressOptions;
   readonly configStorage: {
     readonly size?: Size;
     readonly storageClassName: string;
@@ -103,34 +107,53 @@ export class JellyfinChart extends HomelabChart {
       },
     };
 
-    const container = {
-      name: "jellyfin",
-      image: `lscr.io/linuxserver/jellyfin:${
-        props?.imageTag ?? DEFAULT_IMAGE_TAG
-      }`,
-      ports: [{ number: DEFAULT_PORT }],
-      envVariables: {
-        PUID: EnvValue.fromValue(`${PUID}`),
-        PGID: EnvValue.fromValue(`${PGID}`),
-        TZ: EnvValue.fromValue(props.timezone ?? DEFAULT_TIME_ZONE),
-      },
-      volumeMounts: volumeMounts,
-      resources: resource,
-      securityContext: {
-        ensureNonRoot: false,
-        readOnlyRootFilesystem: false,
-      },
-    };
     const deployment = new HomelabDeployment(this, "deployment", {
       replicas: 1,
       securityContext: {
-        user: PUID,
-        group: PGID,
-        fsGroup: FSGRP,
+        ensureNonRoot: false,
+        // user: PUID,
+        // group: PGID,
+        // fsGroup: FSGRP,
       },
       strategy: DeploymentStrategy.recreate(),
-      containers: [container],
+      containers: [
+        {
+          name: "jellyfin",
+          image: `lscr.io/linuxserver/jellyfin:${
+            props?.imageTag ?? DEFAULT_IMAGE_TAG
+          }`,
+          ports: [{ name: "http", number: DEFAULT_PORT }],
+          envVariables: {
+            PUID: EnvValue.fromValue(`${PUID}`),
+            PGID: EnvValue.fromValue(`${PGID}`),
+            TZ: EnvValue.fromValue(props.timezone ?? DEFAULT_TIME_ZONE),
+          },
+          volumeMounts: volumeMounts,
+          resources: resource,
+          securityContext: {
+            // user: PUID,
+            // group: PGID,
+            privileged: true,
+            allowPrivilegeEscalation: true,
+            ensureNonRoot: false,
+            readOnlyRootFilesystem: false,
+          },
+        },
+      ],
     });
     deployment.addGpuToContainer(GpuType.INTEL_INTEGRATED);
+
+    const service = new Service(this, "service", {
+      type: props.ingress.type ?? ServiceType.CLUSTER_IP,
+      selector: deployment,
+      ports: [{ name: "http", port: DEFAULT_PORT, targetPort: DEFAULT_PORT }],
+    });
+
+    new HomelabIngress(this, "ingress", {
+      ingressClassName: props.ingress.ingressClass,
+      service: service,
+      hostname: props.ingress.hostname,
+      certIssuer: props.ingress.certIssuer,
+    });
   }
 }
