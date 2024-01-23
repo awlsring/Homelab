@@ -111,9 +111,6 @@ export class JellyfinChart extends HomelabChart {
       replicas: 1,
       securityContext: {
         ensureNonRoot: false,
-        // user: PUID,
-        // group: PGID,
-        // fsGroup: FSGRP,
       },
       strategy: DeploymentStrategy.recreate(),
       containers: [
@@ -131,8 +128,6 @@ export class JellyfinChart extends HomelabChart {
           volumeMounts: volumeMounts,
           resources: resource,
           securityContext: {
-            // user: PUID,
-            // group: PGID,
             privileged: true,
             allowPrivilegeEscalation: true,
             ensureNonRoot: false,

@@ -2427,6 +2427,7 @@ Any object.
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.HomelabIngress.property.certSecret">certSecret</a></code> | <code>cdk8s-plus-27.Secret</code> | *No description.* |
 
 ---
 
@@ -2533,6 +2534,16 @@ public readonly resourceName: string;
 The unique, namespace-global, name of an object inside the Kubernetes cluster.
 
 If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `certSecret`<sup>Required</sup> <a name="certSecret" id="cdk8s-constructs.HomelabIngress.property.certSecret"></a>
+
+```typescript
+public readonly certSecret: Secret;
+```
+
+- *Type:* cdk8s-plus-27.Secret
 
 ---
 
@@ -3826,6 +3837,112 @@ public readonly GVK: GroupVersionKind;
 Returns the apiVersion and kind for "IngressRouteUDP".
 
 ---
+
+### Kanidm <a name="Kanidm" id="cdk8s-constructs.Kanidm"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Kanidm.Initializer"></a>
+
+```typescript
+import { Kanidm } from 'cdk8s-constructs'
+
+new Kanidm(scope: Construct, name: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Kanidm.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Kanidm.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Kanidm.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Kanidm.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Kanidm.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Kanidm.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Kanidm.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Kanidm.isConstruct"></a>
+
+```typescript
+import { Kanidm } from 'cdk8s-constructs'
+
+Kanidm.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Kanidm.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Kanidm.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Kanidm.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
 
 ### KubeApiService <a name="KubeApiService" id="cdk8s-constructs.KubeApiService"></a>
 
@@ -64446,6 +64563,7 @@ const homelabIngressOptions: HomelabIngressOptions = { ... }
 | <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.ingressClass">ingressClass</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.annotations">annotations</a></code> | <code><a href="#cdk8s-constructs.Annotation">Annotation</a>[]</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressOptions.property.type">type</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
 
 ---
@@ -64480,6 +64598,16 @@ public readonly ingressClass: string;
 
 ---
 
+##### `annotations`<sup>Optional</sup> <a name="annotations" id="cdk8s-constructs.HomelabIngressOptions.property.annotations"></a>
+
+```typescript
+public readonly annotations: Annotation[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.Annotation">Annotation</a>[]
+
+---
+
 ##### `type`<sup>Optional</sup> <a name="type" id="cdk8s-constructs.HomelabIngressOptions.property.type"></a>
 
 ```typescript
@@ -64506,6 +64634,7 @@ const homelabIngressProps: HomelabIngressProps = { ... }
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressProps.property.annotations">annotations</a></code> | <code><a href="#cdk8s-constructs.Annotation">Annotation</a>[]</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certSecretName">certSecretName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.ingressClassName">ingressClassName</a></code> | <code>string</code> | *No description.* |
@@ -64530,6 +64659,16 @@ public readonly service: Service;
 ```
 
 - *Type:* cdk8s-plus-27.Service
+
+---
+
+##### `annotations`<sup>Optional</sup> <a name="annotations" id="cdk8s-constructs.HomelabIngressProps.property.annotations"></a>
+
+```typescript
+public readonly annotations: Annotation[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.Annotation">Annotation</a>[]
 
 ---
 
@@ -98609,6 +98748,25 @@ public readonly value: string | number;
 - *Type:* string | number
 
 ---
+
+
+### KanidmProps <a name="KanidmProps" id="cdk8s-constructs.KanidmProps"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.KanidmProps.Initializer"></a>
+
+```typescript
+import { KanidmProps } from 'cdk8s-constructs'
+
+new KanidmProps()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+
 
 
 ### KubeIngressAnnotations <a name="KubeIngressAnnotations" id="cdk8s-constructs.KubeIngressAnnotations"></a>

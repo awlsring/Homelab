@@ -1,0 +1,179 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kanidm
+  namespace: kanidm
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kanidm-app-server-config-c8b2c7b9
+  namespace: kanidm
+data:
+  server.toml: |-
+    bindaddress = "[::]:8443"
+    db_path = "/data/kanidm.db"
+    tls_chain = "/cert/tls.crt"
+    tls_key = "/cert/tls.key"
+    domain = "auth.us-drig-1.drigs.org"
+    origin = "https://auth.us-drig-1.drigs.org"
+immutable: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kanidm-app-persistence-c8c060e1
+  namespace: kanidm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanidm-app-service-c8296a7c
+  namespace: kanidm
+spec:
+  externalIPs: []
+  ports:
+    - name: https
+      port: 443
+      targetPort: 8443
+  selector:
+    cdk8s.io/metadata.addr: kanidm-app-state-set-c8f04ce8
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kanidm-app-kanidm-app-service-c8296a7c-tls-c85057bc
+  namespace: kanidm
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: staging
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  name: kanidm-app-ingress-c8d208cf
+  namespace: kanidm
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: auth.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: kanidm-app-service-c8296a7c
+                port:
+                  number: 443
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - auth.us-drig-1.drigs.org
+      secretName: kanidm-app-kanidm-app-service-c8296a7c-tls-c85057bc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kanidm-app-state-set-service-c83191df
+  namespace: kanidm
+spec:
+  clusterIP: None
+  externalIPs: []
+  ports:
+    - port: 8443
+      targetPort: 8443
+  selector:
+    cdk8s.io/metadata.addr: kanidm-app-state-set-c8f04ce8
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kanidm-app-state-set-c8536378
+  namespace: kanidm
+spec:
+  minReadySeconds: 0
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: kanidm-app-state-set-c8f04ce8
+  serviceName: kanidm-app-state-set-service-c83191df
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: kanidm-app-state-set-c8f04ce8
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - args:
+            - kanidmd
+            - server
+            - -c
+            - /config/server.toml
+          image: docker.io/kanidm/server:1.1.0-rc.15
+          imagePullPolicy: Always
+          name: kanidm
+          ports:
+            - containerPort: 8443
+              name: https
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /config
+              name: configmap-kanidm-app-server-config-c8b2c7b9
+            - mountPath: /data
+              name: pvc-kanidm-app-persistence-c8c060e1
+            - mountPath: /cert
+              name: secret-kanidm-app-kanidm-app-service-c8296a7c-tls-c85057bc
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            name: kanidm-app-server-config-c8b2c7b9
+          name: configmap-kanidm-app-server-config-c8b2c7b9
+        - name: pvc-kanidm-app-persistence-c8c060e1
+          persistentVolumeClaim:
+            claimName: kanidm-app-persistence-c8c060e1
+            readOnly: false
+        - name: secret-kanidm-app-kanidm-app-service-c8296a7c-tls-c85057bc
+          secret:
+            secretName: kanidm-app-kanidm-app-service-c8296a7c-tls-c85057bc
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate

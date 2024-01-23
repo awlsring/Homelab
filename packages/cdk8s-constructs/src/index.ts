@@ -37,3 +37,4 @@ export * from "./constructs/annotations/annotation";
 export * from "./constructs/annotations/kube-ingress-annotations";
 export * from "./constructs/annotations/nginx-ingress-annotations";
 export * from "./constructs/grafana/dashboard";
+export * from "./constructs/apps/kanidm";
