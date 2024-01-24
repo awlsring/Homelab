@@ -61,25 +61,10 @@ export class JellyfinChart extends HomelabChart {
       configPvc,
     );
 
-    const cachePvc = new PersistentVolumeClaim(this, "cache-pvc", {
-      accessModes: [PersistentVolumeAccessMode.READ_WRITE_ONCE],
-      storage: props.cacheStorage.size ?? Size.gibibytes(1),
-      storageClassName: props.cacheStorage.storageClassName,
-    });
-    const cacheVol = Volume.fromPersistentVolumeClaim(
-      this,
-      "cache-vol",
-      cachePvc,
-    );
-
     const volumeMounts: VolumeMount[] = [
       {
         path: "/config",
         volume: configVol,
-      },
-      {
-        path: "/cache",
-        volume: cacheVol,
       },
     ];
     props.mediaShares?.forEach((share) => {

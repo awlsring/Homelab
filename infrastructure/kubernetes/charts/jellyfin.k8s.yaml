@@ -18,20 +18,6 @@ spec:
   storageClassName: ceph-block
   volumeMode: Filesystem
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: jellyfin-cache-pvc-c81bd255
-  namespace: jellyfin
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: ceph-block
-  volumeMode: Filesystem
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -83,8 +69,6 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: pvc-jellyfin-config-pvc-c8ddd027
-            - mountPath: /cache
-              name: pvc-jellyfin-cache-pvc-c81bd255
             - mountPath: /media
               name: media
       dnsPolicy: ClusterFirst
@@ -99,10 +83,6 @@ spec:
         - name: pvc-jellyfin-config-pvc-c8ddd027
           persistentVolumeClaim:
             claimName: jellyfin-config-pvc-c8ddd027
-            readOnly: false
-        - name: pvc-jellyfin-cache-pvc-c81bd255
-          persistentVolumeClaim:
-            claimName: jellyfin-cache-pvc-c81bd255
             readOnly: false
         - name: media
           nfs:
