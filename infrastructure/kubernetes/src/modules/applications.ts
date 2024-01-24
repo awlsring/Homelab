@@ -16,10 +16,8 @@ export function assignApplicationsCharts(app: App) {
       hostname: "fin.us-drig-1.drigs.org",
       certIssuer: "prod",
     },
-    configStorage: {
-      storageClassName: "ceph-block",
-    },
-    cacheStorage: {
+    storage: {
+      size: Size.gibibytes(30),
       storageClassName: "ceph-block",
     },
     mediaShares: [

@@ -30,11 +30,7 @@ export interface JellyfinChartProps extends HomelabChartProps {
   readonly timezone?: string;
   readonly imageTag?: string;
   readonly ingress: HomelabIngressOptions;
-  readonly configStorage: {
-    readonly size?: Size;
-    readonly storageClassName: string;
-  };
-  readonly cacheStorage: {
+  readonly storage: {
     readonly size?: Size;
     readonly storageClassName: string;
   };
@@ -52,8 +48,8 @@ export class JellyfinChart extends HomelabChart {
 
     const configPvc = new PersistentVolumeClaim(this, "config-pvc", {
       accessModes: [PersistentVolumeAccessMode.READ_WRITE_ONCE],
-      storage: props.configStorage.size ?? Size.gibibytes(1),
-      storageClassName: props.configStorage.storageClassName,
+      storage: props.storage.size ?? Size.gibibytes(10),
+      storageClassName: props.storage.storageClassName,
     });
     const configVol = Volume.fromPersistentVolumeClaim(
       this,
