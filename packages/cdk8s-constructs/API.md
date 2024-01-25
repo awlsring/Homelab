@@ -418,6 +418,289 @@ public readonly name: string;
 ---
 
 
+### CloudflareTunnel <a name="CloudflareTunnel" id="cdk8s-constructs.CloudflareTunnel"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.CloudflareTunnel.Initializer"></a>
+
+```typescript
+import { CloudflareTunnel } from 'cdk8s-constructs'
+
+new CloudflareTunnel(scope: Construct, name: string, props: CloudflareTunnelProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnelProps">CloudflareTunnelProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.CloudflareTunnel.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareTunnel.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.CloudflareTunnel.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.CloudflareTunnelProps">CloudflareTunnelProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.bindToService">bindToService</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.CloudflareTunnel.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `bindToService` <a name="bindToService" id="cdk8s-constructs.CloudflareTunnel.bindToService"></a>
+
+```typescript
+public bindToService(service: Service, props?: BindToServiceProps): CloudflareTunnelBinding
+```
+
+###### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.CloudflareTunnel.bindToService.parameter.service"></a>
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.CloudflareTunnel.bindToService.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.BindToServiceProps">BindToServiceProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.fromExistingTunnel">fromExistingTunnel</a></code> | *No description.* |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.CloudflareTunnel.isConstruct"></a>
+
+```typescript
+import { CloudflareTunnel } from 'cdk8s-constructs'
+
+CloudflareTunnel.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.CloudflareTunnel.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromExistingTunnel` <a name="fromExistingTunnel" id="cdk8s-constructs.CloudflareTunnel.fromExistingTunnel"></a>
+
+```typescript
+import { CloudflareTunnel } from 'cdk8s-constructs'
+
+CloudflareTunnel.fromExistingTunnel(scope: Construct, name: string, options: ExistingTunnelProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.CloudflareTunnel.fromExistingTunnel.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareTunnel.fromExistingTunnel.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk8s-constructs.CloudflareTunnel.fromExistingTunnel.parameter.options"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ExistingTunnelProps">ExistingTunnelProps</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.name">name</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.CloudflareTunnel.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+
+### CloudflareTunnelBinding <a name="CloudflareTunnelBinding" id="cdk8s-constructs.CloudflareTunnelBinding"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.CloudflareTunnelBinding.Initializer"></a>
+
+```typescript
+import { CloudflareTunnelBinding } from 'cdk8s-constructs'
+
+new CloudflareTunnelBinding(scope: Construct, name: string, props: CloudflareTunnelBindingProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps">CloudflareTunnelBindingProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.CloudflareTunnelBinding.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.CloudflareTunnelBindingProps">CloudflareTunnelBindingProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.CloudflareTunnelBinding.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.CloudflareTunnelBinding.isConstruct"></a>
+
+```typescript
+import { CloudflareTunnelBinding } from 'cdk8s-constructs'
+
+CloudflareTunnelBinding.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.CloudflareTunnelBinding.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBinding.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.CloudflareTunnelBinding.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### Cluster <a name="Cluster" id="cdk8s-constructs.Cluster"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.Cluster.Initializer"></a>
@@ -52012,6 +52295,132 @@ Returns the apiVersion and kind for "io.k8s.api.storage.v1alpha1.VolumeAttribute
 
 ---
 
+### Kustomize <a name="Kustomize" id="cdk8s-constructs.Kustomize"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Kustomize.Initializer"></a>
+
+```typescript
+import { Kustomize } from 'cdk8s-constructs'
+
+new Kustomize(scope: Construct, name: string, props: KustomizeProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Kustomize.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Kustomize.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Kustomize.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.KustomizeProps">KustomizeProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Kustomize.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Kustomize.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Kustomize.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.KustomizeProps">KustomizeProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Kustomize.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Kustomize.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Kustomize.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Kustomize.isConstruct"></a>
+
+```typescript
+import { Kustomize } from 'cdk8s-constructs'
+
+Kustomize.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Kustomize.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Kustomize.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Kustomize.property.apiObjects">apiObjects</a></code> | <code>cdk8s.ApiObject[]</code> | Returns all the included API objects. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Kustomize.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiObjects`<sup>Required</sup> <a name="apiObjects" id="cdk8s-constructs.Kustomize.property.apiObjects"></a>
+
+```typescript
+public readonly apiObjects: ApiObject[];
+```
+
+- *Type:* cdk8s.ApiObject[]
+
+Returns all the included API objects.
+
+---
+
+
 ### Lidarr <a name="Lidarr" id="cdk8s-constructs.Lidarr"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.Lidarr.Initializer"></a>
@@ -56765,6 +57174,100 @@ ReadOnly here will force the ReadOnly setting in VolumeMounts.
 
 ---
 
+### BaseTunnelOptions <a name="BaseTunnelOptions" id="cdk8s-constructs.BaseTunnelOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BaseTunnelOptions.Initializer"></a>
+
+```typescript
+import { BaseTunnelOptions } from 'cdk8s-constructs'
+
+const baseTunnelOptions: BaseTunnelOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.cloudflareSecret">cloudflareSecret</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.domain">domain</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.email">email</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cloudflareSecret`<sup>Required</sup> <a name="cloudflareSecret" id="cdk8s-constructs.BaseTunnelOptions.property.cloudflareSecret"></a>
+
+```typescript
+public readonly cloudflareSecret: string;
+```
+
+- *Type:* string
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="cdk8s-constructs.BaseTunnelOptions.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+---
+
+##### `email`<sup>Required</sup> <a name="email" id="cdk8s-constructs.BaseTunnelOptions.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.BaseTunnelOptions.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.BaseTunnelOptions.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.BaseTunnelOptions.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.BaseTunnelOptions.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+---
+
 ### BazarrAppProps <a name="BazarrAppProps" id="cdk8s-constructs.BazarrAppProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.BazarrAppProps.Initializer"></a>
@@ -56928,6 +57431,34 @@ public readonly tv: VolumeMount;
 ```
 
 - *Type:* cdk8s-plus-27.VolumeMount
+
+---
+
+### BindToServiceProps <a name="BindToServiceProps" id="cdk8s-constructs.BindToServiceProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BindToServiceProps.Initializer"></a>
+
+```typescript
+import { BindToServiceProps } from 'cdk8s-constructs'
+
+const bindToServiceProps: BindToServiceProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BindToServiceProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `domainName`<sup>Optional</sup> <a name="domainName" id="cdk8s-constructs.BindToServiceProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -57756,6 +58287,161 @@ public readonly timeoutSeconds: number;
 timeoutSeconds specifies the seconds of ClientIP type session sticky time.
 
 The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+
+---
+
+### CloudflareTunnelBindingProps <a name="CloudflareTunnelBindingProps" id="cdk8s-constructs.CloudflareTunnelBindingProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.CloudflareTunnelBindingProps.Initializer"></a>
+
+```typescript
+import { CloudflareTunnelBindingProps } from 'cdk8s-constructs'
+
+const cloudflareTunnelBindingProps: CloudflareTunnelBindingProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.tunnel">tunnel</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnel">CloudflareTunnel</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.CloudflareTunnelBindingProps.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+##### `tunnel`<sup>Required</sup> <a name="tunnel" id="cdk8s-constructs.CloudflareTunnelBindingProps.property.tunnel"></a>
+
+```typescript
+public readonly tunnel: CloudflareTunnel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.CloudflareTunnel">CloudflareTunnel</a>
+
+---
+
+##### `domainName`<sup>Optional</sup> <a name="domainName" id="cdk8s-constructs.CloudflareTunnelBindingProps.property.domainName"></a>
+
+```typescript
+public readonly domainName: string;
+```
+
+- *Type:* string
+
+---
+
+### CloudflareTunnelProps <a name="CloudflareTunnelProps" id="cdk8s-constructs.CloudflareTunnelProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.CloudflareTunnelProps.Initializer"></a>
+
+```typescript
+import { CloudflareTunnelProps } from 'cdk8s-constructs'
+
+const cloudflareTunnelProps: CloudflareTunnelProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.cloudflareSecret">cloudflareSecret</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.domain">domain</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.email">email</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.tunnelName">tunnelName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cloudflareSecret`<sup>Required</sup> <a name="cloudflareSecret" id="cdk8s-constructs.CloudflareTunnelProps.property.cloudflareSecret"></a>
+
+```typescript
+public readonly cloudflareSecret: string;
+```
+
+- *Type:* string
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="cdk8s-constructs.CloudflareTunnelProps.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+---
+
+##### `email`<sup>Required</sup> <a name="email" id="cdk8s-constructs.CloudflareTunnelProps.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.CloudflareTunnelProps.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.CloudflareTunnelProps.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.CloudflareTunnelProps.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.CloudflareTunnelProps.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tunnelName`<sup>Optional</sup> <a name="tunnelName" id="cdk8s-constructs.CloudflareTunnelProps.property.tunnelName"></a>
+
+```typescript
+public readonly tunnelName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -62798,6 +63484,122 @@ This is the number of execution seats nominally reserved for this priority level
 NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
 
 Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+
+---
+
+### ExistingTunnelProps <a name="ExistingTunnelProps" id="cdk8s-constructs.ExistingTunnelProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ExistingTunnelProps.Initializer"></a>
+
+```typescript
+import { ExistingTunnelProps } from 'cdk8s-constructs'
+
+const existingTunnelProps: ExistingTunnelProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.cloudflareSecret">cloudflareSecret</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.domain">domain</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.email">email</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.tunnelId">tunnelId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.tunnelName">tunnelName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `cloudflareSecret`<sup>Required</sup> <a name="cloudflareSecret" id="cdk8s-constructs.ExistingTunnelProps.property.cloudflareSecret"></a>
+
+```typescript
+public readonly cloudflareSecret: string;
+```
+
+- *Type:* string
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="cdk8s-constructs.ExistingTunnelProps.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+---
+
+##### `email`<sup>Required</sup> <a name="email" id="cdk8s-constructs.ExistingTunnelProps.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.ExistingTunnelProps.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.ExistingTunnelProps.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.ExistingTunnelProps.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.ExistingTunnelProps.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tunnelId`<sup>Optional</sup> <a name="tunnelId" id="cdk8s-constructs.ExistingTunnelProps.property.tunnelId"></a>
+
+```typescript
+public readonly tunnelId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tunnelName`<sup>Optional</sup> <a name="tunnelName" id="cdk8s-constructs.ExistingTunnelProps.property.tunnelName"></a>
+
+```typescript
+public readonly tunnelName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -77057,6 +77859,34 @@ parameters hold volume attributes defined by the CSI driver.
 These values are opaque to the Kubernetes and are passed directly to the CSI driver. The underlying storage provider supports changing these attributes on an existing volume, however the parameters field itself is immutable. To invoke a volume update, a new VolumeAttributesClass should be created with new parameters, and the PersistentVolumeClaim should be updated to reference the new VolumeAttributesClass.
 
 This field is required and must contain at least one key/value pair. The keys cannot be empty, and the maximum number of parameters is 512, with a cumulative max size of 256K. If the CSI driver rejects invalid parameters, the target PersistentVolumeClaim will be set to an "Infeasible" state in the modifyVolumeStatus field.
+
+---
+
+### KustomizeProps <a name="KustomizeProps" id="cdk8s-constructs.KustomizeProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.KustomizeProps.Initializer"></a>
+
+```typescript
+import { KustomizeProps } from 'cdk8s-constructs'
+
+const kustomizeProps: KustomizeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.KustomizeProps.property.url">url</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="cdk8s-constructs.KustomizeProps.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
 
 ---
 

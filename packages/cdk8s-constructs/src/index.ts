@@ -39,3 +39,5 @@ export * from "./constructs/annotations/nginx-ingress-annotations";
 export * from "./constructs/grafana/dashboard";
 export * from "./constructs/apps/kanidm";
 export * from "./constructs/kustomize/kustomize";
+export * from "./constructs/cloudflare/tunnel";
+export * from "./constructs/cloudflare/tunnel-binding";
