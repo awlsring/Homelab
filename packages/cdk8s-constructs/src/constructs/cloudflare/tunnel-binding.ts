@@ -1,12 +1,12 @@
 import { Construct } from "constructs";
-import { CloudflareTunnel } from "./tunnel";
 import { TunnelBinding as L1TunnelBinding } from "../../imports/cnpq-networking.cfargotunnel.com";
 import { Service } from "cdk8s-plus-27";
 import { ApiObject } from "cdk8s";
+import { ICloudflareTunnel } from "./tunnel/tunnel-common";
 
 export interface CloudflareTunnelBindingProps {
   readonly service: Service;
-  readonly tunnel: CloudflareTunnel;
+  readonly tunnel: ICloudflareTunnel;
   readonly domainName?: string;
 }
 
@@ -19,9 +19,6 @@ export class CloudflareTunnelBinding extends Construct {
   ) {
     super(scope, name);
     this.apiObject = new L1TunnelBinding(this, "resource", {
-      metadata: {
-        name: name,
-      },
       subjects: [
         {
           kind: "Service",
@@ -32,7 +29,7 @@ export class CloudflareTunnelBinding extends Construct {
         },
       ],
       tunnelRef: {
-        kind: "Tunnel",
+        kind: props.tunnel.resourceType,
         name: props.tunnel.name,
       },
     });

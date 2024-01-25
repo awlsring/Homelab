@@ -418,7 +418,303 @@ public readonly name: string;
 ---
 
 
+### CloudflareClusterTunnel <a name="CloudflareClusterTunnel" id="cdk8s-constructs.CloudflareClusterTunnel"></a>
+
+- *Implements:* <a href="#cdk8s-constructs.ICloudflareTunnel">ICloudflareTunnel</a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.CloudflareClusterTunnel.Initializer"></a>
+
+```typescript
+import { CloudflareClusterTunnel } from 'cdk8s-constructs'
+
+new CloudflareClusterTunnel(scope: Construct, name: string, props: CloudflareTunnelProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnelProps">CloudflareTunnelProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.CloudflareClusterTunnel.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.CloudflareTunnelProps">CloudflareTunnelProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.bindToService">bindToService</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.CloudflareClusterTunnel.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.CloudflareClusterTunnel.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.CloudflareClusterTunnel.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
+##### `bindToService` <a name="bindToService" id="cdk8s-constructs.CloudflareClusterTunnel.bindToService"></a>
+
+```typescript
+public bindToService(service: Service, props?: BindToServiceProps): CloudflareTunnelBinding
+```
+
+###### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.CloudflareClusterTunnel.bindToService.parameter.service"></a>
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.CloudflareClusterTunnel.bindToService.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.BindToServiceProps">BindToServiceProps</a>
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.fromExistingTunnel">fromExistingTunnel</a></code> | *No description.* |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.CloudflareClusterTunnel.isConstruct"></a>
+
+```typescript
+import { CloudflareClusterTunnel } from 'cdk8s-constructs'
+
+CloudflareClusterTunnel.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.CloudflareClusterTunnel.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromExistingTunnel` <a name="fromExistingTunnel" id="cdk8s-constructs.CloudflareClusterTunnel.fromExistingTunnel"></a>
+
+```typescript
+import { CloudflareClusterTunnel } from 'cdk8s-constructs'
+
+CloudflareClusterTunnel.fromExistingTunnel(scope: Construct, name: string, options: ExistingTunnelProps)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.CloudflareClusterTunnel.fromExistingTunnel.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareClusterTunnel.fromExistingTunnel.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="cdk8s-constructs.CloudflareClusterTunnel.fromExistingTunnel.parameter.options"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ExistingTunnelProps">ExistingTunnelProps</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.CloudflareClusterTunnel.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.CloudflareClusterTunnel.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.CloudflareClusterTunnel.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.CloudflareClusterTunnel.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.CloudflareClusterTunnel.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.CloudflareClusterTunnel.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareClusterTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.CloudflareClusterTunnel.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.CloudflareClusterTunnel.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.CloudflareClusterTunnel.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `replicas`<sup>Required</sup> <a name="replicas" id="cdk8s-constructs.CloudflareClusterTunnel.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+---
+
+
 ### CloudflareTunnel <a name="CloudflareTunnel" id="cdk8s-constructs.CloudflareTunnel"></a>
+
+- *Implements:* <a href="#cdk8s-constructs.ICloudflareTunnel">ICloudflareTunnel</a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.CloudflareTunnel.Initializer"></a>
 
@@ -431,7 +727,7 @@ new CloudflareTunnel(scope: Construct, name: string, props: CloudflareTunnelProp
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
 | <code><a href="#cdk8s-constructs.CloudflareTunnel.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnelProps">CloudflareTunnelProps</a></code> | *No description.* |
 
 ---
@@ -446,6 +742,8 @@ new CloudflareTunnel(scope: Construct, name: string, props: CloudflareTunnelProp
 
 - *Type:* string
 
+The name of this API object.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.CloudflareTunnel.Initializer.parameter.props"></a>
@@ -459,6 +757,8 @@ new CloudflareTunnel(scope: Construct, name: string, props: CloudflareTunnelProp
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk8s-constructs.CloudflareTunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
 | <code><a href="#cdk8s-constructs.CloudflareTunnel.bindToService">bindToService</a></code> | *No description.* |
 
 ---
@@ -470,6 +770,22 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.CloudflareTunnel.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.CloudflareTunnel.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
 
 ##### `bindToService` <a name="bindToService" id="cdk8s-constructs.CloudflareTunnel.bindToService"></a>
 
@@ -561,7 +877,15 @@ CloudflareTunnel.fromExistingTunnel(scope: Construct, name: string, options: Exi
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.CloudflareTunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.CloudflareTunnel.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
 
 ---
 
@@ -577,6 +901,52 @@ The tree node.
 
 ---
 
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.CloudflareTunnel.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.CloudflareTunnel.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.CloudflareTunnel.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.CloudflareTunnel.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
 ##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.CloudflareTunnel.property.name"></a>
 
 ```typescript
@@ -584,6 +954,54 @@ public readonly name: string;
 ```
 
 - *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.CloudflareTunnel.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.CloudflareTunnel.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.CloudflareTunnel.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `replicas`<sup>Required</sup> <a name="replicas" id="cdk8s-constructs.CloudflareTunnel.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
 
 ---
 
@@ -820,6 +1238,346 @@ The tree node.
 
 ---
 
+
+### ClusterTunnel <a name="ClusterTunnel" id="cdk8s-constructs.ClusterTunnel"></a>
+
+ClusterTunnel is the Schema for the clustertunnels API.
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ClusterTunnel.Initializer"></a>
+
+```typescript
+import { ClusterTunnel } from 'cdk8s-constructs'
+
+new ClusterTunnel(scope: Construct, id: string, props?: ClusterTunnelProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the scope in which to define this object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.Initializer.parameter.id">id</a></code> | <code>string</code> | a scope-local name for the object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ClusterTunnelProps">ClusterTunnelProps</a></code> | initialization props. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ClusterTunnel.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+the scope in which to define this object.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.ClusterTunnel.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+a scope-local name for the object.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.ClusterTunnel.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelProps">ClusterTunnelProps</a>
+
+initialization props.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.addDependency">addDependency</a></code> | Create a dependency between this ApiObject and other constructs. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.addJsonPatch">addJsonPatch</a></code> | Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.toJson">toJson</a></code> | Renders the object to Kubernetes JSON. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ClusterTunnel.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="cdk8s-constructs.ClusterTunnel.addDependency"></a>
+
+```typescript
+public addDependency(dependencies: IConstruct): void
+```
+
+Create a dependency between this ApiObject and other constructs.
+
+These can be other ApiObjects, Charts, or custom.
+
+###### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk8s-constructs.ClusterTunnel.addDependency.parameter.dependencies"></a>
+
+- *Type:* constructs.IConstruct
+
+the dependencies to add.
+
+---
+
+##### `addJsonPatch` <a name="addJsonPatch" id="cdk8s-constructs.ClusterTunnel.addJsonPatch"></a>
+
+```typescript
+public addJsonPatch(ops: JsonPatch): void
+```
+
+Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object.
+
+*Example*
+
+```typescript
+  kubePod.addJsonPatch(JsonPatch.replace('/spec/enableServiceLinks', true));
+```
+
+
+###### `ops`<sup>Required</sup> <a name="ops" id="cdk8s-constructs.ClusterTunnel.addJsonPatch.parameter.ops"></a>
+
+- *Type:* cdk8s.JsonPatch
+
+The JSON-Patch operations to apply.
+
+---
+
+##### `toJson` <a name="toJson" id="cdk8s-constructs.ClusterTunnel.toJson"></a>
+
+```typescript
+public toJson(): any
+```
+
+Renders the object to Kubernetes JSON.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.isApiObject">isApiObject</a></code> | Return whether the given object is an `ApiObject`. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.of">of</a></code> | Returns the `ApiObject` named `Resource` which is a child of the given construct. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.manifest">manifest</a></code> | Renders a Kubernetes manifest for "ClusterTunnel". |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ClusterTunnel.isConstruct"></a>
+
+```typescript
+import { ClusterTunnel } from 'cdk8s-constructs'
+
+ClusterTunnel.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ClusterTunnel.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isApiObject` <a name="isApiObject" id="cdk8s-constructs.ClusterTunnel.isApiObject"></a>
+
+```typescript
+import { ClusterTunnel } from 'cdk8s-constructs'
+
+ClusterTunnel.isApiObject(o: any)
+```
+
+Return whether the given object is an `ApiObject`.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `o`<sup>Required</sup> <a name="o" id="cdk8s-constructs.ClusterTunnel.isApiObject.parameter.o"></a>
+
+- *Type:* any
+
+The object to check.
+
+---
+
+##### `of` <a name="of" id="cdk8s-constructs.ClusterTunnel.of"></a>
+
+```typescript
+import { ClusterTunnel } from 'cdk8s-constructs'
+
+ClusterTunnel.of(c: IConstruct)
+```
+
+Returns the `ApiObject` named `Resource` which is a child of the given construct.
+
+If `c` is an `ApiObject`, it is returned directly. Throws an
+exception if the construct does not have a child named `Default` _or_ if
+this child is not an `ApiObject`.
+
+###### `c`<sup>Required</sup> <a name="c" id="cdk8s-constructs.ClusterTunnel.of.parameter.c"></a>
+
+- *Type:* constructs.IConstruct
+
+The higher-level construct.
+
+---
+
+##### `manifest` <a name="manifest" id="cdk8s-constructs.ClusterTunnel.manifest"></a>
+
+```typescript
+import { ClusterTunnel } from 'cdk8s-constructs'
+
+ClusterTunnel.manifest(props?: ClusterTunnelProps)
+```
+
+Renders a Kubernetes manifest for "ClusterTunnel".
+
+This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+###### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.ClusterTunnel.manifest.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelProps">ClusterTunnelProps</a>
+
+initialization props.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. `authorization.k8s.io/v1`). |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.chart">chart</a></code> | <code>cdk8s.Chart</code> | The chart in which this object is defined. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.kind">kind</a></code> | <code>string</code> | The object kind. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | Metadata associated with this API object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.name">name</a></code> | <code>string</code> | The name of the API object. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ClusterTunnel.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.ClusterTunnel.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.ClusterTunnel.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. `authorization.k8s.io/v1`).
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.ClusterTunnel.property.chart"></a>
+
+```typescript
+public readonly chart: Chart;
+```
+
+- *Type:* cdk8s.Chart
+
+The chart in which this object is defined.
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.ClusterTunnel.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind.
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.ClusterTunnel.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+Metadata associated with this API object.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ClusterTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the API object.
+
+If a name is specified in `metadata.name` this will be the name returned.
+Otherwise, a name will be generated by calling
+`Chart.of(this).generatedObjectName(this)`, which by default uses the
+construct path to generate a DNS-compatible name for the resource.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnel.property.GVK">GVK</a></code> | <code>cdk8s.GroupVersionKind</code> | Returns the apiVersion and kind for "ClusterTunnel". |
+
+---
+
+##### `GVK`<sup>Required</sup> <a name="GVK" id="cdk8s-constructs.ClusterTunnel.property.GVK"></a>
+
+```typescript
+public readonly GVK: GroupVersionKind;
+```
+
+- *Type:* cdk8s.GroupVersionKind
+
+Returns the apiVersion and kind for "ClusterTunnel".
+
+---
 
 ### ExternalIngress <a name="ExternalIngress" id="cdk8s-constructs.ExternalIngress"></a>
 
@@ -56138,6 +56896,686 @@ Returns the apiVersion and kind for "TraefikService".
 
 ---
 
+### Tunnel <a name="Tunnel" id="cdk8s-constructs.Tunnel"></a>
+
+Tunnel is the Schema for the tunnels API.
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Tunnel.Initializer"></a>
+
+```typescript
+import { Tunnel } from 'cdk8s-constructs'
+
+new Tunnel(scope: Construct, id: string, props?: TunnelProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Tunnel.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the scope in which to define this object. |
+| <code><a href="#cdk8s-constructs.Tunnel.Initializer.parameter.id">id</a></code> | <code>string</code> | a scope-local name for the object. |
+| <code><a href="#cdk8s-constructs.Tunnel.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.TunnelProps">TunnelProps</a></code> | initialization props. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Tunnel.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+the scope in which to define this object.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.Tunnel.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+a scope-local name for the object.
+
+---
+
+##### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.Tunnel.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.TunnelProps">TunnelProps</a>
+
+initialization props.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Tunnel.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.Tunnel.addDependency">addDependency</a></code> | Create a dependency between this ApiObject and other constructs. |
+| <code><a href="#cdk8s-constructs.Tunnel.addJsonPatch">addJsonPatch</a></code> | Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object. |
+| <code><a href="#cdk8s-constructs.Tunnel.toJson">toJson</a></code> | Renders the object to Kubernetes JSON. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Tunnel.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="cdk8s-constructs.Tunnel.addDependency"></a>
+
+```typescript
+public addDependency(dependencies: IConstruct): void
+```
+
+Create a dependency between this ApiObject and other constructs.
+
+These can be other ApiObjects, Charts, or custom.
+
+###### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk8s-constructs.Tunnel.addDependency.parameter.dependencies"></a>
+
+- *Type:* constructs.IConstruct
+
+the dependencies to add.
+
+---
+
+##### `addJsonPatch` <a name="addJsonPatch" id="cdk8s-constructs.Tunnel.addJsonPatch"></a>
+
+```typescript
+public addJsonPatch(ops: JsonPatch): void
+```
+
+Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object.
+
+*Example*
+
+```typescript
+  kubePod.addJsonPatch(JsonPatch.replace('/spec/enableServiceLinks', true));
+```
+
+
+###### `ops`<sup>Required</sup> <a name="ops" id="cdk8s-constructs.Tunnel.addJsonPatch.parameter.ops"></a>
+
+- *Type:* cdk8s.JsonPatch
+
+The JSON-Patch operations to apply.
+
+---
+
+##### `toJson` <a name="toJson" id="cdk8s-constructs.Tunnel.toJson"></a>
+
+```typescript
+public toJson(): any
+```
+
+Renders the object to Kubernetes JSON.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Tunnel.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.Tunnel.isApiObject">isApiObject</a></code> | Return whether the given object is an `ApiObject`. |
+| <code><a href="#cdk8s-constructs.Tunnel.of">of</a></code> | Returns the `ApiObject` named `Resource` which is a child of the given construct. |
+| <code><a href="#cdk8s-constructs.Tunnel.manifest">manifest</a></code> | Renders a Kubernetes manifest for "Tunnel". |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Tunnel.isConstruct"></a>
+
+```typescript
+import { Tunnel } from 'cdk8s-constructs'
+
+Tunnel.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Tunnel.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isApiObject` <a name="isApiObject" id="cdk8s-constructs.Tunnel.isApiObject"></a>
+
+```typescript
+import { Tunnel } from 'cdk8s-constructs'
+
+Tunnel.isApiObject(o: any)
+```
+
+Return whether the given object is an `ApiObject`.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `o`<sup>Required</sup> <a name="o" id="cdk8s-constructs.Tunnel.isApiObject.parameter.o"></a>
+
+- *Type:* any
+
+The object to check.
+
+---
+
+##### `of` <a name="of" id="cdk8s-constructs.Tunnel.of"></a>
+
+```typescript
+import { Tunnel } from 'cdk8s-constructs'
+
+Tunnel.of(c: IConstruct)
+```
+
+Returns the `ApiObject` named `Resource` which is a child of the given construct.
+
+If `c` is an `ApiObject`, it is returned directly. Throws an
+exception if the construct does not have a child named `Default` _or_ if
+this child is not an `ApiObject`.
+
+###### `c`<sup>Required</sup> <a name="c" id="cdk8s-constructs.Tunnel.of.parameter.c"></a>
+
+- *Type:* constructs.IConstruct
+
+The higher-level construct.
+
+---
+
+##### `manifest` <a name="manifest" id="cdk8s-constructs.Tunnel.manifest"></a>
+
+```typescript
+import { Tunnel } from 'cdk8s-constructs'
+
+Tunnel.manifest(props?: TunnelProps)
+```
+
+Renders a Kubernetes manifest for "Tunnel".
+
+This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+###### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.Tunnel.manifest.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.TunnelProps">TunnelProps</a>
+
+initialization props.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Tunnel.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Tunnel.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.Tunnel.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. `authorization.k8s.io/v1`). |
+| <code><a href="#cdk8s-constructs.Tunnel.property.chart">chart</a></code> | <code>cdk8s.Chart</code> | The chart in which this object is defined. |
+| <code><a href="#cdk8s-constructs.Tunnel.property.kind">kind</a></code> | <code>string</code> | The object kind. |
+| <code><a href="#cdk8s-constructs.Tunnel.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | Metadata associated with this API object. |
+| <code><a href="#cdk8s-constructs.Tunnel.property.name">name</a></code> | <code>string</code> | The name of the API object. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Tunnel.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.Tunnel.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.Tunnel.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. `authorization.k8s.io/v1`).
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.Tunnel.property.chart"></a>
+
+```typescript
+public readonly chart: Chart;
+```
+
+- *Type:* cdk8s.Chart
+
+The chart in which this object is defined.
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.Tunnel.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind.
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.Tunnel.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+Metadata associated with this API object.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Tunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the API object.
+
+If a name is specified in `metadata.name` this will be the name returned.
+Otherwise, a name will be generated by calling
+`Chart.of(this).generatedObjectName(this)`, which by default uses the
+construct path to generate a DNS-compatible name for the resource.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Tunnel.property.GVK">GVK</a></code> | <code>cdk8s.GroupVersionKind</code> | Returns the apiVersion and kind for "Tunnel". |
+
+---
+
+##### `GVK`<sup>Required</sup> <a name="GVK" id="cdk8s-constructs.Tunnel.property.GVK"></a>
+
+```typescript
+public readonly GVK: GroupVersionKind;
+```
+
+- *Type:* cdk8s.GroupVersionKind
+
+Returns the apiVersion and kind for "Tunnel".
+
+---
+
+### TunnelBinding <a name="TunnelBinding" id="cdk8s-constructs.TunnelBinding"></a>
+
+TunnelBinding is the Schema for the tunnelbindings API.
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.TunnelBinding.Initializer"></a>
+
+```typescript
+import { TunnelBinding } from 'cdk8s-constructs'
+
+new TunnelBinding(scope: Construct, id: string, props: TunnelBindingProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBinding.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the scope in which to define this object. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.Initializer.parameter.id">id</a></code> | <code>string</code> | a scope-local name for the object. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.TunnelBindingProps">TunnelBindingProps</a></code> | initialization props. |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.TunnelBinding.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+the scope in which to define this object.
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.TunnelBinding.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+a scope-local name for the object.
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.TunnelBinding.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingProps">TunnelBindingProps</a>
+
+initialization props.
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBinding.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.addDependency">addDependency</a></code> | Create a dependency between this ApiObject and other constructs. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.addJsonPatch">addJsonPatch</a></code> | Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.toJson">toJson</a></code> | Renders the object to Kubernetes JSON. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.TunnelBinding.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="cdk8s-constructs.TunnelBinding.addDependency"></a>
+
+```typescript
+public addDependency(dependencies: IConstruct): void
+```
+
+Create a dependency between this ApiObject and other constructs.
+
+These can be other ApiObjects, Charts, or custom.
+
+###### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk8s-constructs.TunnelBinding.addDependency.parameter.dependencies"></a>
+
+- *Type:* constructs.IConstruct
+
+the dependencies to add.
+
+---
+
+##### `addJsonPatch` <a name="addJsonPatch" id="cdk8s-constructs.TunnelBinding.addJsonPatch"></a>
+
+```typescript
+public addJsonPatch(ops: JsonPatch): void
+```
+
+Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object.
+
+*Example*
+
+```typescript
+  kubePod.addJsonPatch(JsonPatch.replace('/spec/enableServiceLinks', true));
+```
+
+
+###### `ops`<sup>Required</sup> <a name="ops" id="cdk8s-constructs.TunnelBinding.addJsonPatch.parameter.ops"></a>
+
+- *Type:* cdk8s.JsonPatch
+
+The JSON-Patch operations to apply.
+
+---
+
+##### `toJson` <a name="toJson" id="cdk8s-constructs.TunnelBinding.toJson"></a>
+
+```typescript
+public toJson(): any
+```
+
+Renders the object to Kubernetes JSON.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBinding.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.isApiObject">isApiObject</a></code> | Return whether the given object is an `ApiObject`. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.of">of</a></code> | Returns the `ApiObject` named `Resource` which is a child of the given construct. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.manifest">manifest</a></code> | Renders a Kubernetes manifest for "TunnelBinding". |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.TunnelBinding.isConstruct"></a>
+
+```typescript
+import { TunnelBinding } from 'cdk8s-constructs'
+
+TunnelBinding.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.TunnelBinding.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isApiObject` <a name="isApiObject" id="cdk8s-constructs.TunnelBinding.isApiObject"></a>
+
+```typescript
+import { TunnelBinding } from 'cdk8s-constructs'
+
+TunnelBinding.isApiObject(o: any)
+```
+
+Return whether the given object is an `ApiObject`.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `o`<sup>Required</sup> <a name="o" id="cdk8s-constructs.TunnelBinding.isApiObject.parameter.o"></a>
+
+- *Type:* any
+
+The object to check.
+
+---
+
+##### `of` <a name="of" id="cdk8s-constructs.TunnelBinding.of"></a>
+
+```typescript
+import { TunnelBinding } from 'cdk8s-constructs'
+
+TunnelBinding.of(c: IConstruct)
+```
+
+Returns the `ApiObject` named `Resource` which is a child of the given construct.
+
+If `c` is an `ApiObject`, it is returned directly. Throws an
+exception if the construct does not have a child named `Default` _or_ if
+this child is not an `ApiObject`.
+
+###### `c`<sup>Required</sup> <a name="c" id="cdk8s-constructs.TunnelBinding.of.parameter.c"></a>
+
+- *Type:* constructs.IConstruct
+
+The higher-level construct.
+
+---
+
+##### `manifest` <a name="manifest" id="cdk8s-constructs.TunnelBinding.manifest"></a>
+
+```typescript
+import { TunnelBinding } from 'cdk8s-constructs'
+
+TunnelBinding.manifest(props: TunnelBindingProps)
+```
+
+Renders a Kubernetes manifest for "TunnelBinding".
+
+This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+###### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.TunnelBinding.manifest.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingProps">TunnelBindingProps</a>
+
+initialization props.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. `authorization.k8s.io/v1`). |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.chart">chart</a></code> | <code>cdk8s.Chart</code> | The chart in which this object is defined. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.kind">kind</a></code> | <code>string</code> | The object kind. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | Metadata associated with this API object. |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.name">name</a></code> | <code>string</code> | The name of the API object. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.TunnelBinding.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.TunnelBinding.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.TunnelBinding.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. `authorization.k8s.io/v1`).
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.TunnelBinding.property.chart"></a>
+
+```typescript
+public readonly chart: Chart;
+```
+
+- *Type:* cdk8s.Chart
+
+The chart in which this object is defined.
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.TunnelBinding.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind.
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.TunnelBinding.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+Metadata associated with this API object.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.TunnelBinding.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the API object.
+
+If a name is specified in `metadata.name` this will be the name returned.
+Otherwise, a name will be generated by calling
+`Chart.of(this).generatedObjectName(this)`, which by default uses the
+construct path to generate a DNS-compatible name for the resource.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBinding.property.GVK">GVK</a></code> | <code>cdk8s.GroupVersionKind</code> | Returns the apiVersion and kind for "TunnelBinding". |
+
+---
+
+##### `GVK`<sup>Required</sup> <a name="GVK" id="cdk8s-constructs.TunnelBinding.property.GVK"></a>
+
+```typescript
+public readonly GVK: GroupVersionKind;
+```
+
+- *Type:* cdk8s.GroupVersionKind
+
+Returns the apiVersion and kind for "TunnelBinding".
+
+---
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### Affinity <a name="Affinity" id="cdk8s-constructs.Affinity"></a>
@@ -58305,7 +59743,7 @@ const cloudflareTunnelBindingProps: CloudflareTunnelBindingProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.tunnel">tunnel</a></code> | <code><a href="#cdk8s-constructs.CloudflareTunnel">CloudflareTunnel</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.tunnel">tunnel</a></code> | <code><a href="#cdk8s-constructs.ICloudflareTunnel">ICloudflareTunnel</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelBindingProps.property.domainName">domainName</a></code> | <code>string</code> | *No description.* |
 
 ---
@@ -58323,10 +59761,10 @@ public readonly service: Service;
 ##### `tunnel`<sup>Required</sup> <a name="tunnel" id="cdk8s-constructs.CloudflareTunnelBindingProps.property.tunnel"></a>
 
 ```typescript
-public readonly tunnel: CloudflareTunnel;
+public readonly tunnel: ICloudflareTunnel;
 ```
 
-- *Type:* <a href="#cdk8s-constructs.CloudflareTunnel">CloudflareTunnel</a>
+- *Type:* <a href="#cdk8s-constructs.ICloudflareTunnel">ICloudflareTunnel</a>
 
 ---
 
@@ -58736,6 +60174,409 @@ If signerName is not empty, then the ClusterTrustBundle object must be named wit
 If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
 
 List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+
+---
+
+### ClusterTunnelProps <a name="ClusterTunnelProps" id="cdk8s-constructs.ClusterTunnelProps"></a>
+
+ClusterTunnel is the Schema for the clustertunnels API.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterTunnelProps.Initializer"></a>
+
+```typescript
+import { ClusterTunnelProps } from 'cdk8s-constructs'
+
+const clusterTunnelProps: ClusterTunnelProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnelProps.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadata</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ClusterTunnelProps.property.spec">spec</a></code> | <code><a href="#cdk8s-constructs.ClusterTunnelSpec">ClusterTunnelSpec</a></code> | TunnelSpec defines the desired state of Tunnel. |
+
+---
+
+##### `metadata`<sup>Optional</sup> <a name="metadata" id="cdk8s-constructs.ClusterTunnelProps.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadata;
+```
+
+- *Type:* cdk8s.ApiObjectMetadata
+
+---
+
+##### `spec`<sup>Optional</sup> <a name="spec" id="cdk8s-constructs.ClusterTunnelProps.property.spec"></a>
+
+```typescript
+public readonly spec: ClusterTunnelSpec;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelSpec">ClusterTunnelSpec</a>
+
+TunnelSpec defines the desired state of Tunnel.
+
+---
+
+### ClusterTunnelSpec <a name="ClusterTunnelSpec" id="cdk8s-constructs.ClusterTunnelSpec"></a>
+
+TunnelSpec defines the desired state of Tunnel.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterTunnelSpec.Initializer"></a>
+
+```typescript
+import { ClusterTunnelSpec } from 'cdk8s-constructs'
+
+const clusterTunnelSpec: ClusterTunnelSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.cloudflare">cloudflare</a></code> | <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare">ClusterTunnelSpecCloudflare</a></code> | Cloudflare Credentials. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.existingTunnel">existingTunnel</a></code> | <code><a href="#cdk8s-constructs.ClusterTunnelSpecExistingTunnel">ClusterTunnelSpecExistingTunnel</a></code> | Existing tunnel object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.fallbackTarget">fallbackTarget</a></code> | <code>string</code> | FallbackTarget speficies the target for requests that do not match an ingress. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.image">image</a></code> | <code>string</code> | Image sets the Cloudflared Image to use. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.newTunnel">newTunnel</a></code> | <code><a href="#cdk8s-constructs.ClusterTunnelSpecNewTunnel">ClusterTunnelSpecNewTunnel</a></code> | New tunnel object. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.noTlsVerify">noTlsVerify</a></code> | <code>boolean</code> | NoTlsVerify disables origin TLS certificate checks when the endpoint is HTTPS. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.originCaPool">originCaPool</a></code> | <code>string</code> | OriginCaPool speficies the secret with tls.crt (and other certs as needed to be referred in the service annotation) of the Root CA to be trusted when sending traffic to HTTPS endpoints. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpec.property.size">size</a></code> | <code>number</code> | Size defines the number of Daemon pods to run for this tunnel. |
+
+---
+
+##### `cloudflare`<sup>Optional</sup> <a name="cloudflare" id="cdk8s-constructs.ClusterTunnelSpec.property.cloudflare"></a>
+
+```typescript
+public readonly cloudflare: ClusterTunnelSpecCloudflare;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare">ClusterTunnelSpecCloudflare</a>
+
+Cloudflare Credentials.
+
+---
+
+##### `existingTunnel`<sup>Optional</sup> <a name="existingTunnel" id="cdk8s-constructs.ClusterTunnelSpec.property.existingTunnel"></a>
+
+```typescript
+public readonly existingTunnel: ClusterTunnelSpecExistingTunnel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelSpecExistingTunnel">ClusterTunnelSpecExistingTunnel</a>
+
+Existing tunnel object.
+
+ExistingTunnel and NewTunnel cannot be both empty and are mutually exclusive.
+
+---
+
+##### `fallbackTarget`<sup>Optional</sup> <a name="fallbackTarget" id="cdk8s-constructs.ClusterTunnelSpec.property.fallbackTarget"></a>
+
+```typescript
+public readonly fallbackTarget: string;
+```
+
+- *Type:* string
+- *Default:* http_status:404
+
+FallbackTarget speficies the target for requests that do not match an ingress.
+
+Defaults to http_status:404
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.ClusterTunnelSpec.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+- *Default:* the image set during the release of the operator.
+
+Image sets the Cloudflared Image to use.
+
+Defaults to the image set during the release of the operator.
+
+---
+
+##### `newTunnel`<sup>Optional</sup> <a name="newTunnel" id="cdk8s-constructs.ClusterTunnelSpec.property.newTunnel"></a>
+
+```typescript
+public readonly newTunnel: ClusterTunnelSpecNewTunnel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ClusterTunnelSpecNewTunnel">ClusterTunnelSpecNewTunnel</a>
+
+New tunnel object.
+
+NewTunnel and ExistingTunnel cannot be both empty and are mutually exclusive.
+
+---
+
+##### `noTlsVerify`<sup>Optional</sup> <a name="noTlsVerify" id="cdk8s-constructs.ClusterTunnelSpec.property.noTlsVerify"></a>
+
+```typescript
+public readonly noTlsVerify: boolean;
+```
+
+- *Type:* boolean
+
+NoTlsVerify disables origin TLS certificate checks when the endpoint is HTTPS.
+
+---
+
+##### `originCaPool`<sup>Optional</sup> <a name="originCaPool" id="cdk8s-constructs.ClusterTunnelSpec.property.originCaPool"></a>
+
+```typescript
+public readonly originCaPool: string;
+```
+
+- *Type:* string
+
+OriginCaPool speficies the secret with tls.crt (and other certs as needed to be referred in the service annotation) of the Root CA to be trusted when sending traffic to HTTPS endpoints.
+
+---
+
+##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.ClusterTunnelSpec.property.size"></a>
+
+```typescript
+public readonly size: number;
+```
+
+- *Type:* number
+
+Size defines the number of Daemon pods to run for this tunnel.
+
+---
+
+### ClusterTunnelSpecCloudflare <a name="ClusterTunnelSpecCloudflare" id="cdk8s-constructs.ClusterTunnelSpecCloudflare"></a>
+
+Cloudflare Credentials.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.Initializer"></a>
+
+```typescript
+import { ClusterTunnelSpecCloudflare } from 'cdk8s-constructs'
+
+const clusterTunnelSpecCloudflare: ClusterTunnelSpecCloudflare = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.accountId">accountId</a></code> | <code>string</code> | Account ID in Cloudflare. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.accountName">accountName</a></code> | <code>string</code> | Account Name in Cloudflare. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareApiKey">cloudflareApiKey</a></code> | <code>string</code> | Key in the secret to use for Cloudflare API Key, defaults to CLOUDFLARE_API_KEY. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareApiToken">cloudflareApiToken</a></code> | <code>string</code> | Key in the secret to use for Cloudflare API token, defaults to CLOUDFLARE_API_TOKEN. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareTunnelCredentialFile">cloudflareTunnelCredentialFile</a></code> | <code>string</code> | Key in the secret to use as credentials.json for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_FILE. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareTunnelCredentialSecret">cloudflareTunnelCredentialSecret</a></code> | <code>string</code> | Key in the secret to use as tunnel secret for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.domain">domain</a></code> | <code>string</code> | Cloudflare Domain to which this tunnel belongs to. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.email">email</a></code> | <code>string</code> | Email to use along with API Key for Delete operations for new tunnels only, or as an alternate to API Token. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecCloudflare.property.secret">secret</a></code> | <code>string</code> | Secret containing Cloudflare API key/token. |
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+Account ID in Cloudflare.
+
+AccountId and AccountName cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+Account Name in Cloudflare.
+
+AccountName and AccountId cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+
+---
+
+##### `cloudflareApiKey`<sup>Optional</sup> <a name="cloudflareApiKey" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareApiKey"></a>
+
+```typescript
+public readonly cloudflareApiKey: string;
+```
+
+- *Type:* string
+
+Key in the secret to use for Cloudflare API Key, defaults to CLOUDFLARE_API_KEY.
+
+Needs Email also to be provided. For Delete operations for new tunnels only, or as an alternate to API Token
+
+---
+
+##### `cloudflareApiToken`<sup>Optional</sup> <a name="cloudflareApiToken" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareApiToken"></a>
+
+```typescript
+public readonly cloudflareApiToken: string;
+```
+
+- *Type:* string
+
+Key in the secret to use for Cloudflare API token, defaults to CLOUDFLARE_API_TOKEN.
+
+---
+
+##### `cloudflareTunnelCredentialFile`<sup>Optional</sup> <a name="cloudflareTunnelCredentialFile" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareTunnelCredentialFile"></a>
+
+```typescript
+public readonly cloudflareTunnelCredentialFile: string;
+```
+
+- *Type:* string
+
+Key in the secret to use as credentials.json for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_FILE.
+
+---
+
+##### `cloudflareTunnelCredentialSecret`<sup>Optional</sup> <a name="cloudflareTunnelCredentialSecret" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.cloudflareTunnelCredentialSecret"></a>
+
+```typescript
+public readonly cloudflareTunnelCredentialSecret: string;
+```
+
+- *Type:* string
+
+Key in the secret to use as tunnel secret for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET.
+
+---
+
+##### `domain`<sup>Optional</sup> <a name="domain" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+Cloudflare Domain to which this tunnel belongs to.
+
+---
+
+##### `email`<sup>Optional</sup> <a name="email" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+Email to use along with API Key for Delete operations for new tunnels only, or as an alternate to API Token.
+
+---
+
+##### `secret`<sup>Optional</sup> <a name="secret" id="cdk8s-constructs.ClusterTunnelSpecCloudflare.property.secret"></a>
+
+```typescript
+public readonly secret: string;
+```
+
+- *Type:* string
+
+Secret containing Cloudflare API key/token.
+
+---
+
+### ClusterTunnelSpecExistingTunnel <a name="ClusterTunnelSpecExistingTunnel" id="cdk8s-constructs.ClusterTunnelSpecExistingTunnel"></a>
+
+Existing tunnel object.
+
+ExistingTunnel and NewTunnel cannot be both empty and are mutually exclusive.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterTunnelSpecExistingTunnel.Initializer"></a>
+
+```typescript
+import { ClusterTunnelSpecExistingTunnel } from 'cdk8s-constructs'
+
+const clusterTunnelSpecExistingTunnel: ClusterTunnelSpecExistingTunnel = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecExistingTunnel.property.id">id</a></code> | <code>string</code> | Existing Tunnel ID to run on. |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecExistingTunnel.property.name">name</a></code> | <code>string</code> | Existing Tunnel name to run on. |
+
+---
+
+##### `id`<sup>Optional</sup> <a name="id" id="cdk8s-constructs.ClusterTunnelSpecExistingTunnel.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+Existing Tunnel ID to run on.
+
+Tunnel ID and Tunnel Name cannot be both empty. If both are provided, ID is used if valid, else falls back to Name.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="cdk8s-constructs.ClusterTunnelSpecExistingTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Existing Tunnel name to run on.
+
+Tunnel Name and Tunnel ID cannot be both empty. If both are provided, ID is used if valid, else falls back to Name.
+
+---
+
+### ClusterTunnelSpecNewTunnel <a name="ClusterTunnelSpecNewTunnel" id="cdk8s-constructs.ClusterTunnelSpecNewTunnel"></a>
+
+New tunnel object.
+
+NewTunnel and ExistingTunnel cannot be both empty and are mutually exclusive.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ClusterTunnelSpecNewTunnel.Initializer"></a>
+
+```typescript
+import { ClusterTunnelSpecNewTunnel } from 'cdk8s-constructs'
+
+const clusterTunnelSpecNewTunnel: ClusterTunnelSpecNewTunnel = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ClusterTunnelSpecNewTunnel.property.name">name</a></code> | <code>string</code> | Tunnel name to create on Cloudflare. |
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="cdk8s-constructs.ClusterTunnelSpecNewTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Tunnel name to create on Cloudflare.
 
 ---
 
@@ -63484,6 +65325,122 @@ This is the number of execution seats nominally reserved for this priority level
 NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
 
 Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+
+---
+
+### ExistingTunnelOptions <a name="ExistingTunnelOptions" id="cdk8s-constructs.ExistingTunnelOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ExistingTunnelOptions.Initializer"></a>
+
+```typescript
+import { ExistingTunnelOptions } from 'cdk8s-constructs'
+
+const existingTunnelOptions: ExistingTunnelOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.cloudflareSecret">cloudflareSecret</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.domain">domain</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.email">email</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.tunnelName">tunnelName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.existingTunnel">existingTunnel</a></code> | <code><a href="#cdk8s-constructs.ExistingTunnelProps">ExistingTunnelProps</a></code> | *No description.* |
+
+---
+
+##### `cloudflareSecret`<sup>Required</sup> <a name="cloudflareSecret" id="cdk8s-constructs.ExistingTunnelOptions.property.cloudflareSecret"></a>
+
+```typescript
+public readonly cloudflareSecret: string;
+```
+
+- *Type:* string
+
+---
+
+##### `domain`<sup>Required</sup> <a name="domain" id="cdk8s-constructs.ExistingTunnelOptions.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+---
+
+##### `email`<sup>Required</sup> <a name="email" id="cdk8s-constructs.ExistingTunnelOptions.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.ExistingTunnelOptions.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.ExistingTunnelOptions.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `replicas`<sup>Optional</sup> <a name="replicas" id="cdk8s-constructs.ExistingTunnelOptions.property.replicas"></a>
+
+```typescript
+public readonly replicas: number;
+```
+
+- *Type:* number
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.ExistingTunnelOptions.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `tunnelName`<sup>Optional</sup> <a name="tunnelName" id="cdk8s-constructs.ExistingTunnelOptions.property.tunnelName"></a>
+
+```typescript
+public readonly tunnelName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `existingTunnel`<sup>Required</sup> <a name="existingTunnel" id="cdk8s-constructs.ExistingTunnelOptions.property.existingTunnel"></a>
+
+```typescript
+public readonly existingTunnel: ExistingTunnelProps;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ExistingTunnelProps">ExistingTunnelProps</a>
 
 ---
 
@@ -96710,6 +98667,722 @@ Secure defines whether the cookie can only be transmitted over an encrypted conn
 
 ---
 
+### TunnelBindingProps <a name="TunnelBindingProps" id="cdk8s-constructs.TunnelBindingProps"></a>
+
+TunnelBinding is the Schema for the tunnelbindings API.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelBindingProps.Initializer"></a>
+
+```typescript
+import { TunnelBindingProps } from 'cdk8s-constructs'
+
+const tunnelBindingProps: TunnelBindingProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBindingProps.property.subjects">subjects</a></code> | <code><a href="#cdk8s-constructs.TunnelBindingSubjects">TunnelBindingSubjects</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TunnelBindingProps.property.tunnelRef">tunnelRef</a></code> | <code><a href="#cdk8s-constructs.TunnelBindingTunnelRef">TunnelBindingTunnelRef</a></code> | TunnelRef defines the Tunnel TunnelBinding connects to. |
+| <code><a href="#cdk8s-constructs.TunnelBindingProps.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadata</code> | *No description.* |
+
+---
+
+##### `subjects`<sup>Required</sup> <a name="subjects" id="cdk8s-constructs.TunnelBindingProps.property.subjects"></a>
+
+```typescript
+public readonly subjects: TunnelBindingSubjects[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingSubjects">TunnelBindingSubjects</a>[]
+
+---
+
+##### `tunnelRef`<sup>Required</sup> <a name="tunnelRef" id="cdk8s-constructs.TunnelBindingProps.property.tunnelRef"></a>
+
+```typescript
+public readonly tunnelRef: TunnelBindingTunnelRef;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingTunnelRef">TunnelBindingTunnelRef</a>
+
+TunnelRef defines the Tunnel TunnelBinding connects to.
+
+---
+
+##### `metadata`<sup>Optional</sup> <a name="metadata" id="cdk8s-constructs.TunnelBindingProps.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadata;
+```
+
+- *Type:* cdk8s.ApiObjectMetadata
+
+---
+
+### TunnelBindingSubjects <a name="TunnelBindingSubjects" id="cdk8s-constructs.TunnelBindingSubjects"></a>
+
+TunnelBindingSubject defines the subject TunnelBinding connects to the Tunnel.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelBindingSubjects.Initializer"></a>
+
+```typescript
+import { TunnelBindingSubjects } from 'cdk8s-constructs'
+
+const tunnelBindingSubjects: TunnelBindingSubjects = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjects.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjects.property.kind">kind</a></code> | <code>string</code> | Kind can be Service. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjects.property.spec">spec</a></code> | <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec">TunnelBindingSubjectsSpec</a></code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.TunnelBindingSubjects.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `kind`<sup>Optional</sup> <a name="kind" id="cdk8s-constructs.TunnelBindingSubjects.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+Kind can be Service.
+
+---
+
+##### `spec`<sup>Optional</sup> <a name="spec" id="cdk8s-constructs.TunnelBindingSubjects.property.spec"></a>
+
+```typescript
+public readonly spec: TunnelBindingSubjectsSpec;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingSubjectsSpec">TunnelBindingSubjectsSpec</a>
+
+---
+
+### TunnelBindingSubjectsSpec <a name="TunnelBindingSubjectsSpec" id="cdk8s-constructs.TunnelBindingSubjectsSpec"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelBindingSubjectsSpec.Initializer"></a>
+
+```typescript
+import { TunnelBindingSubjectsSpec } from 'cdk8s-constructs'
+
+const tunnelBindingSubjectsSpec: TunnelBindingSubjectsSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.caPool">caPool</a></code> | <code>string</code> | CaPool trusts the CA certificate referenced by the key in the secret specified in tunnel.spec.originCaPool. tls.crt is trusted globally and does not need to be specified. Only useful if the protocol is HTTPS. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.fqdn">fqdn</a></code> | <code>string</code> | Fqdn specifies the DNS name to access this service from. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.noTlsVerify">noTlsVerify</a></code> | <code>boolean</code> | NoTlsVerify disables TLS verification for this service. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.path">path</a></code> | <code>string</code> | Path specifies a regular expression for to match on the request for http/https services If a rule does not specify a path, all paths will be matched. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.protocol">protocol</a></code> | <code>string</code> | Protocol specifies the protocol for the service. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyAddress">proxyAddress</a></code> | <code>string</code> | ProxyAddress configures the listen address for that proxy. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyPort">proxyPort</a></code> | <code>number</code> | ProxyPort configures the listen port for that proxy. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyType">proxyType</a></code> | <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpecProxyType">TunnelBindingSubjectsSpecProxyType</a></code> | ProxyType configures the proxy type. |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpec.property.target">target</a></code> | <code>string</code> | Target specified where the tunnel should proxy to. |
+
+---
+
+##### `caPool`<sup>Optional</sup> <a name="caPool" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.caPool"></a>
+
+```typescript
+public readonly caPool: string;
+```
+
+- *Type:* string
+
+CaPool trusts the CA certificate referenced by the key in the secret specified in tunnel.spec.originCaPool. tls.crt is trusted globally and does not need to be specified. Only useful if the protocol is HTTPS.
+
+---
+
+##### `fqdn`<sup>Optional</sup> <a name="fqdn" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.fqdn"></a>
+
+```typescript
+public readonly fqdn: string;
+```
+
+- *Type:* string
+- *Default:* the service.metadata.name + tunnel.spec.domain. If specifying this, make sure to use the same domain that the tunnel belongs to. This is not validated and used as provided
+
+Fqdn specifies the DNS name to access this service from.
+
+Defaults to the service.metadata.name + tunnel.spec.domain. If specifying this, make sure to use the same domain that the tunnel belongs to. This is not validated and used as provided
+
+---
+
+##### `noTlsVerify`<sup>Optional</sup> <a name="noTlsVerify" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.noTlsVerify"></a>
+
+```typescript
+public readonly noTlsVerify: boolean;
+```
+
+- *Type:* boolean
+
+NoTlsVerify disables TLS verification for this service.
+
+Only useful if the protocol is HTTPS.
+
+---
+
+##### `path`<sup>Optional</sup> <a name="path" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+Path specifies a regular expression for to match on the request for http/https services If a rule does not specify a path, all paths will be matched.
+
+---
+
+##### `protocol`<sup>Optional</sup> <a name="protocol" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.protocol"></a>
+
+```typescript
+public readonly protocol: string;
+```
+
+- *Type:* string
+- *Default:* http, with the exceptions of https for 443, smb for 139 and 445, rdp for 3389 and ssh for 22 if the service has a TCP port. The only available option for a UDP port is udp, which is default.
+
+Protocol specifies the protocol for the service.
+
+Should be one of http, https, tcp, udp, ssh or rdp. Defaults to http, with the exceptions of https for 443, smb for 139 and 445, rdp for 3389 and ssh for 22 if the service has a TCP port. The only available option for a UDP port is udp, which is default.
+
+---
+
+##### `proxyAddress`<sup>Optional</sup> <a name="proxyAddress" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyAddress"></a>
+
+```typescript
+public readonly proxyAddress: string;
+```
+
+- *Type:* string
+
+ProxyAddress configures the listen address for that proxy.
+
+---
+
+##### `proxyPort`<sup>Optional</sup> <a name="proxyPort" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyPort"></a>
+
+```typescript
+public readonly proxyPort: number;
+```
+
+- *Type:* number
+
+ProxyPort configures the listen port for that proxy.
+
+---
+
+##### `proxyType`<sup>Optional</sup> <a name="proxyType" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.proxyType"></a>
+
+```typescript
+public readonly proxyType: TunnelBindingSubjectsSpecProxyType;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelBindingSubjectsSpecProxyType">TunnelBindingSubjectsSpecProxyType</a>
+
+ProxyType configures the proxy type.
+
+---
+
+##### `target`<sup>Optional</sup> <a name="target" id="cdk8s-constructs.TunnelBindingSubjectsSpec.property.target"></a>
+
+```typescript
+public readonly target: string;
+```
+
+- *Type:* string
+- *Default:* the form of <protocol>://<service.metadata.name>.<service.metadata.namespace>.svc:<port>
+
+Target specified where the tunnel should proxy to.
+
+Defaults to the form of <protocol>://<service.metadata.name>.<service.metadata.namespace>.svc:<port>
+
+---
+
+### TunnelBindingTunnelRef <a name="TunnelBindingTunnelRef" id="cdk8s-constructs.TunnelBindingTunnelRef"></a>
+
+TunnelRef defines the Tunnel TunnelBinding connects to.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelBindingTunnelRef.Initializer"></a>
+
+```typescript
+import { TunnelBindingTunnelRef } from 'cdk8s-constructs'
+
+const tunnelBindingTunnelRef: TunnelBindingTunnelRef = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBindingTunnelRef.property.kind">kind</a></code> | <code>string</code> | Kind can be Tunnel or ClusterTunnel. |
+| <code><a href="#cdk8s-constructs.TunnelBindingTunnelRef.property.name">name</a></code> | <code>string</code> | Name of the tunnel resource. |
+| <code><a href="#cdk8s-constructs.TunnelBindingTunnelRef.property.disableDnsUpdates">disableDnsUpdates</a></code> | <code>boolean</code> | DisableDNSUpdates disables the DNS updates on Cloudflare, just managing the configs. |
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.TunnelBindingTunnelRef.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+Kind can be Tunnel or ClusterTunnel.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.TunnelBindingTunnelRef.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Name of the tunnel resource.
+
+---
+
+##### `disableDnsUpdates`<sup>Optional</sup> <a name="disableDnsUpdates" id="cdk8s-constructs.TunnelBindingTunnelRef.property.disableDnsUpdates"></a>
+
+```typescript
+public readonly disableDnsUpdates: boolean;
+```
+
+- *Type:* boolean
+
+DisableDNSUpdates disables the DNS updates on Cloudflare, just managing the configs.
+
+Assumes the DNS entries are manually added.
+
+---
+
+### TunnelProps <a name="TunnelProps" id="cdk8s-constructs.TunnelProps"></a>
+
+Tunnel is the Schema for the tunnels API.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelProps.Initializer"></a>
+
+```typescript
+import { TunnelProps } from 'cdk8s-constructs'
+
+const tunnelProps: TunnelProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelProps.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadata</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TunnelProps.property.spec">spec</a></code> | <code><a href="#cdk8s-constructs.TunnelSpec">TunnelSpec</a></code> | TunnelSpec defines the desired state of Tunnel. |
+
+---
+
+##### `metadata`<sup>Optional</sup> <a name="metadata" id="cdk8s-constructs.TunnelProps.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadata;
+```
+
+- *Type:* cdk8s.ApiObjectMetadata
+
+---
+
+##### `spec`<sup>Optional</sup> <a name="spec" id="cdk8s-constructs.TunnelProps.property.spec"></a>
+
+```typescript
+public readonly spec: TunnelSpec;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelSpec">TunnelSpec</a>
+
+TunnelSpec defines the desired state of Tunnel.
+
+---
+
+### TunnelSpec <a name="TunnelSpec" id="cdk8s-constructs.TunnelSpec"></a>
+
+TunnelSpec defines the desired state of Tunnel.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelSpec.Initializer"></a>
+
+```typescript
+import { TunnelSpec } from 'cdk8s-constructs'
+
+const tunnelSpec: TunnelSpec = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.cloudflare">cloudflare</a></code> | <code><a href="#cdk8s-constructs.TunnelSpecCloudflare">TunnelSpecCloudflare</a></code> | Cloudflare Credentials. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.existingTunnel">existingTunnel</a></code> | <code><a href="#cdk8s-constructs.TunnelSpecExistingTunnel">TunnelSpecExistingTunnel</a></code> | Existing tunnel object. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.fallbackTarget">fallbackTarget</a></code> | <code>string</code> | FallbackTarget speficies the target for requests that do not match an ingress. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.image">image</a></code> | <code>string</code> | Image sets the Cloudflared Image to use. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.newTunnel">newTunnel</a></code> | <code><a href="#cdk8s-constructs.TunnelSpecNewTunnel">TunnelSpecNewTunnel</a></code> | New tunnel object. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.noTlsVerify">noTlsVerify</a></code> | <code>boolean</code> | NoTlsVerify disables origin TLS certificate checks when the endpoint is HTTPS. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.originCaPool">originCaPool</a></code> | <code>string</code> | OriginCaPool speficies the secret with tls.crt (and other certs as needed to be referred in the service annotation) of the Root CA to be trusted when sending traffic to HTTPS endpoints. |
+| <code><a href="#cdk8s-constructs.TunnelSpec.property.size">size</a></code> | <code>number</code> | Size defines the number of Daemon pods to run for this tunnel. |
+
+---
+
+##### `cloudflare`<sup>Optional</sup> <a name="cloudflare" id="cdk8s-constructs.TunnelSpec.property.cloudflare"></a>
+
+```typescript
+public readonly cloudflare: TunnelSpecCloudflare;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelSpecCloudflare">TunnelSpecCloudflare</a>
+
+Cloudflare Credentials.
+
+---
+
+##### `existingTunnel`<sup>Optional</sup> <a name="existingTunnel" id="cdk8s-constructs.TunnelSpec.property.existingTunnel"></a>
+
+```typescript
+public readonly existingTunnel: TunnelSpecExistingTunnel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelSpecExistingTunnel">TunnelSpecExistingTunnel</a>
+
+Existing tunnel object.
+
+ExistingTunnel and NewTunnel cannot be both empty and are mutually exclusive.
+
+---
+
+##### `fallbackTarget`<sup>Optional</sup> <a name="fallbackTarget" id="cdk8s-constructs.TunnelSpec.property.fallbackTarget"></a>
+
+```typescript
+public readonly fallbackTarget: string;
+```
+
+- *Type:* string
+- *Default:* http_status:404
+
+FallbackTarget speficies the target for requests that do not match an ingress.
+
+Defaults to http_status:404
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.TunnelSpec.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+- *Default:* the image set during the release of the operator.
+
+Image sets the Cloudflared Image to use.
+
+Defaults to the image set during the release of the operator.
+
+---
+
+##### `newTunnel`<sup>Optional</sup> <a name="newTunnel" id="cdk8s-constructs.TunnelSpec.property.newTunnel"></a>
+
+```typescript
+public readonly newTunnel: TunnelSpecNewTunnel;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TunnelSpecNewTunnel">TunnelSpecNewTunnel</a>
+
+New tunnel object.
+
+NewTunnel and ExistingTunnel cannot be both empty and are mutually exclusive.
+
+---
+
+##### `noTlsVerify`<sup>Optional</sup> <a name="noTlsVerify" id="cdk8s-constructs.TunnelSpec.property.noTlsVerify"></a>
+
+```typescript
+public readonly noTlsVerify: boolean;
+```
+
+- *Type:* boolean
+
+NoTlsVerify disables origin TLS certificate checks when the endpoint is HTTPS.
+
+---
+
+##### `originCaPool`<sup>Optional</sup> <a name="originCaPool" id="cdk8s-constructs.TunnelSpec.property.originCaPool"></a>
+
+```typescript
+public readonly originCaPool: string;
+```
+
+- *Type:* string
+
+OriginCaPool speficies the secret with tls.crt (and other certs as needed to be referred in the service annotation) of the Root CA to be trusted when sending traffic to HTTPS endpoints.
+
+---
+
+##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.TunnelSpec.property.size"></a>
+
+```typescript
+public readonly size: number;
+```
+
+- *Type:* number
+
+Size defines the number of Daemon pods to run for this tunnel.
+
+---
+
+### TunnelSpecCloudflare <a name="TunnelSpecCloudflare" id="cdk8s-constructs.TunnelSpecCloudflare"></a>
+
+Cloudflare Credentials.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelSpecCloudflare.Initializer"></a>
+
+```typescript
+import { TunnelSpecCloudflare } from 'cdk8s-constructs'
+
+const tunnelSpecCloudflare: TunnelSpecCloudflare = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.accountId">accountId</a></code> | <code>string</code> | Account ID in Cloudflare. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.accountName">accountName</a></code> | <code>string</code> | Account Name in Cloudflare. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareApiKey">cloudflareApiKey</a></code> | <code>string</code> | Key in the secret to use for Cloudflare API Key, defaults to CLOUDFLARE_API_KEY. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareApiToken">cloudflareApiToken</a></code> | <code>string</code> | Key in the secret to use for Cloudflare API token, defaults to CLOUDFLARE_API_TOKEN. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareTunnelCredentialFile">cloudflareTunnelCredentialFile</a></code> | <code>string</code> | Key in the secret to use as credentials.json for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_FILE. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareTunnelCredentialSecret">cloudflareTunnelCredentialSecret</a></code> | <code>string</code> | Key in the secret to use as tunnel secret for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.domain">domain</a></code> | <code>string</code> | Cloudflare Domain to which this tunnel belongs to. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.email">email</a></code> | <code>string</code> | Email to use along with API Key for Delete operations for new tunnels only, or as an alternate to API Token. |
+| <code><a href="#cdk8s-constructs.TunnelSpecCloudflare.property.secret">secret</a></code> | <code>string</code> | Secret containing Cloudflare API key/token. |
+
+---
+
+##### `accountId`<sup>Optional</sup> <a name="accountId" id="cdk8s-constructs.TunnelSpecCloudflare.property.accountId"></a>
+
+```typescript
+public readonly accountId: string;
+```
+
+- *Type:* string
+
+Account ID in Cloudflare.
+
+AccountId and AccountName cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+
+---
+
+##### `accountName`<sup>Optional</sup> <a name="accountName" id="cdk8s-constructs.TunnelSpecCloudflare.property.accountName"></a>
+
+```typescript
+public readonly accountName: string;
+```
+
+- *Type:* string
+
+Account Name in Cloudflare.
+
+AccountName and AccountId cannot be both empty. If both are provided, Account ID is used if valid, else falls back to Account Name.
+
+---
+
+##### `cloudflareApiKey`<sup>Optional</sup> <a name="cloudflareApiKey" id="cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareApiKey"></a>
+
+```typescript
+public readonly cloudflareApiKey: string;
+```
+
+- *Type:* string
+
+Key in the secret to use for Cloudflare API Key, defaults to CLOUDFLARE_API_KEY.
+
+Needs Email also to be provided. For Delete operations for new tunnels only, or as an alternate to API Token
+
+---
+
+##### `cloudflareApiToken`<sup>Optional</sup> <a name="cloudflareApiToken" id="cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareApiToken"></a>
+
+```typescript
+public readonly cloudflareApiToken: string;
+```
+
+- *Type:* string
+
+Key in the secret to use for Cloudflare API token, defaults to CLOUDFLARE_API_TOKEN.
+
+---
+
+##### `cloudflareTunnelCredentialFile`<sup>Optional</sup> <a name="cloudflareTunnelCredentialFile" id="cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareTunnelCredentialFile"></a>
+
+```typescript
+public readonly cloudflareTunnelCredentialFile: string;
+```
+
+- *Type:* string
+
+Key in the secret to use as credentials.json for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_FILE.
+
+---
+
+##### `cloudflareTunnelCredentialSecret`<sup>Optional</sup> <a name="cloudflareTunnelCredentialSecret" id="cdk8s-constructs.TunnelSpecCloudflare.property.cloudflareTunnelCredentialSecret"></a>
+
+```typescript
+public readonly cloudflareTunnelCredentialSecret: string;
+```
+
+- *Type:* string
+
+Key in the secret to use as tunnel secret for an existing tunnel, defaults to CLOUDFLARE_TUNNEL_CREDENTIAL_SECRET.
+
+---
+
+##### `domain`<sup>Optional</sup> <a name="domain" id="cdk8s-constructs.TunnelSpecCloudflare.property.domain"></a>
+
+```typescript
+public readonly domain: string;
+```
+
+- *Type:* string
+
+Cloudflare Domain to which this tunnel belongs to.
+
+---
+
+##### `email`<sup>Optional</sup> <a name="email" id="cdk8s-constructs.TunnelSpecCloudflare.property.email"></a>
+
+```typescript
+public readonly email: string;
+```
+
+- *Type:* string
+
+Email to use along with API Key for Delete operations for new tunnels only, or as an alternate to API Token.
+
+---
+
+##### `secret`<sup>Optional</sup> <a name="secret" id="cdk8s-constructs.TunnelSpecCloudflare.property.secret"></a>
+
+```typescript
+public readonly secret: string;
+```
+
+- *Type:* string
+
+Secret containing Cloudflare API key/token.
+
+---
+
+### TunnelSpecExistingTunnel <a name="TunnelSpecExistingTunnel" id="cdk8s-constructs.TunnelSpecExistingTunnel"></a>
+
+Existing tunnel object.
+
+ExistingTunnel and NewTunnel cannot be both empty and are mutually exclusive.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelSpecExistingTunnel.Initializer"></a>
+
+```typescript
+import { TunnelSpecExistingTunnel } from 'cdk8s-constructs'
+
+const tunnelSpecExistingTunnel: TunnelSpecExistingTunnel = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelSpecExistingTunnel.property.id">id</a></code> | <code>string</code> | Existing Tunnel ID to run on. |
+| <code><a href="#cdk8s-constructs.TunnelSpecExistingTunnel.property.name">name</a></code> | <code>string</code> | Existing Tunnel name to run on. |
+
+---
+
+##### `id`<sup>Optional</sup> <a name="id" id="cdk8s-constructs.TunnelSpecExistingTunnel.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+Existing Tunnel ID to run on.
+
+Tunnel ID and Tunnel Name cannot be both empty. If both are provided, ID is used if valid, else falls back to Name.
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="cdk8s-constructs.TunnelSpecExistingTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Existing Tunnel name to run on.
+
+Tunnel Name and Tunnel ID cannot be both empty. If both are provided, ID is used if valid, else falls back to Name.
+
+---
+
+### TunnelSpecNewTunnel <a name="TunnelSpecNewTunnel" id="cdk8s-constructs.TunnelSpecNewTunnel"></a>
+
+New tunnel object.
+
+NewTunnel and ExistingTunnel cannot be both empty and are mutually exclusive.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TunnelSpecNewTunnel.Initializer"></a>
+
+```typescript
+import { TunnelSpecNewTunnel } from 'cdk8s-constructs'
+
+const tunnelSpecNewTunnel: TunnelSpecNewTunnel = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelSpecNewTunnel.property.name">name</a></code> | <code>string</code> | Tunnel name to create on Cloudflare. |
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="cdk8s-constructs.TunnelSpecNewTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+Tunnel name to create on Cloudflare.
+
+---
+
 ### TypedLocalObjectReference <a name="TypedLocalObjectReference" id="cdk8s-constructs.TypedLocalObjectReference"></a>
 
 TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
@@ -100699,6 +103372,65 @@ public readonly value: string | number;
 
 ## Protocols <a name="Protocols" id="Protocols"></a>
 
+### ICloudflareTunnel <a name="ICloudflareTunnel" id="cdk8s-constructs.ICloudflareTunnel"></a>
+
+- *Implemented By:* <a href="#cdk8s-constructs.CloudflareClusterTunnel">CloudflareClusterTunnel</a>, <a href="#cdk8s-constructs.CloudflareTunnel">CloudflareTunnel</a>, <a href="#cdk8s-constructs.ICloudflareTunnel">ICloudflareTunnel</a>
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ICloudflareTunnel.bindToService">bindToService</a></code> | *No description.* |
+
+---
+
+##### `bindToService` <a name="bindToService" id="cdk8s-constructs.ICloudflareTunnel.bindToService"></a>
+
+```typescript
+public bindToService(service: Service, props?: BindToServiceProps): CloudflareTunnelBinding
+```
+
+###### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.ICloudflareTunnel.bindToService.parameter.service"></a>
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="cdk8s-constructs.ICloudflareTunnel.bindToService.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.BindToServiceProps">BindToServiceProps</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ICloudflareTunnel.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ICloudflareTunnel.property.resourceType">resourceType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ICloudflareTunnel.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.ICloudflareTunnel.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+---
+
 ### IService <a name="IService" id="cdk8s-constructs.IService"></a>
 
 - *Implemented By:* <a href="#cdk8s-constructs.IService">IService</a>
@@ -101244,6 +103976,25 @@ Service.
 ##### `TRAEFIK_SERVICE` <a name="TRAEFIK_SERVICE" id="cdk8s-constructs.TraefikServiceSpecWeightedServicesKind.TRAEFIK_SERVICE"></a>
 
 TraefikService.
+
+---
+
+
+### TunnelBindingSubjectsSpecProxyType <a name="TunnelBindingSubjectsSpecProxyType" id="cdk8s-constructs.TunnelBindingSubjectsSpecProxyType"></a>
+
+ProxyType configures the proxy type.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.TunnelBindingSubjectsSpecProxyType.SOCKS">SOCKS</a></code> | socks. |
+
+---
+
+##### `SOCKS` <a name="SOCKS" id="cdk8s-constructs.TunnelBindingSubjectsSpecProxyType.SOCKS"></a>
+
+socks.
 
 ---
 

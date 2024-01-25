@@ -1,13 +1,7 @@
-import { ApiObject } from "cdk8s";
 import { Construct } from "constructs";
-import {
-  Tunnel as L1Tunnel,
-  TunnelSpec,
-} from "../../imports/cnpq-networking.cfargotunnel.com";
-import { CloudflareTunnelBinding } from "./tunnel-binding";
-import { Service } from "cdk8s-plus-27";
-
-const DEFAULT_REPLICA_COUNT = 2;
+import { CloudflareTunnelBinding } from "../tunnel-binding";
+import { Resource, Service } from "cdk8s-plus-27";
+import { TunnelSpec } from "../../../imports/cnpq-networking.cfargotunnel.com";
 
 export interface BaseTunnelOptions {
   readonly email: string;
@@ -28,35 +22,40 @@ export interface CloudflareTunnelProps extends BaseTunnelOptions {
   readonly tunnelName?: string;
 }
 
-interface ExistingTunnelOptions extends CloudflareTunnelProps {
-  readonly existingTunnel: ExistingTunnelProps;
-}
-
 export interface BindToServiceProps {
   readonly domainName?: string;
 }
 
-export class CloudflareTunnel extends Construct {
-  protected apiObject: ApiObject;
+export interface ExistingTunnelOptions extends CloudflareTunnelProps {
+  readonly existingTunnel: ExistingTunnelProps;
+}
+
+const DEFAULT_REPLICA_COUNT = 2;
+
+export interface ICloudflareTunnel {
   readonly name: string;
+  readonly resourceType: string;
+  bindToService(
+    service: Service,
+    props?: BindToServiceProps,
+  ): CloudflareTunnelBinding;
+}
+
+/**
+ *  @internal
+ */
+export abstract class BaseCloudflareTunnel extends Resource {
+  readonly replicas: number;
+  abstract readonly resourceType: string;
   constructor(scope: Construct, name: string, props: CloudflareTunnelProps) {
     super(scope, name);
-    this.name = props.resourceName ?? name;
+    this.replicas = props.replicas ?? DEFAULT_REPLICA_COUNT;
     if (!props.accountId && !props.accountName) {
       throw new Error("Must specify either accountId or accountName");
     }
-
-    const spec = this.formResourceSpec(name, props);
-
-    this.apiObject = new L1Tunnel(this, "resource", {
-      metadata: {
-        name: this.name,
-      },
-      spec,
-    });
   }
 
-  private formResourceSpec(
+  protected formResourceSpec(
     name: string,
     props: CloudflareTunnelProps,
   ): TunnelSpec {
@@ -97,24 +96,5 @@ export class CloudflareTunnel extends Construct {
       tunnel: this,
       domainName: props?.domainName,
     });
-  }
-
-  static fromExistingTunnel(
-    scope: Construct,
-    name: string,
-    options: ExistingTunnelProps,
-  ): CloudflareTunnel {
-    if (!options.tunnelId && !options.tunnelName) {
-      throw new Error("Must specify either tunnelId or tunnelName");
-    }
-
-    const opts: ExistingTunnelOptions = {
-      ...options,
-      existingTunnel: {
-        ...options,
-      },
-    };
-
-    return new CloudflareTunnel(scope, name, opts);
   }
 }
