@@ -15,6 +15,10 @@ export const DEFAULT_PG_PORT = 5432;
 
 // TODO: support dashboard creation with https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-configmap.yaml
 
+export interface ExposeWithPrimaryServiceOptions {
+  readonly serviceType?: ServiceType;
+}
+
 export enum PrimaryUpdateStrategy {
   UNSUPERVISED = "unsupervised",
   SUPERVISED = "supervised",
@@ -62,7 +66,7 @@ export class Cluster extends Construct {
     });
   }
 
-  exposeWithPrimaryService(): Service {
+  exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Service {
     const selector = new ClusterPrimaryPodSelector(
       this,
       "primary-selector",
@@ -70,7 +74,7 @@ export class Cluster extends Construct {
     );
     return new Service(this, "service", {
       selector: selector,
-      type: ServiceType.LOAD_BALANCER,
+      type: options?.serviceType ?? ServiceType.CLUSTER_IP,
       ports: [
         {
           name: "postgresql",
@@ -97,7 +101,9 @@ export class Cluster extends Construct {
     }
 
     if (options.password) {
-      rec.secret.name = options.password.name;
+      rec.secret = {
+        name: options.password.name,
+      };
     }
 
     if (options.initCommands) {

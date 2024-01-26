@@ -4,6 +4,7 @@ import {
   HomelabChartProps,
   PersistentVolumeClaimOptions,
 } from "cdk8s-constructs";
+import { ServiceType } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 
 export interface TerraformBackendChartProps extends HomelabChartProps {
@@ -27,6 +28,8 @@ export class TerraformBackendChart extends HomelabChart {
         username: "terraform",
       },
     });
-    cluster.exposeWithPrimaryService();
+    cluster.exposeWithPrimaryService({
+      serviceType: ServiceType.LOAD_BALANCER,
+    });
   }
 }
