@@ -11,6 +11,8 @@ export interface BaseTunnelOptions {
   readonly accountName?: string;
   readonly replicas?: number;
   readonly resourceName?: string;
+  readonly image?: string;
+  readonly imageTag?: string;
 }
 
 export interface ExistingTunnelProps extends BaseTunnelOptions {
@@ -31,6 +33,9 @@ export interface ExistingTunnelOptions extends CloudflareTunnelProps {
 }
 
 const DEFAULT_REPLICA_COUNT = 2;
+
+const DEFAULT_IMAGE = "cloudflare/cloudflared";
+const DEFAULT_IMAGE_TAG = "2024.1.5";
 
 export interface ICloudflareTunnel {
   readonly name: string;
@@ -55,12 +60,25 @@ export abstract class BaseCloudflareTunnel extends Resource {
     }
   }
 
+  private formImage(image: string | undefined, imageTag: string | undefined) {
+    let i = DEFAULT_IMAGE;
+    let t = DEFAULT_IMAGE_TAG;
+    if (image) {
+      i = image;
+    }
+    if (imageTag) {
+      t = imageTag;
+    }
+    return `${i}:${t}`;
+  }
+
   protected formResourceSpec(
     name: string,
     props: CloudflareTunnelProps,
   ): TunnelSpec {
     const spec: TunnelSpec = {
       size: props.replicas ?? DEFAULT_REPLICA_COUNT,
+      image: this.formImage(props.image, props.imageTag),
       cloudflare: {
         email: props.email,
         domain: props.domain,

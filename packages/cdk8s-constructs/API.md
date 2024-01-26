@@ -58631,6 +58631,8 @@ const baseTunnelOptions: BaseTunnelOptions = { ... }
 | <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.email">email</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BaseTunnelOptions.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
 
@@ -58680,6 +58682,26 @@ public readonly accountId: string;
 
 ```typescript
 public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.BaseTunnelOptions.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.BaseTunnelOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
 ```
 
 - *Type:* string
@@ -59797,6 +59819,8 @@ const cloudflareTunnelProps: CloudflareTunnelProps = { ... }
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.email">email</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.CloudflareTunnelProps.property.tunnelName">tunnelName</a></code> | <code>string</code> | *No description.* |
@@ -59847,6 +59871,26 @@ public readonly accountId: string;
 
 ```typescript
 public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.CloudflareTunnelProps.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.CloudflareTunnelProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
 ```
 
 - *Type:* string
@@ -65347,6 +65391,8 @@ const existingTunnelOptions: ExistingTunnelOptions = { ... }
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.email">email</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelOptions.property.tunnelName">tunnelName</a></code> | <code>string</code> | *No description.* |
@@ -65398,6 +65444,26 @@ public readonly accountId: string;
 
 ```typescript
 public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.ExistingTunnelOptions.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ExistingTunnelOptions.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
 ```
 
 - *Type:* string
@@ -65463,6 +65529,8 @@ const existingTunnelProps: ExistingTunnelProps = { ... }
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.email">email</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.accountId">accountId</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.accountName">accountName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.image">image</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.replicas">replicas</a></code> | <code>number</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.resourceName">resourceName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ExistingTunnelProps.property.tunnelId">tunnelId</a></code> | <code>string</code> | *No description.* |
@@ -65514,6 +65582,26 @@ public readonly accountId: string;
 
 ```typescript
 public readonly accountName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `image`<sup>Optional</sup> <a name="image" id="cdk8s-constructs.ExistingTunnelProps.property.image"></a>
+
+```typescript
+public readonly image: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ExistingTunnelProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
 ```
 
 - *Type:* string
