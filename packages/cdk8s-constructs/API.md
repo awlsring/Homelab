@@ -54788,6 +54788,141 @@ public readonly secretName: string;
 ---
 
 
+### Palworld <a name="Palworld" id="cdk8s-constructs.Palworld"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Palworld.Initializer"></a>
+
+```typescript
+import { Palworld } from 'cdk8s-constructs'
+
+new Palworld(scope: Construct, id: string, props: PalworldProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Palworld.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Palworld.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Palworld.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.PalworldProps">PalworldProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Palworld.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.Palworld.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Palworld.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.PalworldProps">PalworldProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Palworld.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Palworld.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Palworld.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Palworld.isConstruct"></a>
+
+```typescript
+import { Palworld } from 'cdk8s-constructs'
+
+Palworld.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Palworld.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Palworld.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Palworld.property.deployment">deployment</a></code> | <code>cdk8s-plus-27.Deployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Palworld.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Palworld.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Palworld.property.deployment"></a>
+
+```typescript
+public readonly deployment: Deployment;
+```
+
+- *Type:* cdk8s-plus-27.Deployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Palworld.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### PersistantVolume <a name="PersistantVolume" id="cdk8s-constructs.PersistantVolume"></a>
 
 Creates a persistant volume claim and volume.
@@ -88198,6 +88333,199 @@ If true, this reference points to the managing controller.
 
 ---
 
+### PalworldProps <a name="PalworldProps" id="cdk8s-constructs.PalworldProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PalworldProps.Initializer"></a>
+
+```typescript
+import { PalworldProps } from 'cdk8s-constructs'
+
+const palworldProps: PalworldProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serverAdminPassword">serverAdminPassword</a></code> | <code>cdk8s-plus-27.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serverData">serverData</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serverName">serverName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serverPassword">serverPassword</a></code> | <code>cdk8s-plus-27.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.diificulty">diificulty</a></code> | <code><a href="#cdk8s-constructs.PalworldDifficulty">PalworldDifficulty</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.disableRcon">disableRcon</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.isCommunity">isCommunity</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.isPvp">isPvp</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.noUpdateOnStart">noUpdateOnStart</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.players">players</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.queryPort">queryPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.rconPort">rconPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serverPort">serverPort</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `serverAdminPassword`<sup>Required</sup> <a name="serverAdminPassword" id="cdk8s-constructs.PalworldProps.property.serverAdminPassword"></a>
+
+```typescript
+public readonly serverAdminPassword: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+
+---
+
+##### `serverData`<sup>Required</sup> <a name="serverData" id="cdk8s-constructs.PalworldProps.property.serverData"></a>
+
+```typescript
+public readonly serverData: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `serverName`<sup>Required</sup> <a name="serverName" id="cdk8s-constructs.PalworldProps.property.serverName"></a>
+
+```typescript
+public readonly serverName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serverPassword`<sup>Required</sup> <a name="serverPassword" id="cdk8s-constructs.PalworldProps.property.serverPassword"></a>
+
+```typescript
+public readonly serverPassword: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+
+---
+
+##### `diificulty`<sup>Optional</sup> <a name="diificulty" id="cdk8s-constructs.PalworldProps.property.diificulty"></a>
+
+```typescript
+public readonly diificulty: PalworldDifficulty;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PalworldDifficulty">PalworldDifficulty</a>
+
+---
+
+##### `disableRcon`<sup>Optional</sup> <a name="disableRcon" id="cdk8s-constructs.PalworldProps.property.disableRcon"></a>
+
+```typescript
+public readonly disableRcon: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.PalworldProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `isCommunity`<sup>Optional</sup> <a name="isCommunity" id="cdk8s-constructs.PalworldProps.property.isCommunity"></a>
+
+```typescript
+public readonly isCommunity: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `isPvp`<sup>Optional</sup> <a name="isPvp" id="cdk8s-constructs.PalworldProps.property.isPvp"></a>
+
+```typescript
+public readonly isPvp: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `noUpdateOnStart`<sup>Optional</sup> <a name="noUpdateOnStart" id="cdk8s-constructs.PalworldProps.property.noUpdateOnStart"></a>
+
+```typescript
+public readonly noUpdateOnStart: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `players`<sup>Optional</sup> <a name="players" id="cdk8s-constructs.PalworldProps.property.players"></a>
+
+```typescript
+public readonly players: number;
+```
+
+- *Type:* number
+
+---
+
+##### `queryPort`<sup>Optional</sup> <a name="queryPort" id="cdk8s-constructs.PalworldProps.property.queryPort"></a>
+
+```typescript
+public readonly queryPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `rconPort`<sup>Optional</sup> <a name="rconPort" id="cdk8s-constructs.PalworldProps.property.rconPort"></a>
+
+```typescript
+public readonly rconPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `serverPort`<sup>Optional</sup> <a name="serverPort" id="cdk8s-constructs.PalworldProps.property.serverPort"></a>
+
+```typescript
+public readonly serverPort: number;
+```
+
+- *Type:* number
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.PalworldProps.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.PalworldProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
 ### ParamKindV1Alpha1 <a name="ParamKindV1Alpha1" id="cdk8s-constructs.ParamKindV1Alpha1"></a>
 
 ParamKind is a tuple of Group Kind and Version.
@@ -105006,6 +105334,33 @@ Service.
 ##### `TRAEFIK_SERVICE` <a name="TRAEFIK_SERVICE" id="cdk8s-constructs.MiddlewareSpecErrorsServiceKind.TRAEFIK_SERVICE"></a>
 
 TraefikService.
+
+---
+
+
+### PalworldDifficulty <a name="PalworldDifficulty" id="cdk8s-constructs.PalworldDifficulty"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.PalworldDifficulty.NONE">NONE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldDifficulty.NORMAL">NORMAL</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PalworldDifficulty.DIFFICULT">DIFFICULT</a></code> | *No description.* |
+
+---
+
+##### `NONE` <a name="NONE" id="cdk8s-constructs.PalworldDifficulty.NONE"></a>
+
+---
+
+
+##### `NORMAL` <a name="NORMAL" id="cdk8s-constructs.PalworldDifficulty.NORMAL"></a>
+
+---
+
+
+##### `DIFFICULT` <a name="DIFFICULT" id="cdk8s-constructs.PalworldDifficulty.DIFFICULT"></a>
 
 ---
 

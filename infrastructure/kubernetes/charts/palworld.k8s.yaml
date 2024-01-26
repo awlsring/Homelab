@@ -1,0 +1,244 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: palworld
+  namespace: palworld
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: palworld-media-c85b098f
+  namespace: palworld
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: palworld-server-secret-c840df6b
+  namespace: palworld
+spec:
+  dataFrom:
+    - extract:
+        key: palworld-server-pass
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: palworld-admin-password-c8fbd9b9
+  namespace: palworld
+spec:
+  dataFrom:
+    - extract:
+        key: palworld-admin-pass
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: palworld-app-cfg-c83a2339
+  namespace: palworld
+data:
+  COMMUNITY: "false"
+  PGID: "1000"
+  PGUID: "1000"
+  PLAYERS: "10"
+  PORT: "8211"
+  QUERY_PORT: "27015"
+  RCON_ENABLED: "true"
+  RCON_PORT: "25575"
+  SERVER_NAME: Drig Town USA
+  TZ: Etc/UTC
+  UPDATE_ON_BOOT: "true"
+immutable: false
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: palworld-app-server-cfg-c8c17b74
+  namespace: palworld
+data:
+  PalWorldSettings.ini: |-
+    [/Script/Pal.PalGameWorldSettings]
+    OptionSettings=(
+    Difficulty=Normal,
+    DayTimeSpeedRate=1.000000,
+    NightTimeSpeedRate=1.000000,
+    ExpRate=1.000000,
+    PalCaptureRate=1.000000,
+    PalSpawnNumRate=1.000000,
+    PalDamageRateAttack=1.000000,
+    PalDamageRateDefense=1.000000,
+    PlayerDamageRateAttack=1.000000,
+    PlayerDamageRateDefense=1.000000,
+    PlayerStomachDecreaceRate=1.000000,
+    PlayerStaminaDecreaceRate=1.000000,
+    PlayerAutoHPRegeneRate=1.000000,
+    PlayerAutoHpRegeneRateInSleep=1.000000,
+    PalStomachDecreaceRate=1.000000,
+    PalStaminaDecreaceRate=1.000000,
+    PalAutoHPRegeneRate=1.000000,
+    PalAutoHpRegeneRateInSleep=1.000000,
+    BuildObjectDamageRate=1.000000,
+    BuildObjectDeteriorationDamageRate=1.000000,
+    CollectionDropRate=1.000000,
+    CollectionObjectHpRate=1.000000,
+    CollectionObjectRespawnSpeedRate=1.000000,
+    EnemyDropItemRate=1.000000,
+    DeathPenalty=All,
+    bEnablePlayerToPlayerDamage=False,
+    bEnableFriendlyFire=False,
+    bEnableInvaderEnemy=True,
+    bActiveUNKO=False,
+    bEnableAimAssistPad=True,
+    bEnableAimAssistKeyboard=False,
+    DropItemMaxNum=3000,
+    DropItemMaxNum_UNKO=100,
+    BaseCampMaxNum=128,
+    BaseCampWorkerMaxNum=15,
+    DropItemAliveMaxHours=1.000000,
+    bAutoResetGuildNoOnlinePlayers=False,
+    AutoResetGuildTimeNoOnlinePlayers=72.000000,
+    GuildPlayerMaxNum=20,
+    PalEggDefaultHatchingTime=72.000000,
+    WorkSpeedRate=1.000000,
+    bIsMultiplay=True,
+    bIsPvP=False,
+    bCanPickupOtherGuildDeathPenaltyDrop=False,
+    bEnableNonLoginPenalty=True,
+    bEnableFastTravel=True,
+    bIsStartLocationSelectByMap=True,
+    bExistPlayerAfterLogout=False,
+    bEnableDefenseOtherGuildPlayer=False,
+    CoopPlayerMaxNum=4,
+    ServerPlayerMaxNum=32,
+    ServerName="Default Palworld Server",
+    ServerDescription="",
+    AdminPassword="",
+    ServerPassword="",
+    PublicPort=8211,
+    PublicIP="",
+    RCONEnabled=True,
+    RCONPort=25575,
+    Region="",
+    bUseAuth=True,
+    BanListURL="https://api.palworldgame.com/api/banlist.txt"
+immutable: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld-app-deployment-c8ecafc9
+  namespace: palworld
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: palworld-app-deployment-c8ef88b0
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: palworld-app-deployment-c8ef88b0
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: palworld-admin-password-c8fbd9b9
+            - name: SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: palworld-server-secret-c840df6b
+          envFrom:
+            - configMapRef:
+                name: palworld-app-cfg-c83a2339
+          image: thijsvanloef/palworld-server-docker:latest
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 8211
+              name: server
+              protocol: UDP
+            - containerPort: 25575
+              name: rcon
+              protocol: TCP
+            - containerPort: 27015
+              name: query
+              protocol: UDP
+          resources:
+            limits:
+              cpu: 8000m
+              memory: 16384Mi
+            requests:
+              cpu: 4000m
+              memory: 8192Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /palworld
+              name: pvc-palworld-media-c85b098f
+            - mountPath: /palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+              name: configmap-palworld-app-server-cfg-c8c17b74
+              subPath: PalWorldSettings.ini
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-palworld-media-c85b098f
+          persistentVolumeClaim:
+            claimName: palworld-media-c85b098f
+            readOnly: false
+        - configMap:
+            name: palworld-app-server-cfg-c8c17b74
+          name: configmap-palworld-app-server-cfg-c8c17b74
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: palworld-app-service-c8b1e6d7
+  namespace: palworld
+spec:
+  externalIPs: []
+  ports:
+    - name: server
+      port: 8211
+      protocol: UDP
+      targetPort: 8211
+    - name: rcon
+      port: 25575
+      protocol: TCP
+      targetPort: 25575
+    - name: query
+      port: 27015
+      protocol: UDP
+      targetPort: 27015
+  selector:
+    cdk8s.io/metadata.addr: palworld-app-deployment-c8ef88b0
+  type: LoadBalancer
