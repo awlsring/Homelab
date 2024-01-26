@@ -3,6 +3,7 @@ import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "../charts/applications/audiobookshelf";
 import { ImmichChart } from "../charts/applications/immich";
 import { JellyfinChart } from "../charts/applications/jellyfin";
+import { TandoorChart } from "../charts/applications/tandoor";
 import { TerraformBackendChart } from "../charts/applications/terraform-backend";
 import { YarrgChart } from "../charts/applications/yarrg";
 
@@ -28,6 +29,13 @@ export function assignApplicationsCharts(app: App) {
         mountPath: "/media",
       },
     ],
+    tunnel: {
+      email: "admin@drigs.org",
+      domain: "drigs.org",
+      cloudflareSecret: "cloudflare-secrets",
+      accountId: "5838eb1235ebfbff425cfca5e3db9062",
+      fqdn: "fin2.drigs.org",
+    },
   });
 
   new AudioBookshelfChart(app, "audiobookshelf", {
@@ -131,6 +139,25 @@ export function assignApplicationsCharts(app: App) {
     storage: {
       storageClass: "ceph-block",
       size: Size.gibibytes(1),
+    },
+  });
+
+  new TandoorChart(app, "tandoor", {
+    createNamespace: true,
+    namespace: "tandoor",
+    secretStore: "onepassword-secret-store",
+    storage: {
+      staticFiles: {
+        storageClass: "ceph-block",
+      },
+      mediaFiles: {
+        storageClass: "ceph-block",
+      },
+    },
+    ingress: {
+      ingressClass: "nginx",
+      hostname: "tandoor.us-drig-1.drigs.org",
+      certIssuer: "prod",
     },
   });
 }
