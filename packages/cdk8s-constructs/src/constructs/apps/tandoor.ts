@@ -83,7 +83,7 @@ export class Tandoor extends Construct {
     const env = {
       SECRET_KEY: EnvValue.fromSecretValue({
         secret: props.secretKey,
-        key: "value",
+        key: "credential", // TODO: make this customizable
       }),
       TIMEZONE: EnvValue.fromValue(props.timezone ?? "Etc/UTC"),
       ENABLE_METRICS: EnvValue.fromValue(props.enableMetrics ? "1" : "0"),
@@ -93,7 +93,7 @@ export class Tandoor extends Construct {
       POSTGRES_USER: EnvValue.fromValue(props.database.user),
       POSTGRES_PASSWORD: EnvValue.fromSecretValue({
         secret: props.database.password,
-        key: "value",
+        key: "password",
       }),
       POSTGRES_DB: EnvValue.fromValue(props.database.database),
       ENABLE_SIGNUP: EnvValue.fromValue(props.enableSignUp ? "1" : "0"),

@@ -150,7 +150,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  key: value
+                  key: credential
                   name: tandoor-secret-key-c89f0b18
             - name: TIMEZONE
               value: Etc/UTC
@@ -167,7 +167,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: value
+                  key: password
                   name: tandoor-database-secret-c84ab718
             - name: POSTGRES_DB
               value: tandoor
@@ -206,7 +206,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  key: value
+                  key: credential
                   name: tandoor-secret-key-c89f0b18
             - name: TIMEZONE
               value: Etc/UTC
@@ -223,7 +223,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: value
+                  key: password
                   name: tandoor-database-secret-c84ab718
             - name: POSTGRES_DB
               value: tandoor
