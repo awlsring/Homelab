@@ -1175,8 +1175,14 @@ Returns a string representation of this construct.
 ##### `exposeWithPrimaryService` <a name="exposeWithPrimaryService" id="cdk8s-constructs.Cluster.exposeWithPrimaryService"></a>
 
 ```typescript
-public exposeWithPrimaryService(): Service
+public exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Service
 ```
+
+###### `options`<sup>Optional</sup> <a name="options" id="cdk8s-constructs.Cluster.exposeWithPrimaryService.parameter.options"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ExposeWithPrimaryServiceOptions">ExposeWithPrimaryServiceOptions</a>
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -3855,6 +3861,199 @@ public readonly redisService: Service;
 ```
 
 - *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### ImportedSecretStore <a name="ImportedSecretStore" id="cdk8s-constructs.ImportedSecretStore"></a>
+
+- *Implements:* <a href="#cdk8s-constructs.ISecretStore">ISecretStore</a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.ImportedSecretStore.Initializer"></a>
+
+```typescript
+import { ImportedSecretStore } from 'cdk8s-constructs'
+
+new ImportedSecretStore(scope: Construct, name: string, type: SecretStoreType)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.Initializer.parameter.name">name</a></code> | <code>string</code> | The Kubernetes name of this resource. |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.Initializer.parameter.type">type</a></code> | <code><a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.ImportedSecretStore.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ImportedSecretStore.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+The Kubernetes name of this resource.
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="cdk8s-constructs.ImportedSecretStore.Initializer.parameter.type"></a>
+
+- *Type:* <a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.ImportedSecretStore.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.ImportedSecretStore.isConstruct"></a>
+
+```typescript
+import { ImportedSecretStore } from 'cdk8s-constructs'
+
+ImportedSecretStore.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.ImportedSecretStore.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.name">name</a></code> | <code>string</code> | The Kubernetes name of this resource. |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.ImportedSecretStore.property.storeType">storeType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ImportedSecretStore.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.ImportedSecretStore.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.ImportedSecretStore.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.ImportedSecretStore.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ImportedSecretStore.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The Kubernetes name of this resource.
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.ImportedSecretStore.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `storeType`<sup>Required</sup> <a name="storeType" id="cdk8s-constructs.ImportedSecretStore.property.storeType"></a>
+
+```typescript
+public readonly storeType: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -54074,7 +54273,7 @@ new OnePasswordClusterSecretStore(scope: Construct, name: string, props: OnePass
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
 | <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps">OnePasswordSecretStoreProps</a></code> | *No description.* |
 
 ---
@@ -54089,6 +54288,8 @@ new OnePasswordClusterSecretStore(scope: Construct, name: string, props: OnePass
 
 - *Type:* string
 
+The name of this API object.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.OnePasswordClusterSecretStore.Initializer.parameter.props"></a>
@@ -54102,6 +54303,8 @@ new OnePasswordClusterSecretStore(scope: Construct, name: string, props: OnePass
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
 
 ---
 
@@ -54113,11 +54316,28 @@ public toString(): string
 
 Returns a string representation of this construct.
 
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.OnePasswordClusterSecretStore.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.OnePasswordClusterSecretStore.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.fromName">fromName</a></code> | *No description.* |
 
 ---
 
@@ -54153,11 +54373,46 @@ Any object.
 
 ---
 
+##### `fromName` <a name="fromName" id="cdk8s-constructs.OnePasswordClusterSecretStore.fromName"></a>
+
+```typescript
+import { OnePasswordClusterSecretStore } from 'cdk8s-constructs'
+
+OnePasswordClusterSecretStore.fromName(scope: Construct, name: string, type: SecretStoreType)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.OnePasswordClusterSecretStore.fromName.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.OnePasswordClusterSecretStore.fromName.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `type`<sup>Required</sup> <a name="type" id="cdk8s-constructs.OnePasswordClusterSecretStore.fromName.parameter.type"></a>
+
+- *Type:* <a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a>
+
+---
+
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.OnePasswordClusterSecretStore.property.storeType">storeType</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -54170,6 +54425,110 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `storeType`<sup>Required</sup> <a name="storeType" id="cdk8s-constructs.OnePasswordClusterSecretStore.property.storeType"></a>
+
+```typescript
+public readonly storeType: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -54189,7 +54548,7 @@ new OnepasswordSecretPassword(scope: Construct, name: string, props: ExternalSec
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.name">name</a></code> | <code>string</code> | The name of this API object. |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ExternalSecretProps">ExternalSecretProps</a></code> | *No description.* |
 
 ---
@@ -54204,6 +54563,8 @@ new OnepasswordSecretPassword(scope: Construct, name: string, props: ExternalSec
 
 - *Type:* string
 
+The name of this API object.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.OnepasswordSecretPassword.Initializer.parameter.props"></a>
@@ -54217,6 +54578,9 @@ new OnepasswordSecretPassword(scope: Construct, name: string, props: ExternalSec
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asSecret">asSecret</a></code> | *No description.* |
 
 ---
 
@@ -54227,6 +54591,28 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.OnepasswordSecretPassword.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.OnepasswordSecretPassword.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
+##### `asSecret` <a name="asSecret" id="cdk8s-constructs.OnepasswordSecretPassword.asSecret"></a>
+
+```typescript
+public asSecret(): ISecret
+```
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -54273,6 +54659,15 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.property.secretName">secretName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -54285,6 +54680,110 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.OnepasswordSecretPassword.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.OnepasswordSecretPassword.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.OnepasswordSecretPassword.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.OnepasswordSecretPassword.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.OnepasswordSecretPassword.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.OnepasswordSecretPassword.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.OnepasswordSecretPassword.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.OnepasswordSecretPassword.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `secretName`<sup>Required</sup> <a name="secretName" id="cdk8s-constructs.OnepasswordSecretPassword.property.secretName"></a>
+
+```typescript
+public readonly secretName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -55269,6 +55768,272 @@ public readonly service: Service;
 ---
 
 
+### SecretStore <a name="SecretStore" id="cdk8s-constructs.SecretStore"></a>
+
+- *Implements:* <a href="#cdk8s-constructs.ISecretStore">ISecretStore</a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.SecretStore.Initializer"></a>
+
+```typescript
+import { SecretStore } from 'cdk8s-constructs'
+
+new SecretStore(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SecretStore.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SecretStore.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.SecretStore.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.SecretStore.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.SecretStore.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.SecretStore.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
+| <code><a href="#cdk8s-constructs.SecretStore.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.SecretStore.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `asApiResource` <a name="asApiResource" id="cdk8s-constructs.SecretStore.asApiResource"></a>
+
+```typescript
+public asApiResource(): IApiResource
+```
+
+Return the IApiResource this object represents.
+
+##### `asNonApiResource` <a name="asNonApiResource" id="cdk8s-constructs.SecretStore.asNonApiResource"></a>
+
+```typescript
+public asNonApiResource(): string
+```
+
+Return the non resource url this object represents.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.SecretStore.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.SecretStore.fromName">fromName</a></code> | *No description.* |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.SecretStore.isConstruct"></a>
+
+```typescript
+import { SecretStore } from 'cdk8s-constructs'
+
+SecretStore.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.SecretStore.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `fromName` <a name="fromName" id="cdk8s-constructs.SecretStore.fromName"></a>
+
+```typescript
+import { SecretStore } from 'cdk8s-constructs'
+
+SecretStore.fromName(scope: Construct, name: string, type: SecretStoreType)
+```
+
+###### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.SecretStore.fromName.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.SecretStore.fromName.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `type`<sup>Required</sup> <a name="type" id="cdk8s-constructs.SecretStore.fromName.parameter.type"></a>
+
+- *Type:* <a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a>
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SecretStore.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.SecretStore.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. "authorization.k8s.io"). |
+| <code><a href="#cdk8s-constructs.SecretStore.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.SecretStore.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.SecretStore.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SecretStore.property.name">name</a></code> | <code>string</code> | The name of this API object. |
+| <code><a href="#cdk8s-constructs.SecretStore.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SecretStore.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.SecretStore.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.SecretStore.property.storeType">storeType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.SecretStore.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.SecretStore.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. "authorization.k8s.io").
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.SecretStore.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.SecretStore.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.SecretStore.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.SecretStore.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of this API object.
+
+---
+
+##### `permissions`<sup>Required</sup> <a name="permissions" id="cdk8s-constructs.SecretStore.property.permissions"></a>
+
+```typescript
+public readonly permissions: ResourcePermissions;
+```
+
+- *Type:* cdk8s-plus-27.ResourcePermissions
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.SecretStore.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+---
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.SecretStore.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `storeType`<sup>Required</sup> <a name="storeType" id="cdk8s-constructs.SecretStore.property.storeType"></a>
+
+```typescript
+public readonly storeType: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### ServersTransport <a name="ServersTransport" id="cdk8s-constructs.ServersTransport"></a>
 
 ServersTransport is the CRD implementation of a ServersTransport.
@@ -55860,6 +56625,141 @@ public readonly ingress: HomelabIngress;
 ---
 
 ##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Sonarr.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
+### Tandoor <a name="Tandoor" id="cdk8s-constructs.Tandoor"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Tandoor.Initializer"></a>
+
+```typescript
+import { Tandoor } from 'cdk8s-constructs'
+
+new Tandoor(scope: Construct, name: string, props: TandoorProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Tandoor.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Tandoor.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Tandoor.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.TandoorProps">TandoorProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Tandoor.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Tandoor.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Tandoor.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.TandoorProps">TandoorProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Tandoor.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Tandoor.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Tandoor.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Tandoor.isConstruct"></a>
+
+```typescript
+import { Tandoor } from 'cdk8s-constructs'
+
+Tandoor.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Tandoor.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Tandoor.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Tandoor.property.deployment">deployment</a></code> | <code>cdk8s-plus-27.Deployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Tandoor.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Tandoor.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Tandoor.property.deployment"></a>
+
+```typescript
+public readonly deployment: Deployment;
+```
+
+- *Type:* cdk8s-plus-27.Deployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Tandoor.property.service"></a>
 
 ```typescript
 public readonly service: Service;
@@ -65648,6 +66548,34 @@ public readonly tunnelName: string;
 
 ---
 
+### ExposeWithPrimaryServiceOptions <a name="ExposeWithPrimaryServiceOptions" id="cdk8s-constructs.ExposeWithPrimaryServiceOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ExposeWithPrimaryServiceOptions.Initializer"></a>
+
+```typescript
+import { ExposeWithPrimaryServiceOptions } from 'cdk8s-constructs'
+
+const exposeWithPrimaryServiceOptions: ExposeWithPrimaryServiceOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ExposeWithPrimaryServiceOptions.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.ExposeWithPrimaryServiceOptions.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+
+---
+
 ### ExternalDocumentation <a name="ExternalDocumentation" id="cdk8s-constructs.ExternalDocumentation"></a>
 
 ExternalDocumentation allows referencing an external resource for extended documentation.
@@ -65854,8 +66782,7 @@ const externalSecretProps: ExternalSecretProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretKey">secretKey</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretStore">secretStore</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.secretStoreType">secretStoreType</a></code> | <code><a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ExternalSecretProps.property.store">store</a></code> | <code><a href="#cdk8s-constructs.ISecretStore">ISecretStore</a></code> | *No description.* |
 
 ---
 
@@ -65869,23 +66796,13 @@ public readonly secretKey: string;
 
 ---
 
-##### `secretStore`<sup>Required</sup> <a name="secretStore" id="cdk8s-constructs.ExternalSecretProps.property.secretStore"></a>
+##### `store`<sup>Required</sup> <a name="store" id="cdk8s-constructs.ExternalSecretProps.property.store"></a>
 
 ```typescript
-public readonly secretStore: string;
+public readonly store: ISecretStore;
 ```
 
-- *Type:* string
-
----
-
-##### `secretStoreType`<sup>Required</sup> <a name="secretStoreType" id="cdk8s-constructs.ExternalSecretProps.property.secretStoreType"></a>
-
-```typescript
-public readonly secretStoreType: SecretStoreType;
-```
-
-- *Type:* <a href="#cdk8s-constructs.SecretStoreType">SecretStoreType</a>
+- *Type:* <a href="#cdk8s-constructs.ISecretStore">ISecretStore</a>
 
 ---
 
@@ -87097,6 +88014,7 @@ const onePasswordSecretStoreProps: OnePasswordSecretStoreProps = { ... }
 | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.connectHost">connectHost</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.connectTokenRef">connectTokenRef</a></code> | <code><a href="#cdk8s-constructs.NamespaceSecretReference">NamespaceSecretReference</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.vaults">vaults</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnePasswordSecretStoreProps.property.storeName">storeName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -87127,6 +88045,16 @@ public readonly vaults: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `storeName`<sup>Optional</sup> <a name="storeName" id="cdk8s-constructs.OnePasswordSecretStoreProps.property.storeName"></a>
+
+```typescript
+public readonly storeName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -96455,6 +97383,205 @@ The taint value corresponding to the taint key.
 
 ---
 
+### TandoorDatabaseOptions <a name="TandoorDatabaseOptions" id="cdk8s-constructs.TandoorDatabaseOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TandoorDatabaseOptions.Initializer"></a>
+
+```typescript
+import { TandoorDatabaseOptions } from 'cdk8s-constructs'
+
+const tandoorDatabaseOptions: TandoorDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.engine">engine</a></code> | <code><a href="#cdk8s-constructs.TandoorDatabaseEngine">TandoorDatabaseEngine</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.host">host</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.password">password</a></code> | <code>cdk8s-plus-27.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.user">user</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseOptions.property.port">port</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `database`<sup>Required</sup> <a name="database" id="cdk8s-constructs.TandoorDatabaseOptions.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `engine`<sup>Required</sup> <a name="engine" id="cdk8s-constructs.TandoorDatabaseOptions.property.engine"></a>
+
+```typescript
+public readonly engine: TandoorDatabaseEngine;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TandoorDatabaseEngine">TandoorDatabaseEngine</a>
+
+---
+
+##### `host`<sup>Required</sup> <a name="host" id="cdk8s-constructs.TandoorDatabaseOptions.property.host"></a>
+
+```typescript
+public readonly host: string;
+```
+
+- *Type:* string
+
+---
+
+##### `password`<sup>Required</sup> <a name="password" id="cdk8s-constructs.TandoorDatabaseOptions.property.password"></a>
+
+```typescript
+public readonly password: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+
+---
+
+##### `user`<sup>Required</sup> <a name="user" id="cdk8s-constructs.TandoorDatabaseOptions.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.TandoorDatabaseOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+### TandoorProps <a name="TandoorProps" id="cdk8s-constructs.TandoorProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.TandoorProps.Initializer"></a>
+
+```typescript
+import { TandoorProps } from 'cdk8s-constructs'
+
+const tandoorProps: TandoorProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.database">database</a></code> | <code><a href="#cdk8s-constructs.TandoorDatabaseOptions">TandoorDatabaseOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.mediaFilesVolume">mediaFilesVolume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.secretKey">secretKey</a></code> | <code>cdk8s-plus-27.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.staticFilesVolume">staticFilesVolume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.enableMetrics">enableMetrics</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.enableSignUp">enableSignUp</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.TandoorProps.property.timezone">timezone</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `database`<sup>Required</sup> <a name="database" id="cdk8s-constructs.TandoorProps.property.database"></a>
+
+```typescript
+public readonly database: TandoorDatabaseOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.TandoorDatabaseOptions">TandoorDatabaseOptions</a>
+
+---
+
+##### `mediaFilesVolume`<sup>Required</sup> <a name="mediaFilesVolume" id="cdk8s-constructs.TandoorProps.property.mediaFilesVolume"></a>
+
+```typescript
+public readonly mediaFilesVolume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `secretKey`<sup>Required</sup> <a name="secretKey" id="cdk8s-constructs.TandoorProps.property.secretKey"></a>
+
+```typescript
+public readonly secretKey: ISecret;
+```
+
+- *Type:* cdk8s-plus-27.ISecret
+
+---
+
+##### `staticFilesVolume`<sup>Required</sup> <a name="staticFilesVolume" id="cdk8s-constructs.TandoorProps.property.staticFilesVolume"></a>
+
+```typescript
+public readonly staticFilesVolume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `enableMetrics`<sup>Optional</sup> <a name="enableMetrics" id="cdk8s-constructs.TandoorProps.property.enableMetrics"></a>
+
+```typescript
+public readonly enableMetrics: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `enableSignUp`<sup>Optional</sup> <a name="enableSignUp" id="cdk8s-constructs.TandoorProps.property.enableSignUp"></a>
+
+```typescript
+public readonly enableSignUp: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.TandoorProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.TandoorProps.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.TandoorProps.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+
+---
+
 ### TcpSocketAction <a name="TcpSocketAction" id="cdk8s-constructs.TcpSocketAction"></a>
 
 TCPSocketAction describes an action based on opening a socket.
@@ -103519,6 +104646,133 @@ public readonly resourceType: string;
 
 ---
 
+### ISecretStore <a name="ISecretStore" id="cdk8s-constructs.ISecretStore"></a>
+
+- *Extends:* cdk8s-plus-27.IResource
+
+- *Implemented By:* <a href="#cdk8s-constructs.ImportedSecretStore">ImportedSecretStore</a>, <a href="#cdk8s-constructs.OnePasswordClusterSecretStore">OnePasswordClusterSecretStore</a>, <a href="#cdk8s-constructs.SecretStore">SecretStore</a>, <a href="#cdk8s-constructs.ISecretStore">ISecretStore</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. "authorization.k8s.io/v1"). |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.name">name</a></code> | <code>string</code> | The Kubernetes name of this resource. |
+| <code><a href="#cdk8s-constructs.ISecretStore.property.storeType">storeType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.ISecretStore.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.ISecretStore.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `resourceType`<sup>Required</sup> <a name="resourceType" id="cdk8s-constructs.ISecretStore.property.resourceType"></a>
+
+```typescript
+public readonly resourceType: string;
+```
+
+- *Type:* string
+
+The name of a resource type as it appears in the relevant API endpoint.
+
+> [https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#referring-to-resources)
+
+---
+
+*Example*
+
+```typescript
+- "pods" or "pods/log"
+```
+
+
+##### `resourceName`<sup>Optional</sup> <a name="resourceName" id="cdk8s-constructs.ISecretStore.property.resourceName"></a>
+
+```typescript
+public readonly resourceName: string;
+```
+
+- *Type:* string
+
+The unique, namespace-global, name of an object inside the Kubernetes cluster.
+
+If this is omitted, the ApiResource should represent all objects of the given type.
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.ISecretStore.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. "authorization.k8s.io/v1").
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.ISecretStore.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind (e.g. "Deployment").
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ISecretStore.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The Kubernetes name of this resource.
+
+---
+
+##### `storeType`<sup>Required</sup> <a name="storeType" id="cdk8s-constructs.ISecretStore.property.storeType"></a>
+
+```typescript
+public readonly storeType: string;
+```
+
+- *Type:* string
+
+---
+
 ### IService <a name="IService" id="cdk8s-constructs.IService"></a>
 
 - *Implemented By:* <a href="#cdk8s-constructs.IService">IService</a>
@@ -103932,6 +105186,21 @@ are automatically created.
 Maps the Service to the contents of the externalName field (e.g. foo.bar.example.com), by returning a CNAME record with its value. No proxying of any kind is set up.
 
 > Note: You need either kube-dns version 1.7 or CoreDNS version 0.0.8 or higher to use the ExternalName type.
+
+---
+
+
+### TandoorDatabaseEngine <a name="TandoorDatabaseEngine" id="cdk8s-constructs.TandoorDatabaseEngine"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.TandoorDatabaseEngine.POSTGRES">POSTGRES</a></code> | *No description.* |
+
+---
+
+##### `POSTGRES` <a name="POSTGRES" id="cdk8s-constructs.TandoorDatabaseEngine.POSTGRES"></a>
 
 ---
 

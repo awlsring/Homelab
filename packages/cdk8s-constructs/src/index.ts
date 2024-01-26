@@ -44,3 +44,5 @@ export * from "./constructs/cloudflare/tunnel-binding";
 export * from "./constructs/cloudflare/tunnel/cluster-tunnel";
 export * from "./constructs/cloudflare/tunnel/tunnel-common";
 export * from "./imports/cnpq-networking.cfargotunnel.com";
+export * from "./constructs/apps/tandoor";
+export * from "./constructs/external-secrets/secret-store";
