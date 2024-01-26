@@ -39,10 +39,6 @@ export class OnepasswordSecretPassword extends Resource {
   }
 
   asSecret(): ISecret {
-    return Secret.fromSecretName(
-      this,
-      `${this.name}-kube-secret`,
-      this.secretName,
-    );
+    return Secret.fromSecretName(this, `${this.name}-kube-secret`, this.name);
   }
 }

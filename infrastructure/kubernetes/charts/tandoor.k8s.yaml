@@ -69,7 +69,7 @@ spec:
       database: tandoor
       owner: tandoor
       secret:
-        name: tandoor-database-pass
+        name: tandoor-database-secret-c84ab718
   instances: 1
   monitoring: {}
   primaryUpdateStrategy: unsupervised
@@ -151,7 +151,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: value
-                  name: tandoor-secret-key
+                  name: tandoor-secret-key-c89f0b18
             - name: TIMEZONE
               value: Etc/UTC
             - name: ENABLE_METRICS
@@ -168,7 +168,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: value
-                  name: tandoor-database-pass
+                  name: tandoor-database-secret-c84ab718
             - name: POSTGRES_DB
               value: tandoor
             - name: ENABLE_SIGNUP
@@ -207,7 +207,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: value
-                  name: tandoor-secret-key
+                  name: tandoor-secret-key-c89f0b18
             - name: TIMEZONE
               value: Etc/UTC
             - name: ENABLE_METRICS
@@ -224,7 +224,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: value
-                  name: tandoor-database-pass
+                  name: tandoor-database-secret-c84ab718
             - name: POSTGRES_DB
               value: tandoor
             - name: ENABLE_SIGNUP
