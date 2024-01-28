@@ -1,5 +1,6 @@
 import { Size } from "cdk8s";
 import {
+  CloudflareClusterTunnel,
   GpuType,
   HomelabChart,
   HomelabChartProps,
@@ -33,6 +34,13 @@ export interface JellyfinChartProps extends HomelabChartProps {
   readonly storage: {
     readonly size?: Size;
     readonly storageClassName: string;
+  };
+  readonly tunnel: {
+    readonly email: string;
+    readonly domain: string;
+    readonly cloudflareSecret: string;
+    readonly accountId: string;
+    readonly fqdn?: string;
   };
   readonly mediaShares: {
     readonly name: string;
@@ -130,6 +138,16 @@ export class JellyfinChart extends HomelabChart {
       service: service,
       hostname: props.ingress.hostname,
       certIssuer: props.ingress.certIssuer,
+    });
+
+    const tunnel = new CloudflareClusterTunnel(this, "tunnel", {
+      email: props.tunnel.email,
+      domain: props.tunnel.domain,
+      cloudflareSecret: props.tunnel.cloudflareSecret,
+      accountId: props.tunnel.accountId,
+    });
+    tunnel.bindToService(service, {
+      domainName: props.tunnel.fqdn,
     });
   }
 }

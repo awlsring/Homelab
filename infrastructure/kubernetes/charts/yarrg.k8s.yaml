@@ -106,7 +106,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-radarr-config-pvc-c8669b0f
           persistentVolumeClaim:
             claimName: yarrg-radarr-config-pvc-c8669b0f
@@ -264,7 +264,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-sonarr-config-pvc-c83d6d52
           persistentVolumeClaim:
             claimName: yarrg-sonarr-config-pvc-c83d6d52
@@ -422,7 +422,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-lidarr-config-pvc-c8c484de
           persistentVolumeClaim:
             claimName: yarrg-lidarr-config-pvc-c8c484de
@@ -580,7 +580,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-readarr-config-pvc-c83da581
           persistentVolumeClaim:
             claimName: yarrg-readarr-config-pvc-c83da581
@@ -726,7 +726,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-bazarr-config-pvc-c8321f91
           persistentVolumeClaim:
             claimName: yarrg-bazarr-config-pvc-c8321f91
@@ -1153,7 +1153,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-yarrg-resillio-config-pvc-c8e8cd6c
           persistentVolumeClaim:
             claimName: yarrg-resillio-config-pvc-c8e8cd6c

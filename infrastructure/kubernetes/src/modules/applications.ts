@@ -7,6 +7,8 @@ import { TandoorChart } from "../charts/applications/tandoor";
 import { TerraformBackendChart } from "../charts/applications/terraform-backend";
 import { YarrgChart } from "../charts/applications/yarrg";
 
+const NAS_ADDRESS = "10.0.10.180";
+
 export function assignApplicationsCharts(app: App) {
   new JellyfinChart(app, "jellyfin", {
     createNamespace: true,
@@ -24,7 +26,7 @@ export function assignApplicationsCharts(app: App) {
     mediaShares: [
       {
         name: "media",
-        server: "10.0.10.180",
+        server: NAS_ADDRESS,
         serverPath: "/mnt/WD-6D-8T/fin",
         mountPath: "/media",
       },
@@ -34,7 +36,7 @@ export function assignApplicationsCharts(app: App) {
       domain: "drigs.org",
       cloudflareSecret: "cloudflare-secrets",
       accountId: "5838eb1235ebfbff425cfca5e3db9062",
-      fqdn: "fin2.drigs.org",
+      fqdn: "fin.drigs.org",
     },
   });
 
@@ -49,7 +51,7 @@ export function assignApplicationsCharts(app: App) {
       storageClassName: "ceph-block",
     },
     mediaStorage: {
-      server: "10.0.100.149",
+      server: NAS_ADDRESS,
       serverPath: "/mnt/WD-6D-8T/fin",
       mountPath: "/media",
     },
@@ -93,7 +95,7 @@ export function assignApplicationsCharts(app: App) {
       hostname: "resillio.us-drig-1.drigs.org",
     },
     mediaStorage: {
-      server: "10.0.100.149",
+      server: NAS_ADDRESS,
       serverPath: "/mnt/WD-6D-8T/fin",
       mountPath: "/media",
     },
@@ -103,12 +105,12 @@ export function assignApplicationsCharts(app: App) {
     createNamespace: true,
     namespace: "immich",
     uploadStorage: {
-      server: "10.0.10.180",
+      server: NAS_ADDRESS,
       serverPath: "/mnt/WD-6D-8T/immich-uploads",
     },
     externalCollections: [
       {
-        server: "10.0.10.180",
+        server: NAS_ADDRESS,
         serverPath: "/mnt/WD-6D-8T/photos",
         name: "photos",
       },

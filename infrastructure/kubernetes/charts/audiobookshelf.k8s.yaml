@@ -89,7 +89,7 @@ spec:
         - name: media
           nfs:
             path: /mnt/WD-6D-8T/fin
-            server: 10.0.100.149
+            server: 10.0.10.180
         - name: pvc-audiobookshelf-config-pvc-c87d9861
           persistentVolumeClaim:
             claimName: audiobookshelf-config-pvc-c87d9861

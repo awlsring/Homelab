@@ -138,3 +138,33 @@ spec:
     - hosts:
         - fin.us-drig-1.drigs.org
       secretName: jellyfin-jellyfin-service-c8e0992d-tls-c81b43ca
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: ClusterTunnel
+metadata:
+  name: jellyfin-tunnel-c822dbf1
+  namespace: jellyfin
+spec:
+  cloudflare:
+    accountId: 5838eb1235ebfbff425cfca5e3db9062
+    domain: drigs.org
+    email: admin@drigs.org
+    secret: cloudflare-secrets
+  image: cloudflare/cloudflared:2024.1.5
+  newTunnel:
+    name: tunnel
+  size: 2
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: TunnelBinding
+metadata:
+  name: jellyfin-tunnel-binding-c80fe2e7
+  namespace: jellyfin
+subjects:
+  - kind: Service
+    name: jellyfin-service-c8e0992d
+    spec:
+      fqdn: fin.drigs.org
+tunnelRef:
+  kind: ClusterTunnel
+  name: jellyfin-tunnel-c822dbf1
