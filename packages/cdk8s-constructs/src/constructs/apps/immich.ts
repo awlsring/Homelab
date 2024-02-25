@@ -25,7 +25,7 @@ const REDIS_PORT = 6379;
 const POSTGRES_PORT = 5432;
 const DEFAULT_IMAGE_TAG = "release";
 const REDIS_IMAGE = "redis:6.2-alpine";
-const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.1.11";
+const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.2.0";
 
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
 const IMMICH_SERVER_PORT = 3001;
