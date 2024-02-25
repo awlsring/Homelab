@@ -294,6 +294,141 @@ public readonly service: Service;
 ---
 
 
+### BlueskyPds <a name="BlueskyPds" id="cdk8s-constructs.BlueskyPds"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.BlueskyPds.Initializer"></a>
+
+```typescript
+import { BlueskyPds } from 'cdk8s-constructs'
+
+new BlueskyPds(scope: Construct, id: string, props: BlueskyPdsProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPds.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPds.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPds.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.BlueskyPdsProps">BlueskyPdsProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.BlueskyPds.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.BlueskyPds.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.BlueskyPds.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.BlueskyPdsProps">BlueskyPdsProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPds.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.BlueskyPds.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPds.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.BlueskyPds.isConstruct"></a>
+
+```typescript
+import { BlueskyPds } from 'cdk8s-constructs'
+
+BlueskyPds.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.BlueskyPds.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPds.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.BlueskyPds.property.deployment">deployment</a></code> | <code>cdk8s-plus-27.Deployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPds.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.BlueskyPds.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.BlueskyPds.property.deployment"></a>
+
+```typescript
+public readonly deployment: Deployment;
+```
+
+- *Type:* cdk8s-plus-27.Deployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.BlueskyPds.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### CertIssuer <a name="CertIssuer" id="cdk8s-constructs.CertIssuer"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.CertIssuer.Initializer"></a>
@@ -54581,6 +54716,7 @@ The name of this API object.
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asApiResource">asApiResource</a></code> | Return the IApiResource this object represents. |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asNonApiResource">asNonApiResource</a></code> | Return the non resource url this object represents. |
 | <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asSecret">asSecret</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.OnepasswordSecretPassword.asSecretValue">asSecretValue</a></code> | *No description.* |
 
 ---
 
@@ -54613,6 +54749,18 @@ Return the non resource url this object represents.
 ```typescript
 public asSecret(): ISecret
 ```
+
+##### `asSecretValue` <a name="asSecretValue" id="cdk8s-constructs.OnepasswordSecretPassword.asSecretValue"></a>
+
+```typescript
+public asSecretValue(key?: string): SecretValue
+```
+
+###### `key`<sup>Optional</sup> <a name="key" id="cdk8s-constructs.OnepasswordSecretPassword.asSecretValue.parameter.key"></a>
+
+- *Type:* string
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -58868,6 +59016,95 @@ For example, "v1"
 
 ---
 
+### ApplicationProps <a name="ApplicationProps" id="cdk8s-constructs.ApplicationProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ApplicationProps.Initializer"></a>
+
+```typescript
+import { ApplicationProps } from 'cdk8s-constructs'
+
+const applicationProps: ApplicationProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.jwtSecret">jwtSecret</a></code> | <code>cdk8s-plus-27.SecretValue</code> | Generate with `openssl rand --hex 16` and save to a secret that is passed. |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.pdsAdminPasswordSecret">pdsAdminPasswordSecret</a></code> | <code>cdk8s-plus-27.SecretValue</code> | Generate with `openssl rand --hex 16` and save to a secret that is passed. |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.pdsPlcRotationKeyK256PrivateKeyHex">pdsPlcRotationKeyK256PrivateKeyHex</a></code> | <code>cdk8s-plus-27.SecretValue</code> | Generate with `openssl ecparam --name secp256k1 --genkey --noout --outform DER \| tail --bytes=+8 \| head --bytes=32 \| xxd --plain --cols 32` and save to a secret that is passed. |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.disableLogging">disableLogging</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ApplicationProps.property.serviceHandleDomains">serviceHandleDomains</a></code> | <code>string[]</code> | *No description.* |
+
+---
+
+##### `hostname`<sup>Required</sup> <a name="hostname" id="cdk8s-constructs.ApplicationProps.property.hostname"></a>
+
+```typescript
+public readonly hostname: string;
+```
+
+- *Type:* string
+
+---
+
+##### `jwtSecret`<sup>Required</sup> <a name="jwtSecret" id="cdk8s-constructs.ApplicationProps.property.jwtSecret"></a>
+
+```typescript
+public readonly jwtSecret: SecretValue;
+```
+
+- *Type:* cdk8s-plus-27.SecretValue
+
+Generate with `openssl rand --hex 16` and save to a secret that is passed.
+
+---
+
+##### `pdsAdminPasswordSecret`<sup>Required</sup> <a name="pdsAdminPasswordSecret" id="cdk8s-constructs.ApplicationProps.property.pdsAdminPasswordSecret"></a>
+
+```typescript
+public readonly pdsAdminPasswordSecret: SecretValue;
+```
+
+- *Type:* cdk8s-plus-27.SecretValue
+
+Generate with `openssl rand --hex 16` and save to a secret that is passed.
+
+---
+
+##### `pdsPlcRotationKeyK256PrivateKeyHex`<sup>Required</sup> <a name="pdsPlcRotationKeyK256PrivateKeyHex" id="cdk8s-constructs.ApplicationProps.property.pdsPlcRotationKeyK256PrivateKeyHex"></a>
+
+```typescript
+public readonly pdsPlcRotationKeyK256PrivateKeyHex: SecretValue;
+```
+
+- *Type:* cdk8s-plus-27.SecretValue
+
+Generate with `openssl ecparam --name secp256k1 --genkey --noout --outform DER | tail --bytes=+8 | head --bytes=32 | xxd --plain --cols 32` and save to a secret that is passed.
+
+---
+
+##### `disableLogging`<sup>Optional</sup> <a name="disableLogging" id="cdk8s-constructs.ApplicationProps.property.disableLogging"></a>
+
+```typescript
+public readonly disableLogging: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `serviceHandleDomains`<sup>Optional</sup> <a name="serviceHandleDomains" id="cdk8s-constructs.ApplicationProps.property.serviceHandleDomains"></a>
+
+```typescript
+public readonly serviceHandleDomains: string[];
+```
+
+- *Type:* string[]
+
+---
+
 ### ArrAppApplicationOption <a name="ArrAppApplicationOption" id="cdk8s-constructs.ArrAppApplicationOption"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.ArrAppApplicationOption.Initializer"></a>
@@ -59954,6 +60191,67 @@ public readonly domainName: string;
 ```
 
 - *Type:* string
+
+---
+
+### BlueskyPdsProps <a name="BlueskyPdsProps" id="cdk8s-constructs.BlueskyPdsProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BlueskyPdsProps.Initializer"></a>
+
+```typescript
+import { BlueskyPdsProps } from 'cdk8s-constructs'
+
+const blueskyPdsProps: BlueskyPdsProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.application">application</a></code> | <code><a href="#cdk8s-constructs.ApplicationProps">ApplicationProps</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.PdnsStorageProps">PdnsStorageProps</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+
+---
+
+##### `application`<sup>Required</sup> <a name="application" id="cdk8s-constructs.BlueskyPdsProps.property.application"></a>
+
+```typescript
+public readonly application: ApplicationProps;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ApplicationProps">ApplicationProps</a>
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.BlueskyPdsProps.property.storage"></a>
+
+```typescript
+public readonly storage: PdnsStorageProps;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PdnsStorageProps">PdnsStorageProps</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.BlueskyPdsProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.BlueskyPdsProps.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
 
 ---
 
@@ -88879,6 +89177,45 @@ public readonly resource: string;
 - *Type:* string
 
 Resource is the resource of the object being referenced.
+
+---
+
+### PdnsStorageProps <a name="PdnsStorageProps" id="cdk8s-constructs.PdnsStorageProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PdnsStorageProps.Initializer"></a>
+
+```typescript
+import { PdnsStorageProps } from 'cdk8s-constructs'
+
+const pdnsStorageProps: PdnsStorageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PdnsStorageProps.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PdnsStorageProps.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.PdnsStorageProps.property.size"></a>
+
+```typescript
+public readonly size: Size;
+```
+
+- *Type:* cdk8s.Size
+
+---
+
+##### `storageClass`<sup>Optional</sup> <a name="storageClass" id="cdk8s-constructs.PdnsStorageProps.property.storageClass"></a>
+
+```typescript
+public readonly storageClass: string;
+```
+
+- *Type:* string
 
 ---
 

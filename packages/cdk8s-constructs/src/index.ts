@@ -47,3 +47,4 @@ export * from "./imports/cnpq-networking.cfargotunnel.com";
 export * from "./constructs/apps/tandoor";
 export * from "./constructs/external-secrets/secret-store";
 export * from "./constructs/apps/palworld";
+export * from "./constructs/apps/bluesky-pds";

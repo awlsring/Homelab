@@ -1,6 +1,7 @@
 import { App, Size } from "cdk8s";
 import { ServiceType } from "cdk8s-plus-27";
 import { AudioBookshelfChart } from "../charts/applications/audiobookshelf";
+import { BlueskyPdsChart } from "../charts/applications/bluesky-pds";
 import { ImmichChart } from "../charts/applications/immich";
 import { JellyfinChart } from "../charts/applications/jellyfin";
 import { TandoorChart } from "../charts/applications/tandoor";
@@ -160,6 +161,25 @@ export function assignApplicationsCharts(app: App) {
       ingressClass: "nginx",
       hostname: "tandoor.us-drig-1.drigs.org",
       certIssuer: "prod",
+    },
+  });
+
+  new BlueskyPdsChart(app, "bluesky-pds", {
+    createNamespace: true,
+    namespace: "bluesky-pds",
+    imageTag: "0.4",
+    hostname: "at.drigs.org",
+    secretStore: "onepassword-secret-store",
+    storage: {
+      size: Size.gibibytes(10),
+      storageClass: "ceph-block",
+    },
+    tunnel: {
+      email: "admin@drigs.org",
+      domain: "drigs.org",
+      cloudflareSecret: "cloudflare-secrets",
+      accountId: "5838eb1235ebfbff425cfca5e3db9062",
+      fqdn: "at.drigs.org",
     },
   });
 }

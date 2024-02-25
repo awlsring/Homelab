@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { ExternalSecretV1Beta1 } from "../../imports/external-secrets.io";
-import { ISecret, Resource, Secret } from "cdk8s-plus-27";
+import { ISecret, Resource, Secret, SecretValue } from "cdk8s-plus-27";
 import { ApiObject } from "cdk8s";
 import { ISecretStore } from "./secret-store";
 
@@ -40,5 +40,12 @@ export class OnepasswordSecretPassword extends Resource {
 
   asSecret(): ISecret {
     return Secret.fromSecretName(this, `${this.name}-kube-secret`, this.name);
+  }
+
+  asSecretValue(key?: string): SecretValue {
+    return {
+      secret: this.asSecret(),
+      key: key ?? "password",
+    };
   }
 }
