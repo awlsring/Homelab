@@ -10,6 +10,7 @@ import {
   Volume,
 } from "cdk8s-plus-27";
 import { Construct } from "constructs";
+import { PersistentVolumeClaimOptions } from "../homelab/storage";
 
 const IMAGE = "ghcr.io/bluesky-social/pds";
 const DIRECTORY = "/pds";
@@ -20,6 +21,15 @@ const PDS_BSKY_APP_VIEW_DID = "did:web:api.bsky.app";
 const PDS_REPORT_SERVICE_URL = "https://mod.bsky.app";
 const PDS_REPORT_SERVICE_DID = "did:plc:ar7c4by46qjdydhdevvrndac";
 const PDS_CRAWLERS = "https://bsky.network";
+
+export interface BlueskyPdsBucketStorageOptions {
+  readonly bucketName: string;
+  readonly region: string;
+  readonly endpoint?: string;
+  readonly accessKeySecret: SecretValue;
+  readonly secretKeySecret: SecretValue;
+  readonly forcePathStyle?: boolean;
+}
 
 export interface ApplicationProps {
   readonly hostname: string;
@@ -39,21 +49,51 @@ export interface ApplicationProps {
   readonly disableLogging?: boolean;
 }
 
-export interface PdnsStorageProps {
-  readonly size?: Size;
-  readonly storageClass?: string;
-}
-
 export interface BlueskyPdsProps {
   readonly imageTag?: string;
   readonly application: ApplicationProps;
-  readonly storage: PdnsStorageProps;
+  readonly storage: PersistentVolumeClaimOptions;
+  readonly objectStorage?: BlueskyPdsBucketStorageOptions;
   readonly serviceType?: ServiceType;
 }
 
 export class BlueskyPds extends Construct {
   readonly deployment: Deployment;
   readonly service: Service;
+
+  private makeStorageEnv(props: BlueskyPdsProps): Record<string, EnvValue> {
+    if (props.objectStorage) {
+      return {
+        PDS_BLOBSTORE_S3_BUCKET: EnvValue.fromValue(
+          props.objectStorage.bucketName,
+        ),
+        PDS_BLOBSTORE_S3_ENDPOINT: EnvValue.fromValue(
+          props.objectStorage.endpoint ?? "https://s3.amazonaws.com",
+        ),
+        PDS_BLOBSTORE_S3_REGION: EnvValue.fromValue(props.objectStorage.region),
+        PDS_BLOBSTORE_S3_ACCESS_KEY: EnvValue.fromSecretValue(
+          props.objectStorage.accessKeySecret,
+        ),
+        PDS_BLOBSTORE_S3_SECRET_KEY: EnvValue.fromSecretValue(
+          props.objectStorage.secretKeySecret,
+        ),
+        AWS_ACCESS_KEY_ID: EnvValue.fromSecretValue(
+          props.objectStorage.accessKeySecret,
+        ),
+        AWS_SECRET_ACCESS_KEY: EnvValue.fromSecretValue(
+          props.objectStorage.secretKeySecret,
+        ),
+        PDS_BLOBSTORE_S3_FORCE_PATH_STYLE: EnvValue.fromValue(
+          props.objectStorage.forcePathStyle ? "true" : "false",
+        ),
+        PDS_BLOBSTORE_DISK_LOCATION: EnvValue.fromValue(""),
+      };
+    } else {
+      return {
+        PDS_BLOBSTORE_DISK_LOCATION: EnvValue.fromValue(`${DIRECTORY}/blocks`),
+      };
+    }
+  }
 
   constructor(scope: Construct, id: string, props: BlueskyPdsProps) {
     super(scope, id);
@@ -87,9 +127,6 @@ export class BlueskyPds extends Construct {
               props.application.pdsPlcRotationKeyK256PrivateKeyHex,
             ),
             PDS_DATA_DIRECTORY: EnvValue.fromValue(DIRECTORY),
-            PDS_BLOBSTORE_DISK_LOCATION: EnvValue.fromValue(
-              `${DIRECTORY}/blocks`,
-            ),
             PDS_DID_PLC_URL: EnvValue.fromValue(PDS_DID_PLC_URL),
             PDS_BSKY_APP_VIEW_URL: EnvValue.fromValue(PDS_BSKY_APP_VIEW_URL),
             PDS_BSKY_APP_VIEW_DID: EnvValue.fromValue(PDS_BSKY_APP_VIEW_DID),
@@ -102,6 +139,7 @@ export class BlueskyPds extends Construct {
             LOG_ENABLED: EnvValue.fromValue(
               props.application.disableLogging ? "false" : "true",
             ),
+            ...this.makeStorageEnv(props),
           },
           securityContext: {
             privileged: true,

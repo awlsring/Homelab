@@ -60194,6 +60194,89 @@ public readonly domainName: string;
 
 ---
 
+### BlueskyPdsBucketStorageOptions <a name="BlueskyPdsBucketStorageOptions" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.Initializer"></a>
+
+```typescript
+import { BlueskyPdsBucketStorageOptions } from 'cdk8s-constructs'
+
+const blueskyPdsBucketStorageOptions: BlueskyPdsBucketStorageOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.accessKeySecret">accessKeySecret</a></code> | <code>cdk8s-plus-27.SecretValue</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.bucketName">bucketName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.region">region</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.secretKeySecret">secretKeySecret</a></code> | <code>cdk8s-plus-27.SecretValue</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.endpoint">endpoint</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.forcePathStyle">forcePathStyle</a></code> | <code>boolean</code> | *No description.* |
+
+---
+
+##### `accessKeySecret`<sup>Required</sup> <a name="accessKeySecret" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.accessKeySecret"></a>
+
+```typescript
+public readonly accessKeySecret: SecretValue;
+```
+
+- *Type:* cdk8s-plus-27.SecretValue
+
+---
+
+##### `bucketName`<sup>Required</sup> <a name="bucketName" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.bucketName"></a>
+
+```typescript
+public readonly bucketName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `region`<sup>Required</sup> <a name="region" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.region"></a>
+
+```typescript
+public readonly region: string;
+```
+
+- *Type:* string
+
+---
+
+##### `secretKeySecret`<sup>Required</sup> <a name="secretKeySecret" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.secretKeySecret"></a>
+
+```typescript
+public readonly secretKeySecret: SecretValue;
+```
+
+- *Type:* cdk8s-plus-27.SecretValue
+
+---
+
+##### `endpoint`<sup>Optional</sup> <a name="endpoint" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.endpoint"></a>
+
+```typescript
+public readonly endpoint: string;
+```
+
+- *Type:* string
+
+---
+
+##### `forcePathStyle`<sup>Optional</sup> <a name="forcePathStyle" id="cdk8s-constructs.BlueskyPdsBucketStorageOptions.property.forcePathStyle"></a>
+
+```typescript
+public readonly forcePathStyle: boolean;
+```
+
+- *Type:* boolean
+
+---
+
 ### BlueskyPdsProps <a name="BlueskyPdsProps" id="cdk8s-constructs.BlueskyPdsProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.BlueskyPdsProps.Initializer"></a>
@@ -60209,8 +60292,9 @@ const blueskyPdsProps: BlueskyPdsProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.application">application</a></code> | <code><a href="#cdk8s-constructs.ApplicationProps">ApplicationProps</a></code> | *No description.* |
-| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.PdnsStorageProps">PdnsStorageProps</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.objectStorage">objectStorage</a></code> | <code><a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions">BlueskyPdsBucketStorageOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.BlueskyPdsProps.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
 
 ---
@@ -60228,10 +60312,10 @@ public readonly application: ApplicationProps;
 ##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.BlueskyPdsProps.property.storage"></a>
 
 ```typescript
-public readonly storage: PdnsStorageProps;
+public readonly storage: PersistentVolumeClaimOptions;
 ```
 
-- *Type:* <a href="#cdk8s-constructs.PdnsStorageProps">PdnsStorageProps</a>
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
 
 ---
 
@@ -60242,6 +60326,16 @@ public readonly imageTag: string;
 ```
 
 - *Type:* string
+
+---
+
+##### `objectStorage`<sup>Optional</sup> <a name="objectStorage" id="cdk8s-constructs.BlueskyPdsProps.property.objectStorage"></a>
+
+```typescript
+public readonly objectStorage: BlueskyPdsBucketStorageOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.BlueskyPdsBucketStorageOptions">BlueskyPdsBucketStorageOptions</a>
 
 ---
 
@@ -89177,45 +89271,6 @@ public readonly resource: string;
 - *Type:* string
 
 Resource is the resource of the object being referenced.
-
----
-
-### PdnsStorageProps <a name="PdnsStorageProps" id="cdk8s-constructs.PdnsStorageProps"></a>
-
-#### Initializer <a name="Initializer" id="cdk8s-constructs.PdnsStorageProps.Initializer"></a>
-
-```typescript
-import { PdnsStorageProps } from 'cdk8s-constructs'
-
-const pdnsStorageProps: PdnsStorageProps = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#cdk8s-constructs.PdnsStorageProps.property.size">size</a></code> | <code>cdk8s.Size</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.PdnsStorageProps.property.storageClass">storageClass</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `size`<sup>Optional</sup> <a name="size" id="cdk8s-constructs.PdnsStorageProps.property.size"></a>
-
-```typescript
-public readonly size: Size;
-```
-
-- *Type:* cdk8s.Size
-
----
-
-##### `storageClass`<sup>Optional</sup> <a name="storageClass" id="cdk8s-constructs.PdnsStorageProps.property.storageClass"></a>
-
-```typescript
-public readonly storageClass: string;
-```
-
-- *Type:* string
 
 ---
 

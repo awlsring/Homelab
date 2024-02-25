@@ -33,6 +33,32 @@ spec:
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
+  name: bluesky-pds-blob-access-key-c822eaf7
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-blob-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-blob-secret-key-c8033a09
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-blob-secret-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
   name: bluesky-pds-plc-rotation-key-c8d306ef
   namespace: bluesky-pds
 spec:
@@ -101,8 +127,6 @@ spec:
                   name: bluesky-pds-plc-rotation-key-c8d306ef
             - name: PDS_DATA_DIRECTORY
               value: /pds
-            - name: PDS_BLOBSTORE_DISK_LOCATION
-              value: /pds/blocks
             - name: PDS_DID_PLC_URL
               value: https://plc.directory
             - name: PDS_BSKY_APP_VIEW_URL
@@ -119,6 +143,36 @@ spec:
               value: .drigs.org
             - name: LOG_ENABLED
               value: "true"
+            - name: PDS_BLOBSTORE_S3_BUCKET
+              value: pds-drigs-blobs
+            - name: PDS_BLOBSTORE_S3_ENDPOINT
+              value: https://s3.us-east-005.backblazeb2.com
+            - name: PDS_BLOBSTORE_S3_REGION
+              value: us-east-005
+            - name: PDS_BLOBSTORE_S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-access-key-c822eaf7
+            - name: PDS_BLOBSTORE_S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-secret-key-c8033a09
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-access-key-c822eaf7
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-secret-key-c8033a09
+            - name: PDS_BLOBSTORE_S3_FORCE_PATH_STYLE
+              value: "true"
+            - name: PDS_BLOBSTORE_DISK_LOCATION
+              value: ""
           image: ghcr.io/bluesky-social/pds:0.4
           imagePullPolicy: Always
           name: main

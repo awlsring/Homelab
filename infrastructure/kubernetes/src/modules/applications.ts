@@ -174,6 +174,12 @@ export function assignApplicationsCharts(app: App) {
       size: Size.gibibytes(10),
       storageClass: "ceph-block",
     },
+    objectStorage: {
+      bucketName: "pds-drigs-blobs",
+      region: "us-east-005",
+      endpoint: "https://s3.us-east-005.backblazeb2.com",
+      forcePathStyle: true,
+    },
     tunnel: {
       email: "admin@drigs.org",
       domain: "drigs.org",
