@@ -45,6 +45,10 @@
       "type": "runtime"
     },
     {
+      "name": "cdk8s-crossplane",
+      "type": "runtime"
+    },
+    {
       "name": "cdk8s-plus-27",
       "version": "^2.7.70",
       "type": "runtime"

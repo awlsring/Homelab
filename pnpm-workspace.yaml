@@ -4,6 +4,7 @@ packages:
   - infrastructure/aws
   - packages/aws-cdk-constructs
   - packages/cdk8s-constructs
+  - packages/cdk8s-crossplane
   - packages/cdktf-constructs
   - infrastructure/kubernetes
   - packages/projects

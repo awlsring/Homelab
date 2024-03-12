@@ -102,6 +102,16 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
   testdir: "",
 });
 
+// cdk8s crossplane constructs
+const crossplaneCdk8s = new ConstructLibraryCdk8s({
+  ...subprojectProps,
+  name: "cdk8s-crossplane",
+  outdir: "packages/cdk8s-crossplane",
+  devDeps: [`cdk8s-cli@${CDK8S_CLI_VERSION}`],
+  testdir: "",
+});
+crossplaneCdk8s.preCompileTask.exec("scripts/make-l1.sh");
+
 // projen projects
 new TypeScriptProject({
   ...subprojectProps,
@@ -157,7 +167,10 @@ const cluster = new Cdk8sTypeScriptApp({
   ...subprojectProps,
   outdir: "infrastructure/kubernetes",
   name: "kubernetes",
-  deps: [cdk8sConstructs.package.packageName],
+  deps: [
+    cdk8sConstructs.package.packageName,
+    crossplaneCdk8s.package.packageName,
+  ],
 });
 cluster.postCompileTask.exec(
   "rm -rf charts && mkdir -p charts && cp -r dist/* charts",

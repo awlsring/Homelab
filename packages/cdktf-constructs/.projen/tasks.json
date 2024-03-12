@@ -115,7 +115,7 @@
       "description": "Prepare the project for compilation",
       "steps": [
         {
-          "exec": "rm -rf src/gen && mkdir -p src/gen && cdktf get"
+          "exec": "cdktf get"
         }
       ]
     },
