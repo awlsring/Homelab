@@ -55643,6 +55643,318 @@ The tree node.
 ---
 
 
+### Provider <a name="Provider" id="cdk8s-constructs.Provider"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Provider.Initializer"></a>
+
+```typescript
+import { Provider } from 'cdk8s-constructs'
+
+new Provider(scope: Construct, id: string, props: ProviderProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Provider.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Provider.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Provider.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ProviderProps">ProviderProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Provider.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.Provider.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Provider.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ProviderProps">ProviderProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Provider.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.Provider.addDependency">addDependency</a></code> | Create a dependency between this ApiObject and other constructs. |
+| <code><a href="#cdk8s-constructs.Provider.addJsonPatch">addJsonPatch</a></code> | Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object. |
+| <code><a href="#cdk8s-constructs.Provider.toJson">toJson</a></code> | Renders the object to Kubernetes JSON. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Provider.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="cdk8s-constructs.Provider.addDependency"></a>
+
+```typescript
+public addDependency(dependencies: IConstruct): void
+```
+
+Create a dependency between this ApiObject and other constructs.
+
+These can be other ApiObjects, Charts, or custom.
+
+###### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk8s-constructs.Provider.addDependency.parameter.dependencies"></a>
+
+- *Type:* constructs.IConstruct
+
+the dependencies to add.
+
+---
+
+##### `addJsonPatch` <a name="addJsonPatch" id="cdk8s-constructs.Provider.addJsonPatch"></a>
+
+```typescript
+public addJsonPatch(ops: JsonPatch): void
+```
+
+Applies a set of RFC-6902 JSON-Patch operations to the manifest synthesized for this API object.
+
+*Example*
+
+```typescript
+  kubePod.addJsonPatch(JsonPatch.replace('/spec/enableServiceLinks', true));
+```
+
+
+###### `ops`<sup>Required</sup> <a name="ops" id="cdk8s-constructs.Provider.addJsonPatch.parameter.ops"></a>
+
+- *Type:* cdk8s.JsonPatch
+
+The JSON-Patch operations to apply.
+
+---
+
+##### `toJson` <a name="toJson" id="cdk8s-constructs.Provider.toJson"></a>
+
+```typescript
+public toJson(): any
+```
+
+Renders the object to Kubernetes JSON.
+
+To disable sorting of dictionary keys in output object set the
+`CDK8S_DISABLE_SORT` environment variable to any non-empty value.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Provider.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.Provider.isApiObject">isApiObject</a></code> | Return whether the given object is an `ApiObject`. |
+| <code><a href="#cdk8s-constructs.Provider.of">of</a></code> | Returns the `ApiObject` named `Resource` which is a child of the given construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Provider.isConstruct"></a>
+
+```typescript
+import { Provider } from 'cdk8s-constructs'
+
+Provider.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Provider.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isApiObject` <a name="isApiObject" id="cdk8s-constructs.Provider.isApiObject"></a>
+
+```typescript
+import { Provider } from 'cdk8s-constructs'
+
+Provider.isApiObject(o: any)
+```
+
+Return whether the given object is an `ApiObject`.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `o`<sup>Required</sup> <a name="o" id="cdk8s-constructs.Provider.isApiObject.parameter.o"></a>
+
+- *Type:* any
+
+The object to check.
+
+---
+
+##### `of` <a name="of" id="cdk8s-constructs.Provider.of"></a>
+
+```typescript
+import { Provider } from 'cdk8s-constructs'
+
+Provider.of(c: IConstruct)
+```
+
+Returns the `ApiObject` named `Resource` which is a child of the given construct.
+
+If `c` is an `ApiObject`, it is returned directly. Throws an
+exception if the construct does not have a child named `Default` _or_ if
+this child is not an `ApiObject`.
+
+###### `c`<sup>Required</sup> <a name="c" id="cdk8s-constructs.Provider.of.parameter.c"></a>
+
+- *Type:* constructs.IConstruct
+
+The higher-level construct.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Provider.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Provider.property.apiGroup">apiGroup</a></code> | <code>string</code> | The group portion of the API version (e.g. `authorization.k8s.io`). |
+| <code><a href="#cdk8s-constructs.Provider.property.apiVersion">apiVersion</a></code> | <code>string</code> | The object's API version (e.g. `authorization.k8s.io/v1`). |
+| <code><a href="#cdk8s-constructs.Provider.property.chart">chart</a></code> | <code>cdk8s.Chart</code> | The chart in which this object is defined. |
+| <code><a href="#cdk8s-constructs.Provider.property.kind">kind</a></code> | <code>string</code> | The object kind. |
+| <code><a href="#cdk8s-constructs.Provider.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | Metadata associated with this API object. |
+| <code><a href="#cdk8s-constructs.Provider.property.name">name</a></code> | <code>string</code> | The name of the API object. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Provider.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiGroup`<sup>Required</sup> <a name="apiGroup" id="cdk8s-constructs.Provider.property.apiGroup"></a>
+
+```typescript
+public readonly apiGroup: string;
+```
+
+- *Type:* string
+
+The group portion of the API version (e.g. `authorization.k8s.io`).
+
+---
+
+##### `apiVersion`<sup>Required</sup> <a name="apiVersion" id="cdk8s-constructs.Provider.property.apiVersion"></a>
+
+```typescript
+public readonly apiVersion: string;
+```
+
+- *Type:* string
+
+The object's API version (e.g. `authorization.k8s.io/v1`).
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.Provider.property.chart"></a>
+
+```typescript
+public readonly chart: Chart;
+```
+
+- *Type:* cdk8s.Chart
+
+The chart in which this object is defined.
+
+---
+
+##### `kind`<sup>Required</sup> <a name="kind" id="cdk8s-constructs.Provider.property.kind"></a>
+
+```typescript
+public readonly kind: string;
+```
+
+- *Type:* string
+
+The object kind.
+
+---
+
+##### `metadata`<sup>Required</sup> <a name="metadata" id="cdk8s-constructs.Provider.property.metadata"></a>
+
+```typescript
+public readonly metadata: ApiObjectMetadataDefinition;
+```
+
+- *Type:* cdk8s.ApiObjectMetadataDefinition
+
+Metadata associated with this API object.
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Provider.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+The name of the API object.
+
+If a name is specified in `metadata.name` this will be the name returned.
+Otherwise, a name will be generated by calling
+`Chart.of(this).generatedObjectName(this)`, which by default uses the
+construct path to generate a DNS-compatible name for the resource.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Provider.property.GVK">GVK</a></code> | <code>cdk8s.GroupVersionKind</code> | *No description.* |
+
+---
+
+##### `GVK`<sup>Required</sup> <a name="GVK" id="cdk8s-constructs.Provider.property.GVK"></a>
+
+```typescript
+public readonly GVK: GroupVersionKind;
+```
+
+- *Type:* cdk8s.GroupVersionKind
+
+---
+
 ### Prowlarr <a name="Prowlarr" id="cdk8s-constructs.Prowlarr"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.Prowlarr.Initializer"></a>
@@ -93161,6 +93473,45 @@ public readonly groups: PrometheusRuleGroupOptions[];
 ```
 
 - *Type:* <a href="#cdk8s-constructs.PrometheusRuleGroupOptions">PrometheusRuleGroupOptions</a>[]
+
+---
+
+### ProviderProps <a name="ProviderProps" id="cdk8s-constructs.ProviderProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ProviderProps.Initializer"></a>
+
+```typescript
+import { ProviderProps } from 'cdk8s-constructs'
+
+const providerProps: ProviderProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ProviderProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ProviderProps.property.package">package</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.ProviderProps.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `package`<sup>Required</sup> <a name="package" id="cdk8s-constructs.ProviderProps.property.package"></a>
+
+```typescript
+public readonly package: string;
+```
+
+- *Type:* string
 
 ---
 

@@ -1,4 +1,4 @@
-import { HelmChart } from "cdk8s-constructs";
+import { HelmChart, Provider } from "cdk8s-constructs";
 import { Construct } from "constructs";
 
 const NAMESPACE = "crossplane-system";
@@ -13,6 +13,11 @@ export class CrossplaneChart extends HelmChart {
       repository: "crossplane-stable",
       chart: "crossplane",
       flags: ["--namespace", NAMESPACE, "--include-crds"],
+    });
+
+    new Provider(this, "s3", {
+      name: "provider-aws-s3",
+      package: "xpkg.upbound.io/upbound/provider-aws-s3:v1.1.0",
     });
   }
 }

@@ -49,3 +49,4 @@ export * from "./constructs/apps/tandoor";
 export * from "./constructs/external-secrets/secret-store";
 export * from "./constructs/apps/palworld";
 export * from "./constructs/apps/bluesky-pds";
+export * from "./constructs/crossplane/provider";
