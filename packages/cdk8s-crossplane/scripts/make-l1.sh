@@ -1,6 +1,6 @@
 #!/bin/bash
 
-providers=("crossplane/provider-aws")
+providers=("crossplane/crossplane" "crossplane/provider-aws")
 DIR="src/l1"
 
 mkdir -p $DIR
