@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 ---
@@ -22,7 +22,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 rules:
@@ -67,7 +67,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 roleRef:
@@ -86,7 +86,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 rules:
@@ -116,7 +116,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 roleRef:
@@ -135,7 +135,7 @@ metadata:
     app.kubernetes.io/instance: kured-helm-c8b3d86f
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: kured
-    helm.sh/chart: kured-5.3.2
+    helm.sh/chart: kured-5.4.4
   name: kured-helm-c8b3d86f
   namespace: kured
 spec:
@@ -150,13 +150,14 @@ spec:
         app.kubernetes.io/instance: kured-helm-c8b3d86f
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: kured
-        helm.sh/chart: kured-5.3.2
+        helm.sh/chart: kured-5.4.4
     spec:
       containers:
         - args:
             - --ds-name=kured-helm-c8b3d86f
             - --ds-namespace=kured
             - --metrics-port=8080
+            - --reboot-sentinel=/sentinel/reboot-required
             - --reboot-command=/bin/systemctl reboot
             - --time-zone=America/Los_Angeles
             - --annotate-nodes=true
@@ -169,7 +170,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: spec.nodeName
-          image: ghcr.io/kubereboot/kured:1.14.2
+          image: ghcr.io/kubereboot/kured:1.15.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 5
@@ -199,6 +200,10 @@ spec:
           securityContext:
             privileged: true
             readOnlyRootFilesystem: true
+          volumeMounts:
+            - mountPath: /sentinel
+              name: sentinel
+              readOnly: true
       hostNetwork: false
       hostPID: true
       nodeSelector:
@@ -210,6 +215,11 @@ spec:
           key: node-role.kubernetes.io/control-plane
         - effect: NoSchedule
           key: node-role.kubernetes.io/master
+      volumes:
+        - hostPath:
+            path: /var/run
+            type: Directory
+          name: sentinel
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 1

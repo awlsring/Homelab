@@ -15,8 +15,6 @@ export class CloudflareOperatorChart extends HomelabChart {
       createNamespace: false,
     });
 
-    console.log("CALLING KUSTOMIZE");
-
     new Kustomize(this, "kustomize", {
       url: "https://github.com/adyanth/cloudflare-operator/config/default",
     });

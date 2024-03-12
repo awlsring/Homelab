@@ -2,6 +2,7 @@ export * from "./constructs/kube/service-type";
 export * from "./constructs/kube/namespace";
 export * from "./constructs/kube/pvc";
 export * from "./charts/homelab";
+export * from "./charts/helm";
 export * from "./constructs/cert-manager/cert-issuer";
 export * from "./constructs/cert-manager/homelab-certificate";
 export * from "./constructs/cert-manager/issuers";

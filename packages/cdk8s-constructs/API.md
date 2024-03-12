@@ -2213,6 +2213,328 @@ The tree node.
 ---
 
 
+### HelmChart <a name="HelmChart" id="cdk8s-constructs.HelmChart"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.HelmChart.Initializer"></a>
+
+```typescript
+import { HelmChart } from 'cdk8s-constructs'
+
+new HelmChart(scope: Construct, name: string, props: HelmChartProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HelmChart.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChart.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChart.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.HelmChartProps">HelmChartProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.HelmChart.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.HelmChart.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.HelmChart.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.HelmChartProps">HelmChartProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.HelmChart.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk8s-constructs.HelmChart.addDependency">addDependency</a></code> | Create a dependency between this Chart and other constructs. |
+| <code><a href="#cdk8s-constructs.HelmChart.generateObjectName">generateObjectName</a></code> | Generates a app-unique name for an object given it's construct node path. |
+| <code><a href="#cdk8s-constructs.HelmChart.toJson">toJson</a></code> | Renders this chart to a set of Kubernetes JSON resources. |
+| <code><a href="#cdk8s-constructs.HelmChart.configureTraefikTls">configureTraefikTls</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.HelmChart.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addDependency` <a name="addDependency" id="cdk8s-constructs.HelmChart.addDependency"></a>
+
+```typescript
+public addDependency(dependencies: IConstruct): void
+```
+
+Create a dependency between this Chart and other constructs.
+
+These can be other ApiObjects, Charts, or custom.
+
+###### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk8s-constructs.HelmChart.addDependency.parameter.dependencies"></a>
+
+- *Type:* constructs.IConstruct
+
+the dependencies to add.
+
+---
+
+##### `generateObjectName` <a name="generateObjectName" id="cdk8s-constructs.HelmChart.generateObjectName"></a>
+
+```typescript
+public generateObjectName(apiObject: ApiObject): string
+```
+
+Generates a app-unique name for an object given it's construct node path.
+
+Different resource types may have different constraints on names
+(`metadata.name`). The previous version of the name generator was
+compatible with DNS_SUBDOMAIN but not with DNS_LABEL.
+
+For example, `Deployment` names must comply with DNS_SUBDOMAIN while
+`Service` names must comply with DNS_LABEL.
+
+Since there is no formal specification for this, the default name
+generation scheme for kubernetes objects in cdk8s was changed to DNS_LABEL,
+since it’s the common denominator for all kubernetes resources
+(supposedly).
+
+You can override this method if you wish to customize object names at the
+chart level.
+
+###### `apiObject`<sup>Required</sup> <a name="apiObject" id="cdk8s-constructs.HelmChart.generateObjectName.parameter.apiObject"></a>
+
+- *Type:* cdk8s.ApiObject
+
+The API object to generate a name for.
+
+---
+
+##### `toJson` <a name="toJson" id="cdk8s-constructs.HelmChart.toJson"></a>
+
+```typescript
+public toJson(): any[]
+```
+
+Renders this chart to a set of Kubernetes JSON resources.
+
+##### `configureTraefikTls` <a name="configureTraefikTls" id="cdk8s-constructs.HelmChart.configureTraefikTls"></a>
+
+```typescript
+public configureTraefikTls(name: string, certIssuerName: string, dnsNames: string[], service: IService, middlewares?: Middleware[]): void
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.HelmChart.configureTraefikTls.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+###### `certIssuerName`<sup>Required</sup> <a name="certIssuerName" id="cdk8s-constructs.HelmChart.configureTraefikTls.parameter.certIssuerName"></a>
+
+- *Type:* string
+
+---
+
+###### `dnsNames`<sup>Required</sup> <a name="dnsNames" id="cdk8s-constructs.HelmChart.configureTraefikTls.parameter.dnsNames"></a>
+
+- *Type:* string[]
+
+---
+
+###### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.HelmChart.configureTraefikTls.parameter.service"></a>
+
+- *Type:* <a href="#cdk8s-constructs.IService">IService</a>
+
+---
+
+###### `middlewares`<sup>Optional</sup> <a name="middlewares" id="cdk8s-constructs.HelmChart.configureTraefikTls.parameter.middlewares"></a>
+
+- *Type:* <a href="#cdk8s-constructs.Middleware">Middleware</a>[]
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.HelmChart.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk8s-constructs.HelmChart.isChart">isChart</a></code> | Return whether the given object is a Chart. |
+| <code><a href="#cdk8s-constructs.HelmChart.of">of</a></code> | Finds the chart in which a node is defined. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.HelmChart.isConstruct"></a>
+
+```typescript
+import { HelmChart } from 'cdk8s-constructs'
+
+HelmChart.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.HelmChart.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+##### `isChart` <a name="isChart" id="cdk8s-constructs.HelmChart.isChart"></a>
+
+```typescript
+import { HelmChart } from 'cdk8s-constructs'
+
+HelmChart.isChart(x: any)
+```
+
+Return whether the given object is a Chart.
+
+We do attribute detection since we can't reliably use 'instanceof'.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.HelmChart.isChart.parameter.x"></a>
+
+- *Type:* any
+
+---
+
+##### `of` <a name="of" id="cdk8s-constructs.HelmChart.of"></a>
+
+```typescript
+import { HelmChart } from 'cdk8s-constructs'
+
+HelmChart.of(c: IConstruct)
+```
+
+Finds the chart in which a node is defined.
+
+###### `c`<sup>Required</sup> <a name="c" id="cdk8s-constructs.HelmChart.of.parameter.c"></a>
+
+- *Type:* constructs.IConstruct
+
+a construct node.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HelmChart.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.HelmChart.property.apiObjects">apiObjects</a></code> | <code>cdk8s.ApiObject[]</code> | Returns all the included API objects. |
+| <code><a href="#cdk8s-constructs.HelmChart.property.labels">labels</a></code> | <code>{[ key: string ]: string}</code> | Labels applied to all resources in this chart. |
+| <code><a href="#cdk8s-constructs.HelmChart.property.namespace">namespace</a></code> | <code>string</code> | The default namespace for all objects in this chart. |
+| <code><a href="#cdk8s-constructs.HelmChart.property.chart">chart</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChart.property.ns">ns</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChart.property.repository">repository</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.HelmChart.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `apiObjects`<sup>Required</sup> <a name="apiObjects" id="cdk8s-constructs.HelmChart.property.apiObjects"></a>
+
+```typescript
+public readonly apiObjects: ApiObject[];
+```
+
+- *Type:* cdk8s.ApiObject[]
+
+Returns all the included API objects.
+
+---
+
+##### `labels`<sup>Required</sup> <a name="labels" id="cdk8s-constructs.HelmChart.property.labels"></a>
+
+```typescript
+public readonly labels: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Labels applied to all resources in this chart.
+
+This is an immutable copy.
+
+---
+
+##### `namespace`<sup>Optional</sup> <a name="namespace" id="cdk8s-constructs.HelmChart.property.namespace"></a>
+
+```typescript
+public readonly namespace: string;
+```
+
+- *Type:* string
+
+The default namespace for all objects in this chart.
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.HelmChart.property.chart"></a>
+
+```typescript
+public readonly chart: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ns`<sup>Required</sup> <a name="ns" id="cdk8s-constructs.HelmChart.property.ns"></a>
+
+```typescript
+public readonly ns: string;
+```
+
+- *Type:* string
+
+---
+
+##### `repository`<sup>Required</sup> <a name="repository" id="cdk8s-constructs.HelmChart.property.repository"></a>
+
+```typescript
+public readonly repository: string;
+```
+
+- *Type:* string
+
+---
+
+
 ### HomelabCertificate <a name="HomelabCertificate" id="cdk8s-constructs.HomelabCertificate"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabCertificate.Initializer"></a>
@@ -68334,6 +68656,67 @@ public readonly service: string;
 Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
 
 If this is not specified, the default behavior is defined by gRPC.
+
+---
+
+### HelmChartProps <a name="HelmChartProps" id="cdk8s-constructs.HelmChartProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.HelmChartProps.Initializer"></a>
+
+```typescript
+import { HelmChartProps } from 'cdk8s-constructs'
+
+const helmChartProps: HelmChartProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.HelmChartProps.property.chart">chart</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChartProps.property.flags">flags</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChartProps.property.namespace">namespace</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HelmChartProps.property.repository">repository</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `chart`<sup>Required</sup> <a name="chart" id="cdk8s-constructs.HelmChartProps.property.chart"></a>
+
+```typescript
+public readonly chart: string;
+```
+
+- *Type:* string
+
+---
+
+##### `flags`<sup>Required</sup> <a name="flags" id="cdk8s-constructs.HelmChartProps.property.flags"></a>
+
+```typescript
+public readonly flags: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `namespace`<sup>Required</sup> <a name="namespace" id="cdk8s-constructs.HelmChartProps.property.namespace"></a>
+
+```typescript
+public readonly namespace: string;
+```
+
+- *Type:* string
+
+---
+
+##### `repository`<sup>Required</sup> <a name="repository" id="cdk8s-constructs.HelmChartProps.property.repository"></a>
+
+```typescript
+public readonly repository: string;
+```
+
+- *Type:* string
 
 ---
 

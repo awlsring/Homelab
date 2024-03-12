@@ -11,8 +11,8 @@ metadata:
     app.kubernetes.io/instance: external-dns-helm-c86617fa
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.13.6
-    helm.sh/chart: external-dns-1.13.1
+    app.kubernetes.io/version: 0.14.0
+    helm.sh/chart: external-dns-1.14.3
   name: external-dns
   namespace: external-dns
 ---
@@ -23,8 +23,8 @@ metadata:
     app.kubernetes.io/instance: external-dns-helm-c86617fa
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.13.6
-    helm.sh/chart: external-dns-1.13.1
+    app.kubernetes.io/version: 0.14.0
+    helm.sh/chart: external-dns-1.14.3
   name: external-dns-helm-c86617fa
   namespace: external-dns
 rules:
@@ -69,8 +69,8 @@ metadata:
     app.kubernetes.io/instance: external-dns-helm-c86617fa
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.13.6
-    helm.sh/chart: external-dns-1.13.1
+    app.kubernetes.io/version: 0.14.0
+    helm.sh/chart: external-dns-1.14.3
   name: external-dns-helm-c86617fa-viewer
   namespace: external-dns
 roleRef:
@@ -89,8 +89,8 @@ metadata:
     app.kubernetes.io/instance: external-dns-helm-c86617fa
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.13.6
-    helm.sh/chart: external-dns-1.13.1
+    app.kubernetes.io/version: 0.14.0
+    helm.sh/chart: external-dns-1.14.3
   name: external-dns-helm-c86617fa
   namespace: external-dns
 spec:
@@ -111,8 +111,8 @@ metadata:
     app.kubernetes.io/instance: external-dns-helm-c86617fa
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-dns
-    app.kubernetes.io/version: 0.13.6
-    helm.sh/chart: external-dns-1.13.1
+    app.kubernetes.io/version: 0.14.0
+    helm.sh/chart: external-dns-1.14.3
   name: external-dns-helm-c86617fa
   namespace: external-dns
 spec:
@@ -177,11 +177,14 @@ spec:
             capabilities:
               drop:
                 - ALL
+            privileged: false
             readOnlyRootFilesystem: true
+            runAsGroup: 65532
             runAsNonRoot: true
-            runAsUser: 65534
+            runAsUser: 65532
       securityContext:
         fsGroup: 65534
+        runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: external-dns
