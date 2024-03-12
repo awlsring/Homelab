@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: crossplan-system
-  namespace: crossplan-system
+  name: crossplane-system
+  namespace: crossplane-system
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -17,7 +17,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: rbac-manager
-  namespace: crossplan-system
+  namespace: crossplane-system
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -32,27 +32,27 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane
-  namespace: crossplan-system
+  namespace: crossplane-system
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: crossplane-root-ca
-  namespace: crossplan-system
+  namespace: crossplane-system
 type: Opaque
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: crossplane-tls-server
-  namespace: crossplan-system
+  namespace: crossplane-system
 type: Opaque
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: crossplane-tls-client
-  namespace: crossplan-system
+  namespace: crossplane-system
 type: Opaque
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -68,7 +68,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -89,7 +89,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     rbac.crossplane.io/aggregate-to-crossplane: "true"
   name: crossplane:system:aggregate-to-crossplane
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -188,7 +188,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane:allowed-provider-permissions
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -207,7 +207,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-rbac-manager
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -329,7 +329,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-admin
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -348,7 +348,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-edit
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -367,7 +367,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-view
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -386,7 +386,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-browse
-  namespace: crossplan-system
+  namespace: crossplane-system
 aggregationRule:
   clusterRoleSelectors:
     - matchLabels:
@@ -406,7 +406,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     rbac.crossplane.io/aggregate-to-admin: "true"
   name: crossplane:aggregate-to-admin
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -474,7 +474,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     rbac.crossplane.io/aggregate-to-edit: "true"
   name: crossplane:aggregate-to-edit
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -525,7 +525,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     rbac.crossplane.io/aggregate-to-view: "true"
   name: crossplane:aggregate-to-view
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -574,7 +574,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     rbac.crossplane.io/aggregate-to-browse: "true"
   name: crossplane:aggregate-to-browse
-  namespace: crossplan-system
+  namespace: crossplane-system
 rules:
   - apiGroups:
       - ""
@@ -606,7 +606,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane
-  namespace: crossplan-system
+  namespace: crossplane-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -614,7 +614,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: crossplane
-    namespace: crossplan-system
+    namespace: crossplane-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -629,7 +629,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-rbac-manager
-  namespace: crossplan-system
+  namespace: crossplane-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -637,7 +637,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: rbac-manager
-    namespace: crossplan-system
+    namespace: crossplane-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -652,7 +652,7 @@ metadata:
     app.kubernetes.io/version: 1.15.0
     helm.sh/chart: crossplane-1.15.0
   name: crossplane-admin
-  namespace: crossplan-system
+  namespace: crossplane-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -676,7 +676,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     release: crossplane-helm-c8ce741f
   name: crossplane-webhooks
-  namespace: crossplan-system
+  namespace: crossplane-system
 spec:
   ports:
     - port: 9443
@@ -700,7 +700,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     release: crossplane-helm-c8ce741f
   name: crossplane
-  namespace: crossplan-system
+  namespace: crossplane-system
 spec:
   replicas: 1
   selector:
@@ -870,7 +870,7 @@ metadata:
     helm.sh/chart: crossplane-1.15.0
     release: crossplane-helm-c8ce741f
   name: crossplane-rbac-manager
-  namespace: crossplan-system
+  namespace: crossplane-system
 spec:
   replicas: 1
   selector:

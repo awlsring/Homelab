@@ -1,7 +1,7 @@
 import { HelmChart } from "cdk8s-constructs";
 import { Construct } from "constructs";
 
-const NAMESPACE = "crossplan-system";
+const NAMESPACE = "crossplane-system";
 
 export interface CrossplaneChartProps {}
 
