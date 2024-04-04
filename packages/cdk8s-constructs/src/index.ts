@@ -31,6 +31,7 @@ export * from "./constructs/kube/conversion";
 export * from "./constructs/apps/arr/requesterr";
 export * from "./constructs/homelab/storage";
 export * from "./constructs/apps/resillio";
+export * from "./constructs/apps/syncthing";
 export * from "./constructs/apps/immich";
 export * from "./constructs/cnpq/cluster";
 export * from "./constructs/external-ingress/external-ingress";

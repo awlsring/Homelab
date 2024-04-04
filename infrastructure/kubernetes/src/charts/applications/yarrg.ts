@@ -9,13 +9,15 @@ import {
   Prowlarr,
   Requesterr,
   ResilioSync,
+  Syncthing,
 } from "cdk8s-constructs";
-import { Volume } from "cdk8s-plus-27";
+import { ServiceType, Volume } from "cdk8s-plus-27";
 import { Construct } from "constructs";
 
 export interface AppOptions {
   readonly hostname: string;
   readonly imageTag?: string;
+  readonly serviceType?: ServiceType;
 }
 
 export interface ArrAppOptions extends AppOptions {
@@ -35,6 +37,7 @@ export interface YarrgChartProps extends HomelabChartProps {
   readonly prowlarr?: ArrAppOptions;
   readonly requesterr?: AppOptions;
   readonly resillio?: AppOptions;
+  readonly syncthing?: AppOptions;
   readonly mediaStorage: {
     readonly server: string;
     readonly serverPath: string;
@@ -69,6 +72,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.radarr.hostname,
+          type: props.radarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("radarr", props.radarr.metrics),
@@ -86,6 +90,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.sonarr.hostname,
+          type: props.sonarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("sonarr", props.sonarr.metrics),
@@ -103,6 +108,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.lidarr.hostname,
+          type: props.lidarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("lidarr", props.lidarr.metrics),
@@ -120,6 +126,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.readarr.hostname,
+          type: props.readarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("readarr", props.readarr.metrics),
@@ -137,6 +144,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.bazarr.hostname,
+          type: props.bazarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
       });
@@ -150,6 +158,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.prowlarr.hostname,
+          type: props.prowlarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("prowlarr", props.prowlarr.metrics),
@@ -164,6 +173,24 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.requesterr.hostname,
+          type: props.requesterr.serviceType,
+          certIssuer: props.ingress.certIssuer,
+        },
+      });
+    }
+
+    if (props.syncthing) {
+      new Syncthing(this, "syncthing", {
+        storage: {
+          config: {
+            storageClass: "ceph-block",
+          },
+          sync: mediaVol,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.syncthing.hostname,
+          type: props.syncthing.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
       });
@@ -180,6 +207,7 @@ export class YarrgChart extends HomelabChart {
         ingress: {
           ingressClass: props.ingress.ingressClass,
           hostname: props.resillio.hostname,
+          type: props.resillio.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
       });

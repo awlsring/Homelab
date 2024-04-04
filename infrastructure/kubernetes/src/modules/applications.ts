@@ -95,6 +95,10 @@ export function assignApplicationsCharts(app: App) {
     resillio: {
       hostname: "resillio.us-drig-1.drigs.org",
     },
+    syncthing: {
+      hostname: "syncthing.us-drig-1.drigs.org",
+      serviceType: ServiceType.LOAD_BALANCER,
+    },
     mediaStorage: {
       server: NAS_ADDRESS,
       serverPath: "/mnt/WD-6D-8T/fin",

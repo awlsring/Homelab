@@ -1070,6 +1070,153 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  name: yarrg-syncthing-config-pvc-c84e0111
+  namespace: yarrg
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yarrg-syncthing-deployment-c82ad4de
+  namespace: yarrg
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: yarrg-syncthing-deployment-c802da35
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: yarrg-syncthing-deployment-c802da35
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - image: lscr.io/linuxserver/syncthing:latest
+          imagePullPolicy: Always
+          name: syncthing
+          ports:
+            - containerPort: 8384
+              name: http
+            - containerPort: 22000
+              name: sync-ex1
+            - containerPort: 21027
+              name: sync-ex2
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 8384
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            tcpSocket:
+              port: 8384
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /sync
+              name: media
+            - mountPath: /config
+              name: pvc-yarrg-syncthing-config-pvc-c84e0111
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: false
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: media
+          nfs:
+            path: /mnt/WD-6D-8T/fin
+            server: 10.0.10.180
+        - name: pvc-yarrg-syncthing-config-pvc-c84e0111
+          persistentVolumeClaim:
+            claimName: yarrg-syncthing-config-pvc-c84e0111
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarrg-syncthing-service-c8ddfa72
+  namespace: yarrg
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 8384
+    - name: sync-ex1
+      port: 22000
+    - name: sync-ex2
+      port: 21027
+  selector:
+    cdk8s.io/metadata.addr: yarrg-syncthing-deployment-c802da35
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: syncthin-yarrg-syncthing-service-c8ddfa72-tls-c81dcb7b
+  namespace: yarrg
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: yarrg-syncthing-ingress-c8cc520b
+  namespace: yarrg
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: syncthing.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: yarrg-syncthing-service-c8ddfa72
+                port:
+                  number: 8384
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - syncthing.us-drig-1.drigs.org
+      secretName: syncthin-yarrg-syncthing-service-c8ddfa72-tls-c81dcb7b
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
   name: yarrg-resillio-config-pvc-c8e8cd6c
   namespace: yarrg
 spec:
