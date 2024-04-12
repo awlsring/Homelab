@@ -21,6 +21,8 @@ export class KuredChart extends HomelabChart {
         configuration: {
           annotateNodes: true,
           timeZone: "America/Los_Angeles",
+          logFormat: "json",
+          forceReboot: true, // TODO: This caused by CNPQ clusters refusing to shutdown due to disruption budget. Remove this when the issue is resolved.
         },
       },
     });

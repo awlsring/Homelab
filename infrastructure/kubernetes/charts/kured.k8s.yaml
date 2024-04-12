@@ -157,11 +157,12 @@ spec:
             - --ds-name=kured-helm-c8b3d86f
             - --ds-namespace=kured
             - --metrics-port=8080
+            - --force-reboot
             - --reboot-sentinel=/sentinel/reboot-required
             - --reboot-command=/bin/systemctl reboot
             - --time-zone=America/Los_Angeles
             - --annotate-nodes=true
-            - --log-format=text
+            - --log-format=json
             - --concurrency=1
           command:
             - /usr/bin/kured
