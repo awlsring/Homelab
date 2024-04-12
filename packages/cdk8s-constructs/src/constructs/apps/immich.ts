@@ -20,6 +20,7 @@ import {
   PersistantVolume,
   PersistentVolumeClaimOptions,
 } from "../homelab/storage";
+import { ServiceMonitor } from "../prometheus/service-monitor";
 
 const REDIS_PORT = 6379;
 const POSTGRES_PORT = 5432;
@@ -32,6 +33,8 @@ const IMMICH_SERVER_PORT = 3001;
 
 const IMMICH_MICROSERVICES_IMAGE = "ghcr.io/immich-app/immich-server";
 const IMMICH_MICROSERVICES_PORT = 3002;
+
+const IMMICH_METRICS_PORT = 8081;
 
 const IMMICH_MACHINE_LEARNING_IMAGE =
   "ghcr.io/immich-app/immich-machine-learning";
@@ -128,6 +131,7 @@ export interface ImmichProps {
   readonly postgresOptions: ImmichPostgresOptions;
   readonly machineLearningOptions?: ImmichMachineLearningOptions;
   readonly externalApiUrl?: string;
+  readonly monitoring?: boolean;
 }
 
 export class Immich extends Construct {
@@ -142,6 +146,7 @@ export class Immich extends Construct {
     this.microservicesService = this.configureService(
       "microservices",
       IMMICH_MICROSERVICES_PORT,
+      props.monitoring,
     );
 
     this.machineLearningService = this.configureService(
@@ -168,7 +173,12 @@ export class Immich extends Construct {
       });
     });
 
-    this.buildServer(props.serverOptions, env, volumeMounts);
+    this.buildServer(
+      props.serverOptions,
+      env,
+      volumeMounts,
+      props.monitoring ?? false,
+    );
     this.buildMicroservices(
       props.microservicesOptions ?? {},
       env,
@@ -177,16 +187,49 @@ export class Immich extends Construct {
     this.buildMachineLearning(props.machineLearningOptions ?? {}, env);
     this.buildDb(props.postgresOptions, env);
     this.buildRedis(env);
+
+    if (props.monitoring) {
+      new ServiceMonitor(this, "service-monitor", {
+        matchLabels: {
+          "immich/monitoring": "true",
+        },
+        endpoints: [
+          {
+            port: "metrics",
+          },
+        ],
+      });
+    }
   }
 
-  private configureService(name: string, port: number): Service {
+  private configureService(
+    name: string,
+    port: number,
+    metrics?: boolean,
+  ): Service {
+    const ports = [
+      {
+        name: "http",
+        port: port,
+        targetPort: port,
+      },
+    ];
+
+    if (metrics) {
+      ports.push({
+        name: "metrics",
+        port: IMMICH_METRICS_PORT,
+        targetPort: IMMICH_METRICS_PORT,
+      });
+    }
+
     return new Service(this, `${name}-service`, {
-      ports: [
-        {
-          port: port,
-          targetPort: port,
+      metadata: {
+        labels: {
+          "immich/monitoring": metrics ? "true" : "false",
         },
-      ],
+      },
+      ports: ports,
     });
   }
 
@@ -197,6 +240,7 @@ export class Immich extends Construct {
       options.postgresOptions.passwordSecret,
     );
     const env: Record<string, EnvValue> = {
+      IMMICH_METRICS: EnvValue.fromValue(options.monitoring ? "true" : "false"),
       UPLOAD_LOCATION: EnvValue.fromValue(
         options.serverOptions.uploadLocation ?? IMMICH_UPLOAD_LOCATION,
       ),
@@ -437,6 +481,7 @@ export class Immich extends Construct {
     options: ImmichServerOptions,
     env: Record<string, EnvValue>,
     mounts: VolumeMount[],
+    monitoring: boolean,
   ): Deployment {
     const deployment = new Deployment(this, "server-deployment", {
       replicas: 1,
@@ -486,28 +531,42 @@ export class Immich extends Construct {
       },
     });
 
+    const servicePorts = [
+      {
+        name: "http",
+        port: IMMICH_SERVER_PORT,
+        targetPort: IMMICH_SERVER_PORT,
+      },
+    ];
+    if (monitoring) {
+      servicePorts.push({
+        name: "metrics",
+        port: IMMICH_METRICS_PORT,
+        targetPort: IMMICH_METRICS_PORT,
+      });
+    }
     const service = new Service(this, "server-service", {
+      metadata: {
+        labels: {
+          "immich/monitoring": monitoring ? "true" : "false",
+        },
+      },
       type: options.ingress.type ?? ServiceType.CLUSTER_IP,
       selector: deployment,
-      ports: [
-        {
-          name: "http",
-          port: IMMICH_SERVER_PORT,
-          targetPort: IMMICH_SERVER_PORT,
-        },
-      ],
+      ports: servicePorts,
     });
 
     new HomelabIngress(this, "server-ingress", {
       certIssuer: options.ingress.certIssuer,
       service: service,
+      port: IMMICH_SERVER_PORT,
       hostname: options.ingress.hostname,
       ingressClassName: options.ingress.ingressClass,
       annotations: [
         {
           // https://github.com/immich-app/immich/issues/8738
           key: "nginx.ingress.kubernetes.io/proxy-body-size",
-          value: "50000M",
+          value: "0",
         },
       ],
     });

@@ -58,6 +58,7 @@ export class ImmichChart extends HomelabChart {
     new Immich(this, "app", {
       uploadShare: nfsPhotos,
       photoCollectionShares: externalCollections,
+      monitoring: true,
       serverOptions: {
         ingress: props.ingress,
       },

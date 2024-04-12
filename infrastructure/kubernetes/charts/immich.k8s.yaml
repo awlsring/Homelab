@@ -7,13 +7,19 @@ metadata:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    immich/monitoring: "true"
   name: immich-app-microservices-service-c882bb14
   namespace: immich
 spec:
   externalIPs: []
   ports:
-    - port: 3002
+    - name: http
+      port: 3002
       targetPort: 3002
+    - name: metrics
+      port: 8081
+      targetPort: 8081
   selector:
     cdk8s.io/metadata.addr: immich-app-microservices-deployment-c8c6f822
   type: ClusterIP
@@ -21,12 +27,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    immich/monitoring: "false"
   name: immich-app-machine-learning-service-c858f540
   namespace: immich
 spec:
   externalIPs: []
   ports:
-    - port: 3003
+    - name: http
+      port: 3003
       targetPort: 3003
   selector:
     cdk8s.io/metadata.addr: immich-app-machine-learning-deployment-c8099966
@@ -35,12 +44,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    immich/monitoring: "false"
   name: immich-app-redis-service-c85a9ac1
   namespace: immich
 spec:
   externalIPs: []
   ports:
-    - port: 6379
+    - name: http
+      port: 6379
       targetPort: 6379
   selector:
     cdk8s.io/metadata.addr: immich-app-redis-deployment-c8383bdb
@@ -72,6 +84,8 @@ spec:
           command:
             - /bin/sh
           env:
+            - name: IMMICH_METRICS
+              value: "true"
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
@@ -162,6 +176,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    immich/monitoring: "true"
   name: immich-app-server-service-c8f37b56
   namespace: immich
 spec:
@@ -170,6 +186,9 @@ spec:
     - name: http
       port: 3001
       targetPort: 3001
+    - name: metrics
+      port: 8081
+      targetPort: 8081
   selector:
     cdk8s.io/metadata.addr: immich-app-server-deployment-c8e8f010
   type: LoadBalancer
@@ -189,7 +208,7 @@ metadata:
     cert-manager.io/cluster-issuer: prod
     cert-manager.io/duration: 2160h
     cert-manager.io/renew-before: 360h
-    nginx.ingress.kubernetes.io/proxy-body-size: 50000M
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
   name: immich-app-server-ingress-c8a51a5b
   namespace: immich
 spec:
@@ -236,6 +255,8 @@ spec:
           command:
             - /bin/sh
           env:
+            - name: IMMICH_METRICS
+              value: "true"
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
@@ -338,6 +359,8 @@ spec:
       automountServiceAccountToken: false
       containers:
         - env:
+            - name: IMMICH_METRICS
+              value: "true"
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
@@ -453,12 +476,15 @@ immutable: false
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    immich/monitoring: "false"
   name: immich-app-postgres-service-c8de0146
   namespace: immich
 spec:
   externalIPs: []
   ports:
-    - port: 5432
+    - name: http
+      port: 5432
       targetPort: 5432
   selector:
     cdk8s.io/metadata.addr: immich-app-immich-database-c89208d4
@@ -485,6 +511,8 @@ spec:
       automountServiceAccountToken: false
       containers:
         - env:
+            - name: IMMICH_METRICS
+              value: "true"
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
@@ -609,6 +637,8 @@ spec:
       automountServiceAccountToken: false
       containers:
         - env:
+            - name: IMMICH_METRICS
+              value: "true"
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
@@ -663,3 +693,15 @@ spec:
         runAsNonRoot: true
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: immich-app-service-monitor-c865032d
+  namespace: immich
+spec:
+  endpoints:
+    - port: metrics
+  selector:
+    matchLabels:
+      immich/monitoring: "true"

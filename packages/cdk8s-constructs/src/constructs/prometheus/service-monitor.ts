@@ -5,7 +5,7 @@ import { DurationToString } from "../kube/conversion";
 
 export interface ServiceMonitorEndpoint {
   readonly port: string;
-  readonly path: string;
+  readonly path?: string;
   readonly interval?: Duration;
   readonly scrapeTimeout?: Duration;
 }
@@ -18,7 +18,7 @@ export interface ServiceMonitorProps {
 function endpointToRaw(endpoint: ServiceMonitorEndpoint) {
   return {
     port: endpoint.port,
-    path: endpoint.path,
+    path: endpoint.path ?? undefined,
     interval: endpoint.interval
       ? DurationToString(endpoint.interval)
       : undefined,
