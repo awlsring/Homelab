@@ -189,6 +189,7 @@ metadata:
     cert-manager.io/cluster-issuer: prod
     cert-manager.io/duration: 2160h
     cert-manager.io/renew-before: 360h
+    nginx.ingress.kubernetes.io/proxy-body-size: 50000M
   name: immich-app-server-ingress-c8a51a5b
   namespace: immich
 spec:

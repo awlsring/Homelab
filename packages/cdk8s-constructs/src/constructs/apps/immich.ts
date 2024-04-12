@@ -503,6 +503,13 @@ export class Immich extends Construct {
       service: service,
       hostname: options.ingress.hostname,
       ingressClassName: options.ingress.ingressClass,
+      annotations: [
+        {
+          // https://github.com/immich-app/immich/issues/8738
+          key: "nginx.ingress.kubernetes.io/proxy-body-size",
+          value: "50000M",
+        },
+      ],
     });
 
     return deployment;
