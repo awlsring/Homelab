@@ -3161,6 +3161,7 @@ export interface CompositionSpecEnvironmentPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionSpecEnvironmentPatchesTransformsString#convert
    */
@@ -3529,6 +3530,7 @@ export interface CompositionSpecPatchSetsPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionSpecPatchSetsPatchesTransformsString#convert
    */
@@ -3897,6 +3899,7 @@ export interface CompositionSpecResourcesPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionSpecResourcesPatchesTransformsString#convert
    */
@@ -4150,6 +4153,7 @@ export enum CompositionSpecEnvironmentPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionSpecEnvironmentPatchesTransformsStringConvert
  */
@@ -4170,6 +4174,8 @@ export enum CompositionSpecEnvironmentPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -4403,6 +4409,7 @@ export enum CompositionSpecPatchSetsPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionSpecPatchSetsPatchesTransformsStringConvert
  */
@@ -4423,6 +4430,8 @@ export enum CompositionSpecPatchSetsPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -4656,6 +4665,7 @@ export enum CompositionSpecResourcesPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionSpecResourcesPatchesTransformsStringConvert
  */
@@ -4676,6 +4686,8 @@ export enum CompositionSpecResourcesPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -7047,6 +7059,7 @@ export interface CompositionRevisionSpecEnvironmentPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionSpecEnvironmentPatchesTransformsString#convert
    */
@@ -7415,6 +7428,7 @@ export interface CompositionRevisionSpecPatchSetsPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionSpecPatchSetsPatchesTransformsString#convert
    */
@@ -7783,6 +7797,7 @@ export interface CompositionRevisionSpecResourcesPatchesTransformsString {
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionSpecResourcesPatchesTransformsString#convert
    */
@@ -8036,6 +8051,7 @@ export enum CompositionRevisionSpecEnvironmentPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionSpecEnvironmentPatchesTransformsStringConvert
  */
@@ -8056,6 +8072,8 @@ export enum CompositionRevisionSpecEnvironmentPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -8289,6 +8307,7 @@ export enum CompositionRevisionSpecPatchSetsPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionSpecPatchSetsPatchesTransformsStringConvert
  */
@@ -8309,6 +8328,8 @@ export enum CompositionRevisionSpecPatchSetsPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -8542,6 +8563,7 @@ export enum CompositionRevisionSpecResourcesPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionSpecResourcesPatchesTransformsStringConvert
  */
@@ -8562,6 +8584,8 @@ export enum CompositionRevisionSpecResourcesPatchesTransformsStringConvert {
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -10933,6 +10957,7 @@ export interface CompositionRevisionV1Beta1SpecEnvironmentPatchesTransformsStrin
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionV1Beta1SpecEnvironmentPatchesTransformsString#convert
    */
@@ -11301,6 +11326,7 @@ export interface CompositionRevisionV1Beta1SpecPatchSetsPatchesTransformsString 
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionV1Beta1SpecPatchSetsPatchesTransformsString#convert
    */
@@ -11669,6 +11695,7 @@ export interface CompositionRevisionV1Beta1SpecResourcesPatchesTransformsString 
    * `ToJson` converts any input value into its raw JSON representation.
    * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
    * converted to JSON.
+   * `ToAdler32` generate a addler32 hash based on the input string.
    *
    * @schema CompositionRevisionV1Beta1SpecResourcesPatchesTransformsString#convert
    */
@@ -11922,6 +11949,7 @@ export enum CompositionRevisionV1Beta1SpecEnvironmentPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionV1Beta1SpecEnvironmentPatchesTransformsStringConvert
  */
@@ -11942,6 +11970,8 @@ export enum CompositionRevisionV1Beta1SpecEnvironmentPatchesTransformsStringConv
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -12175,6 +12205,7 @@ export enum CompositionRevisionV1Beta1SpecPatchSetsPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionV1Beta1SpecPatchSetsPatchesTransformsStringConvert
  */
@@ -12195,6 +12226,8 @@ export enum CompositionRevisionV1Beta1SpecPatchSetsPatchesTransformsStringConver
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**
@@ -12428,6 +12461,7 @@ export enum CompositionRevisionV1Beta1SpecResourcesPatchesTransformsMathType {
  * `ToJson` converts any input value into its raw JSON representation.
  * `ToSha1`, `ToSha256` and `ToSha512` generate a hash value based on the input
  * converted to JSON.
+ * `ToAdler32` generate a addler32 hash based on the input string.
  *
  * @schema CompositionRevisionV1Beta1SpecResourcesPatchesTransformsStringConvert
  */
@@ -12448,6 +12482,8 @@ export enum CompositionRevisionV1Beta1SpecResourcesPatchesTransformsStringConver
   TO_SHA256 = "ToSha256",
   /** ToSha512 */
   TO_SHA512 = "ToSha512",
+  /** ToAdler32 */
+  TO_ADLER32 = "ToAdler32",
 }
 
 /**

@@ -48,7 +48,8 @@
     "constructs": "^10.3.0"
   },
   "dependencies": {
-    "cdk8s-plus-27": "^2.7.70"
+    "cdk8s-plus-27": "^2.7.70",
+    "cdk8s-plus-minus": "^0.0.0"
   },
   "keywords": [
     "cdk"

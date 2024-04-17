@@ -1,3 +1,4 @@
+import * as path from "path";
 import { MonorepoTsProject } from "@aws/pdk/monorepo";
 import { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } from "projen/lib/awscdk";
 import { Cdk8sTypeScriptApp, ConstructLibraryCdk8s } from "projen/lib/cdk8s";
@@ -92,12 +93,36 @@ const cdktfConstructs = new ConstructLibraryCdktf({
 });
 cdktfConstructs.preCompileTask.exec("cdktf get");
 
+// Like CDK8s plus, minus versions
+const cdk8sPlusMinus = new ConstructLibraryCdk8s({
+  ...subprojectProps,
+  name: "cdk8s-plus-minus",
+  outdir: "packages/cdk8s-plus-minus",
+  devDeps: [
+    `cdk8s-cli@${CDK8S_CLI_VERSION}`,
+    "@types/minimatch",
+    "@pnpm/logger",
+  ],
+  peerDeps: ["cdk8s"],
+  deps: ["minimatch"],
+  bundledDeps: ["minimatch"],
+  testdir: "",
+});
+const importTask = cdk8sPlusMinus.addTask("import", {
+  exec: `cdk8s -l typescript -o ${path.join("src", "imports")} import k8s`,
+  description: "Updates imports based on latest version of cdk8s-cli.",
+});
+cdk8sPlusMinus.compileTask.prependSpawn(importTask);
+
 // cdk8s constructs
 const cdk8sConstructs = new ConstructLibraryCdk8s({
   ...subprojectProps,
   name: "cdk8s-constructs",
   outdir: "packages/cdk8s-constructs",
-  deps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
+  deps: [
+    `cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`,
+    cdk8sPlusMinus.package.packageName,
+  ],
   peerDeps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
   testdir: "",
 });
