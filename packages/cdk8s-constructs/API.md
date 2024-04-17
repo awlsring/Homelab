@@ -2107,6 +2107,141 @@ If this is omitted, the ApiResource should represent all objects of the given ty
 ---
 
 
+### Garage <a name="Garage" id="cdk8s-constructs.Garage"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Garage.Initializer"></a>
+
+```typescript
+import { Garage } from 'cdk8s-constructs'
+
+new Garage(scope: Construct, id: string, props: GarageProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Garage.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Garage.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Garage.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.GarageProps">GarageProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Garage.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.Garage.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Garage.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.GarageProps">GarageProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Garage.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Garage.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Garage.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Garage.isConstruct"></a>
+
+```typescript
+import { Garage } from 'cdk8s-constructs'
+
+Garage.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Garage.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Garage.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Garage.property.deployment">deployment</a></code> | <code>cdk8s-plus-27.Deployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Garage.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Garage.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Garage.property.deployment"></a>
+
+```typescript
+public readonly deployment: Deployment;
+```
+
+- *Type:* cdk8s-plus-27.Deployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Garage.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### GrafanaDashboard <a name="GrafanaDashboard" id="cdk8s-constructs.GrafanaDashboard"></a>
 
 #### Methods <a name="Methods" id="Methods"></a>
@@ -57552,6 +57687,152 @@ public readonly service: Service;
 ---
 
 
+### Syncthing <a name="Syncthing" id="cdk8s-constructs.Syncthing"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Syncthing.Initializer"></a>
+
+```typescript
+import { Syncthing } from 'cdk8s-constructs'
+
+new Syncthing(scope: Construct, name: string, props: SyncthingProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Syncthing.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Syncthing.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Syncthing.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.SyncthingProps">SyncthingProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Syncthing.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Syncthing.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Syncthing.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.SyncthingProps">SyncthingProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Syncthing.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Syncthing.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Syncthing.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Syncthing.isConstruct"></a>
+
+```typescript
+import { Syncthing } from 'cdk8s-constructs'
+
+Syncthing.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Syncthing.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Syncthing.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Syncthing.property.deployment">deployment</a></code> | <code><a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Syncthing.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Syncthing.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Syncthing.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Syncthing.property.deployment"></a>
+
+```typescript
+public readonly deployment: HomelabDeployment;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabDeployment">HomelabDeployment</a>
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.Syncthing.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngress;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngress">HomelabIngress</a>
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Syncthing.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ### Tandoor <a name="Tandoor" id="cdk8s-constructs.Tandoor"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.Tandoor.Initializer"></a>
@@ -68545,6 +68826,78 @@ name represents the name of the zone.
 
 ---
 
+### GarageProps <a name="GarageProps" id="cdk8s-constructs.GarageProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GarageProps.Initializer"></a>
+
+```typescript
+import { GarageProps } from 'cdk8s-constructs'
+
+const garageProps: GarageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GarageProps.property.dataStorage">dataStorage</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GarageProps.property.metadataStorage">metadataStorage</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GarageProps.property.secretKey">secretKey</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GarageProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GarageProps.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | *No description.* |
+
+---
+
+##### `dataStorage`<sup>Required</sup> <a name="dataStorage" id="cdk8s-constructs.GarageProps.property.dataStorage"></a>
+
+```typescript
+public readonly dataStorage: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `metadataStorage`<sup>Required</sup> <a name="metadataStorage" id="cdk8s-constructs.GarageProps.property.metadataStorage"></a>
+
+```typescript
+public readonly metadataStorage: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `secretKey`<sup>Required</sup> <a name="secretKey" id="cdk8s-constructs.GarageProps.property.secretKey"></a>
+
+```typescript
+public readonly secretKey: string;
+```
+
+- *Type:* string
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.GarageProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.GarageProps.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+
+---
+
 ### GcePersistentDiskVolumeSource <a name="GcePersistentDiskVolumeSource" id="cdk8s-constructs.GcePersistentDiskVolumeSource"></a>
 
 Represents a Persistent Disk resource in Google Compute Engine.
@@ -70936,6 +71289,7 @@ const immichProps: ImmichProps = { ... }
 | <code><a href="#cdk8s-constructs.ImmichProps.property.geocoding">geocoding</a></code> | <code><a href="#cdk8s-constructs.ImmichGeocodingOptions">ImmichGeocodingOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.machineLearningOptions">machineLearningOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions">ImmichMachineLearningOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.microservicesOptions">microservicesOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ImmichProps.property.monitoring">monitoring</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.photoCollectionShares">photoCollectionShares</a></code> | <code><a href="#cdk8s-constructs.ImmichPhotoVolumeOptions">ImmichPhotoVolumeOptions</a>[]</code> | *No description.* |
 
 ---
@@ -71027,6 +71381,16 @@ public readonly microservicesOptions: ImmichMicroservicesOptions;
 ```
 
 - *Type:* <a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a>
+
+---
+
+##### `monitoring`<sup>Optional</sup> <a name="monitoring" id="cdk8s-constructs.ImmichProps.property.monitoring"></a>
+
+```typescript
+public readonly monitoring: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -97127,20 +97491,10 @@ const serviceMonitorEndpoint: ServiceMonitorEndpoint = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.path">path</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.port">port</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.interval">interval</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.path">path</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.scrapeTimeout">scrapeTimeout</a></code> | <code>cdk8s.Duration</code> | *No description.* |
-
----
-
-##### `path`<sup>Required</sup> <a name="path" id="cdk8s-constructs.ServiceMonitorEndpoint.property.path"></a>
-
-```typescript
-public readonly path: string;
-```
-
-- *Type:* string
 
 ---
 
@@ -97161,6 +97515,16 @@ public readonly interval: Duration;
 ```
 
 - *Type:* cdk8s.Duration
+
+---
+
+##### `path`<sup>Optional</sup> <a name="path" id="cdk8s-constructs.ServiceMonitorEndpoint.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -98712,6 +99076,95 @@ public readonly user: UserSubjectV1Beta3;
 - *Type:* <a href="#cdk8s-constructs.UserSubjectV1Beta3">UserSubjectV1Beta3</a>
 
 `user` matches based on username.
+
+---
+
+### SyncthingProps <a name="SyncthingProps" id="cdk8s-constructs.SyncthingProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.SyncthingProps.Initializer"></a>
+
+```typescript
+import { SyncthingProps } from 'cdk8s-constructs'
+
+const syncthingProps: SyncthingProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SyncthingProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SyncthingProps.property.storage">storage</a></code> | <code><a href="#cdk8s-constructs.SyncthingStorageProps">SyncthingStorageProps</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SyncthingProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `ingress`<sup>Required</sup> <a name="ingress" id="cdk8s-constructs.SyncthingProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
+##### `storage`<sup>Required</sup> <a name="storage" id="cdk8s-constructs.SyncthingProps.property.storage"></a>
+
+```typescript
+public readonly storage: SyncthingStorageProps;
+```
+
+- *Type:* <a href="#cdk8s-constructs.SyncthingStorageProps">SyncthingStorageProps</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.SyncthingProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+### SyncthingStorageProps <a name="SyncthingStorageProps" id="cdk8s-constructs.SyncthingStorageProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.SyncthingStorageProps.Initializer"></a>
+
+```typescript
+import { SyncthingStorageProps } from 'cdk8s-constructs'
+
+const syncthingStorageProps: SyncthingStorageProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SyncthingStorageProps.property.config">config</a></code> | <code><a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SyncthingStorageProps.property.sync">sync</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+
+---
+
+##### `config`<sup>Required</sup> <a name="config" id="cdk8s-constructs.SyncthingStorageProps.property.config"></a>
+
+```typescript
+public readonly config: PersistentVolumeClaimOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.PersistentVolumeClaimOptions">PersistentVolumeClaimOptions</a>
+
+---
+
+##### `sync`<sup>Required</sup> <a name="sync" id="cdk8s-constructs.SyncthingStorageProps.property.sync"></a>
+
+```typescript
+public readonly sync: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
 
 ---
 

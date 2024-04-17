@@ -25,6 +25,7 @@ export * from "./constructs/apps/arr/radarr";
 export * from "./constructs/apps/arr/readarr";
 export * from "./constructs/apps/arr/sonarr";
 export * from "./constructs/apps/arr/media-arr-app";
+export * from "./constructs/apps/garage";
 export * from "./constructs/prometheus/service-monitor";
 export * from "./constructs/prometheus/prometheus-rule";
 export * from "./constructs/kube/conversion";

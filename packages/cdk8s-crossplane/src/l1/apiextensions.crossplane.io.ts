@@ -12809,6 +12809,13 @@ export interface UsageSpec {
    */
   readonly reason?: string;
 
+  /**
+   * ReplayDeletion will trigger a deletion on the used resource during the deletion of the usage itself, if it was attempted to be deleted at least once.
+   *
+   * @schema UsageSpec#replayDeletion
+   */
+  readonly replayDeletion?: boolean;
+
 }
 
 /**
@@ -12821,6 +12828,7 @@ export function toJson_UsageSpec(obj: UsageSpec | undefined): Record<string, any
     'by': toJson_UsageSpecBy(obj.by),
     'of': toJson_UsageSpecOf(obj.of),
     'reason': obj.reason,
+    'replayDeletion': obj.replayDeletion,
   };
   // filter undefined values
   return Object.entries(result).reduce((r, i) => (i[1] === undefined) ? r : ({ ...r, [i[0]]: i[1] }), {});
