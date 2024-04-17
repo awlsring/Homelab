@@ -3870,7 +3870,7 @@ Return the non resource url this object represents.
 ##### `addDefaultBackend` <a name="addDefaultBackend" id="cdk8s-constructs.HomelabIngress.addDefaultBackend"></a>
 
 ```typescript
-public addDefaultBackend(backend: IngressBackend): void
+public addDefaultBackend(backend: IIngressBackend): void
 ```
 
 Defines the default backend for this ingress.
@@ -3880,7 +3880,7 @@ servicing requests that don't match any rule.
 
 ###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.HomelabIngress.addDefaultBackend.parameter.backend"></a>
 
-- *Type:* cdk8s-plus-27.IngressBackend
+- *Type:* cdk8s-plus-minus.IIngressBackend
 
 The backend to use for requests that do not match any rule.
 
@@ -3889,7 +3889,7 @@ The backend to use for requests that do not match any rule.
 ##### `addHostDefaultBackend` <a name="addHostDefaultBackend" id="cdk8s-constructs.HomelabIngress.addHostDefaultBackend"></a>
 
 ```typescript
-public addHostDefaultBackend(host: string, backend: IngressBackend): void
+public addHostDefaultBackend(host: string, backend: IIngressBackend): void
 ```
 
 Specify a default backend for a specific host name.
@@ -3907,7 +3907,7 @@ The host name to match.
 
 ###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.HomelabIngress.addHostDefaultBackend.parameter.backend"></a>
 
-- *Type:* cdk8s-plus-27.IngressBackend
+- *Type:* cdk8s-plus-minus.IIngressBackend
 
 The backend to route to.
 
@@ -3916,7 +3916,7 @@ The backend to route to.
 ##### `addHostRule` <a name="addHostRule" id="cdk8s-constructs.HomelabIngress.addHostRule"></a>
 
 ```typescript
-public addHostRule(host: string, path: string, backend: IngressBackend, pathType?: HttpIngressPathType): void
+public addHostRule(host: string, path: string, backend: IIngressBackend, pathType?: HttpIngressPathType): void
 ```
 
 Adds an ingress rule applied to requests to a specific host and a specific HTTP path (the `Host` header matches this value).
@@ -3939,7 +3939,7 @@ The HTTP path.
 
 ###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.HomelabIngress.addHostRule.parameter.backend"></a>
 
-- *Type:* cdk8s-plus-27.IngressBackend
+- *Type:* cdk8s-plus-minus.IIngressBackend
 
 The backend to route requests to.
 
@@ -3947,7 +3947,7 @@ The backend to route requests to.
 
 ###### `pathType`<sup>Optional</sup> <a name="pathType" id="cdk8s-constructs.HomelabIngress.addHostRule.parameter.pathType"></a>
 
-- *Type:* cdk8s-plus-27.HttpIngressPathType
+- *Type:* cdk8s-plus-minus.HttpIngressPathType
 
 How the path is matched against request paths.
 
@@ -3956,7 +3956,7 @@ How the path is matched against request paths.
 ##### `addRule` <a name="addRule" id="cdk8s-constructs.HomelabIngress.addRule"></a>
 
 ```typescript
-public addRule(path: string, backend: IngressBackend, pathType?: HttpIngressPathType): void
+public addRule(path: string, backend: IIngressBackend, pathType?: HttpIngressPathType): void
 ```
 
 Adds an ingress rule applied to requests sent to a specific HTTP path.
@@ -3971,7 +3971,7 @@ The HTTP path.
 
 ###### `backend`<sup>Required</sup> <a name="backend" id="cdk8s-constructs.HomelabIngress.addRule.parameter.backend"></a>
 
-- *Type:* cdk8s-plus-27.IngressBackend
+- *Type:* cdk8s-plus-minus.IIngressBackend
 
 The backend to route requests to.
 
@@ -3979,7 +3979,7 @@ The backend to route requests to.
 
 ###### `pathType`<sup>Optional</sup> <a name="pathType" id="cdk8s-constructs.HomelabIngress.addRule.parameter.pathType"></a>
 
-- *Type:* cdk8s-plus-27.HttpIngressPathType
+- *Type:* cdk8s-plus-minus.HttpIngressPathType
 
 How the path is matched against request paths.
 
@@ -3995,7 +3995,7 @@ Adds rules to this ingress.
 
 ###### `rules`<sup>Required</sup> <a name="rules" id="cdk8s-constructs.HomelabIngress.addRules.parameter.rules"></a>
 
-- *Type:* cdk8s-plus-27.IngressRule
+- *Type:* cdk8s-plus-minus.IngressRule
 
 The rules to add.
 
@@ -4009,7 +4009,7 @@ public addTls(tls: IngressTls[]): void
 
 ###### `tls`<sup>Required</sup> <a name="tls" id="cdk8s-constructs.HomelabIngress.addTls.parameter.tls"></a>
 
-- *Type:* cdk8s-plus-27.IngressTls[]
+- *Type:* cdk8s-plus-minus.IngressTls[]
 
 ---
 
@@ -4063,7 +4063,7 @@ Any object.
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.kind">kind</a></code> | <code>string</code> | The object kind (e.g. "Deployment"). |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.metadata">metadata</a></code> | <code>cdk8s.ApiObjectMetadataDefinition</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.name">name</a></code> | <code>string</code> | The name of this API object. |
-| <code><a href="#cdk8s-constructs.HomelabIngress.property.permissions">permissions</a></code> | <code>cdk8s-plus-27.ResourcePermissions</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngress.property.permissions">permissions</a></code> | <code>cdk8s-plus-minus.ResourcePermissions</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.resourceType">resourceType</a></code> | <code>string</code> | The name of a resource type as it appears in the relevant API endpoint. |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.resourceName">resourceName</a></code> | <code>string</code> | The unique, namespace-global, name of an object inside the Kubernetes cluster. |
 | <code><a href="#cdk8s-constructs.HomelabIngress.property.certSecret">certSecret</a></code> | <code>cdk8s-plus-27.Secret</code> | *No description.* |
@@ -4146,7 +4146,7 @@ The name of this API object.
 public readonly permissions: ResourcePermissions;
 ```
 
-- *Type:* cdk8s-plus-27.ResourcePermissions
+- *Type:* cdk8s-plus-minus.ResourcePermissions
 
 ---
 

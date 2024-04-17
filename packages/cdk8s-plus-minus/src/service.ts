@@ -131,7 +131,7 @@ export interface ExposeServiceViaIngressOptions {
    *
    * @default - An ingress will be automatically created.
    */
-  readonly ingress?: ingress.Ingress;
+  readonly ingress?: ingress.IIngress;
 }
 
 /**

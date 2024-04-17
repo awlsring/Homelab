@@ -313,7 +313,7 @@ export class IngressBackend {
    * @param serv The service object.
    */
   public static fromService(
-    serv: service.Service,
+    serv: service.IService,
     options: ServiceIngressBackendOptions = {},
   ): IIngressBackend {
     if (serv.ports.length === 0) {

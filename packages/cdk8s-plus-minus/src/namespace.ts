@@ -12,7 +12,7 @@ export interface NamespaceSelectorConfig {
   /**
    * A selector to select namespaces by labels.
    */
-  readonly labelSelector?: pod.LabelSelector;
+  readonly labelSelector?: pod.ILabelSelector;
 
   /**
    * A list of names to select namespaces by names.

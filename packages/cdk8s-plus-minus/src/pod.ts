@@ -487,6 +487,14 @@ export interface LabelSelectorOptions {
   readonly expressions?: LabelExpression[];
 }
 
+export interface ILabelSelector {
+  isEmpty(): boolean;
+  /**
+   * @internal
+   */
+  _toKube(): k8s.LabelSelector;
+}
+
 /**
  * Match a resource by labels.
  */
@@ -533,7 +541,7 @@ export interface PodSelectorConfig {
   /**
    * A selector to select pods by labels.
    */
-  readonly labelSelector: LabelSelector;
+  readonly labelSelector: ILabelSelector;
 
   /**
    * Configuration for selecting which namepsaces are the pods allowed to be in.

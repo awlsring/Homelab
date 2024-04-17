@@ -65822,7 +65822,7 @@ const exposeDeploymentViaIngressOptions: ExposeDeploymentViaIngressOptions = { .
 | <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.name">name</a></code> | <code>string</code> | The name of the service to expose. |
 | <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.ports">ports</a></code> | <code><a href="#cdk8s-plus-minus.ServicePort">ServicePort</a>[]</code> | The ports that the service should bind to. |
 | <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.serviceType">serviceType</a></code> | <code><a href="#cdk8s-plus-minus.ServiceType">ServiceType</a></code> | The type of the exposed service. |
-| <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-plus-minus.Ingress">Ingress</a></code> | The ingress to add rules to. |
+| <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-plus-minus.IIngress">IIngress</a></code> | The ingress to add rules to. |
 | <code><a href="#cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.pathType">pathType</a></code> | <code><a href="#cdk8s-plus-minus.HttpIngressPathType">HttpIngressPathType</a></code> | The type of the path. |
 
 ---
@@ -65872,10 +65872,10 @@ The type of the exposed service.
 ##### `ingress`<sup>Optional</sup> <a name="ingress" id="cdk8s-plus-minus.ExposeDeploymentViaIngressOptions.property.ingress"></a>
 
 ```typescript
-public readonly ingress: Ingress;
+public readonly ingress: IIngress;
 ```
 
-- *Type:* <a href="#cdk8s-plus-minus.Ingress">Ingress</a>
+- *Type:* <a href="#cdk8s-plus-minus.IIngress">IIngress</a>
 - *Default:* An ingress will be automatically created.
 
 The ingress to add rules to.
@@ -65911,7 +65911,7 @@ const exposeServiceViaIngressOptions: ExposeServiceViaIngressOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk8s-plus-minus.ExposeServiceViaIngressOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-plus-minus.Ingress">Ingress</a></code> | The ingress to add rules to. |
+| <code><a href="#cdk8s-plus-minus.ExposeServiceViaIngressOptions.property.ingress">ingress</a></code> | <code><a href="#cdk8s-plus-minus.IIngress">IIngress</a></code> | The ingress to add rules to. |
 | <code><a href="#cdk8s-plus-minus.ExposeServiceViaIngressOptions.property.pathType">pathType</a></code> | <code><a href="#cdk8s-plus-minus.HttpIngressPathType">HttpIngressPathType</a></code> | The type of the path. |
 
 ---
@@ -65919,10 +65919,10 @@ const exposeServiceViaIngressOptions: ExposeServiceViaIngressOptions = { ... }
 ##### `ingress`<sup>Optional</sup> <a name="ingress" id="cdk8s-plus-minus.ExposeServiceViaIngressOptions.property.ingress"></a>
 
 ```typescript
-public readonly ingress: Ingress;
+public readonly ingress: IIngress;
 ```
 
-- *Type:* <a href="#cdk8s-plus-minus.Ingress">Ingress</a>
+- *Type:* <a href="#cdk8s-plus-minus.IIngress">IIngress</a>
 - *Default:* An ingress will be automatically created.
 
 The ingress to add rules to.
@@ -79592,7 +79592,7 @@ const namespaceSelectorConfig: NamespaceSelectorConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk8s-plus-minus.NamespaceSelectorConfig.property.labelSelector">labelSelector</a></code> | <code><a href="#cdk8s-plus-minus.LabelSelector">LabelSelector</a></code> | A selector to select namespaces by labels. |
+| <code><a href="#cdk8s-plus-minus.NamespaceSelectorConfig.property.labelSelector">labelSelector</a></code> | <code><a href="#cdk8s-plus-minus.ILabelSelector">ILabelSelector</a></code> | A selector to select namespaces by labels. |
 | <code><a href="#cdk8s-plus-minus.NamespaceSelectorConfig.property.names">names</a></code> | <code>string[]</code> | A list of names to select namespaces by names. |
 
 ---
@@ -79600,10 +79600,10 @@ const namespaceSelectorConfig: NamespaceSelectorConfig = { ... }
 ##### `labelSelector`<sup>Optional</sup> <a name="labelSelector" id="cdk8s-plus-minus.NamespaceSelectorConfig.property.labelSelector"></a>
 
 ```typescript
-public readonly labelSelector: LabelSelector;
+public readonly labelSelector: ILabelSelector;
 ```
 
-- *Type:* <a href="#cdk8s-plus-minus.LabelSelector">LabelSelector</a>
+- *Type:* <a href="#cdk8s-plus-minus.ILabelSelector">ILabelSelector</a>
 
 A selector to select namespaces by labels.
 
@@ -84387,7 +84387,7 @@ const podSelectorConfig: PodSelectorConfig = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk8s-plus-minus.PodSelectorConfig.property.labelSelector">labelSelector</a></code> | <code><a href="#cdk8s-plus-minus.LabelSelector">LabelSelector</a></code> | A selector to select pods by labels. |
+| <code><a href="#cdk8s-plus-minus.PodSelectorConfig.property.labelSelector">labelSelector</a></code> | <code><a href="#cdk8s-plus-minus.ILabelSelector">ILabelSelector</a></code> | A selector to select pods by labels. |
 | <code><a href="#cdk8s-plus-minus.PodSelectorConfig.property.namespaces">namespaces</a></code> | <code><a href="#cdk8s-plus-minus.NamespaceSelectorConfig">NamespaceSelectorConfig</a></code> | Configuration for selecting which namepsaces are the pods allowed to be in. |
 
 ---
@@ -84395,10 +84395,10 @@ const podSelectorConfig: PodSelectorConfig = { ... }
 ##### `labelSelector`<sup>Required</sup> <a name="labelSelector" id="cdk8s-plus-minus.PodSelectorConfig.property.labelSelector"></a>
 
 ```typescript
-public readonly labelSelector: LabelSelector;
+public readonly labelSelector: ILabelSelector;
 ```
 
-- *Type:* <a href="#cdk8s-plus-minus.LabelSelector">LabelSelector</a>
+- *Type:* <a href="#cdk8s-plus-minus.ILabelSelector">ILabelSelector</a>
 
 A selector to select pods by labels.
 
@@ -96927,14 +96927,14 @@ storage backend with static assets.
 ```typescript
 import { IngressBackend } from 'cdk8s-plus-minus'
 
-IngressBackend.fromService(serv: Service, options?: ServiceIngressBackendOptions)
+IngressBackend.fromService(serv: IService, options?: ServiceIngressBackendOptions)
 ```
 
 A Kubernetes `Service` to use as the backend for this path.
 
 ###### `serv`<sup>Required</sup> <a name="serv" id="cdk8s-plus-minus.IngressBackend.fromService.parameter.serv"></a>
 
-- *Type:* <a href="#cdk8s-plus-minus.Service">Service</a>
+- *Type:* <a href="#cdk8s-plus-minus.IService">IService</a>
 
 The service object.
 
@@ -100242,6 +100242,25 @@ The Kubernetes name of this resource.
 
 - *Implemented By:* <a href="#cdk8s-plus-minus.IIngressBackend">IIngressBackend</a>
 
+
+
+### ILabelSelector <a name="ILabelSelector" id="cdk8s-plus-minus.ILabelSelector"></a>
+
+- *Implemented By:* <a href="#cdk8s-plus-minus.ILabelSelector">ILabelSelector</a>
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-plus-minus.ILabelSelector.isEmpty">isEmpty</a></code> | *No description.* |
+
+---
+
+##### `isEmpty` <a name="isEmpty" id="cdk8s-plus-minus.ILabelSelector.isEmpty"></a>
+
+```typescript
+public isEmpty(): boolean
+```
 
 
 ### INamespaceSelector <a name="INamespaceSelector" id="cdk8s-plus-minus.INamespaceSelector"></a>
