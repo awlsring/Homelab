@@ -1,5 +1,5 @@
+import { KubeConfigMap } from "cdk8s-plus-minus/lib/imports/k8s";
 import { Construct } from "constructs";
-import { KubeConfigMap } from "../../imports/k8s";
 import * as fs from "fs";
 import * as path from "path";
 

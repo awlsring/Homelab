@@ -1,7 +1,7 @@
 import { ApiObject } from "cdk8s";
 import { Construct } from "constructs";
-import { EndpointPort, KubeEndpoints } from "../../imports/k8s";
 import { Service } from "cdk8s-plus-27";
+import { EndpointPort, KubeEndpoints } from "cdk8s-plus-minus/lib/imports/k8s";
 
 export interface EndpointsProps {
   readonly service: Service;

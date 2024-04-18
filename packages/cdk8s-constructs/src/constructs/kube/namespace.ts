@@ -1,5 +1,5 @@
+import { KubeNamespace } from "cdk8s-plus-minus/lib/imports/k8s";
 import { Construct } from "constructs";
-import { KubeNamespace } from "../../imports/k8s";
 
 export interface NamespaceProps {
   readonly name: string;
