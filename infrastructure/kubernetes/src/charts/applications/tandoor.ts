@@ -16,7 +16,7 @@ import {
   PersistentVolumeAccessMode,
   PersistentVolumeClaim,
   Volume,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 export interface TandoorChartProps extends HomelabChartProps {

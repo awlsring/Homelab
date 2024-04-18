@@ -899,6 +899,18 @@ export class Container {
     const limits: { [key: string]: k8s.Quantity } = {};
     const requests: { [key: string]: k8s.Quantity } = {};
 
+    // Add the custom resources to the deployment
+    if (this.resources?.custom) {
+      this.resources.custom.forEach((resource) => {
+        if (resource.limit) {
+          limits[resource.key] = k8s.Quantity.fromString(resource.limit);
+        }
+        if (resource.request) {
+          requests[resource.key] = k8s.Quantity.fromString(resource.request);
+        }
+      });
+    }
+
     if (cpuLimit) {
       limits.cpu = k8s.Quantity.fromString(cpuLimit);
     }
@@ -1078,6 +1090,16 @@ export interface ContainerResources {
   readonly cpu?: CpuResources;
   readonly memory?: MemoryResources;
   readonly ephemeralStorage?: EphemeralStorageResources;
+  readonly custom?: CustomResources[];
+}
+
+/**
+ * Custom resources
+ */
+export interface CustomResources {
+  readonly key: string;
+  readonly request?: string;
+  readonly limit?: string;
 }
 
 /**

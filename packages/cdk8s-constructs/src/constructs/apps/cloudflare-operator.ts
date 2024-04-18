@@ -13,7 +13,7 @@ import {
   RoleBinding,
   Service,
   ServiceAccount,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 const NAMESPACE = "cloudflare-operator-system";

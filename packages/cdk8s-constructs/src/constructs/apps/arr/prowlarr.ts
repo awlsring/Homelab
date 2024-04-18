@@ -1,5 +1,5 @@
 import { Duration } from "cdk8s";
-import { Probe } from "cdk8s-plus-27";
+import { Probe } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import { ArrApp, ArrAppOptions } from "./arr-app";
 

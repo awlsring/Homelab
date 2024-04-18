@@ -7,7 +7,7 @@ import {
   Service,
   StatefulSet,
   Volume,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import { HomelabIngress } from "../homelab/ingress";
 import { CERT_ISSUER_NAME_STAGING } from "../cert-manager/issuers";

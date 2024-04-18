@@ -1,7 +1,6 @@
 import { Size } from "cdk8s";
 import {
   CloudflareClusterTunnel,
-  GpuType,
   HomelabChart,
   HomelabChartProps,
   HomelabDeployment,
@@ -18,7 +17,7 @@ import {
   ServiceType,
   Volume,
   VolumeMount,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 const DEFAULT_IMAGE_TAG = "latest";
@@ -82,20 +81,6 @@ export class JellyfinChart extends HomelabChart {
       });
     });
 
-    const resource = {
-      cpu: {
-        request: Cpu.millis(500),
-        limit: Cpu.millis(4000),
-      },
-      memory: {
-        request: Size.gibibytes(1),
-        limit: Size.gibibytes(8),
-      },
-      gpu: {
-        requests: 1,
-      },
-    };
-
     const deployment = new HomelabDeployment(this, "deployment", {
       replicas: 1,
       securityContext: {
@@ -115,7 +100,23 @@ export class JellyfinChart extends HomelabChart {
             TZ: EnvValue.fromValue(props.timezone ?? DEFAULT_TIME_ZONE),
           },
           volumeMounts: volumeMounts,
-          resources: resource,
+          resources: {
+            cpu: {
+              request: Cpu.millis(500),
+              limit: Cpu.millis(4000),
+            },
+            memory: {
+              request: Size.gibibytes(1),
+              limit: Size.gibibytes(8),
+            },
+            custom: [
+              {
+                key: "gpu.intel.com/i915",
+                limit: "1",
+                request: "1",
+              },
+            ],
+          },
           securityContext: {
             privileged: true,
             allowPrivilegeEscalation: true,
@@ -125,7 +126,7 @@ export class JellyfinChart extends HomelabChart {
         },
       ],
     });
-    deployment.addGpuToContainer(GpuType.INTEL_INTEGRATED);
+    // deployment.addGpuToContainer(GpuType.INTEL_INTEGRATED);
 
     const service = new Service(this, "service", {
       type: props.ingress.type ?? ServiceType.CLUSTER_IP,

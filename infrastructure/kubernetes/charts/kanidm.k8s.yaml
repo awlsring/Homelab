@@ -93,7 +93,8 @@ spec:
   clusterIP: None
   externalIPs: []
   ports:
-    - port: 8443
+    - name: https
+      port: 8443
       targetPort: 8443
   selector:
     cdk8s.io/metadata.addr: kanidm-app-state-set-c8f04ce8

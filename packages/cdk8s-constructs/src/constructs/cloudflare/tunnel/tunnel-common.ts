@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { CloudflareTunnelBinding } from "../tunnel-binding";
-import { Resource, Service } from "cdk8s-plus-27";
+import { Resource, Service } from "cdk8s-plus-minus";
 import { TunnelSpec } from "../../../imports/cnpq-networking.cfargotunnel.com";
 
 export interface BaseTunnelOptions {

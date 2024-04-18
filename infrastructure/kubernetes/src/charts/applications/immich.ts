@@ -6,7 +6,7 @@ import {
   Immich,
   ImmichPhotoVolumeOptions,
 } from "cdk8s-constructs";
-import { Volume } from "cdk8s-plus-27";
+import { Volume } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 export interface ImmichChartProps extends HomelabChartProps {

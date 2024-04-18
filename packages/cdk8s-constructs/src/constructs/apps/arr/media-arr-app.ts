@@ -1,4 +1,4 @@
-import { VolumeMount } from "cdk8s-plus-27";
+import { VolumeMount } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import {
   ArrApp,

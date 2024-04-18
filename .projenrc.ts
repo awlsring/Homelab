@@ -123,7 +123,10 @@ const cdk8sConstructs = new ConstructLibraryCdk8s({
     `cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`,
     cdk8sPlusMinus.package.packageName,
   ],
-  peerDeps: [`cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`],
+  peerDeps: [
+    `cdk8s-plus-27@^${CDK8S_PLUS_VERSION}`,
+    cdk8sPlusMinus.package.packageName,
+  ],
   testdir: "",
 });
 
@@ -195,6 +198,7 @@ const cluster = new Cdk8sTypeScriptApp({
   deps: [
     cdk8sConstructs.package.packageName,
     crossplaneCdk8s.package.packageName,
+    cdk8sPlusMinus.package.packageName,
   ],
 });
 cluster.postCompileTask.exec(

@@ -60517,6 +60517,7 @@ const containerResources: ContainerResources = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-plus-minus.ContainerResources.property.cpu">cpu</a></code> | <code><a href="#cdk8s-plus-minus.CpuResources">CpuResources</a></code> | *No description.* |
+| <code><a href="#cdk8s-plus-minus.ContainerResources.property.custom">custom</a></code> | <code><a href="#cdk8s-plus-minus.CustomResources">CustomResources</a>[]</code> | *No description.* |
 | <code><a href="#cdk8s-plus-minus.ContainerResources.property.ephemeralStorage">ephemeralStorage</a></code> | <code><a href="#cdk8s-plus-minus.EphemeralStorageResources">EphemeralStorageResources</a></code> | *No description.* |
 | <code><a href="#cdk8s-plus-minus.ContainerResources.property.memory">memory</a></code> | <code><a href="#cdk8s-plus-minus.MemoryResources">MemoryResources</a></code> | *No description.* |
 
@@ -60529,6 +60530,16 @@ public readonly cpu: CpuResources;
 ```
 
 - *Type:* <a href="#cdk8s-plus-minus.CpuResources">CpuResources</a>
+
+---
+
+##### `custom`<sup>Optional</sup> <a name="custom" id="cdk8s-plus-minus.ContainerResources.property.custom"></a>
+
+```typescript
+public readonly custom: CustomResources[];
+```
+
+- *Type:* <a href="#cdk8s-plus-minus.CustomResources">CustomResources</a>[]
 
 ---
 
@@ -62617,6 +62628,58 @@ public readonly subresources: CustomResourceSubresources;
 - *Type:* cdk8s-plus-minus.k8s.CustomResourceSubresources
 
 subresources specify what subresources this version of the defined custom resource have.
+
+---
+
+### CustomResources <a name="CustomResources" id="cdk8s-plus-minus.CustomResources"></a>
+
+Custom resources.
+
+#### Initializer <a name="Initializer" id="cdk8s-plus-minus.CustomResources.Initializer"></a>
+
+```typescript
+import { CustomResources } from 'cdk8s-plus-minus'
+
+const customResources: CustomResources = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-plus-minus.CustomResources.property.key">key</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-plus-minus.CustomResources.property.limit">limit</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-plus-minus.CustomResources.property.request">request</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `key`<sup>Required</sup> <a name="key" id="cdk8s-plus-minus.CustomResources.property.key"></a>
+
+```typescript
+public readonly key: string;
+```
+
+- *Type:* string
+
+---
+
+##### `limit`<sup>Optional</sup> <a name="limit" id="cdk8s-plus-minus.CustomResources.property.limit"></a>
+
+```typescript
+public readonly limit: string;
+```
+
+- *Type:* string
+
+---
+
+##### `request`<sup>Optional</sup> <a name="request" id="cdk8s-plus-minus.CustomResources.property.request"></a>
+
+```typescript
+public readonly request: string;
+```
+
+- *Type:* string
 
 ---
 

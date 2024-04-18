@@ -11,7 +11,7 @@ import {
   Service,
   ServiceType,
   Volume,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 const IMAGE = "vabene1111/recipes";

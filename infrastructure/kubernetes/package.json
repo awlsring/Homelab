@@ -40,6 +40,7 @@
     "cdk8s-constructs": "^0.0.0",
     "cdk8s-crossplane": "^0.0.0",
     "cdk8s-plus-27": "^2.7.70",
+    "cdk8s-plus-minus": "^0.0.0",
     "constructs": "^10.3.0"
   },
   "license": "Apache-2.0",

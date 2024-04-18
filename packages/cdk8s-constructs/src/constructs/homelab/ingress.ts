@@ -1,6 +1,12 @@
 import { JsonPatch } from "cdk8s";
-import { Secret, Service, ServiceType } from "cdk8s-plus-27";
-import { IngressBackend, IngressProps, Ingress } from "cdk8s-plus-minus";
+import {
+  IngressBackend,
+  IngressProps,
+  Ingress,
+  Secret,
+  Service,
+  ServiceType,
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import { Annotation } from "../annotations/annotation";
 

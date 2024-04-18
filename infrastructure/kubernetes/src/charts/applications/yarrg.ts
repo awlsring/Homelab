@@ -11,7 +11,7 @@ import {
   ResilioSync,
   Syncthing,
 } from "cdk8s-constructs";
-import { ServiceType, Volume } from "cdk8s-plus-27";
+import { ServiceType, Volume } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 export interface AppOptions {

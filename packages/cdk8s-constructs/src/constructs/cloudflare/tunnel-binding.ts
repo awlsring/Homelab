@@ -1,6 +1,6 @@
 import { Construct } from "constructs";
 import { TunnelBinding as L1TunnelBinding } from "../../imports/cnpq-networking.cfargotunnel.com";
-import { Service } from "cdk8s-plus-27";
+import { Service } from "cdk8s-plus-minus";
 import { ApiObject } from "cdk8s";
 import { ICloudflareTunnel } from "./tunnel/tunnel-common";
 

@@ -8,7 +8,7 @@ import {
   Service,
   ServiceType,
   Volume,
-} from "cdk8s-plus-27";
+} from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import { HomelabDeployment } from "../homelab/deployment";
 import { HomelabIngress, HomelabIngressOptions } from "../homelab/ingress";
