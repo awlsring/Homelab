@@ -1,0 +1,454 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-system
+  namespace: kube-system
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.4.1
+  name: ippools.whereabouts.cni.cncf.io
+  namespace: kube-system
+spec:
+  group: whereabouts.cni.cncf.io
+  names:
+    kind: IPPool
+    listKind: IPPoolList
+    plural: ippools
+    singular: ippool
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: IPPool is the Schema for the ippools API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: IPPoolSpec defines the desired state of IPPool
+              properties:
+                allocations:
+                  additionalProperties:
+                    description: IPAllocation represents metadata about the pod/container owner of a specific IP
+                    properties:
+                      id:
+                        type: string
+                      podref:
+                        type: string
+                    required:
+                      - id
+                    type: object
+                  description: Allocations is the set of allocated IPs for the given range. Its` indices are a direct mapping to the IP with the same index/offset for the pool's range.
+                  type: object
+                range:
+                  description: Range is a RFC 4632/4291-style string that represents an IP address and prefix length in CIDR notation
+                  type: string
+              required:
+                - allocations
+                - range
+              type: object
+          type: object
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.4.1
+  name: overlappingrangeipreservations.whereabouts.cni.cncf.io
+  namespace: kube-system
+spec:
+  group: whereabouts.cni.cncf.io
+  names:
+    kind: OverlappingRangeIPReservation
+    listKind: OverlappingRangeIPReservationList
+    plural: overlappingrangeipreservations
+    singular: overlappingrangeipreservation
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: OverlappingRangeIPReservation is the Schema for the OverlappingRangeIPReservations API
+          properties:
+            apiVersion:
+              description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+              type: string
+            kind:
+              description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: OverlappingRangeIPReservationSpec defines the desired state of OverlappingRangeIPReservation
+              properties:
+                containerid:
+                  type: string
+                podref:
+                  type: string
+              required:
+                - containerid
+              type: object
+          required:
+            - spec
+          type: object
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: rke2-whereabouts
+    app.kubernetes.io/instance: multus-k3s-helm-c84ade93
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rke2-whereabouts
+    app.kubernetes.io/version: 0.6.3
+    helm.sh/chart: rke2-whereabouts-0.1.1
+  name: whereabouts
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: multus
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    kubernetes.io/description: |
+      Configmap containing user customizable cronjob schedule
+  name: whereabouts-config
+  namespace: kube-system
+data:
+  cron-expression: 30 4 * * *
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: network-attachment-definitions.k8s.cni.cncf.io
+  namespace: kube-system
+spec:
+  group: k8s.cni.cncf.io
+  names:
+    kind: NetworkAttachmentDefinition
+    plural: network-attachment-definitions
+    shortNames:
+      - net-attach-def
+    singular: network-attachment-definition
+  scope: Namespaced
+  versions:
+    - name: v1
+      schema:
+        openAPIV3Schema:
+          properties:
+            spec:
+              properties:
+                config:
+                  type: string
+              type: object
+          type: object
+      served: true
+      storage: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: whereabouts
+  namespace: kube-system
+rules:
+  - apiGroups:
+      - whereabouts.cni.cncf.io
+    resources:
+      - ippools
+      - overlappingrangeipreservations
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+  - apiGroups:
+      - k8s.cni.cncf.io
+    resources:
+      - network-attachment-definitions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+      - update
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: rke2-multus
+  namespace: kube-system
+rules:
+  - apiGroups:
+      - k8s.cni.cncf.io
+    resources:
+      - "*"
+    verbs:
+      - "*"
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/status
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: whereabouts
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: whereabouts
+subjects:
+  - kind: ServiceAccount
+    name: whereabouts
+    namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: rke2-multus
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: rke2-multus
+subjects:
+  - kind: ServiceAccount
+    name: multus
+    namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: rke2-whereabouts
+    app.kubernetes.io/instance: multus-k3s-helm-c84ade93
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: rke2-whereabouts
+    app.kubernetes.io/version: 0.6.3
+    helm.sh/chart: rke2-whereabouts-0.1.1
+  name: whereabouts
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: rke2-whereabouts
+      app.kubernetes.io/instance: multus-k3s-helm-c84ade93
+      app.kubernetes.io/name: rke2-whereabouts
+      name: whereabouts
+  template:
+    metadata:
+      labels:
+        app: rke2-whereabouts
+        app.kubernetes.io/instance: multus-k3s-helm-c84ade93
+        app.kubernetes.io/name: rke2-whereabouts
+        name: whereabouts
+    spec:
+      containers:
+        - args:
+            - -c
+            - |
+              SLEEP=false /install-cni.sh && /ip-control-loop -log-level debug
+          command:
+            - /bin/sh
+          env:
+            - name: NODENAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+            - name: WHEREABOUTS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: rancher/hardened-whereabouts:v0.6.3-build20240208
+          imagePullPolicy: IfNotPresent
+          name: rke2-whereabouts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /host/opt/cni/bin
+              name: cnibin
+            - mountPath: /host/etc/cni/net.d
+              name: cni-net-dir
+            - mountPath: /cron-schedule
+              name: cron-scheduler-configmap
+      hostNetwork: true
+      nodeSelector:
+        kubernetes.io/os: linux
+      securityContext: {}
+      serviceAccountName: whereabouts
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+      volumes:
+        - hostPath:
+            path: /var/lib/rancher/k3s/data/current/bin/
+          name: cnibin
+        - hostPath:
+            path: /var/lib/rancher/k3s/agent/etc/cni/net.d
+          name: cni-net-dir
+        - configMap:
+            defaultMode: 484
+            items:
+              - key: cron-expression
+                path: config
+            name: whereabouts-config
+          name: cron-scheduler-configmap
+  updateStrategy:
+    type: RollingUpdate
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: rke2-multus
+    tier: node
+  name: multus-k3s-helm-c84ade93
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: rke2-multus
+  template:
+    metadata:
+      annotations:
+        checksum/config: fd23672d720fdddd8faf8f629c7eec5c444ad6484d2a654621fa7d4b5c65c4fc
+      labels:
+        app: rke2-multus
+        tier: node
+    spec:
+      containers:
+        - args:
+            - --multus-conf-file=auto
+            - --multus-kubeconfig-file-host=/etc/cni/net.d/multus.d/multus.kubeconfig
+          command:
+            - /thin_entrypoint
+          env:
+            - name: KUBERNETES_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          image: rancher/hardened-multus-cni:v4.0.2-build20240208
+          imagePullPolicy: IfNotPresent
+          name: kube-rke2-multus
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 1024Mi
+            requests:
+              cpu: 250m
+              memory: 128Mi
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /host/etc/cni/net.d
+              name: cni
+            - mountPath: /host/opt/cni/bin
+              name: cnibin
+      hostNetwork: true
+      initContainers:
+        - env:
+            - name: SKIP_CNI_BINARIES
+              value: flannel
+          image: rancher/hardened-cni-plugins:v1.4.0-build20240122
+          name: cni-plugins
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /host/opt/cni/bin
+              name: cnibin
+      nodeSelector:
+        kubernetes.io/os: linux
+      priorityClassName: system-node-critical
+      serviceAccountName: multus
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+        - effect: NoExecute
+          operator: Exists
+      volumes:
+        - hostPath:
+            path: /etc/cni/net.d
+          name: cni
+        - hostPath:
+            path: /opt/cni/bin
+          name: cnibin
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate

@@ -4,8 +4,8 @@ import {
   GrafanaDashboard,
   HomelabChart,
   HomelabChartProps,
-  ServiceType,
 } from "cdk8s-constructs";
+import { ServiceType } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 const NAMESPACE = "rook-ceph";

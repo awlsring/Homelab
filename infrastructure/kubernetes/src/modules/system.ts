@@ -12,6 +12,7 @@ import { ExternalSecretsChart } from "../charts/system/external-secrets";
 import { IntelDevicePluginsChart } from "../charts/system/intel-device-operator";
 import { KuredChart } from "../charts/system/kured";
 import { MonitoringChart } from "../charts/system/monitoring";
+import { MultusK3SChart } from "../charts/system/multus";
 import { NginxIngressChart } from "../charts/system/nginx";
 import { NodeFeatureDiscoveryChart } from "../charts/system/node-feature-discovery";
 import { OnePasswordConnectChart } from "../charts/system/onepassword-connect";
@@ -94,4 +95,6 @@ export function assignSystemCharts(app: App) {
   new NodeFeatureDiscoveryChart(app, "node-feature-discovery");
 
   new IntelDevicePluginsChart(app, "intel-device-plugins");
+
+  new MultusK3SChart(app, "multus-k3s");
 }

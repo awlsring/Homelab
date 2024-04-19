@@ -1,5 +1,6 @@
 import { Helm } from "cdk8s";
-import { HomelabChart, HomelabChartProps, ServiceType } from "cdk8s-constructs";
+import { HomelabChart, HomelabChartProps } from "cdk8s-constructs";
+import { ServiceType } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 
 const LONGHORN_NAMESPACE = "longhorn-system";
