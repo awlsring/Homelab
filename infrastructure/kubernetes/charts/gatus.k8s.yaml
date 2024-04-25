@@ -1,0 +1,308 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gatus
+  namespace: gatus
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: gatus-webhook-secret-c8331106
+  namespace: gatus
+spec:
+  dataFrom:
+    - extract:
+        key: gatus-discord-webhook
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: gatus-database-secret-c830a0e6
+  namespace: gatus
+spec:
+  dataFrom:
+    - extract:
+        key: gatus-database-pass
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: gatus-cluster-c8dde654
+  namespace: gatus
+spec:
+  bootstrap:
+    initdb:
+      database: gatus
+      owner: gatus
+      secret:
+        name: gatus-database-secret-c830a0e6
+  instances: 2
+  monitoring: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 5Gi
+    storageClass: ceph-block
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gatus-app-config-c8d6c115
+  namespace: gatus
+data:
+  config.yml: |
+    storage:
+      type: postgres
+      caching: false
+      path: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}?sslmode=disable
+    endpoints:
+      - name: Audiobookshelf
+        url: https://audiobookshelf.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: media - internal
+      - name: Jellyfin
+        url: https://fin.us-drig-1.drigs.org/health
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: media - internal
+      - name: Immich
+        url: https://immich.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: media - internal
+      - name: Radarr
+        url: https://radarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Sonarr
+        url: https://sonarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: lidarr
+        url: https://lidarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Readarr
+        url: https://readarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Bazarr
+        url: https://bazarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: prowlarr
+        url: https://prowlarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Requesterr
+        url: https://requesterr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Syncthing
+        url: http://10.0.10.9:8384/rest/noauth/health
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
+      - name: Tandoor
+        url: https://tandoor.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: internal
+      - name: Bluesky PDS
+        url: https://at.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: external
+      - name: Fin
+        url: https://fin.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: external
+    alerting:
+      discord:
+        webhook-url: ${DISCORD_WEBHOOK}
+immutable: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatus-app-deployment-c84b390a
+  namespace: gatus
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: gatus-app-deployment-c8817ca1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: gatus-app-deployment-c8817ca1
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: POSTGRES_USER
+              value: gatus
+            - name: POSTGRES_DB
+              value: gatus
+            - name: POSTGRES_HOST
+              value: gatus-cluster-c8dde654-rw
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: gatus-database-secret-c830a0e6
+            - name: DISCORD_WEBHOOK
+              valueFrom:
+                secretKeyRef:
+                  key: credential
+                  name: gatus-webhook-secret-c8331106
+          image: twinproduction/gatus:latest
+          imagePullPolicy: Always
+          name: gatus
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
+          startupProbe:
+            failureThreshold: 30
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            tcpSocket:
+              port: 8080
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /config
+              name: configmap-gatus-app-config-c8d6c115
+              readOnly: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 65534
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            name: gatus-app-config-c8d6c115
+          name: configmap-gatus-app-config-c8d6c115
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatus-app-service-c8ee1267
+  namespace: gatus
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 8080
+  selector:
+    cdk8s.io/metadata.addr: gatus-app-deployment-c8817ca1
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gatus-app-gatus-app-service-c8ee1267-tls-c81becf9
+  namespace: gatus
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: gatus-app-ingress-c8de69aa
+  namespace: gatus
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: gatus.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: gatus-app-service-c8ee1267
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - gatus.us-drig-1.drigs.org
+      secretName: gatus-app-gatus-app-service-c8ee1267-tls-c81becf9

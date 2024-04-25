@@ -4,8 +4,8 @@ import {
   IngressProps,
   Ingress,
   Secret,
-  Service,
   ServiceType,
+  IService,
 } from "cdk8s-plus-minus";
 import { Construct } from "constructs";
 import { Annotation } from "../annotations/annotation";
@@ -19,7 +19,7 @@ export interface HomelabIngressOptions {
 }
 
 export interface HomelabIngressProps {
-  readonly service: Service;
+  readonly service: IService;
   readonly hostname: string;
   readonly port?: number;
   readonly ingressClassName?: string;

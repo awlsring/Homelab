@@ -9,6 +9,7 @@ import * as ingress from "./ingress";
 import * as service from "./service";
 import * as workload from "./workload";
 import { IResource } from "./base";
+import { PodSelectorConfig } from "./pod";
 
 export interface IDeployment extends IResource {
   readonly replicas?: number;
@@ -21,6 +22,7 @@ export interface IDeployment extends IResource {
   _toKube(): k8s.DeploymentSpec;
   markHasAutoscaler(): void;
   toScalingTarget(): ScalingTarget;
+  toPodSelectorConfig(): PodSelectorConfig;
 }
 
 /**

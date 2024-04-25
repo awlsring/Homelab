@@ -99896,6 +99896,7 @@ The Kubernetes name of this resource.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#cdk8s-plus-minus.IDeployment.markHasAutoscaler">markHasAutoscaler</a></code> | *No description.* |
+| <code><a href="#cdk8s-plus-minus.IDeployment.toPodSelectorConfig">toPodSelectorConfig</a></code> | *No description.* |
 | <code><a href="#cdk8s-plus-minus.IDeployment.toScalingTarget">toScalingTarget</a></code> | *No description.* |
 
 ---
@@ -99904,6 +99905,12 @@ The Kubernetes name of this resource.
 
 ```typescript
 public markHasAutoscaler(): void
+```
+
+##### `toPodSelectorConfig` <a name="toPodSelectorConfig" id="cdk8s-plus-minus.IDeployment.toPodSelectorConfig"></a>
+
+```typescript
+public toPodSelectorConfig(): PodSelectorConfig
 ```
 
 ##### `toScalingTarget` <a name="toScalingTarget" id="cdk8s-plus-minus.IDeployment.toScalingTarget"></a>

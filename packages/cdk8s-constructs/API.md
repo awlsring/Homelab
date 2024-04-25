@@ -1296,6 +1296,9 @@ new Cluster(scope: Construct, name: string, props: ClusterProps)
 | --- | --- |
 | <code><a href="#cdk8s-constructs.Cluster.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#cdk8s-constructs.Cluster.exposeWithPrimaryService">exposeWithPrimaryService</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Cluster.readService">readService</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Cluster.readWriteService">readWriteService</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Cluster.writeService">writeService</a></code> | *No description.* |
 
 ---
 
@@ -1318,6 +1321,24 @@ public exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Serv
 - *Type:* <a href="#cdk8s-constructs.ExposeWithPrimaryServiceOptions">ExposeWithPrimaryServiceOptions</a>
 
 ---
+
+##### `readService` <a name="readService" id="cdk8s-constructs.Cluster.readService"></a>
+
+```typescript
+public readService(): string
+```
+
+##### `readWriteService` <a name="readWriteService" id="cdk8s-constructs.Cluster.readWriteService"></a>
+
+```typescript
+public readWriteService(): string
+```
+
+##### `writeService` <a name="writeService" id="cdk8s-constructs.Cluster.writeService"></a>
+
+```typescript
+public writeService(): string
+```
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -2238,6 +2259,152 @@ public readonly service: Service;
 ```
 
 - *Type:* cdk8s-plus-minus.Service
+
+---
+
+
+### Gatus <a name="Gatus" id="cdk8s-constructs.Gatus"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Gatus.Initializer"></a>
+
+```typescript
+import { Gatus } from 'cdk8s-constructs'
+
+new Gatus(scope: Construct, name: string, props: GatusProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Gatus.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Gatus.Initializer.parameter.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Gatus.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.GatusProps">GatusProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Gatus.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.Gatus.Initializer.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Gatus.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.GatusProps">GatusProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Gatus.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Gatus.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Gatus.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Gatus.isConstruct"></a>
+
+```typescript
+import { Gatus } from 'cdk8s-constructs'
+
+Gatus.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Gatus.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Gatus.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Gatus.property.deployment">deployment</a></code> | <code>cdk8s-plus-minus.IDeployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Gatus.property.service">service</a></code> | <code>cdk8s-plus-minus.IService</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Gatus.property.ingress">ingress</a></code> | <code>cdk8s-plus-minus.IIngress</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Gatus.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Gatus.property.deployment"></a>
+
+```typescript
+public readonly deployment: IDeployment;
+```
+
+- *Type:* cdk8s-plus-minus.IDeployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Gatus.property.service"></a>
+
+```typescript
+public readonly service: IService;
+```
+
+- *Type:* cdk8s-plus-minus.IService
+
+---
+
+##### `ingress`<sup>Optional</sup> <a name="ingress" id="cdk8s-constructs.Gatus.property.ingress"></a>
+
+```typescript
+public readonly ingress: IIngress;
+```
+
+- *Type:* cdk8s-plus-minus.IIngress
 
 ---
 
@@ -14365,6 +14532,720 @@ public readonly serviceType: ServiceType;
 
 ---
 
+### GatusAlertingDiscordOptions <a name="GatusAlertingDiscordOptions" id="cdk8s-constructs.GatusAlertingDiscordOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusAlertingDiscordOptions.Initializer"></a>
+
+```typescript
+import { GatusAlertingDiscordOptions } from 'cdk8s-constructs'
+
+const gatusAlertingDiscordOptions: GatusAlertingDiscordOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusAlertingDiscordOptions.property.webhookSecret">webhookSecret</a></code> | <code>cdk8s-plus-minus.SecretValue</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusAlertingDiscordOptions.property.defaultAlert">defaultAlert</a></code> | <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions">GatusDefaultAlertOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusAlertingDiscordOptions.property.title">title</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `webhookSecret`<sup>Required</sup> <a name="webhookSecret" id="cdk8s-constructs.GatusAlertingDiscordOptions.property.webhookSecret"></a>
+
+```typescript
+public readonly webhookSecret: SecretValue;
+```
+
+- *Type:* cdk8s-plus-minus.SecretValue
+
+---
+
+##### `defaultAlert`<sup>Optional</sup> <a name="defaultAlert" id="cdk8s-constructs.GatusAlertingDiscordOptions.property.defaultAlert"></a>
+
+```typescript
+public readonly defaultAlert: GatusDefaultAlertOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusDefaultAlertOptions">GatusDefaultAlertOptions</a>
+
+---
+
+##### `title`<sup>Optional</sup> <a name="title" id="cdk8s-constructs.GatusAlertingDiscordOptions.property.title"></a>
+
+```typescript
+public readonly title: string;
+```
+
+- *Type:* string
+
+---
+
+### GatusAlertingOptions <a name="GatusAlertingOptions" id="cdk8s-constructs.GatusAlertingOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusAlertingOptions.Initializer"></a>
+
+```typescript
+import { GatusAlertingOptions } from 'cdk8s-constructs'
+
+const gatusAlertingOptions: GatusAlertingOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusAlertingOptions.property.discord">discord</a></code> | <code><a href="#cdk8s-constructs.GatusAlertingDiscordOptions">GatusAlertingDiscordOptions</a></code> | *No description.* |
+
+---
+
+##### `discord`<sup>Optional</sup> <a name="discord" id="cdk8s-constructs.GatusAlertingOptions.property.discord"></a>
+
+```typescript
+public readonly discord: GatusAlertingDiscordOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusAlertingDiscordOptions">GatusAlertingDiscordOptions</a>
+
+---
+
+### GatusDatabaseOptions <a name="GatusDatabaseOptions" id="cdk8s-constructs.GatusDatabaseOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusDatabaseOptions.Initializer"></a>
+
+```typescript
+import { GatusDatabaseOptions } from 'cdk8s-constructs'
+
+const gatusDatabaseOptions: GatusDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.user">user</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.caching">caching</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.engine">engine</a></code> | <code><a href="#cdk8s-constructs.GatusDatabaseEngine">GatusDatabaseEngine</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.host">host</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.password">password</a></code> | <code>cdk8s-plus-minus.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.path">path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseOptions.property.port">port</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `user`<sup>Required</sup> <a name="user" id="cdk8s-constructs.GatusDatabaseOptions.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
+##### `caching`<sup>Optional</sup> <a name="caching" id="cdk8s-constructs.GatusDatabaseOptions.property.caching"></a>
+
+```typescript
+public readonly caching: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `database`<sup>Optional</sup> <a name="database" id="cdk8s-constructs.GatusDatabaseOptions.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `engine`<sup>Optional</sup> <a name="engine" id="cdk8s-constructs.GatusDatabaseOptions.property.engine"></a>
+
+```typescript
+public readonly engine: GatusDatabaseEngine;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusDatabaseEngine">GatusDatabaseEngine</a>
+
+---
+
+##### `host`<sup>Optional</sup> <a name="host" id="cdk8s-constructs.GatusDatabaseOptions.property.host"></a>
+
+```typescript
+public readonly host: string;
+```
+
+- *Type:* string
+
+---
+
+##### `password`<sup>Optional</sup> <a name="password" id="cdk8s-constructs.GatusDatabaseOptions.property.password"></a>
+
+```typescript
+public readonly password: ISecret;
+```
+
+- *Type:* cdk8s-plus-minus.ISecret
+
+---
+
+##### `path`<sup>Optional</sup> <a name="path" id="cdk8s-constructs.GatusDatabaseOptions.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.GatusDatabaseOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
+### GatusDefaultAlertOptions <a name="GatusDefaultAlertOptions" id="cdk8s-constructs.GatusDefaultAlertOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusDefaultAlertOptions.Initializer"></a>
+
+```typescript
+import { GatusDefaultAlertOptions } from 'cdk8s-constructs'
+
+const gatusDefaultAlertOptions: GatusDefaultAlertOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions.property.enabled">enabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions.property.failureThreshold">failureThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions.property.sendOnResolved">sendOnResolved</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDefaultAlertOptions.property.successThreshold">successThreshold</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="cdk8s-constructs.GatusDefaultAlertOptions.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `enabled`<sup>Optional</sup> <a name="enabled" id="cdk8s-constructs.GatusDefaultAlertOptions.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `failureThreshold`<sup>Optional</sup> <a name="failureThreshold" id="cdk8s-constructs.GatusDefaultAlertOptions.property.failureThreshold"></a>
+
+```typescript
+public readonly failureThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `sendOnResolved`<sup>Optional</sup> <a name="sendOnResolved" id="cdk8s-constructs.GatusDefaultAlertOptions.property.sendOnResolved"></a>
+
+```typescript
+public readonly sendOnResolved: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `successThreshold`<sup>Optional</sup> <a name="successThreshold" id="cdk8s-constructs.GatusDefaultAlertOptions.property.successThreshold"></a>
+
+```typescript
+public readonly successThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+### GatusEndpointAlert <a name="GatusEndpointAlert" id="cdk8s-constructs.GatusEndpointAlert"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusEndpointAlert.Initializer"></a>
+
+```typescript
+import { GatusEndpointAlert } from 'cdk8s-constructs'
+
+const gatusEndpointAlert: GatusEndpointAlert = { ... }
+```
+
+
+### GatusEndpointAlertOptions <a name="GatusEndpointAlertOptions" id="cdk8s-constructs.GatusEndpointAlertOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusEndpointAlertOptions.Initializer"></a>
+
+```typescript
+import { GatusEndpointAlertOptions } from 'cdk8s-constructs'
+
+const gatusEndpointAlertOptions: GatusEndpointAlertOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.description">description</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.enabled">enabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.failureThreshold">failureThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.sendOnResolved">sendOnResolved</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.successThreshold">successThreshold</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions.property.type">type</a></code> | <code><a href="#cdk8s-constructs.GatusAlertType">GatusAlertType</a></code> | *No description.* |
+
+---
+
+##### `description`<sup>Optional</sup> <a name="description" id="cdk8s-constructs.GatusEndpointAlertOptions.property.description"></a>
+
+```typescript
+public readonly description: string;
+```
+
+- *Type:* string
+
+---
+
+##### `enabled`<sup>Optional</sup> <a name="enabled" id="cdk8s-constructs.GatusEndpointAlertOptions.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `failureThreshold`<sup>Optional</sup> <a name="failureThreshold" id="cdk8s-constructs.GatusEndpointAlertOptions.property.failureThreshold"></a>
+
+```typescript
+public readonly failureThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `sendOnResolved`<sup>Optional</sup> <a name="sendOnResolved" id="cdk8s-constructs.GatusEndpointAlertOptions.property.sendOnResolved"></a>
+
+```typescript
+public readonly sendOnResolved: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `successThreshold`<sup>Optional</sup> <a name="successThreshold" id="cdk8s-constructs.GatusEndpointAlertOptions.property.successThreshold"></a>
+
+```typescript
+public readonly successThreshold: number;
+```
+
+- *Type:* number
+
+---
+
+##### `type`<sup>Required</sup> <a name="type" id="cdk8s-constructs.GatusEndpointAlertOptions.property.type"></a>
+
+```typescript
+public readonly type: GatusAlertType;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusAlertType">GatusAlertType</a>
+
+---
+
+### GatusEndpointDnsOptions <a name="GatusEndpointDnsOptions" id="cdk8s-constructs.GatusEndpointDnsOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusEndpointDnsOptions.Initializer"></a>
+
+```typescript
+import { GatusEndpointDnsOptions } from 'cdk8s-constructs'
+
+const gatusEndpointDnsOptions: GatusEndpointDnsOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpointDnsOptions.property.queryName">queryName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointDnsOptions.property.queryType">queryType</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `queryName`<sup>Optional</sup> <a name="queryName" id="cdk8s-constructs.GatusEndpointDnsOptions.property.queryName"></a>
+
+```typescript
+public readonly queryName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `queryType`<sup>Optional</sup> <a name="queryType" id="cdk8s-constructs.GatusEndpointDnsOptions.property.queryType"></a>
+
+```typescript
+public readonly queryType: string;
+```
+
+- *Type:* string
+
+---
+
+### GatusEndpointOptions <a name="GatusEndpointOptions" id="cdk8s-constructs.GatusEndpointOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusEndpointOptions.Initializer"></a>
+
+```typescript
+import { GatusEndpointOptions } from 'cdk8s-constructs'
+
+const gatusEndpointOptions: GatusEndpointOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.conditions">conditions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.url">url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.alerts">alerts</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions">GatusEndpointAlertOptions</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.body">body</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.dns">dns</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointDnsOptions">GatusEndpointDnsOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.enabled">enabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.group">group</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.headers">headers</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.hideConditionsOnUi">hideConditionsOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.hideHostnameOnUi">hideHostnameOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.hideMethodOnUi">hideMethodOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.interval">interval</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.isGraphQl">isGraphQl</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.method">method</a></code> | <code><a href="#cdk8s-constructs.GatusMethod">GatusMethod</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.resolveFailedConditionsOnUi">resolveFailedConditionsOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.ssh">ssh</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointSshOptions">GatusEndpointSshOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointOptions.property.uiResponseThresholds">uiResponseThresholds</a></code> | <code>number[]</code> | *No description.* |
+
+---
+
+##### `conditions`<sup>Required</sup> <a name="conditions" id="cdk8s-constructs.GatusEndpointOptions.property.conditions"></a>
+
+```typescript
+public readonly conditions: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.GatusEndpointOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="cdk8s-constructs.GatusEndpointOptions.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+##### `alerts`<sup>Optional</sup> <a name="alerts" id="cdk8s-constructs.GatusEndpointOptions.property.alerts"></a>
+
+```typescript
+public readonly alerts: GatusEndpointAlertOptions[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointAlertOptions">GatusEndpointAlertOptions</a>[]
+
+---
+
+##### `body`<sup>Optional</sup> <a name="body" id="cdk8s-constructs.GatusEndpointOptions.property.body"></a>
+
+```typescript
+public readonly body: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dns`<sup>Optional</sup> <a name="dns" id="cdk8s-constructs.GatusEndpointOptions.property.dns"></a>
+
+```typescript
+public readonly dns: GatusEndpointDnsOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointDnsOptions">GatusEndpointDnsOptions</a>
+
+---
+
+##### `enabled`<sup>Optional</sup> <a name="enabled" id="cdk8s-constructs.GatusEndpointOptions.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `group`<sup>Optional</sup> <a name="group" id="cdk8s-constructs.GatusEndpointOptions.property.group"></a>
+
+```typescript
+public readonly group: string;
+```
+
+- *Type:* string
+
+---
+
+##### `headers`<sup>Optional</sup> <a name="headers" id="cdk8s-constructs.GatusEndpointOptions.property.headers"></a>
+
+```typescript
+public readonly headers: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `hideConditionsOnUi`<sup>Optional</sup> <a name="hideConditionsOnUi" id="cdk8s-constructs.GatusEndpointOptions.property.hideConditionsOnUi"></a>
+
+```typescript
+public readonly hideConditionsOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `hideHostnameOnUi`<sup>Optional</sup> <a name="hideHostnameOnUi" id="cdk8s-constructs.GatusEndpointOptions.property.hideHostnameOnUi"></a>
+
+```typescript
+public readonly hideHostnameOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `hideMethodOnUi`<sup>Optional</sup> <a name="hideMethodOnUi" id="cdk8s-constructs.GatusEndpointOptions.property.hideMethodOnUi"></a>
+
+```typescript
+public readonly hideMethodOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `interval`<sup>Optional</sup> <a name="interval" id="cdk8s-constructs.GatusEndpointOptions.property.interval"></a>
+
+```typescript
+public readonly interval: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+##### `isGraphQl`<sup>Optional</sup> <a name="isGraphQl" id="cdk8s-constructs.GatusEndpointOptions.property.isGraphQl"></a>
+
+```typescript
+public readonly isGraphQl: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `method`<sup>Optional</sup> <a name="method" id="cdk8s-constructs.GatusEndpointOptions.property.method"></a>
+
+```typescript
+public readonly method: GatusMethod;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusMethod">GatusMethod</a>
+
+---
+
+##### `resolveFailedConditionsOnUi`<sup>Optional</sup> <a name="resolveFailedConditionsOnUi" id="cdk8s-constructs.GatusEndpointOptions.property.resolveFailedConditionsOnUi"></a>
+
+```typescript
+public readonly resolveFailedConditionsOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `ssh`<sup>Optional</sup> <a name="ssh" id="cdk8s-constructs.GatusEndpointOptions.property.ssh"></a>
+
+```typescript
+public readonly ssh: GatusEndpointSshOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointSshOptions">GatusEndpointSshOptions</a>
+
+---
+
+##### `uiResponseThresholds`<sup>Optional</sup> <a name="uiResponseThresholds" id="cdk8s-constructs.GatusEndpointOptions.property.uiResponseThresholds"></a>
+
+```typescript
+public readonly uiResponseThresholds: number[];
+```
+
+- *Type:* number[]
+
+---
+
+### GatusEndpointSshOptions <a name="GatusEndpointSshOptions" id="cdk8s-constructs.GatusEndpointSshOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusEndpointSshOptions.Initializer"></a>
+
+```typescript
+import { GatusEndpointSshOptions } from 'cdk8s-constructs'
+
+const gatusEndpointSshOptions: GatusEndpointSshOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpointSshOptions.property.password">password</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpointSshOptions.property.username">username</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `password`<sup>Required</sup> <a name="password" id="cdk8s-constructs.GatusEndpointSshOptions.property.password"></a>
+
+```typescript
+public readonly password: string;
+```
+
+- *Type:* string
+
+---
+
+##### `username`<sup>Required</sup> <a name="username" id="cdk8s-constructs.GatusEndpointSshOptions.property.username"></a>
+
+```typescript
+public readonly username: string;
+```
+
+- *Type:* string
+
+---
+
+### GatusProps <a name="GatusProps" id="cdk8s-constructs.GatusProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GatusProps.Initializer"></a>
+
+```typescript
+import { GatusProps } from 'cdk8s-constructs'
+
+const gatusProps: GatusProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusProps.property.endpoints">endpoints</a></code> | <code><a href="#cdk8s-constructs.GatusEndpoint">GatusEndpoint</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusProps.property.alerting">alerting</a></code> | <code><a href="#cdk8s-constructs.GatusAlertingOptions">GatusAlertingOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusProps.property.database">database</a></code> | <code><a href="#cdk8s-constructs.GatusDatabaseOptions">GatusDatabaseOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusProps.property.ingress">ingress</a></code> | <code><a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a></code> | *No description.* |
+
+---
+
+##### `endpoints`<sup>Required</sup> <a name="endpoints" id="cdk8s-constructs.GatusProps.property.endpoints"></a>
+
+```typescript
+public readonly endpoints: GatusEndpoint[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpoint">GatusEndpoint</a>[]
+
+---
+
+##### `alerting`<sup>Optional</sup> <a name="alerting" id="cdk8s-constructs.GatusProps.property.alerting"></a>
+
+```typescript
+public readonly alerting: GatusAlertingOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusAlertingOptions">GatusAlertingOptions</a>
+
+---
+
+##### `database`<sup>Optional</sup> <a name="database" id="cdk8s-constructs.GatusProps.property.database"></a>
+
+```typescript
+public readonly database: GatusDatabaseOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusDatabaseOptions">GatusDatabaseOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.GatusProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `ingress`<sup>Optional</sup> <a name="ingress" id="cdk8s-constructs.GatusProps.property.ingress"></a>
+
+```typescript
+public readonly ingress: HomelabIngressOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.HomelabIngressOptions">HomelabIngressOptions</a>
+
+---
+
 ### GrafanaDashboardProps <a name="GrafanaDashboardProps" id="cdk8s-constructs.GrafanaDashboardProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.GrafanaDashboardProps.Initializer"></a>
@@ -15063,7 +15944,7 @@ const homelabIngressProps: HomelabIngressProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.hostname">hostname</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.HomelabIngressProps.property.service">service</a></code> | <code>cdk8s-plus-minus.Service</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.HomelabIngressProps.property.service">service</a></code> | <code>cdk8s-plus-minus.IService</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.annotations">annotations</a></code> | <code><a href="#cdk8s-constructs.Annotation">Annotation</a>[]</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certIssuer">certIssuer</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.HomelabIngressProps.property.certSecretName">certSecretName</a></code> | <code>string</code> | *No description.* |
@@ -15085,10 +15966,10 @@ public readonly hostname: string;
 ##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.HomelabIngressProps.property.service"></a>
 
 ```typescript
-public readonly service: Service;
+public readonly service: IService;
 ```
 
-- *Type:* cdk8s-plus-minus.Service
+- *Type:* cdk8s-plus-minus.IService
 
 ---
 
@@ -21560,6 +22441,78 @@ public readonly storageClass: string;
 
 ---
 
+### PostgresDatabaseOptions <a name="PostgresDatabaseOptions" id="cdk8s-constructs.PostgresDatabaseOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.PostgresDatabaseOptions.Initializer"></a>
+
+```typescript
+import { PostgresDatabaseOptions } from 'cdk8s-constructs'
+
+const postgresDatabaseOptions: PostgresDatabaseOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.PostgresDatabaseOptions.property.database">database</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PostgresDatabaseOptions.property.host">host</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PostgresDatabaseOptions.property.password">password</a></code> | <code>cdk8s-plus-minus.ISecret</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PostgresDatabaseOptions.property.user">user</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.PostgresDatabaseOptions.property.port">port</a></code> | <code>number</code> | *No description.* |
+
+---
+
+##### `database`<sup>Required</sup> <a name="database" id="cdk8s-constructs.PostgresDatabaseOptions.property.database"></a>
+
+```typescript
+public readonly database: string;
+```
+
+- *Type:* string
+
+---
+
+##### `host`<sup>Required</sup> <a name="host" id="cdk8s-constructs.PostgresDatabaseOptions.property.host"></a>
+
+```typescript
+public readonly host: string;
+```
+
+- *Type:* string
+
+---
+
+##### `password`<sup>Required</sup> <a name="password" id="cdk8s-constructs.PostgresDatabaseOptions.property.password"></a>
+
+```typescript
+public readonly password: ISecret;
+```
+
+- *Type:* cdk8s-plus-minus.ISecret
+
+---
+
+##### `user`<sup>Required</sup> <a name="user" id="cdk8s-constructs.PostgresDatabaseOptions.property.user"></a>
+
+```typescript
+public readonly user: string;
+```
+
+- *Type:* string
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.PostgresDatabaseOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+---
+
 ### ProbeOptions <a name="ProbeOptions" id="cdk8s-constructs.ProbeOptions"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.ProbeOptions.Initializer"></a>
@@ -25076,6 +26029,249 @@ Tunnel name to create on Cloudflare.
 
 ## Classes <a name="Classes" id="Classes"></a>
 
+### GatusEndpoint <a name="GatusEndpoint" id="cdk8s-constructs.GatusEndpoint"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.GatusEndpoint.Initializer"></a>
+
+```typescript
+import { GatusEndpoint } from 'cdk8s-constructs'
+
+new GatusEndpoint(options: GatusEndpointOptions)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.Initializer.parameter.options">options</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointOptions">GatusEndpointOptions</a></code> | *No description.* |
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="cdk8s-constructs.GatusEndpoint.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointOptions">GatusEndpointOptions</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.asObject">asObject</a></code> | *No description.* |
+
+---
+
+##### `asObject` <a name="asObject" id="cdk8s-constructs.GatusEndpoint.asObject"></a>
+
+```typescript
+public asObject(): {[ key: string ]: any}
+```
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.conditions">conditions</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.url">url</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.alerts">alerts</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointAlertOptions">GatusEndpointAlertOptions</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.body">body</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.dns">dns</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointDnsOptions">GatusEndpointDnsOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.enabled">enabled</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.group">group</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.headers">headers</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.hideConditionsOnUi">hideConditionsOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.hideHostnameOnUi">hideHostnameOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.hideMethodOnUi">hideMethodOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.interval">interval</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.isGraphQl">isGraphQl</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.method">method</a></code> | <code><a href="#cdk8s-constructs.GatusMethod">GatusMethod</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.resolveFailedConditionsOnUi">resolveFailedConditionsOnUi</a></code> | <code>boolean</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.ssh">ssh</a></code> | <code><a href="#cdk8s-constructs.GatusEndpointSshOptions">GatusEndpointSshOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusEndpoint.property.uiResponseThresholds">uiResponseThresholds</a></code> | <code>number[]</code> | *No description.* |
+
+---
+
+##### `conditions`<sup>Required</sup> <a name="conditions" id="cdk8s-constructs.GatusEndpoint.property.conditions"></a>
+
+```typescript
+public readonly conditions: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="cdk8s-constructs.GatusEndpoint.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `url`<sup>Required</sup> <a name="url" id="cdk8s-constructs.GatusEndpoint.property.url"></a>
+
+```typescript
+public readonly url: string;
+```
+
+- *Type:* string
+
+---
+
+##### `alerts`<sup>Optional</sup> <a name="alerts" id="cdk8s-constructs.GatusEndpoint.property.alerts"></a>
+
+```typescript
+public readonly alerts: GatusEndpointAlertOptions[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointAlertOptions">GatusEndpointAlertOptions</a>[]
+
+---
+
+##### `body`<sup>Optional</sup> <a name="body" id="cdk8s-constructs.GatusEndpoint.property.body"></a>
+
+```typescript
+public readonly body: string;
+```
+
+- *Type:* string
+
+---
+
+##### `dns`<sup>Optional</sup> <a name="dns" id="cdk8s-constructs.GatusEndpoint.property.dns"></a>
+
+```typescript
+public readonly dns: GatusEndpointDnsOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointDnsOptions">GatusEndpointDnsOptions</a>
+
+---
+
+##### `enabled`<sup>Optional</sup> <a name="enabled" id="cdk8s-constructs.GatusEndpoint.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `group`<sup>Optional</sup> <a name="group" id="cdk8s-constructs.GatusEndpoint.property.group"></a>
+
+```typescript
+public readonly group: string;
+```
+
+- *Type:* string
+
+---
+
+##### `headers`<sup>Optional</sup> <a name="headers" id="cdk8s-constructs.GatusEndpoint.property.headers"></a>
+
+```typescript
+public readonly headers: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+---
+
+##### `hideConditionsOnUi`<sup>Optional</sup> <a name="hideConditionsOnUi" id="cdk8s-constructs.GatusEndpoint.property.hideConditionsOnUi"></a>
+
+```typescript
+public readonly hideConditionsOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `hideHostnameOnUi`<sup>Optional</sup> <a name="hideHostnameOnUi" id="cdk8s-constructs.GatusEndpoint.property.hideHostnameOnUi"></a>
+
+```typescript
+public readonly hideHostnameOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `hideMethodOnUi`<sup>Optional</sup> <a name="hideMethodOnUi" id="cdk8s-constructs.GatusEndpoint.property.hideMethodOnUi"></a>
+
+```typescript
+public readonly hideMethodOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `interval`<sup>Optional</sup> <a name="interval" id="cdk8s-constructs.GatusEndpoint.property.interval"></a>
+
+```typescript
+public readonly interval: Duration;
+```
+
+- *Type:* cdk8s.Duration
+
+---
+
+##### `isGraphQl`<sup>Optional</sup> <a name="isGraphQl" id="cdk8s-constructs.GatusEndpoint.property.isGraphQl"></a>
+
+```typescript
+public readonly isGraphQl: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `method`<sup>Optional</sup> <a name="method" id="cdk8s-constructs.GatusEndpoint.property.method"></a>
+
+```typescript
+public readonly method: GatusMethod;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusMethod">GatusMethod</a>
+
+---
+
+##### `resolveFailedConditionsOnUi`<sup>Optional</sup> <a name="resolveFailedConditionsOnUi" id="cdk8s-constructs.GatusEndpoint.property.resolveFailedConditionsOnUi"></a>
+
+```typescript
+public readonly resolveFailedConditionsOnUi: boolean;
+```
+
+- *Type:* boolean
+
+---
+
+##### `ssh`<sup>Optional</sup> <a name="ssh" id="cdk8s-constructs.GatusEndpoint.property.ssh"></a>
+
+```typescript
+public readonly ssh: GatusEndpointSshOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GatusEndpointSshOptions">GatusEndpointSshOptions</a>
+
+---
+
+##### `uiResponseThresholds`<sup>Optional</sup> <a name="uiResponseThresholds" id="cdk8s-constructs.GatusEndpoint.property.uiResponseThresholds"></a>
+
+```typescript
+public readonly uiResponseThresholds: number[];
+```
+
+- *Type:* number[]
+
+---
+
+
 ### HomelabRoute <a name="HomelabRoute" id="cdk8s-constructs.HomelabRoute"></a>
 
 #### Initializers <a name="Initializers" id="cdk8s-constructs.HomelabRoute.Initializer"></a>
@@ -26625,6 +27821,138 @@ public readonly port: number;
 ---
 
 ##### `TRAEFIC_EXTERNAL` <a name="TRAEFIC_EXTERNAL" id="cdk8s-constructs.ClusterIngressClass.TRAEFIC_EXTERNAL"></a>
+
+---
+
+
+### GatusAlertType <a name="GatusAlertType" id="cdk8s-constructs.GatusAlertType"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GatusAlertType.DISCORD">DISCORD</a></code> | *No description.* |
+
+---
+
+##### `DISCORD` <a name="DISCORD" id="cdk8s-constructs.GatusAlertType.DISCORD"></a>
+
+---
+
+
+### GatusConditions <a name="GatusConditions" id="cdk8s-constructs.GatusConditions"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GatusConditions.HTTP_STATUS_200">HTTP_STATUS_200</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.HTTP_STATUS_2XX">HTTP_STATUS_2XX</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.CERTIFICATE_EXPIRY_CORE_THAN_48_HOURS">CERTIFICATE_EXPIRY_CORE_THAN_48_HOURS</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_500">RESPONSE_TIME_SUB_500</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_1000">RESPONSE_TIME_SUB_1000</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_2000">RESPONSE_TIME_SUB_2000</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_5000">RESPONSE_TIME_SUB_5000</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_10000">RESPONSE_TIME_SUB_10000</a></code> | *No description.* |
+
+---
+
+##### `HTTP_STATUS_200` <a name="HTTP_STATUS_200" id="cdk8s-constructs.GatusConditions.HTTP_STATUS_200"></a>
+
+---
+
+
+##### `HTTP_STATUS_2XX` <a name="HTTP_STATUS_2XX" id="cdk8s-constructs.GatusConditions.HTTP_STATUS_2XX"></a>
+
+---
+
+
+##### `CERTIFICATE_EXPIRY_CORE_THAN_48_HOURS` <a name="CERTIFICATE_EXPIRY_CORE_THAN_48_HOURS" id="cdk8s-constructs.GatusConditions.CERTIFICATE_EXPIRY_CORE_THAN_48_HOURS"></a>
+
+---
+
+
+##### `RESPONSE_TIME_SUB_500` <a name="RESPONSE_TIME_SUB_500" id="cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_500"></a>
+
+---
+
+
+##### `RESPONSE_TIME_SUB_1000` <a name="RESPONSE_TIME_SUB_1000" id="cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_1000"></a>
+
+---
+
+
+##### `RESPONSE_TIME_SUB_2000` <a name="RESPONSE_TIME_SUB_2000" id="cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_2000"></a>
+
+---
+
+
+##### `RESPONSE_TIME_SUB_5000` <a name="RESPONSE_TIME_SUB_5000" id="cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_5000"></a>
+
+---
+
+
+##### `RESPONSE_TIME_SUB_10000` <a name="RESPONSE_TIME_SUB_10000" id="cdk8s-constructs.GatusConditions.RESPONSE_TIME_SUB_10000"></a>
+
+---
+
+
+### GatusDatabaseEngine <a name="GatusDatabaseEngine" id="cdk8s-constructs.GatusDatabaseEngine"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GatusDatabaseEngine.POSTGRES">POSTGRES</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseEngine.SQLITE">SQLITE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusDatabaseEngine.MEMORY">MEMORY</a></code> | *No description.* |
+
+---
+
+##### `POSTGRES` <a name="POSTGRES" id="cdk8s-constructs.GatusDatabaseEngine.POSTGRES"></a>
+
+---
+
+
+##### `SQLITE` <a name="SQLITE" id="cdk8s-constructs.GatusDatabaseEngine.SQLITE"></a>
+
+---
+
+
+##### `MEMORY` <a name="MEMORY" id="cdk8s-constructs.GatusDatabaseEngine.MEMORY"></a>
+
+---
+
+
+### GatusMethod <a name="GatusMethod" id="cdk8s-constructs.GatusMethod"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.GatusMethod.GET">GET</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusMethod.POST">POST</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusMethod.PUT">PUT</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.GatusMethod.DELETE">DELETE</a></code> | *No description.* |
+
+---
+
+##### `GET` <a name="GET" id="cdk8s-constructs.GatusMethod.GET"></a>
+
+---
+
+
+##### `POST` <a name="POST" id="cdk8s-constructs.GatusMethod.POST"></a>
+
+---
+
+
+##### `PUT` <a name="PUT" id="cdk8s-constructs.GatusMethod.PUT"></a>
+
+---
+
+
+##### `DELETE` <a name="DELETE" id="cdk8s-constructs.GatusMethod.DELETE"></a>
 
 ---
 

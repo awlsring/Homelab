@@ -66,6 +66,18 @@ export class Cluster extends Construct {
     });
   }
 
+  readService(): string {
+    return `${this.apiObject.name}-r`;
+  }
+
+  writeService(): string {
+    return `${this.apiObject.name}-w`;
+  }
+
+  readWriteService(): string {
+    return `${this.apiObject.name}-rw`;
+  }
+
   exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Service {
     const selector = new ClusterPrimaryPodSelector(
       this,
