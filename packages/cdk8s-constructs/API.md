@@ -11961,6 +11961,141 @@ Returns the apiVersion and kind for "TunnelBinding".
 
 ---
 
+### Valheim <a name="Valheim" id="cdk8s-constructs.Valheim"></a>
+
+#### Initializers <a name="Initializers" id="cdk8s-constructs.Valheim.Initializer"></a>
+
+```typescript
+import { Valheim } from 'cdk8s-constructs'
+
+new Valheim(scope: Construct, id: string, props: ValheimProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Valheim.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Valheim.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Valheim.Initializer.parameter.props">props</a></code> | <code><a href="#cdk8s-constructs.ValheimProps">ValheimProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk8s-constructs.Valheim.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="cdk8s-constructs.Valheim.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="cdk8s-constructs.Valheim.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#cdk8s-constructs.ValheimProps">ValheimProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Valheim.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="cdk8s-constructs.Valheim.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.Valheim.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### `isConstruct` <a name="isConstruct" id="cdk8s-constructs.Valheim.isConstruct"></a>
+
+```typescript
+import { Valheim } from 'cdk8s-constructs'
+
+Valheim.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
+###### `x`<sup>Required</sup> <a name="x" id="cdk8s-constructs.Valheim.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Valheim.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk8s-constructs.Valheim.property.deployment">deployment</a></code> | <code>cdk8s-plus-27.Deployment</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Valheim.property.service">service</a></code> | <code>cdk8s-plus-27.Service</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="cdk8s-constructs.Valheim.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `deployment`<sup>Required</sup> <a name="deployment" id="cdk8s-constructs.Valheim.property.deployment"></a>
+
+```typescript
+public readonly deployment: Deployment;
+```
+
+- *Type:* cdk8s-plus-27.Deployment
+
+---
+
+##### `service`<sup>Required</sup> <a name="service" id="cdk8s-constructs.Valheim.property.service"></a>
+
+```typescript
+public readonly service: Service;
+```
+
+- *Type:* cdk8s-plus-27.Service
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### Annotation <a name="Annotation" id="cdk8s-constructs.Annotation"></a>
@@ -12431,6 +12566,150 @@ public readonly downloads: VolumeMount;
 ```
 
 - *Type:* cdk8s-plus-minus.VolumeMount
+
+---
+
+### BackupOptions <a name="BackupOptions" id="cdk8s-constructs.BackupOptions"></a>
+
+options for configuring the valheim server backups.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.BackupOptions.Initializer"></a>
+
+```typescript
+import { BackupOptions } from 'cdk8s-constructs'
+
+const backupOptions: BackupOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.enable">enable</a></code> | <code>boolean</code> | Should backups be enabled. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.directory">directory</a></code> | <code>string</code> | The directory to store backups. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.idleGracePeriod">idleGracePeriod</a></code> | <code>number</code> | The grace period for the server to be idle. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.maxBackups">maxBackups</a></code> | <code>number</code> | The retention count for backups. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.performIfIdle">performIfIdle</a></code> | <code>boolean</code> | Only backup if server idle. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.permissionUmask">permissionUmask</a></code> | <code>string</code> | Permission mask for the backup directory. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.retentionAge">retentionAge</a></code> | <code>number</code> | The retention age for backups. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.scheduleCron">scheduleCron</a></code> | <code>string</code> | The cron schedule for the backup job. |
+| <code><a href="#cdk8s-constructs.BackupOptions.property.zip">zip</a></code> | <code>boolean</code> | Should the backups be zipped. |
+
+---
+
+##### `enable`<sup>Required</sup> <a name="enable" id="cdk8s-constructs.BackupOptions.property.enable"></a>
+
+```typescript
+public readonly enable: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should backups be enabled.
+
+---
+
+##### `directory`<sup>Optional</sup> <a name="directory" id="cdk8s-constructs.BackupOptions.property.directory"></a>
+
+```typescript
+public readonly directory: string;
+```
+
+- *Type:* string
+- *Default:* /config/backups
+
+The directory to store backups.
+
+---
+
+##### `idleGracePeriod`<sup>Optional</sup> <a name="idleGracePeriod" id="cdk8s-constructs.BackupOptions.property.idleGracePeriod"></a>
+
+```typescript
+public readonly idleGracePeriod: number;
+```
+
+- *Type:* number
+- *Default:* 3600s
+
+The grace period for the server to be idle.
+
+---
+
+##### `maxBackups`<sup>Optional</sup> <a name="maxBackups" id="cdk8s-constructs.BackupOptions.property.maxBackups"></a>
+
+```typescript
+public readonly maxBackups: number;
+```
+
+- *Type:* number
+- *Default:* unlimited
+
+The retention count for backups.
+
+---
+
+##### `performIfIdle`<sup>Optional</sup> <a name="performIfIdle" id="cdk8s-constructs.BackupOptions.property.performIfIdle"></a>
+
+```typescript
+public readonly performIfIdle: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Only backup if server idle.
+
+---
+
+##### `permissionUmask`<sup>Optional</sup> <a name="permissionUmask" id="cdk8s-constructs.BackupOptions.property.permissionUmask"></a>
+
+```typescript
+public readonly permissionUmask: string;
+```
+
+- *Type:* string
+
+Permission mask for the backup directory.
+
+---
+
+##### `retentionAge`<sup>Optional</sup> <a name="retentionAge" id="cdk8s-constructs.BackupOptions.property.retentionAge"></a>
+
+```typescript
+public readonly retentionAge: number;
+```
+
+- *Type:* number
+- *Default:* 3
+
+The retention age for backups.
+
+---
+
+##### `scheduleCron`<sup>Optional</sup> <a name="scheduleCron" id="cdk8s-constructs.BackupOptions.property.scheduleCron"></a>
+
+```typescript
+public readonly scheduleCron: string;
+```
+
+- *Type:* string
+- *Default:* 0 * * * *
+
+The cron schedule for the backup job.
+
+---
+
+##### `zip`<sup>Optional</sup> <a name="zip" id="cdk8s-constructs.BackupOptions.property.zip"></a>
+
+```typescript
+public readonly zip: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Should the backups be zipped.
 
 ---
 
@@ -14457,6 +14736,275 @@ public readonly store: ISecretStore;
 ```
 
 - *Type:* <a href="#cdk8s-constructs.ISecretStore">ISecretStore</a>
+
+---
+
+### GameServerOptions <a name="GameServerOptions" id="cdk8s-constructs.GameServerOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.GameServerOptions.Initializer"></a>
+
+```typescript
+import { GameServerOptions } from 'cdk8s-constructs'
+
+const gameServerOptions: GameServerOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.adminList">adminList</a></code> | <code>string[]</code> | Space separated list of admin SteamIDs in SteamID64 format. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.allowList">allowList</a></code> | <code>string[]</code> | Space separated list of allowed SteamIDs in SteamID64 format. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.blockList">blockList</a></code> | <code>string[]</code> | Space separated list of banned SteamIDs in SteamID64 format. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.crossplay">crossplay</a></code> | <code>boolean</code> | Should enable crossplay. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.idleDatagramMaxCount">idleDatagramMaxCount</a></code> | <code>number</code> | The number of incoming UDP datagrams the container should tolerate (including useless datagrams such as mDNS, as well as useful datagrams like queries against the UDP query port and active connections by players) on non-public servers before deciding that the server is not idle. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.idleDatagramWindow">idleDatagramWindow</a></code> | <code>number</code> | The time window, in seconds, to wait for incoming UDP datagrams on non-public servers before determining if the server is idle. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.launchArgs">launchArgs</a></code> | <code>string</code> | Arguments to pass to the server on start. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.port">port</a></code> | <code>number</code> | The port the server runs on. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.public">public</a></code> | <code>boolean</code> | If the server is public. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.publicBeta">publicBeta</a></code> | <code>boolean</code> | If the beta server branch should be used. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.restartCron">restartCron</a></code> | <code>string</code> | The server restart schedule. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.restartIfIdle">restartIfIdle</a></code> | <code>boolean</code> | Only restart the server if no players are connected to the server (true or false). |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | The service type in the cluster to expose the server on. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.steamCmdArgs">steamCmdArgs</a></code> | <code>string</code> | The arguments to pass to the steamcmd command. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.timezone">timezone</a></code> | <code>string</code> | The container timezone. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.updateCron">updateCron</a></code> | <code>string</code> | The server update schedule. |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.updateWhenIdle">updateWhenIdle</a></code> | <code>boolean</code> | Only run update check if no players are connected to the server (true or false). |
+| <code><a href="#cdk8s-constructs.GameServerOptions.property.valheimPlus">valheimPlus</a></code> | <code><a href="#cdk8s-constructs.ValheimPlusOptions">ValheimPlusOptions</a></code> | Properties for ValheimPlus. |
+
+---
+
+##### `adminList`<sup>Optional</sup> <a name="adminList" id="cdk8s-constructs.GameServerOptions.property.adminList"></a>
+
+```typescript
+public readonly adminList: string[];
+```
+
+- *Type:* string[]
+
+Space separated list of admin SteamIDs in SteamID64 format.
+
+Overrides any existing adminlist.txt entries!
+
+---
+
+##### `allowList`<sup>Optional</sup> <a name="allowList" id="cdk8s-constructs.GameServerOptions.property.allowList"></a>
+
+```typescript
+public readonly allowList: string[];
+```
+
+- *Type:* string[]
+
+Space separated list of allowed SteamIDs in SteamID64 format.
+
+Overrides any existing permittedlist.txt entries!
+
+---
+
+##### `blockList`<sup>Optional</sup> <a name="blockList" id="cdk8s-constructs.GameServerOptions.property.blockList"></a>
+
+```typescript
+public readonly blockList: string[];
+```
+
+- *Type:* string[]
+
+Space separated list of banned SteamIDs in SteamID64 format.
+
+Overrides any existing banlist.txt entries!
+
+---
+
+##### `crossplay`<sup>Optional</sup> <a name="crossplay" id="cdk8s-constructs.GameServerOptions.property.crossplay"></a>
+
+```typescript
+public readonly crossplay: boolean;
+```
+
+- *Type:* boolean
+
+Should enable crossplay.
+
+---
+
+##### `idleDatagramMaxCount`<sup>Optional</sup> <a name="idleDatagramMaxCount" id="cdk8s-constructs.GameServerOptions.property.idleDatagramMaxCount"></a>
+
+```typescript
+public readonly idleDatagramMaxCount: number;
+```
+
+- *Type:* number
+
+The number of incoming UDP datagrams the container should tolerate (including useless datagrams such as mDNS, as well as useful datagrams like queries against the UDP query port and active connections by players) on non-public servers before deciding that the server is not idle.
+
+---
+
+##### `idleDatagramWindow`<sup>Optional</sup> <a name="idleDatagramWindow" id="cdk8s-constructs.GameServerOptions.property.idleDatagramWindow"></a>
+
+```typescript
+public readonly idleDatagramWindow: number;
+```
+
+- *Type:* number
+
+The time window, in seconds, to wait for incoming UDP datagrams on non-public servers before determining if the server is idle.
+
+---
+
+##### `launchArgs`<sup>Optional</sup> <a name="launchArgs" id="cdk8s-constructs.GameServerOptions.property.launchArgs"></a>
+
+```typescript
+public readonly launchArgs: string;
+```
+
+- *Type:* string
+
+Arguments to pass to the server on start.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.GameServerOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+- *Default:* 2456
+
+The port the server runs on.
+
+This and the port + 1 must be open on the host
+The specified port is used for game conncections, and the increment port is
+used for the server query
+
+---
+
+##### `public`<sup>Optional</sup> <a name="public" id="cdk8s-constructs.GameServerOptions.property.public"></a>
+
+```typescript
+public readonly public: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+If the server is public.
+
+---
+
+##### `publicBeta`<sup>Optional</sup> <a name="publicBeta" id="cdk8s-constructs.GameServerOptions.property.publicBeta"></a>
+
+```typescript
+public readonly publicBeta: boolean;
+```
+
+- *Type:* boolean
+
+If the beta server branch should be used.
+
+---
+
+##### `restartCron`<sup>Optional</sup> <a name="restartCron" id="cdk8s-constructs.GameServerOptions.property.restartCron"></a>
+
+```typescript
+public readonly restartCron: string;
+```
+
+- *Type:* string
+- *Default:* "0 5 * * *"
+
+The server restart schedule.
+
+---
+
+##### `restartIfIdle`<sup>Optional</sup> <a name="restartIfIdle" id="cdk8s-constructs.GameServerOptions.property.restartIfIdle"></a>
+
+```typescript
+public readonly restartIfIdle: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Only restart the server if no players are connected to the server (true or false).
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.GameServerOptions.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+- *Default:* ServiceType.LOAD_BALANCER
+
+The service type in the cluster to expose the server on.
+
+---
+
+##### `steamCmdArgs`<sup>Optional</sup> <a name="steamCmdArgs" id="cdk8s-constructs.GameServerOptions.property.steamCmdArgs"></a>
+
+```typescript
+public readonly steamCmdArgs: string;
+```
+
+- *Type:* string
+
+The arguments to pass to the steamcmd command.
+
+---
+
+##### `timezone`<sup>Optional</sup> <a name="timezone" id="cdk8s-constructs.GameServerOptions.property.timezone"></a>
+
+```typescript
+public readonly timezone: string;
+```
+
+- *Type:* string
+- *Default:* "Etc/UTC
+
+The container timezone.
+
+---
+
+##### `updateCron`<sup>Optional</sup> <a name="updateCron" id="cdk8s-constructs.GameServerOptions.property.updateCron"></a>
+
+```typescript
+public readonly updateCron: string;
+```
+
+- *Type:* string
+- *Default:* "*\/15 * * * *"
+
+The server update schedule.
+
+---
+
+##### `updateWhenIdle`<sup>Optional</sup> <a name="updateWhenIdle" id="cdk8s-constructs.GameServerOptions.property.updateWhenIdle"></a>
+
+```typescript
+public readonly updateWhenIdle: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+Only run update check if no players are connected to the server (true or false).
+
+---
+
+##### `valheimPlus`<sup>Optional</sup> <a name="valheimPlus" id="cdk8s-constructs.GameServerOptions.property.valheimPlus"></a>
+
+```typescript
+public readonly valheimPlus: ValheimPlusOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.ValheimPlusOptions">ValheimPlusOptions</a>
+
+Properties for ValheimPlus.
 
 ---
 
@@ -22159,6 +22707,64 @@ public readonly storeName: string;
 
 ---
 
+### OptionalServiceOptions <a name="OptionalServiceOptions" id="cdk8s-constructs.OptionalServiceOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.OptionalServiceOptions.Initializer"></a>
+
+```typescript
+import { OptionalServiceOptions } from 'cdk8s-constructs'
+
+const optionalServiceOptions: OptionalServiceOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.OptionalServiceOptions.property.enable">enable</a></code> | <code>boolean</code> | Should the service be enabled. |
+| <code><a href="#cdk8s-constructs.OptionalServiceOptions.property.port">port</a></code> | <code>number</code> | The port the service should listen on. |
+| <code><a href="#cdk8s-constructs.OptionalServiceOptions.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | The service type for the status http server. |
+
+---
+
+##### `enable`<sup>Required</sup> <a name="enable" id="cdk8s-constructs.OptionalServiceOptions.property.enable"></a>
+
+```typescript
+public readonly enable: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Should the service be enabled.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.OptionalServiceOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+The port the service should listen on.
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.OptionalServiceOptions.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+- *Default:* ServiceType.CLUSTER_IP
+
+The service type for the status http server.
+
+---
+
 ### PalworldProps <a name="PalworldProps" id="cdk8s-constructs.PalworldProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.PalworldProps.Initializer"></a>
@@ -23260,6 +23866,86 @@ public readonly matchLabels: {[ key: string ]: string};
 
 ---
 
+### SupervisorServiceOptions <a name="SupervisorServiceOptions" id="cdk8s-constructs.SupervisorServiceOptions"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.SupervisorServiceOptions.Initializer"></a>
+
+```typescript
+import { SupervisorServiceOptions } from 'cdk8s-constructs'
+
+const supervisorServiceOptions: SupervisorServiceOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SupervisorServiceOptions.property.enable">enable</a></code> | <code>boolean</code> | Should the service be enabled. |
+| <code><a href="#cdk8s-constructs.SupervisorServiceOptions.property.port">port</a></code> | <code>number</code> | The port the service should listen on. |
+| <code><a href="#cdk8s-constructs.SupervisorServiceOptions.property.serviceType">serviceType</a></code> | <code>cdk8s-plus-27.ServiceType</code> | The service type for the status http server. |
+| <code><a href="#cdk8s-constructs.SupervisorServiceOptions.property.password">password</a></code> | <code>cdk8s-plus-minus.SecretValue</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.SupervisorServiceOptions.property.username">username</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `enable`<sup>Required</sup> <a name="enable" id="cdk8s-constructs.SupervisorServiceOptions.property.enable"></a>
+
+```typescript
+public readonly enable: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Should the service be enabled.
+
+---
+
+##### `port`<sup>Optional</sup> <a name="port" id="cdk8s-constructs.SupervisorServiceOptions.property.port"></a>
+
+```typescript
+public readonly port: number;
+```
+
+- *Type:* number
+
+The port the service should listen on.
+
+---
+
+##### `serviceType`<sup>Optional</sup> <a name="serviceType" id="cdk8s-constructs.SupervisorServiceOptions.property.serviceType"></a>
+
+```typescript
+public readonly serviceType: ServiceType;
+```
+
+- *Type:* cdk8s-plus-27.ServiceType
+- *Default:* ServiceType.CLUSTER_IP
+
+The service type for the status http server.
+
+---
+
+##### `password`<sup>Required</sup> <a name="password" id="cdk8s-constructs.SupervisorServiceOptions.property.password"></a>
+
+```typescript
+public readonly password: SecretValue;
+```
+
+- *Type:* cdk8s-plus-minus.SecretValue
+
+---
+
+##### `username`<sup>Required</sup> <a name="username" id="cdk8s-constructs.SupervisorServiceOptions.property.username"></a>
+
+```typescript
+public readonly username: string;
+```
+
+- *Type:* string
+
+---
+
 ### SyncthingProps <a name="SyncthingProps" id="cdk8s-constructs.SyncthingProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.SyncthingProps.Initializer"></a>
@@ -23346,6 +24032,65 @@ public readonly sync: Volume;
 ```
 
 - *Type:* cdk8s-plus-minus.Volume
+
+---
+
+### SysLogOptions <a name="SysLogOptions" id="cdk8s-constructs.SysLogOptions"></a>
+
+Options for configuring syslog.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.SysLogOptions.Initializer"></a>
+
+```typescript
+import { SysLogOptions } from 'cdk8s-constructs'
+
+const sysLogOptions: SysLogOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.SysLogOptions.property.logLocal">logLocal</a></code> | <code>boolean</code> | Should logging be done local. |
+| <code><a href="#cdk8s-constructs.SysLogOptions.property.remoteHost">remoteHost</a></code> | <code>string</code> | The remote syslog host. |
+| <code><a href="#cdk8s-constructs.SysLogOptions.property.remotePort">remotePort</a></code> | <code>number</code> | The remote syslog port. |
+
+---
+
+##### `logLocal`<sup>Optional</sup> <a name="logLocal" id="cdk8s-constructs.SysLogOptions.property.logLocal"></a>
+
+```typescript
+public readonly logLocal: boolean;
+```
+
+- *Type:* boolean
+
+Should logging be done local.
+
+---
+
+##### `remoteHost`<sup>Optional</sup> <a name="remoteHost" id="cdk8s-constructs.SysLogOptions.property.remoteHost"></a>
+
+```typescript
+public readonly remoteHost: string;
+```
+
+- *Type:* string
+
+The remote syslog host.
+
+---
+
+##### `remotePort`<sup>Optional</sup> <a name="remotePort" id="cdk8s-constructs.SysLogOptions.property.remotePort"></a>
+
+```typescript
+public readonly remotePort: number;
+```
+
+- *Type:* number
+- *Default:* 514
+
+The remote syslog port.
 
 ---
 
@@ -26024,6 +26769,202 @@ public readonly name: string;
 - *Type:* string
 
 Tunnel name to create on Cloudflare.
+
+---
+
+### ValheimPlusOptions <a name="ValheimPlusOptions" id="cdk8s-constructs.ValheimPlusOptions"></a>
+
+Props for configuring valheim plus.
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ValheimPlusOptions.Initializer"></a>
+
+```typescript
+import { ValheimPlusOptions } from 'cdk8s-constructs'
+
+const valheimPlusOptions: ValheimPlusOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ValheimPlusOptions.property.enabled">enabled</a></code> | <code>boolean</code> | Should valheim plus be enabled. |
+| <code><a href="#cdk8s-constructs.ValheimPlusOptions.property.release">release</a></code> | <code>string</code> | The version of valheim plus to use. |
+
+---
+
+##### `enabled`<sup>Required</sup> <a name="enabled" id="cdk8s-constructs.ValheimPlusOptions.property.enabled"></a>
+
+```typescript
+public readonly enabled: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Should valheim plus be enabled.
+
+---
+
+##### `release`<sup>Optional</sup> <a name="release" id="cdk8s-constructs.ValheimPlusOptions.property.release"></a>
+
+```typescript
+public readonly release: string;
+```
+
+- *Type:* string
+- *Default:* latest
+
+The version of valheim plus to use.
+
+---
+
+### ValheimProps <a name="ValheimProps" id="cdk8s-constructs.ValheimProps"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.ValheimProps.Initializer"></a>
+
+```typescript
+import { ValheimProps } from 'cdk8s-constructs'
+
+const valheimProps: ValheimProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.configVolume">configVolume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.serverName">serverName</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.serverPassword">serverPassword</a></code> | <code>cdk8s-plus-minus.SecretValue</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.serverVolume">serverVolume</a></code> | <code>cdk8s-plus-27.Volume</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.backup">backup</a></code> | <code><a href="#cdk8s-constructs.BackupOptions">BackupOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.gameServer">gameServer</a></code> | <code><a href="#cdk8s-constructs.GameServerOptions">GameServerOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.resources">resources</a></code> | <code>cdk8s-plus-minus.ContainerResources</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.supervisorService">supervisorService</a></code> | <code><a href="#cdk8s-constructs.SupervisorServiceOptions">SupervisorServiceOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.sysLog">sysLog</a></code> | <code><a href="#cdk8s-constructs.SysLogOptions">SysLogOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.webService">webService</a></code> | <code><a href="#cdk8s-constructs.OptionalServiceOptions">OptionalServiceOptions</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ValheimProps.property.worldName">worldName</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `configVolume`<sup>Required</sup> <a name="configVolume" id="cdk8s-constructs.ValheimProps.property.configVolume"></a>
+
+```typescript
+public readonly configVolume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `serverName`<sup>Required</sup> <a name="serverName" id="cdk8s-constructs.ValheimProps.property.serverName"></a>
+
+```typescript
+public readonly serverName: string;
+```
+
+- *Type:* string
+
+---
+
+##### `serverPassword`<sup>Required</sup> <a name="serverPassword" id="cdk8s-constructs.ValheimProps.property.serverPassword"></a>
+
+```typescript
+public readonly serverPassword: SecretValue;
+```
+
+- *Type:* cdk8s-plus-minus.SecretValue
+
+---
+
+##### `serverVolume`<sup>Required</sup> <a name="serverVolume" id="cdk8s-constructs.ValheimProps.property.serverVolume"></a>
+
+```typescript
+public readonly serverVolume: Volume;
+```
+
+- *Type:* cdk8s-plus-27.Volume
+
+---
+
+##### `backup`<sup>Optional</sup> <a name="backup" id="cdk8s-constructs.ValheimProps.property.backup"></a>
+
+```typescript
+public readonly backup: BackupOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.BackupOptions">BackupOptions</a>
+
+---
+
+##### `gameServer`<sup>Optional</sup> <a name="gameServer" id="cdk8s-constructs.ValheimProps.property.gameServer"></a>
+
+```typescript
+public readonly gameServer: GameServerOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.GameServerOptions">GameServerOptions</a>
+
+---
+
+##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ValheimProps.property.imageTag"></a>
+
+```typescript
+public readonly imageTag: string;
+```
+
+- *Type:* string
+
+---
+
+##### `resources`<sup>Optional</sup> <a name="resources" id="cdk8s-constructs.ValheimProps.property.resources"></a>
+
+```typescript
+public readonly resources: ContainerResources;
+```
+
+- *Type:* cdk8s-plus-minus.ContainerResources
+
+---
+
+##### `supervisorService`<sup>Optional</sup> <a name="supervisorService" id="cdk8s-constructs.ValheimProps.property.supervisorService"></a>
+
+```typescript
+public readonly supervisorService: SupervisorServiceOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.SupervisorServiceOptions">SupervisorServiceOptions</a>
+
+---
+
+##### `sysLog`<sup>Optional</sup> <a name="sysLog" id="cdk8s-constructs.ValheimProps.property.sysLog"></a>
+
+```typescript
+public readonly sysLog: SysLogOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.SysLogOptions">SysLogOptions</a>
+
+---
+
+##### `webService`<sup>Optional</sup> <a name="webService" id="cdk8s-constructs.ValheimProps.property.webService"></a>
+
+```typescript
+public readonly webService: OptionalServiceOptions;
+```
+
+- *Type:* <a href="#cdk8s-constructs.OptionalServiceOptions">OptionalServiceOptions</a>
+
+---
+
+##### `worldName`<sup>Optional</sup> <a name="worldName" id="cdk8s-constructs.ValheimProps.property.worldName"></a>
+
+```typescript
+public readonly worldName: string;
+```
+
+- *Type:* string
 
 ---
 

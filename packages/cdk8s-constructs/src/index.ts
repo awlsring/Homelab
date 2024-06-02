@@ -48,3 +48,4 @@ export * from "./constructs/apps/palworld";
 export * from "./constructs/apps/bluesky-pds";
 export * from "./constructs/crossplane/provider";
 export * from "./constructs/apps/gatus";
+export * from "./constructs/apps/valheim";
