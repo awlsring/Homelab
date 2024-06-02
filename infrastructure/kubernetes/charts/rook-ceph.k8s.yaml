@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-osd
@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr
@@ -37,7 +37,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cmd-reporter
@@ -56,7 +56,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-rgw
@@ -78,7 +78,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -323,17 +323,17 @@ data:
   ROOK_CEPH_ALLOW_LOOP_DEVICES: "false"
   ROOK_CEPH_COMMANDS_TIMEOUT_SECONDS: "15"
   ROOK_CSIADDONS_IMAGE: quay.io/csiaddons/k8s-sidecar:v0.8.0
-  ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.5.0
+  ROOK_CSI_ATTACHER_IMAGE: registry.k8s.io/sig-storage/csi-attacher:v4.5.1
   ROOK_CSI_CEPH_IMAGE: quay.io/cephcsi/cephcsi:v3.11.0
   ROOK_CSI_DISABLE_DRIVER: "false"
   ROOK_CSI_ENABLE_CEPHFS: "true"
   ROOK_CSI_ENABLE_NFS: "false"
   ROOK_CSI_ENABLE_RBD: "true"
   ROOK_CSI_IMAGE_PULL_POLICY: IfNotPresent
-  ROOK_CSI_PROVISIONER_IMAGE: registry.k8s.io/sig-storage/csi-provisioner:v4.0.0
-  ROOK_CSI_REGISTRAR_IMAGE: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.0
-  ROOK_CSI_RESIZER_IMAGE: registry.k8s.io/sig-storage/csi-resizer:v1.10.0
-  ROOK_CSI_SNAPSHOTTER_IMAGE: registry.k8s.io/sig-storage/csi-snapshotter:v7.0.1
+  ROOK_CSI_PROVISIONER_IMAGE: registry.k8s.io/sig-storage/csi-provisioner:v4.0.1
+  ROOK_CSI_REGISTRAR_IMAGE: registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.10.1
+  ROOK_CSI_RESIZER_IMAGE: registry.k8s.io/sig-storage/csi-resizer:v1.10.1
+  ROOK_CSI_SNAPSHOTTER_IMAGE: registry.k8s.io/sig-storage/csi-snapshotter:v7.0.2
   ROOK_ENABLE_DISCOVERY_DAEMON: "false"
   ROOK_LOG_LEVEL: INFO
   ROOK_OBC_WATCH_OPERATOR_NAMESPACE: "true"
@@ -1929,6 +1929,18 @@ spec:
                           name:
                             description: Name is the name of the ceph manager module
                             type: string
+                          settings:
+                            description: Settings to further configure the module
+                            properties:
+                              balancerMode:
+                                description: BalancerMode sets the `balancer` module with different modes like `upmap`, `crush-compact` etc
+                                enum:
+                                  - ""
+                                  - crush-compat
+                                  - upmap
+                                  - upmap-read
+                                type: string
+                            type: object
                         type: object
                       nullable: true
                       type: array
@@ -3484,6 +3496,12 @@ spec:
                   description: A spec for available storage in the cluster and how it should be used
                   nullable: true
                   properties:
+                    backfillFullRatio:
+                      description: BackfillFullRatio is the ratio at which the cluster is too full for backfill. Backfill will be disabled if above this threshold. Default is 0.90.
+                      maximum: 1
+                      minimum: 0
+                      nullable: true
+                      type: number
                     config:
                       additionalProperties:
                         type: string
@@ -3524,6 +3542,18 @@ spec:
                         User needs to manually restart the OSD pod if they manage to fix the underlying OSD flapping issue before the restart interval.
                         The sleep will be disabled if this interval is set to 0.
                       type: integer
+                    fullRatio:
+                      description: FullRatio is the ratio at which the cluster is considered full and ceph will stop accepting writes. Default is 0.95.
+                      maximum: 1
+                      minimum: 0
+                      nullable: true
+                      type: number
+                    nearFullRatio:
+                      description: NearFullRatio is the ratio at which the cluster is considered nearly full and will raise a ceph health warning. Default is 0.85.
+                      maximum: 1
+                      minimum: 0
+                      nullable: true
+                      type: number
                     nodes:
                       items:
                         description: Node is a storage nodes
@@ -3867,6 +3897,7 @@ spec:
                             type: boolean
                           name:
                             description: Name is a unique identifier for the set
+                            maxLength: 40
                             type: string
                           placement:
                             nullable: true
@@ -5502,6 +5533,12 @@ spec:
                 storage:
                   description: CephStorage represents flavors of Ceph Cluster Storage
                   properties:
+                    deprecatedOSDs:
+                      additionalProperties:
+                        items:
+                          type: integer
+                        type: array
+                      type: object
                     deviceClasses:
                       items:
                         description: DeviceClasses represents device classes of a Ceph Cluster
@@ -13538,7 +13575,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -13584,7 +13621,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-cluster-mgmt
@@ -13618,7 +13655,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -13807,7 +13844,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-mgr-cluster
@@ -13865,7 +13902,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-object-bucket
@@ -14101,7 +14138,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rbd-csi-nodeplugin
@@ -14425,7 +14462,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -14446,7 +14483,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-global
@@ -14754,7 +14791,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -14967,7 +15004,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-system
@@ -15016,7 +15053,7 @@ metadata:
     app.kubernetes.io/created-by: helm
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: rook-ceph-operator
-    helm.sh/chart: rook-ceph-v1.14.1
+    helm.sh/chart: rook-ceph-v1.14.5
     operator: rook
     storage-backend: ceph
   name: rook-ceph-operator
@@ -15032,7 +15069,7 @@ spec:
     metadata:
       labels:
         app: rook-ceph-operator
-        helm.sh/chart: rook-ceph-v1.14.1
+        helm.sh/chart: rook-ceph-v1.14.5
     spec:
       containers:
         - args:
@@ -15059,7 +15096,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-          image: rook/ceph:v1.14.1
+          image: rook/ceph:v1.14.5
           imagePullPolicy: IfNotPresent
           name: rook-ceph-operator
           resources:

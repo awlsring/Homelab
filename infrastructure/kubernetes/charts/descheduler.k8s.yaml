@@ -11,8 +11,8 @@ metadata:
     app.kubernetes.io/instance: descheduler-helm-c80f662c
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: descheduler
-    app.kubernetes.io/version: 0.29.0
-    helm.sh/chart: descheduler-0.29.0
+    app.kubernetes.io/version: 0.30.0
+    helm.sh/chart: descheduler-0.30.0
   name: descheduler-helm-c80f662c
   namespace: descheduler
 ---
@@ -23,48 +23,57 @@ metadata:
     app.kubernetes.io/instance: descheduler-helm-c80f662c
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: descheduler
-    app.kubernetes.io/version: 0.29.0
-    helm.sh/chart: descheduler-0.29.0
+    app.kubernetes.io/version: 0.30.0
+    helm.sh/chart: descheduler-0.30.0
   name: descheduler-helm-c80f662c
   namespace: descheduler
 data:
   policy.yaml: |
-    apiVersion: "descheduler/v1alpha1"
+    apiVersion: "descheduler/v1alpha2"
     kind: "DeschedulerPolicy"
-    strategies:
-      LowNodeUtilization:
-        enabled: true
-        params:
-          nodeResourceUtilizationThresholds:
-            targetThresholds:
-              cpu: 50
-              memory: 50
-              pods: 50
-            thresholds:
-              cpu: 20
-              memory: 20
-              pods: 20
-      RemoveDuplicates:
-        enabled: true
-      RemovePodsHavingTooManyRestarts:
-        enabled: true
-        params:
-          podsHavingTooManyRestarts:
-            includingInitContainers: true
-            podRestartThreshold: 100
-      RemovePodsViolatingInterPodAntiAffinity:
-        enabled: true
-      RemovePodsViolatingNodeAffinity:
-        enabled: true
-        params:
+    profiles:
+    - name: default
+      pluginConfig:
+      - args:
+          evictLocalStoragePods: true
+          ignorePvcPods: true
+        name: DefaultEvictor
+      - name: RemoveDuplicates
+      - args:
+          includingInitContainers: true
+          podRestartThreshold: 100
+        name: RemovePodsHavingTooManyRestarts
+      - args:
           nodeAffinityType:
           - requiredDuringSchedulingIgnoredDuringExecution
-      RemovePodsViolatingNodeTaints:
-        enabled: true
-      RemovePodsViolatingTopologySpreadConstraint:
-        enabled: true
-        params:
+        name: RemovePodsViolatingNodeTaints
+      - name: RemovePodsViolatingInterPodAntiAffinity
+      - args:
           includeSoftConstraints: false
+        name: RemovePodsViolatingTopologySpreadConstraint
+      - args:
+          targetThresholds:
+            cpu: 50
+            memory: 50
+            pods: 50
+          thresholds:
+            cpu: 20
+            memory: 20
+            pods: 20
+        name: LowNodeUtilization
+      plugins:
+        balance:
+          enabled:
+          - RemoveDuplicates
+          - RemovePodsViolatingNodeAffinity
+          - RemovePodsViolatingTopologySpreadConstraint
+          - LowNodeUtilization
+        deschedule:
+          enabled:
+          - RemovePodsHavingTooManyRestarts
+          - RemovePodsViolatingNodeTaints
+          - RemovePodsViolatingNodeAffinity
+          - RemovePodsViolatingInterPodAntiAffinity
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -73,8 +82,8 @@ metadata:
     app.kubernetes.io/instance: descheduler-helm-c80f662c
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: descheduler
-    app.kubernetes.io/version: 0.29.0
-    helm.sh/chart: descheduler-0.29.0
+    app.kubernetes.io/version: 0.30.0
+    helm.sh/chart: descheduler-0.30.0
   name: descheduler-helm-c80f662c
   namespace: descheduler
 rules:
@@ -132,8 +141,8 @@ metadata:
     app.kubernetes.io/instance: descheduler-helm-c80f662c
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: descheduler
-    app.kubernetes.io/version: 0.29.0
-    helm.sh/chart: descheduler-0.29.0
+    app.kubernetes.io/version: 0.30.0
+    helm.sh/chart: descheduler-0.30.0
   name: descheduler-helm-c80f662c
   namespace: descheduler
 roleRef:
@@ -152,8 +161,8 @@ metadata:
     app.kubernetes.io/instance: descheduler-helm-c80f662c
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: descheduler
-    app.kubernetes.io/version: 0.29.0
-    helm.sh/chart: descheduler-0.29.0
+    app.kubernetes.io/version: 0.30.0
+    helm.sh/chart: descheduler-0.30.0
   name: descheduler-helm-c80f662c
   namespace: descheduler
 spec:
@@ -163,7 +172,7 @@ spec:
       template:
         metadata:
           annotations:
-            checksum/config: 7d6360d5b989e0b6d135dbe28dbe8e5087de11a56b2c339099a299de75de0d10
+            checksum/config: 855204dd3e3b229b4bdf41fec82802e7a1942e9b456fef4aa1053c7d7b129253
           labels:
             app.kubernetes.io/instance: descheduler-helm-c80f662c
             app.kubernetes.io/name: descheduler
@@ -175,7 +184,7 @@ spec:
                 - --v=3
               command:
                 - /bin/descheduler
-              image: registry.k8s.io/descheduler/descheduler:v0.29.0
+              image: registry.k8s.io/descheduler/descheduler:v0.30.0
               imagePullPolicy: IfNotPresent
               livenessProbe:
                 failureThreshold: 3
