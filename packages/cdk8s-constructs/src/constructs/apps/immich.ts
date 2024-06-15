@@ -477,8 +477,6 @@ export class Immich extends Construct {
       image: image,
       envVariables: env,
       volumeMounts: mounts,
-      command: ["/bin/sh"],
-      args: ["./start-server.sh"],
       ports: [{ name: "http", number: IMMICH_SERVER_PORT }],
       resources: {
         cpu: {
