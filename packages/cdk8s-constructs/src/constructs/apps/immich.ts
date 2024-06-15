@@ -31,9 +31,6 @@ const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.2.0";
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
 const IMMICH_SERVER_PORT = 3001;
 
-const IMMICH_MICROSERVICES_IMAGE = "ghcr.io/immich-app/immich-server";
-const IMMICH_MICROSERVICES_PORT = 3002;
-
 const IMMICH_METRICS_PORT = 8081;
 
 const IMMICH_MACHINE_LEARNING_IMAGE =
@@ -116,17 +113,12 @@ export interface ImmichServerOptions {
   readonly uploadLocation?: string;
 }
 
-export interface ImmichMicroservicesOptions {
-  readonly imageTag?: string;
-}
-
 export interface ImmichProps {
   readonly uploadShare: Volume;
   readonly photoCollectionShares?: ImmichPhotoVolumeOptions[];
   readonly generalOptions?: ImmichGeneralOptions;
   readonly geocoding?: ImmichGeocodingOptions;
   readonly serverOptions: ImmichServerOptions;
-  readonly microservicesOptions?: ImmichMicroservicesOptions;
   readonly redisOptions: ImmichRedisOptions;
   readonly postgresOptions: ImmichPostgresOptions;
   readonly machineLearningOptions?: ImmichMachineLearningOptions;
@@ -135,19 +127,12 @@ export interface ImmichProps {
 }
 
 export class Immich extends Construct {
-  readonly microservicesService: Service;
   readonly machineLearningService: Service;
   readonly redisService: Service;
   readonly postgresService: Service;
 
   constructor(scope: Construct, name: string, props: ImmichProps) {
     super(scope, name);
-
-    this.microservicesService = this.configureService(
-      "microservices",
-      IMMICH_MICROSERVICES_PORT,
-      props.monitoring,
-    );
 
     this.machineLearningService = this.configureService(
       "machine-learning",
@@ -178,11 +163,6 @@ export class Immich extends Construct {
       env,
       volumeMounts,
       props.monitoring ?? false,
-    );
-    this.buildMicroservices(
-      props.microservicesOptions ?? {},
-      env,
-      volumeMounts,
     );
     this.buildMachineLearning(props.machineLearningOptions ?? {}, env);
     this.buildDb(props.postgresOptions, env);
@@ -570,50 +550,6 @@ export class Immich extends Construct {
         },
       ],
     });
-
-    return deployment;
-  }
-
-  private buildMicroservices(
-    options: ImmichMicroservicesOptions,
-    env: Record<string, EnvValue>,
-    mounts: VolumeMount[],
-  ): Deployment {
-    const deployment = new Deployment(this, "microservices-deployment", {
-      replicas: 1,
-      strategy: DeploymentStrategy.recreate(),
-    });
-
-    const image = `${IMMICH_MICROSERVICES_IMAGE}:${
-      options.imageTag ?? DEFAULT_IMAGE_TAG
-    }`;
-
-    deployment.addContainer({
-      name: "immich-microservices",
-      image: image,
-      envVariables: env,
-      command: ["/bin/sh"],
-      args: ["./start-microservices.sh"],
-      volumeMounts: mounts,
-      resources: {
-        cpu: {
-          request: Cpu.millis(200),
-          limit: Cpu.millis(2000),
-        },
-        memory: {
-          request: Size.mebibytes(256),
-          limit: Size.gibibytes(4),
-        },
-      },
-      securityContext: {
-        ensureNonRoot: false,
-        privileged: true,
-        readOnlyRootFilesystem: false,
-        allowPrivilegeEscalation: true,
-      },
-    });
-
-    this.microservicesService.select(deployment);
 
     return deployment;
   }
