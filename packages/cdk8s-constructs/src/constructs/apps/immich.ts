@@ -547,10 +547,6 @@ export class Immich extends Construct {
           value: "50000M",
         },
         {
-          key: "nginx.ingress.kubernetes.io/proxy-http-version",
-          value: "1.1",
-        },
-        {
           key: "nginx.ingress.kubernetes.io/proxy-send-timeout",
           value: "600s",
         },
