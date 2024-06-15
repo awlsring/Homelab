@@ -544,7 +544,19 @@ export class Immich extends Construct {
         {
           // https://github.com/immich-app/immich/issues/8738
           key: "nginx.ingress.kubernetes.io/proxy-body-size",
-          value: "0",
+          value: "50000M",
+        },
+        {
+          key: "nginx.ingress.kubernetes.io/proxy-http-version",
+          value: "1.1",
+        },
+        {
+          key: "nginx.ingress.kubernetes.io/proxy-send-timeout",
+          value: "600s",
+        },
+        {
+          key: "nginx.ingress.kubernetes.io/proxy-read-timeout",
+          value: "600s",
         },
       ],
     });

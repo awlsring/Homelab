@@ -62,7 +62,6 @@ export class ImmichChart extends HomelabChart {
       serverOptions: {
         ingress: props.ingress,
       },
-      microservicesOptions: {},
       redisOptions: {
         create: true,
       },
