@@ -28,6 +28,10 @@
   in {
     devShells = forAllSystems ({pkgs}: {
       default = pkgs.mkShell {
+        shellHook = ''
+          alias pdk=npx pdk;
+          alias projen=npx projen;
+        '';
         packages = with pkgs; [
           nodejs_22
           nodePackages.pnpm
