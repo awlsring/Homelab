@@ -481,11 +481,11 @@ export class Immich extends Construct {
       resources: {
         cpu: {
           request: Cpu.millis(200),
-          limit: Cpu.millis(4000),
+          limit: Cpu.millis(8000),
         },
         memory: {
-          request: Size.mebibytes(256),
-          limit: Size.gibibytes(8),
+          request: Size.gibibytes(1),
+          limit: Size.gibibytes(16),
         },
       },
       liveness: Probe.fromHttpGet("/server-info/ping", {
