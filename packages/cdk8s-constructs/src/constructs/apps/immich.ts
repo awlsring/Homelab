@@ -488,16 +488,16 @@ export class Immich extends Construct {
           limit: Size.gibibytes(16),
         },
       },
-      liveness: Probe.fromHttpGet("/server-info/ping", {
+      liveness: Probe.fromHttpGet("/api/server/ping", {
         port: IMMICH_SERVER_PORT,
-        initialDelaySeconds: Duration.seconds(0),
+        initialDelaySeconds: Duration.seconds(10),
         periodSeconds: Duration.seconds(10),
         timeoutSeconds: Duration.seconds(1),
       }),
-      readiness: Probe.fromHttpGet("/server-info/ping", {
+      readiness: Probe.fromHttpGet("/api/server/ping", {
         port: IMMICH_SERVER_PORT,
         failureThreshold: 3,
-        initialDelaySeconds: Duration.seconds(0),
+        initialDelaySeconds: Duration.seconds(10),
         periodSeconds: Duration.seconds(10),
         timeoutSeconds: Duration.seconds(1),
       }),

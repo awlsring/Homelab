@@ -4546,7 +4546,6 @@ Any object.
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.Immich.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#cdk8s-constructs.Immich.property.machineLearningService">machineLearningService</a></code> | <code>cdk8s-plus-minus.Service</code> | *No description.* |
-| <code><a href="#cdk8s-constructs.Immich.property.microservicesService">microservicesService</a></code> | <code>cdk8s-plus-minus.Service</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.Immich.property.postgresService">postgresService</a></code> | <code>cdk8s-plus-minus.Service</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.Immich.property.redisService">redisService</a></code> | <code>cdk8s-plus-minus.Service</code> | *No description.* |
 
@@ -4568,16 +4567,6 @@ The tree node.
 
 ```typescript
 public readonly machineLearningService: Service;
-```
-
-- *Type:* cdk8s-plus-minus.Service
-
----
-
-##### `microservicesService`<sup>Required</sup> <a name="microservicesService" id="cdk8s-constructs.Immich.property.microservicesService"></a>
-
-```typescript
-public readonly microservicesService: Service;
 ```
 
 - *Type:* cdk8s-plus-minus.Service
@@ -16942,34 +16931,6 @@ public readonly transformerCache: string;
 
 ---
 
-### ImmichMicroservicesOptions <a name="ImmichMicroservicesOptions" id="cdk8s-constructs.ImmichMicroservicesOptions"></a>
-
-#### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichMicroservicesOptions.Initializer"></a>
-
-```typescript
-import { ImmichMicroservicesOptions } from 'cdk8s-constructs'
-
-const immichMicroservicesOptions: ImmichMicroservicesOptions = { ... }
-```
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#cdk8s-constructs.ImmichMicroservicesOptions.property.imageTag">imageTag</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `imageTag`<sup>Optional</sup> <a name="imageTag" id="cdk8s-constructs.ImmichMicroservicesOptions.property.imageTag"></a>
-
-```typescript
-public readonly imageTag: string;
-```
-
-- *Type:* string
-
----
-
 ### ImmichPhotoVolumeOptions <a name="ImmichPhotoVolumeOptions" id="cdk8s-constructs.ImmichPhotoVolumeOptions"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.ImmichPhotoVolumeOptions.Initializer"></a>
@@ -17114,7 +17075,6 @@ const immichProps: ImmichProps = { ... }
 | <code><a href="#cdk8s-constructs.ImmichProps.property.generalOptions">generalOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichGeneralOptions">ImmichGeneralOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.geocoding">geocoding</a></code> | <code><a href="#cdk8s-constructs.ImmichGeocodingOptions">ImmichGeocodingOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.machineLearningOptions">machineLearningOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMachineLearningOptions">ImmichMachineLearningOptions</a></code> | *No description.* |
-| <code><a href="#cdk8s-constructs.ImmichProps.property.microservicesOptions">microservicesOptions</a></code> | <code><a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a></code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.monitoring">monitoring</a></code> | <code>boolean</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ImmichProps.property.photoCollectionShares">photoCollectionShares</a></code> | <code><a href="#cdk8s-constructs.ImmichPhotoVolumeOptions">ImmichPhotoVolumeOptions</a>[]</code> | *No description.* |
 
@@ -17197,16 +17157,6 @@ public readonly machineLearningOptions: ImmichMachineLearningOptions;
 ```
 
 - *Type:* <a href="#cdk8s-constructs.ImmichMachineLearningOptions">ImmichMachineLearningOptions</a>
-
----
-
-##### `microservicesOptions`<sup>Optional</sup> <a name="microservicesOptions" id="cdk8s-constructs.ImmichProps.property.microservicesOptions"></a>
-
-```typescript
-public readonly microservicesOptions: ImmichMicroservicesOptions;
-```
-
-- *Type:* <a href="#cdk8s-constructs.ImmichMicroservicesOptions">ImmichMicroservicesOptions</a>
 
 ---
 

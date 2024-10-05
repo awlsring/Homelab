@@ -34,6 +34,7 @@
         '';
         packages = with pkgs; [
           nodejs_22
+          kubernetes-helm
           nodePackages.pnpm
         ];
       };

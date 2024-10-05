@@ -95,10 +95,10 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /server-info/ping
+              path: /api/server/ping
               port: 3001
               scheme: HTTP
-            initialDelaySeconds: 0
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 1
           name: immich-server
@@ -108,10 +108,10 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /server-info/ping
+              path: /api/server/ping
               port: 3001
               scheme: HTTP
-            initialDelaySeconds: 0
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 1
           resources:
