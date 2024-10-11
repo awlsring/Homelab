@@ -17,7 +17,6 @@ const DEFAULT_STORAGE_CLASS = "default";
 
 export interface PrometheusScrapeTarget {
   readonly name: string;
-  readonly metricsPath: string;
   readonly targets: string[];
 }
 
@@ -91,8 +90,7 @@ export class MonitoringChart extends HomelabChart {
           prometheusSpec: {
             additionalScrapeConfigs: props?.prometheus?.scapeTargets?.map(
               (target) => ({
-                jobName: target.name,
-                metricsPath: target.metricsPath,
+                job_name: target.name,
                 static_configs: [{ targets: target.targets }],
               }),
             ),

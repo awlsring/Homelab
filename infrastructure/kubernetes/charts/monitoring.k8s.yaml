@@ -47228,7 +47228,7 @@ metadata:
   name: monitoring-helm-c892d683-k-prometheus-scrape-confg
   namespace: monitoring
 data:
-  additional-scrape-configs.yaml: LSBqb2JOYW1lOiBpbm5pc3RyYWQKICBtZXRyaWNzUGF0aDogL21ldHJpY3MKICBzdGF0aWNfY29uZmlnczoKICAtIHRhcmdldHM6CiAgICAtIDEwLjAuMTAuMTI1OjkxMDAKICAgIC0gMTAuMC4xMC4xMjU6NDI0Mw==
+  additional-scrape-configs.yaml: LSBqb2JfbmFtZTogbm9kZS1leHBvcnRlcgogIHN0YXRpY19jb25maWdzOgogIC0gdGFyZ2V0czoKICAgIC0gMTAuMC4xMC4xMjU6OTA5MAotIGpvYl9uYW1lOiBjb21pbgogIHN0YXRpY19jb25maWdzOgogIC0gdGFyZ2V0czoKICAgIC0gMTAuMC4xMC4xMjU6NDI0Mw==
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -57,9 +57,12 @@ export function assignSystemCharts(app: App) {
       retention: Duration.days(5),
       scapeTargets: [
         {
-          name: "innistrad",
-          metricsPath: "/metrics",
-          targets: ["10.0.10.125:9090", "10.0.10.125:4243"],
+          name: "node-exporter",
+          targets: ["10.0.10.125:9090"],
+        },
+        {
+          name: "comin",
+          targets: ["10.0.10.125:4243"],
         },
       ],
     },
