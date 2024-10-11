@@ -59,7 +59,7 @@ export function assignSystemCharts(app: App) {
         {
           name: "innistrad",
           metricsPath: "/metrics",
-          targets: ["10.0.10.125:9100", "10.0.10.125:4243"],
+          targets: ["10.0.10.125:9090", "10.0.10.125:4243"],
         },
       ],
     },
