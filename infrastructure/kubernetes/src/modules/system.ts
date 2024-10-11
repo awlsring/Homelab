@@ -55,6 +55,13 @@ export function assignSystemCharts(app: App) {
       storageSize: Size.gibibytes(300),
       storageClass: BLOCK_STORAGE_CLASS,
       retention: Duration.days(5),
+      scapeTargets: [
+        {
+          name: "innistrad",
+          metricsPath: "/metrics",
+          targets: ["10.0.10.125:9100", "10.0.10.125:4243"],
+        },
+      ],
     },
     alertmanager: {
       storageSize: Size.gibibytes(2),

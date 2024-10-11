@@ -15,12 +15,19 @@ const DEFAULT_ALERTMANAGER_STORAGE_SIZE = Size.gibibytes(2);
 // common defaults
 const DEFAULT_STORAGE_CLASS = "default";
 
+export interface PrometheusScrapeTarget {
+  readonly name: string;
+  readonly metricsPath: string;
+  readonly targets: string[];
+}
+
 export interface MonitoringChartProps
   extends Omit<HomelabChartProps, "namespace"> {
   readonly prometheus?: {
     readonly storageSize?: Size;
     readonly storageClass?: string;
     readonly retention?: Duration;
+    readonly scapeTargets?: PrometheusScrapeTarget[];
   };
   readonly alertmanager?: {
     readonly storageSize?: Size;
@@ -82,6 +89,13 @@ export class MonitoringChart extends HomelabChart {
             "prometheus-tls",
           ),
           prometheusSpec: {
+            additionalScrapeConfigs: props?.prometheus?.scapeTargets?.map(
+              (target) => ({
+                jobName: target.name,
+                metricsPath: target.metricsPath,
+                static_configs: [{ targets: target.targets }],
+              }),
+            ),
             retention: this.durationToString(
               props?.prometheus?.retention ?? DEFAULT_PROMETHEUS_RETENTION,
             ),

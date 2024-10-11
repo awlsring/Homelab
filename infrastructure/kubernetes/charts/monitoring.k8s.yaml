@@ -47214,6 +47214,23 @@ data:
   alertmanager.yaml: Z2xvYmFsOgogIHJlc29sdmVfdGltZW91dDogNW0KaW5oaWJpdF9ydWxlczoKLSBlcXVhbDoKICAtIG5hbWVzcGFjZQogIC0gYWxlcnRuYW1lCiAgc291cmNlX21hdGNoZXJzOgogIC0gc2V2ZXJpdHkgPSBjcml0aWNhbAogIHRhcmdldF9tYXRjaGVyczoKICAtIHNldmVyaXR5ID1+IHdhcm5pbmd8aW5mbwotIGVxdWFsOgogIC0gbmFtZXNwYWNlCiAgLSBhbGVydG5hbWUKICBzb3VyY2VfbWF0Y2hlcnM6CiAgLSBzZXZlcml0eSA9IHdhcm5pbmcKICB0YXJnZXRfbWF0Y2hlcnM6CiAgLSBzZXZlcml0eSA9IGluZm8KLSBlcXVhbDoKICAtIG5hbWVzcGFjZQogIHNvdXJjZV9tYXRjaGVyczoKICAtIGFsZXJ0bmFtZSA9IEluZm9JbmhpYml0b3IKICB0YXJnZXRfbWF0Y2hlcnM6CiAgLSBzZXZlcml0eSA9IGluZm8KLSB0YXJnZXRfbWF0Y2hlcnM6CiAgLSBhbGVydG5hbWUgPSBJbmZvSW5oaWJpdG9yCnJlY2VpdmVyczoKLSBuYW1lOiAibnVsbCIKcm91dGU6CiAgZ3JvdXBfYnk6CiAgLSBuYW1lc3BhY2UKICBncm91cF9pbnRlcnZhbDogNW0KICBncm91cF93YWl0OiAzMHMKICByZWNlaXZlcjogIm51bGwiCiAgcmVwZWF0X2ludGVydmFsOiAxMmgKICByb3V0ZXM6CiAgLSBtYXRjaGVyczoKICAgIC0gYWxlcnRuYW1lID0gIldhdGNoZG9nIgogICAgcmVjZWl2ZXI6ICJudWxsIgp0ZW1wbGF0ZXM6Ci0gL2V0Yy9hbGVydG1hbmFnZXIvY29uZmlnLyoudG1wbA==
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: kube-prometheus-stack-prometheus-scrape-confg
+    app.kubernetes.io/instance: monitoring-helm-c892d683
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: kube-prometheus-stack
+    app.kubernetes.io/version: 59.1.0
+    chart: kube-prometheus-stack-59.1.0
+    heritage: Helm
+    release: monitoring-helm-c892d683
+  name: monitoring-helm-c892d683-k-prometheus-scrape-confg
+  namespace: monitoring
+data:
+  additional-scrape-configs.yaml: LSBqb2JOYW1lOiBpbm5pc3RyYWQKICBtZXRyaWNzUGF0aDogL21ldHJpY3MKICBzdGF0aWNfY29uZmlnczoKICAtIHRhcmdldHM6CiAgICAtIDEwLjAuMTAuMTI1OjkxMDAKICAgIC0gMTAuMC4xMC4xMjU6NDI0Mw==
+---
+apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
@@ -49289,6 +49306,9 @@ metadata:
   name: monitoring-helm-c892d683-k-prometheus
   namespace: monitoring
 spec:
+  additionalScrapeConfigs:
+    key: additional-scrape-configs.yaml
+    name: monitoring-helm-c892d683-k-prometheus-scrape-confg
   alerting:
     alertmanagers:
       - apiVersion: v2
