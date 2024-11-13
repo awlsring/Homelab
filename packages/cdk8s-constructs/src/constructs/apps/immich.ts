@@ -29,7 +29,7 @@ const REDIS_IMAGE = "redis:6.2-alpine";
 const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.2.0";
 
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
-const IMMICH_SERVER_PORT = 3001;
+const IMMICH_SERVER_PORT = 2283;
 
 const IMMICH_METRICS_PORT = 8081;
 
