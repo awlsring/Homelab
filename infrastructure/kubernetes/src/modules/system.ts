@@ -58,7 +58,7 @@ export function assignSystemCharts(app: App) {
       scapeTargets: [
         {
           name: "node-exporter",
-          staticConfigs: [{ targets: ["10.0.10.125:9090"] }],
+          staticConfigs: [{ targets: ["10.0.10.125:9090", "10.0.10.9:9100"] }],
         },
         {
           name: "comin",
