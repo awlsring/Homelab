@@ -12,6 +12,7 @@ import { ImmichChart } from "../charts/applications/immich";
 import { JellyfinChart } from "../charts/applications/jellyfin";
 import { TandoorChart } from "../charts/applications/tandoor";
 import { TerraformBackendChart } from "../charts/applications/terraform-backend";
+import { TPLinkPlugExporterChart } from "../charts/applications/tplink-plug-exporter";
 import { YarrgChart } from "../charts/applications/yarrg";
 
 const NAS_ADDRESS = "10.0.10.180";
@@ -301,5 +302,10 @@ export function assignApplicationsCharts(app: App) {
       hostname: "gatus.us-drig-1.drigs.org",
       certIssuer: "prod",
     },
+  });
+
+  new TPLinkPlugExporterChart(app, "tplink-plug-exporter", {
+    createNamespace: true,
+    namespace: "tplink-plug-exporter",
   });
 }

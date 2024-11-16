@@ -58,11 +58,32 @@ export function assignSystemCharts(app: App) {
       scapeTargets: [
         {
           name: "node-exporter",
-          targets: ["10.0.10.125:9090"],
+          staticConfigs: [{ targets: ["10.0.10.125:9090"] }],
         },
         {
           name: "comin",
-          targets: ["10.0.10.125:4243"],
+          staticConfigs: [{ targets: ["10.0.10.125:4243"] }],
+        },
+        {
+          name: "tplink-plug-exporter",
+          staticConfigs: [{ targets: ["10.0.30.169", "10.0.30.9"] }],
+          metricsPath: "/scrape",
+          relabelConfig: [
+            {
+              sourceLabels: ["__address__"],
+              targetLabel: "__param_target",
+            },
+            {
+              sourceLabels: ["__param_target"],
+              targetLabel: "instance",
+            },
+            // TODO: make this via service monitor somehow
+            {
+              targetLabel: "__address__",
+              replacement:
+                "tplink-plug-exporter-service-c893c08b.tplink-plug-exporter.svc.cluster.local:9233",
+            },
+          ],
         },
       ],
     },

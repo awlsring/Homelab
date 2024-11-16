@@ -15,9 +15,35 @@ const DEFAULT_ALERTMANAGER_STORAGE_SIZE = Size.gibibytes(2);
 // common defaults
 const DEFAULT_STORAGE_CLASS = "default";
 
+export interface PrometheusRelabelConfig {
+  readonly sourceLabels?: string[];
+  readonly targetLabel?: string;
+  readonly separator?: string;
+  readonly regex?: string;
+  readonly replacement?: string;
+  readonly action?:
+    | "replace"
+    | "keep"
+    | "drop"
+    | "hashmod"
+    | "labelmap"
+    | "labeldrop"
+    | "labelkeep";
+}
+
+export interface PrometheusStaticConfig {
+  readonly targets: string[];
+  readonly labels?: { [key: string]: string };
+}
+
 export interface PrometheusScrapeTarget {
   readonly name: string;
-  readonly targets: string[];
+  readonly scrapeInterval?: string;
+  readonly scrapeTimeout?: string;
+  readonly metricsPath?: string;
+  readonly scheme?: string;
+  readonly staticConfigs: PrometheusStaticConfig[];
+  readonly relabelConfig?: PrometheusRelabelConfig[];
 }
 
 export interface MonitoringChartProps
@@ -88,11 +114,8 @@ export class MonitoringChart extends HomelabChart {
             "prometheus-tls",
           ),
           prometheusSpec: {
-            additionalScrapeConfigs: props?.prometheus?.scapeTargets?.map(
-              (target) => ({
-                job_name: target.name,
-                static_configs: [{ targets: target.targets }],
-              }),
+            additionalScrapeConfigs: this.transformPrometheusConfig(
+              props?.prometheus?.scapeTargets,
             ),
             retention: this.durationToString(
               props?.prometheus?.retention ?? DEFAULT_PROMETHEUS_RETENTION,
@@ -112,6 +135,52 @@ export class MonitoringChart extends HomelabChart {
         },
       },
     });
+  }
+
+  private transformRelabelConfig(
+    config: PrometheusRelabelConfig,
+  ): Record<string, any> {
+    const relabelConfig: Record<string, any> = {};
+
+    if (config.sourceLabels) relabelConfig.source_labels = config.sourceLabels;
+    if (config.targetLabel) relabelConfig.target_label = config.targetLabel;
+    if (config.separator) relabelConfig.separator = config.separator;
+    if (config.regex) relabelConfig.regex = config.regex;
+    if (config.replacement) relabelConfig.replacement = config.replacement;
+    if (config.action) relabelConfig.action = config.action;
+
+    return relabelConfig;
+  }
+
+  private transformScrapeConfig(target: PrometheusScrapeTarget) {
+    const scrapeConfig: Record<string, any> = {
+      job_name: target.name,
+      static_configs: target.staticConfigs.map((staticConfig) => ({
+        targets: staticConfig.targets,
+        labels: staticConfig.labels,
+      })),
+    };
+
+    if (target.scrapeInterval)
+      scrapeConfig.scrape_interval = target.scrapeInterval;
+    if (target.scrapeTimeout)
+      scrapeConfig.scrape_timeout = target.scrapeTimeout;
+    if (target.metricsPath) scrapeConfig.metrics_path = target.metricsPath;
+    if (target.scheme) scrapeConfig.scheme = target.scheme;
+    if (target.relabelConfig) {
+      scrapeConfig.relabel_configs = target.relabelConfig.map((config) => {
+        return this.transformRelabelConfig(config);
+      });
+    }
+
+    return scrapeConfig;
+  }
+
+  private transformPrometheusConfig(targets?: PrometheusScrapeTarget[]) {
+    if (!targets) {
+      return undefined;
+    }
+    return targets.map((target) => this.transformScrapeConfig(target));
   }
 
   private sizeToString(size: Size): string {

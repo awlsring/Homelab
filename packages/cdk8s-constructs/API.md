@@ -23275,6 +23275,100 @@ public readonly package: string;
 
 ---
 
+### Relabeling <a name="Relabeling" id="cdk8s-constructs.Relabeling"></a>
+
+#### Initializer <a name="Initializer" id="cdk8s-constructs.Relabeling.Initializer"></a>
+
+```typescript
+import { Relabeling } from 'cdk8s-constructs'
+
+const relabeling: Relabeling = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#cdk8s-constructs.Relabeling.property.action">action</a></code> | <code><a href="#cdk8s-constructs.RelabelingAction">RelabelingAction</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.modulus">modulus</a></code> | <code>number</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.regex">regex</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.replacement">replacement</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.separator">separator</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.sourceLabels">sourceLabels</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.Relabeling.property.targetLabel">targetLabel</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `action`<sup>Optional</sup> <a name="action" id="cdk8s-constructs.Relabeling.property.action"></a>
+
+```typescript
+public readonly action: RelabelingAction;
+```
+
+- *Type:* <a href="#cdk8s-constructs.RelabelingAction">RelabelingAction</a>
+
+---
+
+##### `modulus`<sup>Optional</sup> <a name="modulus" id="cdk8s-constructs.Relabeling.property.modulus"></a>
+
+```typescript
+public readonly modulus: number;
+```
+
+- *Type:* number
+
+---
+
+##### `regex`<sup>Optional</sup> <a name="regex" id="cdk8s-constructs.Relabeling.property.regex"></a>
+
+```typescript
+public readonly regex: string;
+```
+
+- *Type:* string
+
+---
+
+##### `replacement`<sup>Optional</sup> <a name="replacement" id="cdk8s-constructs.Relabeling.property.replacement"></a>
+
+```typescript
+public readonly replacement: string;
+```
+
+- *Type:* string
+
+---
+
+##### `separator`<sup>Optional</sup> <a name="separator" id="cdk8s-constructs.Relabeling.property.separator"></a>
+
+```typescript
+public readonly separator: string;
+```
+
+- *Type:* string
+
+---
+
+##### `sourceLabels`<sup>Optional</sup> <a name="sourceLabels" id="cdk8s-constructs.Relabeling.property.sourceLabels"></a>
+
+```typescript
+public readonly sourceLabels: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `targetLabel`<sup>Optional</sup> <a name="targetLabel" id="cdk8s-constructs.Relabeling.property.targetLabel"></a>
+
+```typescript
+public readonly targetLabel: string;
+```
+
+- *Type:* string
+
+---
+
 ### RequesterrProps <a name="RequesterrProps" id="cdk8s-constructs.RequesterrProps"></a>
 
 #### Initializer <a name="Initializer" id="cdk8s-constructs.RequesterrProps.Initializer"></a>
@@ -23732,8 +23826,14 @@ const serviceMonitorEndpoint: ServiceMonitorEndpoint = { ... }
 | --- | --- | --- |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.port">port</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.interval">interval</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.metricRelabelings">metricRelabelings</a></code> | <code><a href="#cdk8s-constructs.Relabeling">Relabeling</a>[]</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.params">params</a></code> | <code>{[ key: string ]: string[]}</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.path">path</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.proxyUrl">proxyUrl</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.relabelings">relabelings</a></code> | <code><a href="#cdk8s-constructs.Relabeling">Relabeling</a>[]</code> | *No description.* |
 | <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.scrapeTimeout">scrapeTimeout</a></code> | <code>cdk8s.Duration</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.targetPort">targetPort</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#cdk8s-constructs.ServiceMonitorEndpoint.property.trackTimestampsStaleness">trackTimestampsStaleness</a></code> | <code>boolean</code> | *No description.* |
 
 ---
 
@@ -23757,6 +23857,26 @@ public readonly interval: Duration;
 
 ---
 
+##### `metricRelabelings`<sup>Optional</sup> <a name="metricRelabelings" id="cdk8s-constructs.ServiceMonitorEndpoint.property.metricRelabelings"></a>
+
+```typescript
+public readonly metricRelabelings: Relabeling[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.Relabeling">Relabeling</a>[]
+
+---
+
+##### `params`<sup>Optional</sup> <a name="params" id="cdk8s-constructs.ServiceMonitorEndpoint.property.params"></a>
+
+```typescript
+public readonly params: {[ key: string ]: string[]};
+```
+
+- *Type:* {[ key: string ]: string[]}
+
+---
+
 ##### `path`<sup>Optional</sup> <a name="path" id="cdk8s-constructs.ServiceMonitorEndpoint.property.path"></a>
 
 ```typescript
@@ -23767,6 +23887,26 @@ public readonly path: string;
 
 ---
 
+##### `proxyUrl`<sup>Optional</sup> <a name="proxyUrl" id="cdk8s-constructs.ServiceMonitorEndpoint.property.proxyUrl"></a>
+
+```typescript
+public readonly proxyUrl: string;
+```
+
+- *Type:* string
+
+---
+
+##### `relabelings`<sup>Optional</sup> <a name="relabelings" id="cdk8s-constructs.ServiceMonitorEndpoint.property.relabelings"></a>
+
+```typescript
+public readonly relabelings: Relabeling[];
+```
+
+- *Type:* <a href="#cdk8s-constructs.Relabeling">Relabeling</a>[]
+
+---
+
 ##### `scrapeTimeout`<sup>Optional</sup> <a name="scrapeTimeout" id="cdk8s-constructs.ServiceMonitorEndpoint.property.scrapeTimeout"></a>
 
 ```typescript
@@ -23774,6 +23914,26 @@ public readonly scrapeTimeout: Duration;
 ```
 
 - *Type:* cdk8s.Duration
+
+---
+
+##### `targetPort`<sup>Optional</sup> <a name="targetPort" id="cdk8s-constructs.ServiceMonitorEndpoint.property.targetPort"></a>
+
+```typescript
+public readonly targetPort: string;
+```
+
+- *Type:* string
+
+---
+
+##### `trackTimestampsStaleness`<sup>Optional</sup> <a name="trackTimestampsStaleness" id="cdk8s-constructs.ServiceMonitorEndpoint.property.trackTimestampsStaleness"></a>
+
+```typescript
+public readonly trackTimestampsStaleness: boolean;
+```
+
+- *Type:* boolean
 
 ---
 
@@ -29042,6 +29202,81 @@ TraefikService.
 
 
 ##### `SUPERVISED` <a name="SUPERVISED" id="cdk8s-constructs.PrimaryUpdateStrategy.SUPERVISED"></a>
+
+---
+
+
+### RelabelingAction <a name="RelabelingAction" id="cdk8s-constructs.RelabelingAction"></a>
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#cdk8s-constructs.RelabelingAction.REPLACE">REPLACE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.KEEP">KEEP</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.DROP">DROP</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.HASHMOD">HASHMOD</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.LABELMAP">LABELMAP</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.LABELDROP">LABELDROP</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.LABELKEEP">LABELKEEP</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.LOWERCASE">LOWERCASE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.UPPERCASE">UPPERCASE</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.KEEPEQUAL">KEEPEQUAL</a></code> | *No description.* |
+| <code><a href="#cdk8s-constructs.RelabelingAction.DROPEQUAL">DROPEQUAL</a></code> | *No description.* |
+
+---
+
+##### `REPLACE` <a name="REPLACE" id="cdk8s-constructs.RelabelingAction.REPLACE"></a>
+
+---
+
+
+##### `KEEP` <a name="KEEP" id="cdk8s-constructs.RelabelingAction.KEEP"></a>
+
+---
+
+
+##### `DROP` <a name="DROP" id="cdk8s-constructs.RelabelingAction.DROP"></a>
+
+---
+
+
+##### `HASHMOD` <a name="HASHMOD" id="cdk8s-constructs.RelabelingAction.HASHMOD"></a>
+
+---
+
+
+##### `LABELMAP` <a name="LABELMAP" id="cdk8s-constructs.RelabelingAction.LABELMAP"></a>
+
+---
+
+
+##### `LABELDROP` <a name="LABELDROP" id="cdk8s-constructs.RelabelingAction.LABELDROP"></a>
+
+---
+
+
+##### `LABELKEEP` <a name="LABELKEEP" id="cdk8s-constructs.RelabelingAction.LABELKEEP"></a>
+
+---
+
+
+##### `LOWERCASE` <a name="LOWERCASE" id="cdk8s-constructs.RelabelingAction.LOWERCASE"></a>
+
+---
+
+
+##### `UPPERCASE` <a name="UPPERCASE" id="cdk8s-constructs.RelabelingAction.UPPERCASE"></a>
+
+---
+
+
+##### `KEEPEQUAL` <a name="KEEPEQUAL" id="cdk8s-constructs.RelabelingAction.KEEPEQUAL"></a>
+
+---
+
+
+##### `DROPEQUAL` <a name="DROPEQUAL" id="cdk8s-constructs.RelabelingAction.DROPEQUAL"></a>
 
 ---
 
