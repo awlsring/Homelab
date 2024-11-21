@@ -83,7 +83,7 @@ export class EnshroudedChart extends HomelabChart {
           resources: {
             cpu: {
               limit: Cpu.millis(8000),
-              request: Cpu.millis(2000),
+              request: Cpu.millis(4000),
             },
             memory: {
               limit: Size.gibibytes(16),
