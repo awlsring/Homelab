@@ -8,3 +8,4 @@ old
 **/.gen
 **/.terraform
 **/tsconfig.tsbuildinfo
+result

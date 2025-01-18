@@ -1,0 +1,13 @@
+{
+  "domain": "drigs.org",
+  "machines": [
+    {
+      "hostname": "dominaria",
+      "description": "test host",
+      "ipv4": "10.0.10.12",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1"
+    }
+  ]
+}
