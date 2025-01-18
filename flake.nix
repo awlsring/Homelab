@@ -1,41 +1,47 @@
 {
-  description = "Example Go development environment for Zero to Nix";
+  description = "Homelab";
 
-  # Flake inputs
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
   };
 
-  # Flake outputs
   outputs = {
     self,
     nixpkgs,
   }: let
-    # Systems supported
     allSystems = [
-      "x86_64-linux" # 64-bit Intel/AMD Linux
-      "aarch64-linux" # 64-bit ARM Linux
-      "x86_64-darwin" # 64-bit Intel macOS
-      "aarch64-darwin" # 64-bit ARM macOS
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
     ];
 
-    # Helper to provide system-specific attributes
     forAllSystems = f:
       nixpkgs.lib.genAttrs allSystems (system:
         f {
-          pkgs = import nixpkgs {inherit system;};
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
         });
   in {
     devShells = forAllSystems ({pkgs}: {
       default = pkgs.mkShell {
         shellHook = ''
-          alias pdk=npx pdk;
-          alias projen=npx projen;
+          export TERRAFORM_BINARY_NAME=tofu;
         '';
         packages = with pkgs; [
+          fluxcd
+          sops
+          just
           nodejs_22
+          yarn
+          direnv
+          nodePackages.cdktf-cli
+          opentofu
+          nodePackages.cdk8s-cli
           kubernetes-helm
-          nodePackages.pnpm
+          kubectl
         ];
       };
     });

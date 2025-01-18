@@ -1,0 +1,47 @@
+{
+  "language": "typescript",
+  "app": "npx ts-node src/main.ts",
+  "projectId": "1bc16a3a-0a95-46a4-96c1-531bc5c2af3d",
+  "sendCrashReports": "true",
+  "terraformProviders": [
+    {
+      "name": "hcloud",
+      "source": "registry.opentofu.org/hetznercloud/hcloud",
+      "version": "1.49.1"
+    },
+    {
+      "name": "b2",
+      "source": "registry.opentofu.org/backblaze/b2",
+      "version": "0.10.0"
+    },
+    {
+      "name": "cloudflare",
+      "source": "registry.opentofu.org/cloudflare/cloudflare",
+      "version": "5.0.0-rc1"
+    },
+    {
+      "name": "sops",
+      "source": "registry.opentofu.org/carlpett/sops",
+      "version": "1.1.1"
+    }
+  ],
+  "terraformModules": [
+    {
+      "name": "nix-build",
+      "source": "github.com/nix-community/nixos-anywhere//terraform/nix-build"
+    },
+    {
+      "name": "nix-install",
+      "source": "github.com/nix-community/nixos-anywhere//terraform/install"
+    },
+    {
+      "name": "nix-rebuild",
+      "source": "github.com/nix-community/nixos-anywhere//terraform/nixos-rebuild"
+    },
+    {
+      "name": "nixos-anywhere-all-in-one",
+      "source": "github.com/nix-community/nixos-anywhere//terraform/all-in-one"
+    }
+  ],
+  "context": {}
+}
