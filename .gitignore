@@ -2,6 +2,7 @@ old
 *.d.ts
 *.js
 **/node_modules
+**/cdk8s.out
 **/cdktf.out
 **/cdktf.log
 **terraform.*.tfstate*

@@ -1,0 +1,5 @@
+language: typescript
+app: npx ts-node kubernetes/src/main.ts
+output: ./kubernetes/cdk8s.out
+imports:
+  - k8s

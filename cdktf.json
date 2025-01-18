@@ -1,8 +1,10 @@
 {
   "language": "typescript",
-  "app": "npx ts-node src/main.ts",
+  "app": "npx ts-node terraform/src/main.ts",
   "projectId": "1bc16a3a-0a95-46a4-96c1-531bc5c2af3d",
   "sendCrashReports": "true",
+  "output": "terraform/cdktf.out",
+  "codeMakerOutput": "terraform/.gen",
   "terraformProviders": [
     {
       "name": "hcloud",
@@ -23,6 +25,11 @@
       "name": "sops",
       "source": "registry.opentofu.org/carlpett/sops",
       "version": "1.1.1"
+    },
+    {
+      "name": "tailscale",
+      "source": "registry.opentofu.org/tailscale/tailscale",
+      "version": "0.17.2"
     }
   ],
   "terraformModules": [
