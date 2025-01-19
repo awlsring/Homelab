@@ -21,5 +21,6 @@ Next go to https://login.tailscale.com/admin/settings/oauth and select "Generate
 - Device - Core: `Write` | Tags <site_name>
 - Device - Posture Attributes: `Write`
 - Device - Routes: `Write`
+- Auth Keys: `Write` | Tags <site_name>
 
 Once you select these, go to the bottom and click "Generate Client". This will give you a client ID and a client secret. These should be added to the `secrets/secrets.yaml`. Record the client ID as `tailscale/<site_name>/id` and the client secret as `tailscale/<site_name>/secret`.
