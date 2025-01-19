@@ -1,5 +1,24 @@
 language: typescript
 app: npx ts-node kubernetes/src/main.ts
-output: ./kubernetes/cdk8s.out
+output: kubernetes/manifests
 imports:
-  - k8s
+  - k8s@1.31.0
+  - certificaterequests:=kubernetes/crds/cert-manager/crd-certificaterequests.yaml
+  - certificates:=kubernetes/crds/cert-manager/crd-certificates.yaml
+  - challenges:=kubernetes/crds/cert-manager/crd-challenges.yaml
+  - clusterissuers:=kubernetes/crds/cert-manager/crd-clusterissuers.yaml
+  - issuers:=kubernetes/crds/cert-manager/crd-issuers.yaml
+  - orders:=kubernetes/crds/cert-manager/crd-orders.yaml
+  - kubernetes/crds/external-secrets/all.yaml
+  - clustertunnel:=kubernetes/crds/cloudflare/clustertunnel.yaml
+  - tunnelbinding:=kubernetes/crds/cloudflare/tunnelbinding.yaml
+  - tunnels:=kubernetes/crds/cloudflare/tunnels.yaml
+  - alertmanagerconfigs:=kubernetes/crds/prometheus/alertmanagerconfigs.monitoring.coreos.yaml
+  - alertmanagers:=kubernetes/crds/prometheus/alertmanagers.monitoring.coreos.yaml
+  - podmonitors:=kubernetes/crds/prometheus/podmonitors.monitoring.coreos.yaml
+  - probes:=kubernetes/crds/prometheus/probes.monitoring.coreos.yaml
+  - prometheuses:=kubernetes/crds/prometheus/prometheuses.monitoring.coreos.yaml
+  - prometheusrules:=kubernetes/crds/prometheus/prometheusrules.monitoring.coreos.yaml
+  - scrapeconfigs:=kubernetes/crds/prometheus/scrapeconfigs.monitoring.coreos.yaml
+  - servicemonitors:=kubernetes/crds/prometheus/servicemonitors.monitoring.coreos.yaml
+  - thanosrulers:=kubernetes/crds/prometheus/thanosrulers.monitoring.coreos.yaml

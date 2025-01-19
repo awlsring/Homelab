@@ -1,15 +1,15 @@
-import { Construct } from 'constructs';
-import { App, Chart, ChartProps } from 'cdk8s';
-
-export class MyChart extends Chart {
-  constructor(scope: Construct, id: string, props: ChartProps = { }) {
-    super(scope, id, props);
-
-    // define resources here
-
-  }
-}
+import { App } from "cdk8s";
+import { ApplicationModule } from "./modules/application";
+import { SystemModule } from "./modules/system";
+import { PlatformModule } from "./modules/platform";
+import { loadConfigurationFromInventory } from "./config/configuration";
 
 const app = new App();
-new MyChart(app, 'kubernetes');
+
+const config = loadConfigurationFromInventory();
+
+new SystemModule(app, config);
+new PlatformModule(app, config);
+new ApplicationModule(app, config);
+
 app.synth();

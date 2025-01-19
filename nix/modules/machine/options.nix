@@ -3,13 +3,6 @@
   config,
   ...
 }: let
-  findMachineByHostname = hostname: machines: let
-    matches = lib.filter (machine: machine.hostname == hostname) machines;
-  in
-    if lib.length matches == 1
-    then lib.head matches
-    else throw "No machine found with hostname: ${hostname}";
-
   machineOptions = with lib;
   with types; {
     hostname = mkOption {
@@ -60,12 +53,12 @@ in {
       description = "The class of the machine";
     };
     all = mkOption {
-      type = with types; listOf (submodule [{options = machineOptions;}]);
+      type = with types; attrsOf (submodule [{options = machineOptions;}]);
       description = "all machines";
     };
     active = mkOption {
       type = with types; submodule [{options = machineOptions;}];
-      default = findMachineByHostname config.machine.hostname config.machine.all;
+      default = config.machine.all.${config.machine.hostname};
       description = "The host that is described by this configuration";
     };
   };
