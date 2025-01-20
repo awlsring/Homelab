@@ -56,11 +56,20 @@
     "innistrad": {
       "hostname": "innistrad",
       "description": "test host",
-      "ipv4": "10.0.10.12",
+      "ipv4": "10.0.10.120",
       "os": "nixos",
       "tailnet": true,
       "site": "us-drig-1",
       "machineType": "NUC11PAHi5",
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp89s0",
+            "mac": "88:ae:dd:0b:3b:ef",
+            "staticIpv4": "10.0.10.120"
+          }
+        ]
+      },
       "hardware": {
         "cpu": {
           "make": "Intel",

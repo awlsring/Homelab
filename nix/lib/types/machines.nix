@@ -50,6 +50,34 @@
     };
   };
 
+  networkInterfaceConfig = submodule {
+    options = {
+      interface = lib.mkOption {
+        type = str;
+        description = "The network interface name (e.g., eth0, enp0s3)";
+      };
+      mac = lib.mkOption {
+        type = str;
+        description = "The MAC address of the network interface";
+      };
+      staticIpv4 = lib.mkOption {
+        type = str;
+        description = "A static IPv4 address to assign the network interface";
+        default = null;
+      };
+    };
+  };
+
+  networkConfig = submodule {
+    options = {
+      interfaces = lib.mkOption {
+        type = listOf networkInterfaceConfig;
+        description = "List of network interfaces";
+        default = [];
+      };
+    };
+  };
+
   hardwareConfig = submodule {
     options = {
       cpu = lib.mkOption {
@@ -115,6 +143,11 @@
         type = nullOr hardwareConfig;
         default = null;
         description = "Hardware specifications (CPU, RAM, Disks)";
+      };
+      network = lib.mkOption {
+        type = nullOr networkConfig;
+        default = null;
+        description = "Network configuration";
       };
     };
   };
