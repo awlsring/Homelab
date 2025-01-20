@@ -8,6 +8,12 @@ import { TPLinkPlugExporterChart } from "../charts/applications/tplink-plug-expo
 import { Configuration } from "../config/configuration";
 import { TandoorChart } from "../charts/applications/tandoor";
 import { TerraformBackendChart } from "../charts/applications/terraform-backend";
+import { GatusChart } from "../charts/applications/gatus";
+import {
+  GatusAlertType,
+  GatusConditions,
+  GatusEndpoint,
+} from "../constructs/applications/gatus";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -118,6 +124,118 @@ export class ApplicationModule extends Module {
       storage: {
         storageClass: "ceph-block",
         size: Size.gibibytes(1),
+      },
+    });
+
+    // TODO: auto generate this somehow
+    new GatusChart(app, "gatus", {
+      createNamespace: true,
+      namespace: "gatus",
+      secretStore: "onepassword-secret-store",
+      endpoints: [
+        new GatusEndpoint({
+          name: "Audiobookshelf",
+          group: "media - internal",
+          url: "https://audiobookshelf.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Jellyfin",
+          group: "media - internal",
+          url: "https://jellyfin.us-drig-1.drigs.org/health",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Immich",
+          group: "media - internal",
+          url: "https://immich.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Radarr",
+          group: "yarrg",
+          url: "https://radarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Sonarr",
+          group: "yarrg",
+          url: "https://sonarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "lidarr",
+          group: "yarrg",
+          url: "https://lidarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Readarr",
+          group: "yarrg",
+          url: "https://readarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Bazarr",
+          group: "yarrg",
+          url: "https://bazarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "prowlarr",
+          group: "yarrg",
+          url: "https://prowlarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Requesterr",
+          group: "yarrg",
+          url: "https://requesterr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Syncthing",
+          group: "yarrg",
+          url: "http://10.0.10.120:8384/rest/noauth/health",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Tandoor",
+          group: "internal",
+          url: "https://tandoor.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Bluesky PDS",
+          group: "external",
+          url: "https://at.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Fin",
+          group: "external",
+          url: "https://jellyfin.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+      ],
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "gatus.us-drig-1.drigs.org",
+        certIssuer: "prod",
       },
     });
   }
