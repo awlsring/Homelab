@@ -10,3 +10,4 @@ kubernetes/manifests
 **/.terraform
 **/tsconfig.tsbuildinfo
 result
+tmp

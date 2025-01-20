@@ -8,6 +8,12 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
+    srvos = {
+      # Use fix in issue https://github.com/nix-community/srvos/pull/601
+      url = "github:nix-community/srvos/7179525bf385263afbf2bdebc75b0060e37ceb7c";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +25,7 @@
     nixpkgs,
     systems,
     sops-nix,
+    srvos,
     disko,
   } @ inputs: let
     inherit (self) outputs;
@@ -60,7 +67,20 @@
           inherit inputs outputs nixosModules;
         };
         modules = [
+          srvos.nixosModules.server
           ./machines/dominaria
+        ];
+      };
+
+      conflux = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {
+          inherit inputs outputs nixosModules;
+        };
+        modules = [
+          srvos.nixosModules.server
+          srvos.nixosModules.hardware-hetzner-cloud
+          ./machines/conflux
         ];
       };
     };

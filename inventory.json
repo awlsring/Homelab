@@ -47,13 +47,13 @@
       "variant": "k3s",
       "storage": "ceph",
       "nodes": {
-        "control": [ "kaldheim", "theros"],
-        "worker": [ "kaldheim", "theros"]
+        "control": ["kaldheim", "theros"],
+        "worker": ["kaldheim", "theros"]
       }
     }
   },
   "machines": {
-    "dominaria":{
+    "dominaria": {
       "hostname": "dominaria",
       "description": "test host",
       "ipv4": "10.0.10.12",
@@ -61,7 +61,15 @@
       "tailnet": true,
       "site": "us-drig-1"
     },
-    "innistrad":{
+    "conflux": {
+      "hostname": "conflux",
+      "description": "test host",
+      "ipv4": "5.78.45.241",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "hetzner"
+    },
+    "innistrad": {
       "hostname": "innistrad",
       "description": "test host",
       "ipv4": "10.0.10.12",
