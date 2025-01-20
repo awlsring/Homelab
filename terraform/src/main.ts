@@ -1,7 +1,7 @@
 import { App } from "cdktf";
 import { HomelabStackProps } from "./constructs/stacks/homelab-stack";
 import { SopsSecretProviderFactory } from "./secret-provider/sops-secret-provider";
-import { HetznerMachineDeploymentStack } from "./stacks/machine-deploy-stack";
+import { MachineDeploymentStack } from "./stacks/machine-deploy-stack";
 import { PostgresBackendFactory } from "./backend/pg-backend";
 import { extractSopsSecret } from "./util/extract-sops-secret";
 
@@ -24,9 +24,19 @@ const commonProps: HomelabStackProps = {
   }),
 };
 
-new HetznerMachineDeploymentStack(app, "machine-deployment", {
+new MachineDeploymentStack(app, "machine-deployment", {
   ...commonProps,
-  hostname: "conflux",
+  machines: [
+    {
+      hostname: "dominaria",
+      ipv4: "10.0.10.12",
+      site: "us-drig-1",
+    },
+    {
+      hostname: "conflux",
+      site: "hetzner",
+    },
+  ],
 });
 
 app.synth();

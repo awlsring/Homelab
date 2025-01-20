@@ -7,12 +7,18 @@ import { NixosAnywhereAllInOne } from "../../.gen/modules/nixos-anywhere-all-in-
 import { Server } from "../../.gen/providers/hcloud/server";
 import { HcloudProvider } from "../../.gen/providers/hcloud/provider";
 
-export interface MachineDeploymentStackProps extends HomelabStackProps {
+export interface MachineOptions {
   readonly hostname: string;
+  readonly site: string;
+  readonly ipv4?: string;
+}
+
+export interface MachineDeploymentStackProps extends HomelabStackProps {
+  readonly machines: MachineOptions[];
 }
 
 // Test stack creating a server on hetzner then configuring via nixos-anywhere
-export class HetznerMachineDeploymentStack extends HomelabStack {
+export class MachineDeploymentStack extends HomelabStack {
   constructor(
     scope: Construct,
     name: string,
@@ -28,8 +34,30 @@ export class HetznerMachineDeploymentStack extends HomelabStack {
       token: providerSecret.value,
     });
 
+    props.machines.forEach((machine) => {
+      switch (machine.site) {
+        case "hetzner":
+          this.provisionHetznerMachine(machine);
+          break;
+        default:
+          // probably local, just try to deploy
+          this.provisionLocalMachine(machine);
+          break;
+      }
+    });
+  }
+
+  private provisionLocalMachine(options: MachineOptions) {
+    if (!options.ipv4) {
+      throw new Error("Local machines require an ipv4 address");
+    }
+
+    this.deployMachine(options.hostname, options.ipv4, options.ipv4);
+  }
+
+  private provisionHetznerMachine(options: MachineOptions) {
     const server = new Server(this, "server", {
-      name: props.hostname,
+      name: options.hostname,
       image: "debian-12",
       serverType: "cpx11",
       datacenter: "hil-dc1",
@@ -42,12 +70,23 @@ export class HetznerMachineDeploymentStack extends HomelabStack {
     });
 
     new NixosAnywhereAllInOne(this, "nixos-anywhere", {
-      nixosSystemAttr: `.#nixosConfigurations.${props.hostname}.config.system.build.toplevel`,
-      nixosPartitionerAttr: `.#nixosConfigurations.${props.hostname}.config.system.build.diskoScript`,
+      nixosSystemAttr: `.#nixosConfigurations.${options.hostname}.config.system.build.toplevel`,
+      nixosPartitionerAttr: `.#nixosConfigurations.${options.hostname}.config.system.build.diskoScript`,
       targetHost: server.ipv4Address,
       instanceId: server.id,
       extraFilesScript: `${__dirname}/../../../scripts/extract-secrets.sh`,
-      nixosGenerateConfigPath: `${__dirname}/../../../machines/${props.hostname}/hardware-configuration.nix`,
+      nixosGenerateConfigPath: `${__dirname}/../../../machines/${options.hostname}/hardware-configuration.nix`,
+    });
+  }
+
+  deployMachine(hostname: string, id: string, ipv4: string) {
+    new NixosAnywhereAllInOne(this, "nixos-anywhere", {
+      nixosSystemAttr: `.#nixosConfigurations.${hostname}.config.system.build.toplevel`,
+      nixosPartitionerAttr: `.#nixosConfigurations.${hostname}.config.system.build.diskoScript`,
+      targetHost: ipv4,
+      instanceId: id,
+      extraFilesScript: `${__dirname}/../../../scripts/extract-secrets.sh`,
+      nixosGenerateConfigPath: `${__dirname}/../../../machines/${hostname}/hardware-configuration.nix`,
     });
   }
 }
