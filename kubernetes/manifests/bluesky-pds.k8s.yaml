@@ -1,0 +1,250 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bluesky-pds
+  namespace: bluesky-pds
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-jwt-secret-c818f13e
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-jwt-secret
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-admin-password-c847bc3c
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-admin-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-blob-access-key-c822eaf7
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-blob-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-blob-secret-key-c8033a09
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-blob-secret-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-plc-rotation-key-c8d306ef
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-pds-plc-rotation-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: bluesky-pds-app-data-pvc-c88bf852
+  namespace: bluesky-pds
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: ceph-block
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bluesky-pds-app-bluesky-pds-deployment-c861ae04
+  namespace: bluesky-pds
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: bluesky-pds-app-bluesky-pds-deployment-c8f5e614
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: bluesky-pds-app-bluesky-pds-deployment-c8f5e614
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PDS_HOSTNAME
+              value: at.drigs.org
+            - name: PDS_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-jwt-secret-c818f13e
+            - name: PDS_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-admin-password-c847bc3c
+            - name: PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-plc-rotation-key-c8d306ef
+            - name: PDS_DATA_DIRECTORY
+              value: /pds
+            - name: PDS_DID_PLC_URL
+              value: https://plc.directory
+            - name: PDS_BSKY_APP_VIEW_URL
+              value: https://api.bsky.app
+            - name: PDS_BSKY_APP_VIEW_DID
+              value: did:web:api.bsky.app
+            - name: PDS_REPORT_SERVICE_URL
+              value: https://mod.bsky.app
+            - name: PDS_REPORT_SERVICE_DID
+              value: did:plc:ar7c4by46qjdydhdevvrndac
+            - name: PDS_CRAWLERS
+              value: https://bsky.network
+            - name: PDS_SERVICE_HANDLE_DOMAINS
+              value: .drigs.org
+            - name: LOG_ENABLED
+              value: "true"
+            - name: PDS_BLOBSTORE_S3_BUCKET
+              value: pds-drigs-blobs
+            - name: PDS_BLOBSTORE_S3_ENDPOINT
+              value: https://s3.us-east-005.backblazeb2.com
+            - name: PDS_BLOBSTORE_S3_REGION
+              value: us-east-005
+            - name: PDS_BLOBSTORE_S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-access-key-c822eaf7
+            - name: PDS_BLOBSTORE_S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-secret-key-c8033a09
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-access-key-c822eaf7
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-blob-secret-key-c8033a09
+            - name: PDS_BLOBSTORE_S3_FORCE_PATH_STYLE
+              value: "true"
+            - name: PDS_BLOBSTORE_DISK_LOCATION
+              value: ""
+          image: ghcr.io/bluesky-social/pds:0.4
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 3000
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 3
+            tcpSocket:
+              port: 3000
+          volumeMounts:
+            - mountPath: /pds
+              name: pvc-bluesky-pds-app-data-pvc-c88bf852
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: false
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-bluesky-pds-app-data-pvc-c88bf852
+          persistentVolumeClaim:
+            claimName: bluesky-pds-app-data-pvc-c88bf852
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bluesky-pds-app-service-c83d1dd2
+  namespace: bluesky-pds
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+  selector:
+    cdk8s.io/metadata.addr: bluesky-pds-app-bluesky-pds-deployment-c8f5e614
+  type: ClusterIP
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: ClusterTunnel
+metadata:
+  name: bluesky-pds-tunnel-c8f47547
+  namespace: bluesky-pds
+spec:
+  cloudflare:
+    accountId: 5838eb1235ebfbff425cfca5e3db9062
+    domain: drigs.org
+    email: admin@drigs.org
+    secret: cloudflare-secrets
+  image: cloudflare/cloudflared:2024.1.5
+  newTunnel:
+    name: bluesky-pds
+  size: 2
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: TunnelBinding
+metadata:
+  name: bluesky-pds-tunnel-binding-c8bdd76c
+  namespace: bluesky-pds
+subjects:
+  - kind: Service
+    name: bluesky-pds-app-service-c83d1dd2
+    spec:
+      fqdn: at.drigs.org
+tunnelRef:
+  kind: ClusterTunnel
+  name: bluesky-pds-tunnel-c8f47547

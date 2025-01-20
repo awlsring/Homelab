@@ -1,0 +1,2495 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: inteldeviceplugins-system
+  namespace: inteldeviceplugins-system
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: dlbdeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: DlbDevicePlugin
+    listKind: DlbDevicePluginList
+    plural: dlbdeviceplugins
+    singular: dlbdeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            DlbDevicePlugin is the Schema for the dlbdeviceplugins API. It represents
+            the DLB device plugin responsible for advertising Intel DLB hardware resources to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: DlbDevicePluginSpec defines the desired state of DlbDevicePlugin.
+              properties:
+                image:
+                  description: Image is a container image with DLB device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is a container image with a script that initializes devices.
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: DlbDevicePluginStatus defines the observed state of DlbDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: dsadeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: DsaDevicePlugin
+    listKind: DsaDevicePluginList
+    plural: dsadeviceplugins
+    singular: dsadeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            DsaDevicePlugin is the Schema for the dsadeviceplugins API. It represents
+            the DSA device plugin responsible for advertising Intel DSA hardware resources to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: DsaDevicePluginSpec defines the desired state of DsaDevicePlugin.
+              properties:
+                image:
+                  description: Image is a container image with DSA device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is an initcontainer image to configure and enable DSA devices and workqueues with idxd-config (accel-config) utility
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                provisioningConfig:
+                  description: ProvisioningConfig is a ConfigMap used to pass the DSA devices and workqueues configuration into idxd-config initcontainer.
+                  type: string
+                sharedDevNum:
+                  description: SharedDevNum is a number of containers that can share the same DSA device.
+                  minimum: 1
+                  type: integer
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: DsaDevicePluginStatus defines the observed state of DsaDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: fpgadeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: FpgaDevicePlugin
+    listKind: FpgaDevicePluginList
+    plural: fpgadeviceplugins
+    singular: fpgadeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            FpgaDevicePlugin is the Schema for the fpgadeviceplugins API. It represents
+            the FPGA device plugin responsible for advertising Intel FPGA hardware resources to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: FpgaDevicePluginSpec defines the desired state of FpgaDevicePlugin.
+              properties:
+                image:
+                  description: Image is a container image with FPGA device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is a container image with tools used to initialize the host before starting FPGA workloads on it.
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                mode:
+                  description: Mode is a mode of the plugin's operation.
+                  enum:
+                    - af
+                    - region
+                    - regiondevel
+                  type: string
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: FpgaDevicePluginStatus defines the observed state of FpgaDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: gpudeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: GpuDevicePlugin
+    listKind: GpuDevicePluginList
+    plural: gpudeviceplugins
+    singular: gpudeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            GpuDevicePlugin is the Schema for the gpudeviceplugins API. It represents
+            the GPU device plugin responsible for advertising Intel GPU hardware resources to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: GpuDevicePluginSpec defines the desired state of GpuDevicePlugin.
+              properties:
+                enableMonitoring:
+                  description: |-
+                    EnableMonitoring enables the monitoring resource ('i915_monitoring')
+                    which gives access to all GPU devices on given node. Typically used with Intel XPU-Manager.
+                  type: boolean
+                image:
+                  description: Image is a container image with GPU device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is a container image with tools (e.g., GPU NFD source hook) installed on each node.
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                preferredAllocationPolicy:
+                  description: |-
+                    PreferredAllocationPolicy sets the mode of allocating GPU devices on a node.
+                    See documentation for detailed description of the policies. Only valid when SharedDevNum > 1 is set.
+                    Not applicable with ResourceManager.
+                  enum:
+                    - balanced
+                    - packed
+                    - none
+                  type: string
+                resourceManager:
+                  description: ResourceManager handles the fractional resource management for multi-GPU nodes. Enable only for clusters with GPU Aware Scheduling.
+                  type: boolean
+                sharedDevNum:
+                  description: SharedDevNum is a number of containers that can share the same GPU device.
+                  minimum: 1
+                  type: integer
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: GpuDevicePluginStatus defines the observed state of GpuDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: iaadeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: IaaDevicePlugin
+    listKind: IaaDevicePluginList
+    plural: iaadeviceplugins
+    singular: iaadeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            IaaDevicePlugin is the Schema for the iaadeviceplugins API. It represents
+            the IAA device plugin responsible for advertising Intel IAA hardware resources to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: IaaDevicePluginSpec defines the desired state of IaaDevicePlugin.
+              properties:
+                image:
+                  description: Image is a container image with IAA device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is an initcontainer image to configure and enable IAA devices and workqueues with accel-config utility
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                provisioningConfig:
+                  description: ProvisioningConfig is a ConfigMap used to pass the IAA configuration into idxd initcontainer.
+                  type: string
+                sharedDevNum:
+                  description: SharedDevNum is a number of containers that can share the same IAA device.
+                  minimum: 1
+                  type: integer
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: IaaDevicePluginStatus defines the observed state of IaaDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: qatdeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: QatDevicePlugin
+    listKind: QatDevicePluginList
+    plural: qatdeviceplugins
+    singular: qatdeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            QatDevicePlugin is the Schema for the qatdeviceplugins API. It represents the QAT device
+            plugin responsible for advertising Intel QuickAssist Technology hardware resources
+            to the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: QatDevicePluginSpec defines the desired state of QatDevicePlugin.
+              properties:
+                dpdkDriver:
+                  description: DpdkDriver is a DPDK device driver for configuring the QAT device.
+                  enum:
+                    - igb_uio
+                    - vfio-pci
+                  type: string
+                image:
+                  description: Image is a container image with QAT device plugin executable.
+                  type: string
+                initImage:
+                  description: InitImage is a container image with a script that initialize devices.
+                  type: string
+                kernelVfDrivers:
+                  description: KernelVfDrivers is a list of VF device drivers for the QuickAssist devices in the system.
+                  items:
+                    description: KernelVfDriver is a VF device driver for QuickAssist devices.
+                    enum:
+                      - dh895xccvf
+                      - c6xxvf
+                      - c3xxxvf
+                      - d15xxvf
+                      - 4xxxvf
+                      - 420xxvf
+                      - c4xxxvf
+                    type: string
+                  type: array
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                maxNumDevices:
+                  description: MaxNumDevices is a maximum number of QAT devices to be provided to the QuickAssist device plugin
+                  minimum: 1
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                preferredAllocationPolicy:
+                  description: |-
+                    PreferredAllocationPolicy sets the mode of allocating QAT devices on a node.
+                    See documentation for detailed description of the policies.
+                  enum:
+                    - balanced
+                    - packed
+                  type: string
+                provisioningConfig:
+                  description: ProvisioningConfig is a ConfigMap used to pass the configuration of QAT devices into qat initcontainer.
+                  type: string
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: QatDevicePluginStatus defines the observed state of QatDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: sgxdeviceplugins.deviceplugin.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: deviceplugin.intel.com
+  names:
+    kind: SgxDevicePlugin
+    listKind: SgxDevicePluginList
+    plural: sgxdeviceplugins
+    singular: sgxdeviceplugin
+  scope: Cluster
+  versions:
+    - additionalPrinterColumns:
+        - jsonPath: .status.desiredNumberScheduled
+          name: Desired
+          type: integer
+        - jsonPath: .status.numberReady
+          name: Ready
+          type: integer
+        - jsonPath: .spec.nodeSelector
+          name: Node Selector
+          type: string
+        - jsonPath: .metadata.creationTimestamp
+          name: Age
+          type: date
+      name: v1
+      schema:
+        openAPIV3Schema:
+          description: |-
+            SgxDevicePlugin is the Schema for the sgxdeviceplugins API. It represents
+            the SGX device plugin responsible for advertising SGX device nodes to
+            the kubelet.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: SgxDevicePluginSpec defines the desired state of SgxDevicePlugin.
+              properties:
+                enclaveLimit:
+                  description: EnclaveLimit is a number of containers that can share the same SGX enclave device.
+                  minimum: 1
+                  type: integer
+                image:
+                  description: Image is a container image with SGX device plugin executable.
+                  type: string
+                initImage:
+                  description: |-
+                    InitImage is a container image with tools (i.e., SGX NFD source hook) installed on each node.
+                    Recommendation is to leave this unset and prefer the SGX NodeFeatureRule instead.
+                  type: string
+                logLevel:
+                  description: LogLevel sets the plugin's log level.
+                  minimum: 0
+                  type: integer
+                nodeSelector:
+                  additionalProperties:
+                    type: string
+                  description: NodeSelector provides a simple way to constrain device plugin pods to nodes with particular labels.
+                  type: object
+                provisionLimit:
+                  description: ProvisionLimit is a number of containers that can share the same SGX provision device.
+                  minimum: 1
+                  type: integer
+                tolerations:
+                  description: Specialized nodes (e.g., with accelerators) can be Tainted to make sure unwanted pods are not scheduled on them. Tolerations can be set for the plugin pod to neutralize the Taint.
+                  items:
+                    description: |-
+                      The pod this Toleration is attached to tolerates any taint that matches
+                      the triple <key,value,effect> using the matching operator <operator>.
+                    properties:
+                      effect:
+                        description: |-
+                          Effect indicates the taint effect to match. Empty means match all taint effects.
+                          When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+                        type: string
+                      key:
+                        description: |-
+                          Key is the taint key that the toleration applies to. Empty means match all taint keys.
+                          If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+                        type: string
+                      operator:
+                        description: |-
+                          Operator represents a key's relationship to the value.
+                          Valid operators are Exists and Equal. Defaults to Equal.
+                          Exists is equivalent to wildcard for value, so that a pod can
+                          tolerate all taints of a particular category.
+                        type: string
+                      tolerationSeconds:
+                        description: |-
+                          TolerationSeconds represents the period of time the toleration (which must be
+                          of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default,
+                          it is not set, which means tolerate the taint forever (do not evict). Zero and
+                          negative values will be treated as 0 (evict immediately) by the system.
+                        format: int64
+                        type: integer
+                      value:
+                        description: |-
+                          Value is the taint value the toleration matches to.
+                          If the operator is Exists, the value should be empty, otherwise just a regular string.
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            status:
+              description: SgxDevicePluginStatus defines the observed state of SgxDevicePlugin.
+              properties:
+                controlledDaemonSet:
+                  description: ControlledDaemoSet references the DaemonSet controlled by the operator.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: |-
+                        If referring to a piece of an object instead of an entire object, this string
+                        should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2].
+                        For example, if the object reference is to a container within a pod, this would take on a value like:
+                        "spec.containers{name}" (where "name" refers to the name of the container that triggered
+                        the event) or if no container name is specified "spec.containers[2]" (container with
+                        index 2 in this pod). This syntax is chosen only to have some well-defined way of
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: |-
+                        Kind of the referent.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: |-
+                        Name of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: |-
+                        Specific resourceVersion to which this reference is made, if any.
+                        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: |-
+                        UID of the referent.
+                        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                desiredNumberScheduled:
+                  description: |-
+                    The total number of nodes that should be running the device plugin
+                    pod (including nodes correctly running the device plugin pod).
+                  format: int32
+                  type: integer
+                nodeNames:
+                  description: The list of Node names where the device plugin pods are running.
+                  items:
+                    type: string
+                  type: array
+                numberReady:
+                  description: |-
+                    The number of nodes that should be running the device plugin pod and have one
+                    or more of the device plugin pod running and ready.
+                  format: int32
+                  type: integer
+              required:
+                - desiredNumberScheduled
+                - numberReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: acceleratorfunctions.fpga.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: fpga.intel.com
+  names:
+    kind: AcceleratorFunction
+    listKind: AcceleratorFunctionList
+    plural: acceleratorfunctions
+    shortNames:
+      - af
+    singular: acceleratorfunction
+  scope: Namespaced
+  versions:
+    - name: v2
+      schema:
+        openAPIV3Schema:
+          description: |-
+            AcceleratorFunction is a specification for an Accelerator Function resource
+            provided by a FPGA-based programmable hardware accelerator.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: AcceleratorFunctionSpec contains actual specs for AcceleratorFunction.
+              properties:
+                afuId:
+                  pattern: ^[0-9a-f]{8,40}$
+                  type: string
+                interfaceId:
+                  pattern: ^[0-9a-f]{8,32}$
+                  type: string
+                mode:
+                  pattern: ^af|region$
+                  type: string
+              required:
+                - afuId
+                - interfaceId
+                - mode
+              type: object
+            status:
+              description: AcceleratorFunctionStatus is an empty object used to satisfy operator-sdk.
+              type: object
+          required:
+            - spec
+          type: object
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.16.1
+  name: fpgaregions.fpga.intel.com
+  namespace: inteldeviceplugins-system
+spec:
+  group: fpga.intel.com
+  names:
+    kind: FpgaRegion
+    listKind: FpgaRegionList
+    plural: fpgaregions
+    shortNames:
+      - fpga
+    singular: fpgaregion
+  scope: Namespaced
+  versions:
+    - name: v2
+      schema:
+        openAPIV3Schema:
+          description: |-
+            FpgaRegion is a specification for a FPGA region resource which can be programmed
+            with a bitstream.
+          properties:
+            apiVersion:
+              description: |-
+                APIVersion defines the versioned schema of this representation of an object.
+                Servers should convert recognized schemas to the latest internal value, and
+                may reject unrecognized values.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+              type: string
+            kind:
+              description: |-
+                Kind is a string value representing the REST resource this object represents.
+                Servers may infer this from the endpoint the client submits requests to.
+                Cannot be updated.
+                In CamelCase.
+                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: FpgaRegionSpec contains actual specs for FpgaRegion.
+              properties:
+                interfaceId:
+                  pattern: ^[0-9a-f]{8,32}$
+                  type: string
+              required:
+                - interfaceId
+              type: object
+            status:
+              description: FpgaRegionStatus is an empty object used to satisfy operator-sdk.
+              type: object
+          required:
+            - spec
+          type: object
+      served: true
+      storage: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: inteldeviceplugins-gpu-manager-role
+  namespace: inteldeviceplugins-system
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: inteldeviceplugins-manager-role
+  namespace: inteldeviceplugins-system
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/proxy
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - serviceaccounts
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - create
+  - apiGroups:
+      - coordination.k8s.io
+    resourceNames:
+      - d1c7b6d5.intel.com
+    resources:
+      - leases
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - deviceplugin.intel.com
+    resources:
+      - dlbdeviceplugins
+      - dsadeviceplugins
+      - fpgadeviceplugins
+      - gpudeviceplugins
+      - iaadeviceplugins
+      - qatdeviceplugins
+      - sgxdeviceplugins
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - deviceplugin.intel.com
+    resources:
+      - dlbdeviceplugins/finalizers
+      - dsadeviceplugins/finalizers
+      - fpgadeviceplugins/finalizers
+      - gpudeviceplugins/finalizers
+      - iaadeviceplugins/finalizers
+      - qatdeviceplugins/finalizers
+      - sgxdeviceplugins/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - deviceplugin.intel.com
+    resources:
+      - dlbdeviceplugins/status
+      - dsadeviceplugins/status
+      - fpgadeviceplugins/status
+      - gpudeviceplugins/status
+      - iaadeviceplugins/status
+      - qatdeviceplugins/status
+      - sgxdeviceplugins/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - fpga.intel.com
+    resources:
+      - acceleratorfunctions
+      - fpgaregions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - security.openshift.io
+    resourceNames:
+      - privileged
+    resources:
+      - securitycontextconstraints
+    verbs:
+      - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: inteldeviceplugins-metrics-reader
+  namespace: inteldeviceplugins-system
+rules:
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: inteldeviceplugins-proxy-role
+  namespace: inteldeviceplugins-system
+rules:
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: inteldeviceplugins-manager-rolebinding
+  namespace: inteldeviceplugins-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: inteldeviceplugins-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: inteldeviceplugins-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: inteldeviceplugins-proxy-rolebinding
+  namespace: inteldeviceplugins-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: inteldeviceplugins-proxy-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: inteldeviceplugins-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: inteldeviceplugins-leader-election-role
+  namespace: inteldeviceplugins-system
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: inteldeviceplugins-leader-election-rolebinding
+  namespace: inteldeviceplugins-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: inteldeviceplugins-leader-election-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: inteldeviceplugins-system
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: inteldeviceplugins-controller-manager-metrics-service
+  namespace: inteldeviceplugins-system
+spec:
+  ports:
+    - name: https
+      port: 8443
+      targetPort: https
+  selector:
+    control-plane: controller-manager
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inteldeviceplugins-webhook-service
+  namespace: inteldeviceplugins-system
+spec:
+  ports:
+    - port: 443
+      targetPort: 9443
+  selector:
+    control-plane: controller-manager
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: inteldeviceplugins-controller-manager
+  namespace: inteldeviceplugins-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  template:
+    metadata:
+      labels:
+        control-plane: controller-manager
+    spec:
+      containers:
+        - env:
+            - name: DEVICEPLUGIN_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: intel/intel-deviceplugin-operator:0.31.1
+          imagePullPolicy: IfNotPresent
+          name: manager
+          ports:
+            - containerPort: 9443
+              name: webhook-server
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 120Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 65532
+            runAsNonRoot: true
+            runAsUser: 65532
+            seccompProfile:
+              type: RuntimeDefault
+          volumeMounts:
+            - mountPath: /tmp/k8s-webhook-server/serving-certs
+              name: cert
+              readOnly: true
+        - args:
+            - --secure-listen-address=0.0.0.0:8443
+            - --upstream=http://127.0.0.1:8080/
+            - --logtostderr=true
+            - --tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+            - --v=10
+          image: quay.io/brancz/kube-rbac-proxy:v0.18.1
+          name: kube-rbac-proxy
+          ports:
+            - containerPort: 8443
+              name: https
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+            seccompProfile:
+              type: RuntimeDefault
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: cert
+          secret:
+            defaultMode: 420
+            secretName: webhook-server-cert
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: inteldeviceplugins-serving-cert
+  namespace: inteldeviceplugins-system
+spec:
+  dnsNames:
+    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc
+    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: inteldeviceplugins-selfsigned-issuer
+  secretName: webhook-server-cert
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: inteldeviceplugins-selfsigned-issuer
+  namespace: inteldeviceplugins-system
+spec:
+  selfSigned: {}
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: inteldeviceplugins-system/inteldeviceplugins-serving-cert
+  name: inteldeviceplugins-mutating-webhook-configuration
+  namespace: inteldeviceplugins-system
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-dlbdeviceplugin
+    failurePolicy: Fail
+    name: mdlbdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - dlbdeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-dsadeviceplugin
+    failurePolicy: Fail
+    name: mdsadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - dsadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-fpgadeviceplugin
+    failurePolicy: Fail
+    name: mfpgadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - fpgadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-gpudeviceplugin
+    failurePolicy: Fail
+    name: mgpudeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - gpudeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-iaadeviceplugin
+    failurePolicy: Fail
+    name: miaadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - iaadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-qatdeviceplugin
+    failurePolicy: Fail
+    name: mqatdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - qatdeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate-deviceplugin-intel-com-v1-sgxdeviceplugin
+    failurePolicy: Fail
+    name: msgxdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - sgxdeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /pods
+    failurePolicy: Ignore
+    name: fpga.mutator.webhooks.intel.com
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - pods
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /mutate--v1-pod
+    failurePolicy: Ignore
+    name: sgx.mutator.webhooks.intel.com
+    reinvocationPolicy: IfNeeded
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - pods
+    sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    cert-manager.io/inject-ca-from: inteldeviceplugins-system/inteldeviceplugins-serving-cert
+  name: inteldeviceplugins-validating-webhook-configuration
+  namespace: inteldeviceplugins-system
+webhooks:
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-dlbdeviceplugin
+    failurePolicy: Fail
+    name: vdlbdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - dlbdeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-dsadeviceplugin
+    failurePolicy: Fail
+    name: vdsadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - dsadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-fpgadeviceplugin
+    failurePolicy: Fail
+    name: vfpgadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - fpgadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-gpudeviceplugin
+    failurePolicy: Fail
+    name: vgpudeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - gpudeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-iaadeviceplugin
+    failurePolicy: Fail
+    name: viaadeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - iaadeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-qatdeviceplugin
+    failurePolicy: Fail
+    name: vqatdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - qatdeviceplugins
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: inteldeviceplugins-webhook-service
+        namespace: inteldeviceplugins-system
+        path: /validate-deviceplugin-intel-com-v1-sgxdeviceplugin
+    failurePolicy: Fail
+    name: vsgxdeviceplugin.kb.io
+    rules:
+      - apiGroups:
+          - deviceplugin.intel.com
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - sgxdeviceplugins
+    sideEffects: None
+---
+apiVersion: deviceplugin.intel.com/v1
+kind: GpuDevicePlugin
+metadata:
+  name: gpudeviceplugin-sample
+  namespace: inteldeviceplugins-system
+spec:
+  enableMonitoring: true
+  image: intel/intel-gpu-plugin:0.31.1
+  logLevel: 2
+  nodeSelector:
+    intel.feature.node.kubernetes.io/gpu: "true"
+  preferredAllocationPolicy: none
+  resourceManager: false
+  sharedDevNum: 1
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: intel-dp-gpu-device
+  namespace: inteldeviceplugins-system
+spec:
+  rules:
+    - labels:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      matchAny:
+        - matchFeatures:
+            - feature: kernel.loadedmodule
+              matchExpressions:
+                i915:
+                  op: Exists
+        - matchFeatures:
+            - feature: kernel.enabledmodule
+              matchExpressions:
+                i915:
+                  op: Exists
+        - matchFeatures:
+            - feature: kernel.loadedmodule
+              matchExpressions:
+                xe:
+                  op: Exists
+        - matchFeatures:
+            - feature: kernel.enabledmodule
+              matchExpressions:
+                xe:
+                  op: Exists
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0300"
+                - "0380"
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: intel-gpu-platform-labeling
+  namespace: inteldeviceplugins-system
+spec:
+  rules:
+    - extendedResources:
+        gpu.intel.com/memory.max: "@local.label.gpu.intel.com/memory.max"
+        gpu.intel.com/millicores: "@local.label.gpu.intel.com/millicores"
+        gpu.intel.com/tiles: "@local.label.gpu.intel.com/tiles"
+      matchFeatures:
+        - feature: local.label
+          matchExpressions:
+            gpu.intel.com/memory.max:
+              op: Exists
+            gpu.intel.com/millicores:
+              op: Exists
+            gpu.intel.com/tiles:
+              op: Exists
+      name: intel.gpu.fractionalresources
+    - labelsTemplate: |
+        {{ range .pci.device }}gpu.intel.com/device-id.{{ .class }}-{{ .device }}.present=true
+        {{ end }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0300"
+                - "0380"
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.generic.deviceid
+    - labelsTemplate: gpu.intel.com/device-id.0300-{{ (index .pci.device 0).device }}.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0300"
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.generic.count.300
+    - labelsTemplate: gpu.intel.com/device-id.0380-{{ (index .pci.device 0).device }}.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.generic.count.380
+    - labels:
+        gpu.intel.com/product: Max_1100
+      labelsTemplate: gpu.intel.com/device.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            device:
+              op: In
+              value:
+                - 0bda
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.max.1100
+    - labels:
+        gpu.intel.com/product: Max_1550
+      labelsTemplate: gpu.intel.com/device.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            device:
+              op: In
+              value:
+                - 0bd5
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.max.1550
+    - labels:
+        gpu.intel.com/family: Max_Series
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            device:
+              op: In
+              value:
+                - 0bda
+                - 0bd5
+                - 0bd9
+                - 0bdb
+                - 0bd7
+                - 0bd6
+                - 0bd0
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.max.series
+    - labels:
+        gpu.intel.com/family: Flex_Series
+        gpu.intel.com/product: Flex_170
+      labelsTemplate: gpu.intel.com/device.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            device:
+              op: In
+              value:
+                - 56c0
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.flex.170
+    - labels:
+        gpu.intel.com/family: Flex_Series
+        gpu.intel.com/product: Flex_140
+      labelsTemplate: gpu.intel.com/device.count={{ len .pci.device }}
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0380"
+            device:
+              op: In
+              value:
+                - 56c1
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.flex.140
+    - labels:
+        gpu.intel.com/family: A_Series
+      matchFeatures:
+        - feature: pci.device
+          matchExpressions:
+            class:
+              op: In
+              value:
+                - "0300"
+            device:
+              op: In
+              value:
+                - 56a6
+                - 56a5
+                - 56a1
+                - 56a0
+                - "5694"
+                - "5693"
+                - "5692"
+                - "5691"
+                - "5690"
+                - 56b3
+                - 56b2
+                - 56a4
+                - 56a3
+                - "5697"
+                - "5696"
+                - "5695"
+                - 56b1
+                - 56b0
+            vendor:
+              op: In
+              value:
+                - "8086"
+      name: intel.gpu.a.series

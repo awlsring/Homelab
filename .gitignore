@@ -2,7 +2,6 @@ old
 *.d.ts
 *.js
 **/node_modules
-kubernetes/manifests
 **/cdktf.out
 **/cdktf.log
 **terraform.*.tfstate*
