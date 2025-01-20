@@ -14,6 +14,7 @@ import {
   GatusConditions,
   GatusEndpoint,
 } from "../constructs/applications/gatus";
+import { YarrgChart } from "../charts/applications/yarrg";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -38,6 +39,37 @@ export class ApplicationModule extends Module {
         type: ServiceType.LOAD_BALANCER,
         hostname: "audiobookshelf.us-drig-1.drigs.org",
         certIssuer: "prod",
+      },
+    });
+
+    new YarrgChart(app, "yarrg", {
+      namespace: "yarrg",
+      ingress: {
+        ingressClass: "nginx",
+        certIssuer: "prod",
+      },
+      radarr: {
+        hostname: "radarr.us-drig-1.drigs.org",
+      },
+      sonarr: {
+        hostname: "sonarr.us-drig-1.drigs.org",
+      },
+      lidarr: {
+        hostname: "lidarr.us-drig-1.drigs.org",
+      },
+      readarr: {
+        hostname: "readarr.us-drig-1.drigs.org",
+      },
+      bazarr: {
+        hostname: "bazarr.us-drig-1.drigs.org",
+      },
+      prowlarr: {
+        hostname: "prowlarr.us-drig-1.drigs.org",
+      },
+      mediaStorage: {
+        server: this.config.storage.nfs["media"].ipv4,
+        serverPath: "/mnt/WD-6D-8T/fin",
+        mountPath: "/media",
       },
     });
 
