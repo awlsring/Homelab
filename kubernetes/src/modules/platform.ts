@@ -5,6 +5,7 @@ import { MonitoringChart } from "../charts/platforms/monitoring";
 import { ExternalDnsChart } from "../charts/platforms/external-dns";
 import { OnePasswordConnectChart } from "../charts/platforms/onepassword-connect";
 import { Configuration } from "../config/configuration";
+import { CloudnativePgChart } from "../charts/platforms/cloudnative-pg-operator";
 
 const BLOCK_STORAGE_CLASS = "ceph-block";
 
@@ -80,5 +81,7 @@ export class PlatformModule extends Module {
         issuer: CERT_ISSUER_NAME_PROD,
       },
     });
+
+    new CloudnativePgChart(app, "cloudnative-pg");
   }
 }

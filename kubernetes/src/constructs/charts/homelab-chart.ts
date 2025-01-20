@@ -19,7 +19,8 @@ export class HomelabChart extends Chart {
       ...props,
       namespace: props.namespace,
     });
-    if (props.createNamespace && props.namespace) {
+    const createNamespace = props.createNamespace ?? true;
+    if (createNamespace && props.namespace) {
       new Namespace(this, "namespace", {
         name: this.namespace ?? "default",
       });

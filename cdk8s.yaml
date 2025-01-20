@@ -22,3 +22,9 @@ imports:
   - scrapeconfigs:=kubernetes/crds/prometheus/scrapeconfigs.monitoring.coreos.yaml
   - servicemonitors:=kubernetes/crds/prometheus/servicemonitors.monitoring.coreos.yaml
   - thanosrulers:=kubernetes/crds/prometheus/thanosrulers.monitoring.coreos.yaml
+  - backups:=kubernetes/crds/cnpg/backups.postgresql.cnpg.io.yaml
+  - clusterimagecatalogs:=kubernetes/crds/cnpg/clusterimagecatalogs.postgresql.cnpg.io.yaml
+  - clusters:=kubernetes/crds/cnpg/clusters.postgresql.cnpg.io.yaml
+  - imagecatalogs:=kubernetes/crds/cnpg/imagecatalogs.postgresql.cnpg.io.yaml
+  - poolers:=kubernetes/crds/cnpg/poolers.postgresql.cnpg.io.yaml
+  - scheduledbackups:=kubernetes/crds/cnpg/scheduledbackups.postgresql.cnpg.io.yaml

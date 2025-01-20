@@ -93,6 +93,8 @@
       default = pkgs.mkShell {
         shellHook = ''
           export TERRAFORM_BINARY_NAME=tofu;
+          export KUBECONFIG=$HOME/.kube/config;
+          export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
         '';
         packages = with pkgs; [
           fluxcd
@@ -105,7 +107,9 @@
           opentofu
           nodePackages.cdk8s-cli
           kubernetes-helm
+          k9s
           kubectl
+          kubectl-cnpg
         ];
       };
     });
