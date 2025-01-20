@@ -6,6 +6,7 @@ import { ExternalDnsChart } from "../charts/platforms/external-dns";
 import { OnePasswordConnectChart } from "../charts/platforms/onepassword-connect";
 import { Configuration } from "../config/configuration";
 import { CloudnativePgChart } from "../charts/platforms/cloudnative-pg-operator";
+import { CloudflareOperatorChart } from "../charts/platforms/cloudflare-operator";
 
 const BLOCK_STORAGE_CLASS = "ceph-block";
 
@@ -74,6 +75,8 @@ export class PlatformModule extends Module {
         },
       },
     });
+
+    new CloudflareOperatorChart(app, "cloudflare-operator");
 
     new OnePasswordConnectChart(app, "1password-connect", {
       ingress: {
