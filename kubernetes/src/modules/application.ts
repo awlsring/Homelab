@@ -152,6 +152,7 @@ export class ApplicationModule extends Module {
     });
 
     new TerraformBackendChart(app, "terraform-backend", {
+      secretStore: "onepassword-secret-store",
       namespace: "terraform-backend",
       storage: {
         storageClass: "ceph-block",

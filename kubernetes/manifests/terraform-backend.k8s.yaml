@@ -4,6 +4,19 @@ metadata:
   name: terraform-backend
   namespace: terraform-backend
 ---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: terraform-backend-database-secret-c8e759fe
+  namespace: terraform-backend
+spec:
+  dataFrom:
+    - extract:
+        key: terraform-database-pass
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -14,6 +27,8 @@ spec:
     initdb:
       database: terraform
       owner: terraform
+      secret:
+        name: terraform-backend-database-secret-c8e759fe
   instances: 3
   monitoring: {}
   primaryUpdateStrategy: unsupervised
