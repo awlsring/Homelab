@@ -35,14 +35,6 @@
     }
   },
   "machines": {
-    "dominaria": {
-      "hostname": "dominaria",
-      "description": "test host",
-      "ipv4": "10.0.10.12",
-      "os": "nixos",
-      "tailnet": true,
-      "site": "us-drig-1"
-    },
     "conflux": {
       "hostname": "conflux",
       "description": "test host",
@@ -52,13 +44,41 @@
       "site": "hetzner",
       "machineType": "cpx11"
     },
+    "dominaria": {
+      "hostname": "dominaria",
+      "description": "test host",
+      "ipv4": "10.0.10.12",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "custom"
+    },
     "innistrad": {
       "hostname": "innistrad",
       "description": "test host",
       "ipv4": "10.0.10.12",
       "os": "nixos",
       "tailnet": true,
-      "site": "us-drig-1"
+      "site": "us-drig-1",
+      "machineType": "NUC11PAHi5",
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "i5-1135G7"
+        },
+        "ram": {
+          "total": "16GB",
+          "type": "DDR4",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "nvme0n1": {
+            "size": "512GB",
+            "type": "NVME",
+            "model": "Lexar SSD NM620 512GB"
+          }
+        }
+      }
     },
     "phyrexia": {
       "hostname": "phyrexia",
@@ -66,7 +86,76 @@
       "ipv4": "10.0.10.180",
       "os": "truenas",
       "tailnet": false,
-      "site": "us-drig-1"
+      "site": "us-drig-1",
+      "machineType": "custom",
+      "hardware": {
+        "cpu": {
+          "make": "AMD",
+          "model": "Ryzen 5 3600"
+        },
+        "ram": {
+          "total": "64GB",
+          "type": "DDR4",
+          "formFactor": "UDIMM"
+        },
+        "disks": {
+          "nvme0n1": {
+            "size": "512GB",
+            "type": "NVME",
+            "model": "CT500P2SSD8"
+          },
+          "sda": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdb": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdc": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdd": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sde": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdf": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdg": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "ST8000VN004-3CP101"
+          },
+          "sdh": {
+            "size": "8TB",
+            "type": "HDD",
+            "model": "WDC_WD80EFZZ-68BTXN0"
+          },
+          "sdi": {
+            "size": "12TB",
+            "type": "HDD",
+            "model": "ST12000VN0008-2YS101"
+          },
+          "sdj": {
+            "size": "12TB",
+            "type": "HDD",
+            "model": "ST12000VN0008-2YS101"
+          }
+        }
+      }
     }
   }
 }
