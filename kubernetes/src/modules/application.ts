@@ -6,13 +6,13 @@ import { ImmichChart } from "../charts/applications/immich";
 import { BlueskyPdsChart } from "../charts/applications/bluesky-pds";
 import { TPLinkPlugExporterChart } from "../charts/applications/tplink-plug-exporter";
 import { Configuration } from "../config/configuration";
+import { TandoorChart } from "../charts/applications/tandoor";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
     super(app, config);
 
     new AudioBookshelfChart(app, "audiobookshelf", {
-      createNamespace: true,
       namespace: "audiobookshelf",
       imageTag: "2.7.1",
       configStorage: {
@@ -35,7 +35,6 @@ export class ApplicationModule extends Module {
     });
 
     new ImmichChart(app, "immich", {
-      createNamespace: true,
       namespace: "immich",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
@@ -68,7 +67,6 @@ export class ApplicationModule extends Module {
     });
 
     new BlueskyPdsChart(app, "bluesky-pds", {
-      createNamespace: true,
       namespace: "bluesky-pds",
       imageTag: "0.4",
       hostname: "at.drigs.org",
@@ -93,8 +91,25 @@ export class ApplicationModule extends Module {
     });
 
     new TPLinkPlugExporterChart(app, "tplink-plug-exporter", {
-      createNamespace: true,
       namespace: "tplink-plug-exporter",
+    });
+
+    new TandoorChart(app, "tandoor", {
+      namespace: "tandoor",
+      secretStore: "onepassword-secret-store",
+      storage: {
+        staticFiles: {
+          storageClass: "ceph-block",
+        },
+        mediaFiles: {
+          storageClass: "ceph-block",
+        },
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "tandoor.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
     });
   }
 }
