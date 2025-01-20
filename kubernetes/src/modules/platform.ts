@@ -82,6 +82,7 @@ export class PlatformModule extends Module {
       },
     });
 
+    // TODO: allow traffic from nginx to these https://cloudnative-pg.io/documentation/1.15/expose_pg_services/
     new CloudnativePgChart(app, "cloudnative-pg");
   }
 }

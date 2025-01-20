@@ -7,6 +7,7 @@ import { BlueskyPdsChart } from "../charts/applications/bluesky-pds";
 import { TPLinkPlugExporterChart } from "../charts/applications/tplink-plug-exporter";
 import { Configuration } from "../config/configuration";
 import { TandoorChart } from "../charts/applications/tandoor";
+import { TerraformBackendChart } from "../charts/applications/terraform-backend";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -109,6 +110,14 @@ export class ApplicationModule extends Module {
         ingressClass: "nginx",
         hostname: "tandoor.us-drig-1.drigs.org",
         certIssuer: "prod",
+      },
+    });
+
+    new TerraformBackendChart(app, "terraform-backend", {
+      namespace: "terraform-backend",
+      storage: {
+        storageClass: "ceph-block",
+        size: Size.gibibytes(1),
       },
     });
   }
