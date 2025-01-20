@@ -1,71 +1,36 @@
 {
   lib,
+  types,
   config,
+  configJson,
   ...
-}: let
-  machineOptions = with lib;
-  with types; {
-    hostname = mkOption {
-      type = str;
-    };
-
-    ipv4 = mkOption {
-      type = str;
-    };
-
-    os = mkOption {
-      type = str;
-    };
-
-    site = mkOption {
-      type = str;
-    };
-
-    tailnet = mkOption {
-      type = bool;
-      default = false;
-    };
-
-    description = mkOption {
-      type = str;
-      default = null;
-    };
-
-    subdomains = mkOption {
-      type = nullOr (listOf str);
-      default = null;
-    };
-
-    roles = mkOption {
-      type = nullOr (listOf str);
-      default = [];
-    };
-  };
-in {
+}: {
   options.machine = with lib; {
-    hostname = lib.mkOption {
+    hostname = mkOption {
       type = lib.types.str;
       description = "The hostname of the system";
     };
-    class = lib.mkOption {
+
+    class = mkOption {
       type = lib.types.enum ["desktop" "server"];
       default = "server";
       description = "The class of the machine";
     };
+
     all = mkOption {
-      type = with types; attrsOf (submodule [{options = machineOptions;}]);
-      description = "all machines";
+      type = lib.types.attrsOf types.machine;
+      description = "All machine configurations";
     };
+
     active = mkOption {
-      type = with types; submodule [{options = machineOptions;}];
+      type = types.machine;
       default = config.machine.all.${config.machine.hostname};
-      description = "The host that is described by this configuration";
+      description = "The configuration for the current host";
     };
   };
 
   config = {
     networking.hostName = config.machine.hostname;
-
-    machine.all = (builtins.fromJSON (builtins.readFile ../../../inventory.json)).machines;
+    machine.all = configJson.machines;
   };
 }

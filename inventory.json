@@ -24,32 +24,14 @@
       }
     }
   },
-  "machine": [
-    {
-      "hostname": "dominaria",
-      "description": "test host",
-      "ipv4": "10.0.10.12",
-      "os": "nixos",
-      "tailnet": true,
-      "site": "us-drig-1"
+  "sites": {
+    "us-drig-1": {
+      "description": "Homelab",
+      "region": "local"
     },
-    {
-      "hostname": "phyrexia",
-      "description": "NAS",
-      "ipv4": "10.0.10.180",
-      "os": "truenas",
-      "tailnet": false,
-      "site": "us-drig-1"
-    }
-  ],
-  "clusters": {
-    "prod": {
-      "variant": "k3s",
-      "storage": "ceph",
-      "nodes": {
-        "control": ["kaldheim", "theros"],
-        "worker": ["kaldheim", "theros"]
-      }
+    "hetzner": {
+      "description": "Hetzner Cloud",
+      "region": "hil-dc1"
     }
   },
   "machines": {
@@ -64,10 +46,11 @@
     "conflux": {
       "hostname": "conflux",
       "description": "test host",
-      "ipv4": "5.78.45.241",
+      "ipv4": "5.78.75.137",
       "os": "nixos",
       "tailnet": true,
-      "site": "hetzner"
+      "site": "hetzner",
+      "machineType": "cpx11"
     },
     "innistrad": {
       "hostname": "innistrad",
@@ -75,8 +58,7 @@
       "ipv4": "10.0.10.12",
       "os": "nixos",
       "tailnet": true,
-      "site": "us-drig-1",
-      "roles": ["jellyfin", "yarrg"]
+      "site": "us-drig-1"
     },
     "phyrexia": {
       "hostname": "phyrexia",

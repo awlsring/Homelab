@@ -1,6 +1,8 @@
 inputs: {
   disko,
   sops-nix,
+  types,
+  utils,
 }: {...}: {
   imports = [
     disko.nixosModules.disko

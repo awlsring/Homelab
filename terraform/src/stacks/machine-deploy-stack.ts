@@ -56,7 +56,7 @@ export class MachineDeploymentStack extends HomelabStack {
   }
 
   private provisionHetznerMachine(options: MachineOptions) {
-    const server = new Server(this, "server", {
+    const server = new Server(this, `server-${options.hostname}`, {
       name: options.hostname,
       image: "debian-12",
       serverType: "cpx11",
@@ -69,18 +69,11 @@ export class MachineDeploymentStack extends HomelabStack {
       sshKeys: ["ed25519"],
     });
 
-    new NixosAnywhereAllInOne(this, "nixos-anywhere", {
-      nixosSystemAttr: `.#nixosConfigurations.${options.hostname}.config.system.build.toplevel`,
-      nixosPartitionerAttr: `.#nixosConfigurations.${options.hostname}.config.system.build.diskoScript`,
-      targetHost: server.ipv4Address,
-      instanceId: server.id,
-      extraFilesScript: `${__dirname}/../../../scripts/extract-secrets.sh`,
-      nixosGenerateConfigPath: `${__dirname}/../../../machines/${options.hostname}/hardware-configuration.nix`,
-    });
+    this.deployMachine(options.hostname, server.id, server.ipv4Address);
   }
 
   deployMachine(hostname: string, id: string, ipv4: string) {
-    new NixosAnywhereAllInOne(this, "nixos-anywhere", {
+    new NixosAnywhereAllInOne(this, `nixos-anywhere-${hostname}`, {
       nixosSystemAttr: `.#nixosConfigurations.${hostname}.config.system.build.toplevel`,
       nixosPartitionerAttr: `.#nixosConfigurations.${hostname}.config.system.build.diskoScript`,
       targetHost: ipv4,

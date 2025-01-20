@@ -31,6 +31,40 @@
     inherit (self) outputs;
     lib = nixpkgs.lib;
 
+    types = import ./nix/lib/types {inherit lib;};
+
+    utils = import ./nix/lib/utilities {inherit lib types;};
+
+    config = import ./nix/lib/config.nix {inherit lib types;};
+    configJson = config.configJson;
+
+    nixosModules.default = {pkgs, ...} @ args: {
+      imports = [
+        (import ./nix/modules inputs {inherit disko sops-nix types utils;})
+      ];
+    };
+
+    # Generate NixOS configurations from inventory
+    nixosConfigurations = lib.mapAttrs (
+      _hostname: machine: let
+        nixSystem = utils.machines.getSystemForArch machine.arch;
+      in
+        nixpkgs.lib.nixosSystem {
+          system = nixSystem;
+          specialArgs = {
+            inherit inputs outputs types configJson nixosModules;
+          };
+          modules =
+            [
+              srvos.nixosModules.server
+              ./machines/${machine.hostname}
+            ]
+            ++ lib.optionals (machine.site == "hetzner") [
+              srvos.nixosModules.hardware-hetzner-cloud
+            ];
+        }
+    ) (lib.filterAttrs (_name: machine: machine.os == "nixos") configJson.machines);
+
     forAllSystems = f:
       nixpkgs.lib.genAttrs (import systems) (system:
         f {
@@ -40,50 +74,12 @@
           };
           inherit system;
         });
-
-    nixosModules.default = {pkgs, ...} @ args: {
-      imports = [
-        (
-          import ./nix/modules inputs {
-            inherit disko sops-nix;
-          }
-        )
-      ];
-    };
   in {
-    inherit lib;
+    inherit nixosConfigurations nixosModules;
 
     overlays = import ./nix/overlays {inherit inputs;};
     packages = forAllSystems (pkgs: import ./nix/pkgs {inherit pkgs;});
     formatter = forAllSystems (pkgs: pkgs.alejandra);
-
-    nixosModules = nixosModules;
-
-    nixosConfigurations = {
-      # Dominaria
-      dominaria = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs outputs nixosModules;
-        };
-        modules = [
-          srvos.nixosModules.server
-          ./machines/dominaria
-        ];
-      };
-
-      conflux = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs outputs nixosModules;
-        };
-        modules = [
-          srvos.nixosModules.server
-          srvos.nixosModules.hardware-hetzner-cloud
-          ./machines/conflux
-        ];
-      };
-    };
 
     devShells = forAllSystems ({
       pkgs,
@@ -91,10 +87,12 @@
       ...
     }: {
       default = pkgs.mkShell {
+        env = {
+          TERRAFORM_BINARY_NAME = "tofu";
+        };
         shellHook = ''
-          export TERRAFORM_BINARY_NAME=tofu;
-          export KUBECONFIG=$HOME/.kube/config;
-          export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+          export KUBECONFIG="$HOME/.kube/config"
+          export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
         '';
         packages = with pkgs; [
           fluxcd
@@ -110,6 +108,8 @@
           k9s
           kubectl
           kubectl-cnpg
+          alejandra
+          commitizen
         ];
       };
     });
