@@ -30,11 +30,24 @@
       value = configureInterface iface;
     })
     interfaces);
+
+  primaryInterface =
+    if builtins.length interfaces > 0
+    then builtins.head interfaces
+    else null;
+
+  primaryInterfaceName =
+    if primaryInterface != null
+    then primaryInterface.interface
+    else null;
 in
   lib.mkIf hasNetworkConfig {
     networking = {
       interfaces = networkInterfaces;
-
+      defaultGateway = {
+        interface = primaryInterfaceName;
+        address = "10.0.10.1"; # TODO: Make this dynamic based of the primary interface IP
+      };
       nameservers = [
         "1.1.1.1"
         "10.10.10.10"

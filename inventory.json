@@ -7,15 +7,15 @@
       },
       "security": {
         "machine": "phyrexia",
-        "mountPath": "/mnt/WD-6D-8T/media"
+        "mountPath": "/mnt/WD-6D-8T/frigate"
       },
       "immich-uploads": {
         "machine": "phyrexia",
-        "mountPath": "/mnt/WD-6D-8T/media"
+        "mountPath": "/mnt/WD-6D-8T/immich-uploads"
       },
       "photos": {
         "machine": "phyrexia",
-        "mountPath": "/mnt/WD-6D-8T/media"
+        "mountPath": "/mnt/WD-6D-8T/photos"
       }
     },
     "buckets": {
@@ -53,9 +53,46 @@
       "site": "us-drig-1",
       "machineType": "custom"
     },
+    "kaladesh": {
+      "hostname": "kaladesh",
+      "description": "Home control server",
+      "ipv4": "10.0.10.156",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "Beelink Mini S12 Pro",
+      "roles": ["frigate"],
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp1s0",
+            "mac": "e8:ff:1e:d3:16:7a",
+            "staticIpv4": "10.0.10.156"
+          }
+        ]
+      },
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "N100"
+        },
+        "ram": {
+          "total": "16GB",
+          "type": "DDR4",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "sda": {
+            "size": "512GB",
+            "type": "SSD",
+            "model": "FORESEE 512GB SSD"
+          }
+        }
+      }
+    },
     "innistrad": {
       "hostname": "innistrad",
-      "description": "test host",
+      "description": "media server",
       "ipv4": "10.0.10.120",
       "os": "nixos",
       "tailnet": true,

@@ -33,26 +33,26 @@
 
     types = import ./nix/lib/types {inherit lib;};
 
-    utils = import ./nix/lib/utilities {inherit lib types;};
+    utilities = import ./nix/lib/utilities {inherit lib types;};
 
     config = import ./nix/lib/config.nix {inherit lib types;};
     configJson = config.configJson;
 
     nixosModules.default = {pkgs, ...} @ args: {
       imports = [
-        (import ./nix/modules inputs {inherit disko sops-nix types utils;})
+        (import ./nix/modules inputs {inherit disko sops-nix types utilities;})
       ];
     };
 
     # Generate NixOS configurations from inventory
     nixosConfigurations = lib.mapAttrs (
       _hostname: machine: let
-        nixSystem = utils.machines.getSystemForArch machine.arch;
+        nixSystem = utilities.machines.getSystemForArch machine.arch;
       in
         nixpkgs.lib.nixosSystem {
           system = nixSystem;
           specialArgs = {
-            inherit inputs outputs types configJson nixosModules;
+            inherit inputs outputs types utilities configJson nixosModules;
           };
           modules =
             [

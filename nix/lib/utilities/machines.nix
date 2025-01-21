@@ -8,7 +8,7 @@
     "aarch64" = "aarch64-linux";
     "armv7" = "armv7l-linux";
   };
-in {
+
   # Get the system name for a given architecture
   getSystemForArch = arch:
     if builtins.hasAttr arch archToSystem
@@ -25,7 +25,9 @@ in {
 
   # Get the IPv4 address of a machine by hostname
   getMachineIPv4 = machines: hostname: let
-    machine = lib.findMachineByHostname machines hostname;
+    machine = findMachineByHostname machines hostname;
   in
     machine.ipv4;
+in {
+  inherit getSystemForArch findMachineByHostname getMachineIPv4;
 }

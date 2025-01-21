@@ -2,7 +2,10 @@
   pkgs,
   lib,
   config,
+  utilities,
   ...
 }: {
-  imports = [];
+  imports = [
+    ./frigate.nix
+  ];
 }
