@@ -43,15 +43,16 @@
 in
   lib.mkIf hasNetworkConfig {
     networking = {
-      interfaces = networkInterfaces;
-      defaultGateway = {
-        interface = primaryInterfaceName;
-        address = "10.0.10.1"; # TODO: Make this dynamic based of the primary interface IP
-      };
-      nameservers = [
-        "1.1.1.1"
-        "10.10.10.10"
-        "100.100.100.100"
-      ];
+      # TODO: disable this while figuring out what else should be set here.
+      # interfaces = networkInterfaces;
+      # defaultGateway = {
+      #   interface = primaryInterfaceName;
+      #   address = "10.0.10.1"; # TODO: Make this dynamic based of the primary interface IP
+      # };
+      # nameservers = [
+      #   #   "1.1.1.1"
+      #   "10.0.10.1"
+      #   #   "100.100.100.100"
+      # ];
     };
   }

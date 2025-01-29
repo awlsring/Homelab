@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./kubernetes
     ./frigate.nix
   ];
 }

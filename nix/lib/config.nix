@@ -12,6 +12,10 @@
         options.configJson = lib.mkOption {
           type = lib.types.submodule {
             options = {
+              roles = lib.mkOption {
+                type = types.rolesConfig;
+                description = "Roles configuration";
+              };
               storage = lib.mkOption {
                 type = types.storageConfig;
                 description = "Storage configuration";

@@ -28,13 +28,9 @@ new MachineDeploymentStack(app, "machine-deployment", {
   ...commonProps,
   machines: [
     {
-      hostname: "dominaria",
-      ipv4: "10.0.10.12",
+      hostname: "ravnica",
+      ipv4: "10.0.10.69",
       site: "us-drig-1",
-    },
-    {
-      hostname: "conflux",
-      site: "hetzner",
     },
   ],
 });

@@ -1,9 +1,20 @@
 {
+  "roles": {
+    "k3s": {
+      "description": "K3S Kubernetes cluster"
+    },
+    "k3s:control": {
+      "description": "K3S - Control plane"
+    },
+    "k3s:worker": {
+      "description": "K3S - Worker"
+    }
+  },
   "storage": {
     "nfs": {
       "media": {
         "machine": "phyrexia",
-        "mountPath": "/mnt/WD-6D-8T/media"
+        "mountPath": "/mnt/WD-6D-8T/fin"
       },
       "security": {
         "machine": "phyrexia",
@@ -52,6 +63,48 @@
       "tailnet": true,
       "site": "us-drig-1",
       "machineType": "custom"
+    },
+    "ravnica": {
+      "hostname": "ravnica",
+      "description": "k8s cluster",
+      "ipv4": "10.0.10.69",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "ms01",
+      "roles": ["k3s:control"],
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp2s0f0",
+            "mac": "e8:ff:1e:d3:16:7a",
+            "staticIpv4": "10.0.10.69"
+          }
+        ]
+      },
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "i9-12900H"
+        },
+        "ram": {
+          "total": "64GB",
+          "type": "DDR5",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "nvme0n1": {
+            "size": "512GB",
+            "type": "SSD",
+            "model": "CT500P310SSD8"
+          },
+          "nvme1n1": {
+            "size": "2TB",
+            "type": "SSD",
+            "model": "Samsung SSD 990 EVO 2TB"
+          }
+        }
+      }
     },
     "kaladesh": {
       "hostname": "kaladesh",
