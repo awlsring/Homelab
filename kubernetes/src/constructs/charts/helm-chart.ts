@@ -3,30 +3,38 @@ import { Construct } from "constructs";
 import { HomelabChart } from "./homelab-chart";
 
 export interface HelmChartProps {
-  readonly repository: string;
   readonly chart: string;
+  readonly repo: string;
+  readonly version: string;
   readonly namespace: string;
-  readonly flags: string[];
+  readonly values?: Record<string, any>;
+  readonly flags?: string[];
+  readonly createNamespace?: boolean;
 }
 
 export class HelmChart extends HomelabChart {
-  readonly ns: string;
-  readonly repository: string;
-  readonly chart: string;
+  readonly _namespace: string;
 
   constructor(scope: Construct, name: string, props: HelmChartProps) {
     super(scope, name, {
       ...props,
-      createNamespace: true,
+      createNamespace: props.createNamespace,
       namespace: props.namespace,
     });
-    this.ns = props.namespace;
-    this.repository = props.repository; // TODO - use these fields to build a list of repositories to be added for CI.
-    this.chart = props.chart;
+    this._namespace = props.namespace;
+
+    const helmFlags = ["--namespace", this._namespace, "--include-crds"];
+
+    if (props.flags) {
+      helmFlags.push(...props.flags);
+    }
 
     new Helm(this, "helm", {
-      chart: `${props.repository}/${props.chart}`,
-      helmFlags: ["--namespace", this.ns, "--include-crds"],
+      chart: props.chart,
+      repo: props.repo,
+      version: props.version,
+      helmFlags: helmFlags,
+      values: props.values,
     });
   }
 }

@@ -28,3 +28,5 @@ imports:
   - imagecatalogs:=kubernetes/crds/cnpg/imagecatalogs.postgresql.cnpg.io.yaml
   - poolers:=kubernetes/crds/cnpg/poolers.postgresql.cnpg.io.yaml
   - scheduledbackups:=kubernetes/crds/cnpg/scheduledbackups.postgresql.cnpg.io.yaml
+  - metallb:=kubernetes/crds/metallb/metallb.yaml
+  - clusterpolicies:=kubernetes/crds/kyverno/clusterpolicies.kyverno.io.yaml
