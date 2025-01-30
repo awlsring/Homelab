@@ -69,6 +69,19 @@ spec:
     kind: ClusterSecretStore
     name: onepassword-secret-store
 ---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bluesky-pds-smtp-url-c835e4c6
+  namespace: bluesky-pds
+spec:
+  dataFrom:
+    - extract:
+        key: bluesky-smtp-url
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -80,7 +93,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -173,6 +186,13 @@ spec:
               value: "true"
             - name: PDS_BLOBSTORE_DISK_LOCATION
               value: ""
+            - name: PDS_EMAIL_SMTP_URL
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: bluesky-pds-smtp-url-c835e4c6
+            - name: PDS_EMAIL_FROM_ADDRESS
+              value: admin@bluesky.drigs.org
           image: ghcr.io/bluesky-social/pds:0.4
           imagePullPolicy: Always
           name: main

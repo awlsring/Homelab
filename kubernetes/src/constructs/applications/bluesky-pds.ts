@@ -49,17 +49,34 @@ export interface ApplicationProps {
   readonly disableLogging?: boolean;
 }
 
+export interface BlueskyPDSSMTPOptions {
+  readonly smtpUrlSecret: SecretValue;
+  readonly emailFromAddress: string;
+}
+
 export interface BlueskyPDSProps {
   readonly imageTag?: string;
   readonly application: ApplicationProps;
   readonly storage: PersistentVolumeClaimOptions;
   readonly objectStorage?: BlueskyPDSBucketStorageOptions;
+  readonly smtp?: BlueskyPDSSMTPOptions;
   readonly serviceType?: ServiceType;
 }
 
 export class BlueskyPDS extends Construct {
   readonly deployment: Deployment;
   readonly service: Service;
+
+  private makeSMTPEnv(props: BlueskyPDSProps): Record<string, EnvValue> {
+    if (props.smtp) {
+      return {
+        PDS_EMAIL_SMTP_URL: EnvValue.fromSecretValue(props.smtp.smtpUrlSecret),
+        PDS_EMAIL_FROM_ADDRESS: EnvValue.fromValue(props.smtp.emailFromAddress),
+      };
+    } else {
+      return {};
+    }
+  }
 
   private makeStorageEnv(props: BlueskyPDSProps): Record<string, EnvValue> {
     if (props.objectStorage) {
@@ -140,6 +157,7 @@ export class BlueskyPDS extends Construct {
               props.application.disableLogging ? "false" : "true"
             ),
             ...this.makeStorageEnv(props),
+            ...this.makeSMTPEnv(props),
           },
           securityContext: {
             privileged: true,

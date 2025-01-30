@@ -1,7 +1,12 @@
-
 import { Construct } from "constructs";
-import { HomelabChart, HomelabChartProps } from "../../constructs/charts/homelab-chart";
-import { SecretStore, SecretStoreType } from "../../constructs/external-secrets/secret-store";
+import {
+  HomelabChart,
+  HomelabChartProps,
+} from "../../constructs/charts/homelab-chart";
+import {
+  SecretStore,
+  SecretStoreType,
+} from "../../constructs/external-secrets/secret-store";
 import { OnepasswordSecretPassword } from "../../constructs/external-secrets/onepassword-secret-password";
 import { PersistentVolumeClaimOptions } from "../../constructs/homelab/storage";
 import { BlueskyPDS } from "../../constructs/applications/bluesky-pds";
@@ -41,7 +46,7 @@ export class BlueskyPdsChart extends HomelabChart {
     const secretStore = SecretStore.fromName(
       this,
       props.secretStore,
-      SecretStoreType.CLUSTER_SECRET_STORE,
+      SecretStoreType.CLUSTER_SECRET_STORE
     );
 
     const jwtSecret = new OnepasswordSecretPassword(this, "jwt-secret", {
@@ -55,7 +60,7 @@ export class BlueskyPdsChart extends HomelabChart {
       {
         store: secretStore,
         secretKey: "bluesky-pds-admin-password",
-      },
+      }
     );
 
     const blockAccessKey = new OnepasswordSecretPassword(
@@ -64,7 +69,7 @@ export class BlueskyPdsChart extends HomelabChart {
       {
         store: secretStore,
         secretKey: "bluesky-pds-blob-access-key",
-      },
+      }
     );
 
     const blockSecretKey = new OnepasswordSecretPassword(
@@ -73,7 +78,7 @@ export class BlueskyPdsChart extends HomelabChart {
       {
         store: secretStore,
         secretKey: "bluesky-pds-blob-secret-key",
-      },
+      }
     );
 
     const plcRotationKeyHex = new OnepasswordSecretPassword(
@@ -82,8 +87,13 @@ export class BlueskyPdsChart extends HomelabChart {
       {
         store: secretStore,
         secretKey: "bluesky-pds-plc-rotation-key",
-      },
+      }
     );
+
+    const smtpUrlSecret = new OnepasswordSecretPassword(this, "smtp-url", {
+      store: secretStore,
+      secretKey: "bluesky-smtp-url",
+    });
 
     const bluesky = new BlueskyPDS(this, "app", {
       imageTag: props.imageTag,
@@ -95,6 +105,10 @@ export class BlueskyPdsChart extends HomelabChart {
         pdsPlcRotationKeyK256PrivateKeyHex: plcRotationKeyHex.asSecretValue(),
       },
       storage: props.storage,
+      smtp: {
+        smtpUrlSecret: smtpUrlSecret.asSecretValue(),
+        emailFromAddress: "admin@bluesky.drigs.org",
+      },
       objectStorage: {
         bucketName: props.objectStorage?.bucketName,
         region: props.objectStorage?.region,
