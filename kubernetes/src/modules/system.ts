@@ -17,6 +17,11 @@ import { DeschedulerChart } from "../charts/system/descheduler";
 import { NodeFeatureDiscoveryChart } from "../charts/system/node-feature-discovery";
 import { IntelDevicePluginsChart } from "../charts/system/intel-device-operator";
 import { Configuration } from "../config/configuration";
+import { CiliumChart } from "../charts/system/cilium";
+import { LonghornChart } from "../charts/system/longhorn";
+import { KubeVipChart } from "../charts/system/kube-vip";
+import { MetalLBChart } from "../charts/system/metallb";
+import { CoreDnsChart } from "../charts/system/coredns";
 
 export class SystemModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -48,6 +53,18 @@ export class SystemModule extends Module {
           ...certIssuerCommon,
         },
       ],
+    });
+
+    new CiliumChart(app, "cilium");
+
+    new CoreDnsChart(app, "coredns");
+
+    new LonghornChart(app, "longhorn");
+
+    new KubeVipChart(app, "kube-vip");
+
+    new MetalLBChart(app, "metallb", {
+      addressRanges: ["10.0.10.230-10.0.10.250"],
     });
 
     new RookCephChart(app, "rook-ceph");

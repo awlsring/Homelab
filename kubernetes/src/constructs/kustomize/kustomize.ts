@@ -24,9 +24,6 @@ export class Kustomize extends Include {
     args.push(props.url);
 
     const outputFile = renderTemplate(workdir, "kubectl", args);
-
-    console.log("OUTPUT FILE", outputFile);
-
     super(scope, name, { url: outputFile });
   }
 }

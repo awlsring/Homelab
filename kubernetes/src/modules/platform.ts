@@ -8,7 +8,7 @@ import { Configuration } from "../config/configuration";
 import { CloudnativePgChart } from "../charts/platforms/cloudnative-pg-operator";
 import { CloudflareOperatorChart } from "../charts/platforms/cloudflare-operator";
 
-const BLOCK_STORAGE_CLASS = "ceph-block";
+const BLOCK_STORAGE_CLASS = "longhorn";
 
 export class PlatformModule extends Module {
   constructor(app: App, config: Configuration) {

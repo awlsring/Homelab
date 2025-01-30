@@ -24,10 +24,10 @@ export class ApplicationModule extends Module {
       namespace: "audiobookshelf",
       imageTag: "2.7.1",
       configStorage: {
-        storageClassName: "ceph-block",
+        storageClassName: "longhorn",
       },
       metadataStorage: {
-        storageClassName: "ceph-block",
+        storageClassName: "longhorn",
       },
       mediaStorage: {
         server: this.config.storage.nfs["media"].ipv4,
@@ -44,37 +44,44 @@ export class ApplicationModule extends Module {
 
     new YarrgChart(app, "yarrg", {
       namespace: "yarrg",
+      storageClass: "longhorn",
       ingress: {
         ingressClass: "nginx",
         certIssuer: "prod",
       },
       radarr: {
-        hostname: "radarr.us-drig-1.drigs.org",
+        imageTag: "5.17.2",
+        dnsName: "radarr.us-drig-1.drigs.org",
       },
       sonarr: {
-        hostname: "sonarr.us-drig-1.drigs.org",
+        dnsName: "sonarr.us-drig-1.drigs.org",
       },
       lidarr: {
-        hostname: "lidarr.us-drig-1.drigs.org",
+        imageTag: "2.8.2",
+        dnsName: "lidarr.us-drig-1.drigs.org",
       },
       readarr: {
-        hostname: "readarr.us-drig-1.drigs.org",
+        imageTag: "0.4.10-develop",
+        dnsName: "readarr.us-drig-1.drigs.org",
       },
       bazarr: {
-        hostname: "bazarr.us-drig-1.drigs.org",
+        imageTag: "1.5.1",
+        dnsName: "bazarr.us-drig-1.drigs.org",
       },
       prowlarr: {
-        hostname: "prowlarr.us-drig-1.drigs.org",
+        imageTag: "1.30.2",
+        dnsName: "prowlarr.us-drig-1.drigs.org",
       },
       mediaStorage: {
         server: this.config.storage.nfs["media"].ipv4,
-        serverPath: "/mnt/WD-6D-8T/fin",
+        serverPath: this.config.storage.nfs["media"].mountPath,
         mountPath: "/media",
       },
     });
 
     new ImmichChart(app, "immich", {
       namespace: "immich",
+      secretStore: "onepassword-secret-store",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
         serverPath: this.config.storage.nfs["immich-uploads"].mountPath,
@@ -96,11 +103,11 @@ export class ApplicationModule extends Module {
         username: "immich",
         passwordSecret: "immich-database-password",
         database: "immich",
-        storageClass: "ceph-block",
+        storageClass: "local-path",
       },
       machineLearning: {
         cache: {
-          storageClass: "ceph-block",
+          storageClass: "local-path",
         },
       },
     });
@@ -112,7 +119,7 @@ export class ApplicationModule extends Module {
       secretStore: "onepassword-secret-store",
       storage: {
         size: Size.gibibytes(10),
-        storageClass: "ceph-block",
+        storageClass: "longhorn",
       },
       objectStorage: {
         bucketName: "pds-drigs-blobs",
@@ -138,10 +145,10 @@ export class ApplicationModule extends Module {
       secretStore: "onepassword-secret-store",
       storage: {
         staticFiles: {
-          storageClass: "ceph-block",
+          storageClass: "longhorn",
         },
         mediaFiles: {
-          storageClass: "ceph-block",
+          storageClass: "longhorn",
         },
       },
       ingress: {
@@ -155,7 +162,7 @@ export class ApplicationModule extends Module {
       secretStore: "onepassword-secret-store",
       namespace: "terraform-backend",
       storage: {
-        storageClass: "ceph-block",
+        storageClass: "longhorn",
         size: Size.gibibytes(1),
       },
     });

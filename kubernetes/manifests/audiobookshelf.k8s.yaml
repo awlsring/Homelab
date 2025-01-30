@@ -15,7 +15,7 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: v1
@@ -29,7 +29,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -88,7 +88,7 @@ spec:
       volumes:
         - name: media
           nfs:
-            path: /mnt/WD-6D-8T/media
+            path: /mnt/WD-6D-8T/fin
             server: 10.0.10.180
         - name: pvc-audiobookshelf-config-pvc-c87d9861
           persistentVolumeClaim:

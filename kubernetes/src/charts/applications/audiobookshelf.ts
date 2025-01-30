@@ -1,5 +1,8 @@
 import { Size } from "cdk8s";
-import { HomelabChart, HomelabChartProps } from "../../constructs/charts/homelab-chart";
+import {
+  HomelabChart,
+  HomelabChartProps,
+} from "../../constructs/charts/homelab-chart";
 import {
   Cpu,
   Deployment,
@@ -31,7 +34,7 @@ export interface AudioBookshelfProps extends HomelabChartProps {
     readonly serverPath: string;
     readonly mountPath: string;
   };
-  readonly ingress: {
+  readonly ingress?: {
     readonly ingressClass: string;
     readonly type: ServiceType;
     readonly hostname: string;
@@ -51,7 +54,7 @@ export class AudioBookshelfChart extends HomelabChart {
     const configVol = Volume.fromPersistentVolumeClaim(
       this,
       "config-vol",
-      configPvc,
+      configPvc
     );
 
     const metadataPvc = new PersistentVolumeClaim(this, "metadata-pvc", {
@@ -62,7 +65,7 @@ export class AudioBookshelfChart extends HomelabChart {
     const metadataVol = Volume.fromPersistentVolumeClaim(
       this,
       "metadata-vol",
-      metadataPvc,
+      metadataPvc
     );
 
     const nfsVol = Volume.fromNfs(this, "nfs-vol", "media", {
@@ -114,16 +117,18 @@ export class AudioBookshelfChart extends HomelabChart {
     });
 
     const service = new Service(this, "service", {
-      type: props.ingress.type ?? ServiceType.CLUSTER_IP,
+      type: props.ingress?.type ?? ServiceType.CLUSTER_IP,
       selector: deployment,
       ports: [{ port: AUDIOBOOKSHELF_PORT, targetPort: WEB_PORT }],
     });
 
-    new HomelabIngress(this, "ingress", {
-      ingressClassName: props.ingress.ingressClass,
-      service: service,
-      hostname: props.ingress.hostname,
-      certIssuer: props.ingress.certIssuer,
-    });
+    if (props.ingress) {
+      new HomelabIngress(this, "ingress", {
+        ingressClassName: props.ingress.ingressClass,
+        service: service,
+        hostname: props.ingress.hostname,
+        certIssuer: props.ingress.certIssuer,
+      });
+    }
   }
 }

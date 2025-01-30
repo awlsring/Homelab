@@ -15,7 +15,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -46,7 +46,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/radarr:latest
+          image: lscr.io/linuxserver/radarr:5.17.2
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -173,7 +173,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -331,7 +331,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -362,7 +362,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/lidarr:latest
+          image: lscr.io/linuxserver/lidarr:2.8.2
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -489,7 +489,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -520,7 +520,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/readarr:develop
+          image: lscr.io/linuxserver/readarr:0.4.10-develop
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -647,7 +647,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -678,7 +678,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/bazarr:latest
+          image: lscr.io/linuxserver/bazarr:1.5.1
           imagePullPolicy: Always
           name: bazarr
           ports:
@@ -793,7 +793,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -824,7 +824,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/prowlarr:latest
+          image: lscr.io/linuxserver/prowlarr:1.30.2
           imagePullPolicy: Always
           livenessProbe:
             exec:

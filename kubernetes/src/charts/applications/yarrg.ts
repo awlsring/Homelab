@@ -12,7 +12,7 @@ import { Bazarr } from "../../constructs/applications/bazarr";
 import { Prowlarr } from "../../constructs/applications/prowlarr";
 
 export interface AppOptions {
-  readonly hostname: string;
+  readonly dnsName: string;
   readonly imageTag?: string;
   readonly serviceType?: ServiceType;
 }
@@ -22,6 +22,7 @@ export interface ArrAppOptions extends AppOptions {
 }
 
 export interface YarrgChartProps extends HomelabChartProps {
+  readonly storageClass: string;
   readonly ingress: {
     readonly ingressClass: string;
     readonly certIssuer: string;
@@ -58,15 +59,16 @@ export class YarrgChart extends HomelabChart {
 
     if (props.radarr) {
       new Radarr(this, "radarr", {
+        imageTag: props.radarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         storage: {
           media: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.radarr.hostname,
+          hostname: props.radarr.dnsName,
           type: props.radarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
@@ -76,15 +78,16 @@ export class YarrgChart extends HomelabChart {
 
     if (props.sonarr) {
       new Sonarr(this, "sonarr", {
+        imageTag: props.sonarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         storage: {
           media: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.sonarr.hostname,
+          hostname: props.sonarr.dnsName,
           type: props.sonarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
@@ -94,15 +97,16 @@ export class YarrgChart extends HomelabChart {
 
     if (props.lidarr) {
       new Lidarr(this, "lidarr", {
+        imageTag: props.lidarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         storage: {
           media: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.lidarr.hostname,
+          hostname: props.lidarr.dnsName,
           type: props.lidarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
@@ -112,15 +116,16 @@ export class YarrgChart extends HomelabChart {
 
     if (props.readarr) {
       new Readarr(this, "readarr", {
+        imageTag: props.readarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         storage: {
           media: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.readarr.hostname,
+          hostname: props.readarr.dnsName,
           type: props.readarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
@@ -130,15 +135,16 @@ export class YarrgChart extends HomelabChart {
 
     if (props.bazarr) {
       new Bazarr(this, "bazarr", {
+        imageTag: props.bazarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         storage: {
           movies: mediaMount,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.bazarr.hostname,
+          hostname: props.bazarr.dnsName,
           type: props.bazarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },
@@ -147,12 +153,13 @@ export class YarrgChart extends HomelabChart {
 
     if (props.prowlarr) {
       new Prowlarr(this, "prowlarr", {
+        imageTag: props.prowlarr.imageTag,
         config: {
-          storageClass: "ceph-block",
+          storageClass: props.storageClass,
         },
         ingress: {
           ingressClass: props.ingress.ingressClass,
-          hostname: props.prowlarr.hostname,
+          hostname: props.prowlarr.dnsName,
           type: props.prowlarr.serviceType,
           certIssuer: props.ingress.certIssuer,
         },

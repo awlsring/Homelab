@@ -8,7 +8,7 @@ export interface KubeVipChartProps {
 }
 
 export class KubeVipChart extends HelmChart {
-  constructor(scope: Construct, name: string, props: KubeVipChartProps) {
+  constructor(scope: Construct, name: string, props?: KubeVipChartProps) {
     super(scope, name, {
       namespace: NAMESPACE,
       createNamespace: false,
@@ -20,7 +20,7 @@ export class KubeVipChart extends HelmChart {
           address: "10.0.10.60",
         },
         env: {
-          vip_interface: props.interface,
+          vip_interface: props?.interface,
           vip_leaderelection: "true",
           cp_enable: "true",
           svc_enable: "false",
