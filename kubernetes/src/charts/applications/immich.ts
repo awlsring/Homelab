@@ -1,12 +1,28 @@
 import { Size } from "cdk8s";
-import { Volume } from "cdk8s-plus-31";
+import { Cpu, Deployment, Service, Volume } from "cdk8s-plus-31";
 import { Construct } from "constructs";
-import { HomelabChart, HomelabChartProps } from "../../constructs/charts/homelab-chart";
+import {
+  HomelabChart,
+  HomelabChartProps,
+} from "../../constructs/charts/homelab-chart";
 import { HomelabIngressOptions } from "../../constructs/homelab/ingress";
-import { Immich, ImmichPhotoVolumeOptions } from "../../constructs/applications/immich";
+import {
+  Immich,
+  ImmichPhotoVolumeOptions,
+} from "../../constructs/applications/immich";
+import { OnepasswordSecretPassword } from "../../constructs/external-secrets/onepassword-secret-password";
+import {
+  SecretStore,
+  SecretStoreType,
+} from "../../constructs/external-secrets/secret-store";
+import { Cluster } from "../../constructs/cnpg/cluster";
+
+const REDIS_PORT = 6379;
+const REDIS_IMAGE = "redis:6.2-alpine3.19";
 
 export interface ImmichChartProps extends HomelabChartProps {
   readonly ingress: HomelabIngressOptions;
+  readonly secretStore: string;
   readonly database: {
     readonly username: string;
     readonly database: string;
@@ -51,15 +67,85 @@ export class ImmichChart extends HomelabChart {
         };
       });
 
+    const secretStore = SecretStore.fromName(
+      this,
+      props.secretStore,
+      SecretStoreType.CLUSTER_SECRET_STORE
+    );
+
+    const dbSecret = new OnepasswordSecretPassword(this, "database-secret", {
+      store: secretStore,
+      secretKey: "immich-database-password",
+    });
+    const dbKubeSecret = dbSecret.asSecret();
+
+    const dbCluster = new Cluster(this, "immich-db", {
+      storage: {
+        storageClass: props.database.storageClass,
+        size: Size.gibibytes(10),
+      },
+      image: "ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1",
+      sharedPreloadLibraries: ["vectors.so"],
+      database: {
+        database: "immich",
+        username: "immich",
+        password: {
+          name: dbKubeSecret.name,
+        },
+        postInitApplicationSql: [
+          'ALTER SYSTEM SET search_path TO "immich", public, vectors;',
+          'CREATE EXTENSION IF NOT EXISTS "vectors";',
+          "CREATE EXTENSION IF NOT EXISTS cube WITH SCHEMA pg_catalog;",
+          "CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA pg_catalog;",
+          "ALTER SCHEMA vectors OWNER TO immich;",
+        ],
+      },
+    });
+
+    const redis = new Deployment(this, "redis-deployment", {
+      replicas: 1,
+      containers: [
+        {
+          name: "redis",
+          image: REDIS_IMAGE,
+          ports: [{ name: "redis", number: REDIS_PORT }],
+          resources: {
+            cpu: {
+              request: Cpu.millis(200),
+              limit: Cpu.millis(2000),
+            },
+            memory: {
+              request: Size.mebibytes(256),
+              limit: Size.gibibytes(4),
+            },
+          },
+          securityContext: {
+            ensureNonRoot: false,
+            privileged: true,
+            readOnlyRootFilesystem: false,
+            allowPrivilegeEscalation: true,
+          },
+        },
+      ],
+    });
+
+    const redisService = new Service(this, "redis-service", {
+      ports: [
+        {
+          name: "http",
+          port: REDIS_PORT,
+          targetPort: REDIS_PORT,
+        },
+      ],
+      selector: redis,
+    });
+
     new Immich(this, "app", {
       uploadShare: nfsPhotos,
       photoCollectionShares: externalCollections,
       monitoring: true,
       serverOptions: {
         ingress: props.ingress,
-      },
-      redisOptions: {
-        create: true,
       },
       machineLearningOptions: {
         cache: {
@@ -68,10 +154,13 @@ export class ImmichChart extends HomelabChart {
         },
       },
       postgresOptions: {
+        hostname: dbCluster.readWriteService(),
         database: props.database.database,
         user: props.database.username,
-        passwordSecret: props.database.passwordSecret,
-        storageClass: props.database.storageClass,
+        passwordSecret: dbKubeSecret,
+      },
+      redisOptions: {
+        hostname: redisService.name,
       },
     });
   }

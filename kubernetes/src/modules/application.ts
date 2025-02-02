@@ -107,7 +107,7 @@ export class ApplicationModule extends Module {
       },
       machineLearning: {
         cache: {
-          storageClass: "local-path",
+          storageClass: "longhorn",
         },
       },
     });

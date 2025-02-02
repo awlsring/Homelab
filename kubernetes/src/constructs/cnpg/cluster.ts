@@ -2,6 +2,7 @@ import { ApiObject } from "cdk8s";
 import { Construct } from "constructs";
 import {
   ClusterSpecBootstrapInitdb,
+  ClusterSpecPostgresql,
   ClusterSpecPrimaryUpdateStrategy,
   Cluster as L1Cluster,
 } from "../../imports/clusters-postgresql.cnpg.io";
@@ -30,6 +31,7 @@ export interface ClusterDatabaseOptions {
   readonly username?: string;
   readonly password?: SecretReference;
   readonly initCommands?: string[];
+  readonly postInitApplicationSql?: string[];
 }
 
 export interface ClusterProps {
@@ -42,6 +44,7 @@ export interface ClusterProps {
   readonly image?: string;
   readonly enableMonitoring?: boolean;
   readonly database?: ClusterDatabaseOptions;
+  readonly sharedPreloadLibraries?: string[];
 }
 
 export class Cluster extends Construct {
@@ -54,12 +57,14 @@ export class Cluster extends Construct {
         bootstrap: {
           initdb: this.formInitdbField(props.database),
         },
+        postgresql: this.formPostgresqlField(props),
         storage: props.storage ? this.makeStorage(props.storage) : undefined,
         instances: props.instances ?? DEFAULT_INSTANCE_COUNT,
         imageName: props.image,
         monitoring: {
           enablePodMonitor: props.enableMonitoring,
         },
+        externalClusters: [],
         primaryUpdateStrategy: props.updateStrategy
           ? this.genToDefinedUpgradeStrategy(props.updateStrategy)
           : ClusterSpecPrimaryUpdateStrategy.UNSUPERVISED,
@@ -99,6 +104,14 @@ export class Cluster extends Construct {
     });
   }
 
+  private formPostgresqlField(options: ClusterProps): ClusterSpecPostgresql {
+    const rec: Record<string, any> = {};
+    if (options.sharedPreloadLibraries) {
+      rec.sharedPreloadLibraries = options.sharedPreloadLibraries;
+    }
+    return rec;
+  }
+
   private formInitdbField(
     options?: ClusterDatabaseOptions
   ): ClusterSpecBootstrapInitdb | undefined {
@@ -121,6 +134,10 @@ export class Cluster extends Construct {
 
     if (options.initCommands) {
       rec.postInitSql = options.initCommands;
+    }
+
+    if (options.postInitApplicationSql) {
+      rec.postInitApplicationSql = options.postInitApplicationSql;
     }
 
     return rec;

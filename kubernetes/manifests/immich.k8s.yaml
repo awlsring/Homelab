@@ -4,6 +4,115 @@ metadata:
   name: immich
   namespace: immich
 ---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: immich-database-secret-c86932a0
+  namespace: immich
+spec:
+  dataFrom:
+    - extract:
+        key: immich-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-immich-db-c88c515f
+  namespace: immich
+spec:
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      postInitApplicationSQL:
+        - ALTER SYSTEM SET search_path TO "immich", public, vectors;
+        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS cube WITH SCHEMA pg_catalog;
+        - CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA pg_catalog;
+        - ALTER SCHEMA vectors OWNER TO immich;
+      secret:
+        name: immich-database-secret-c86932a0
+  externalClusters: []
+  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1
+  instances: 3
+  monitoring: {}
+  postgresql:
+    shared_preload_libraries:
+      - vectors.so
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: local-path
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: immich-redis-deployment-c820f290
+  namespace: immich
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: immich-redis-deployment-c8d07aae
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: immich-redis-deployment-c8d07aae
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - image: redis:6.2-alpine3.19
+          imagePullPolicy: Always
+          name: redis
+          ports:
+            - containerPort: 6379
+              name: redis
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 4096Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: immich-redis-service-c83c7595
+  namespace: immich
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 6379
+      targetPort: 6379
+  selector:
+    cdk8s.io/metadata.addr: immich-redis-deployment-c8d07aae
+  type: ClusterIP
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -19,23 +128,6 @@ spec:
       targetPort: 3003
   selector:
     cdk8s.io/metadata.addr: immich-app-machine-learning-deployment-c8099966
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    immich/monitoring: "false"
-  name: immich-app-redis-service-c85a9ac1
-  namespace: immich
-spec:
-  externalIPs: []
-  ports:
-    - name: http
-      port: 6379
-      targetPort: 6379
-  selector:
-    cdk8s.io/metadata.addr: immich-app-redis-deployment-c8383bdb
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -65,7 +157,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-app-postgres-service-c8de0146
+              value: immich-immich-db-c88c515f-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME
@@ -75,45 +167,27 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
+                  key: password
+                  name: immich-database-secret-c86932a0
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
+                  key: password
+                  name: immich-database-secret-c86932a0
             - name: IMMICH_MACHINE_LEARNING_URL
               value: http://immich-app-machine-learning-service-c858f540:3003
             - name: PUBLIC_IMMICH_SERVER_URL
               value: immich.us-drig-1.drigs.org
             - name: REDIS_HOSTNAME
-              value: immich-app-redis-service-c85a9ac1
+              value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
           image: ghcr.io/immich-app/immich-server:release
           imagePullPolicy: Always
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/server/ping
-              port: 2283
-              scheme: HTTP
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 1
           name: immich-server
           ports:
             - containerPort: 2283
               name: http
-          readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /api/server/ping
-              port: 2283
-              scheme: HTTP
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 1
           resources:
             limits:
               cpu: 8000m
@@ -142,11 +216,11 @@ spec:
       volumes:
         - name: media
           nfs:
-            path: /mnt/WD-6D-8T/media
+            path: /mnt/WD-6D-8T/immich-uploads
             server: 10.0.10.180
         - name: photos
           nfs:
-            path: /mnt/WD-6D-8T/media
+            path: /mnt/WD-6D-8T/photos
             server: 10.0.10.180
 ---
 apiVersion: v1
@@ -210,7 +284,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-app-cache-pvc-c83a2fa3
+  name: immich-app-ml-cache-pvc-c8a24147
   namespace: immich
 spec:
   accessModes:
@@ -218,7 +292,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: ceph-block
+  storageClassName: longhorn
   volumeMode: Filesystem
 ---
 apiVersion: apps/v1
@@ -248,7 +322,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-app-postgres-service-c8de0146
+              value: immich-immich-db-c88c515f-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME
@@ -258,19 +332,19 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
+                  key: password
+                  name: immich-database-secret-c86932a0
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
+                  key: password
+                  name: immich-database-secret-c86932a0
             - name: IMMICH_MACHINE_LEARNING_URL
               value: http://immich-app-machine-learning-service-c858f540:3003
             - name: PUBLIC_IMMICH_SERVER_URL
               value: immich.us-drig-1.drigs.org
             - name: REDIS_HOSTNAME
-              value: immich-app-redis-service-c85a9ac1
+              value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
           image: ghcr.io/immich-app/immich-machine-learning:release
@@ -311,7 +385,7 @@ spec:
             runAsNonRoot: false
           volumeMounts:
             - mountPath: /cache
-              name: pvc-immich-app-cache-pvc-c83a2fa3
+              name: pvc-immich-app-ml-cache-pvc-c8a24147
       dnsPolicy: ClusterFirst
       hostNetwork: false
       restartPolicy: Always
@@ -321,262 +395,10 @@ spec:
       setHostnameAsFQDN: false
       terminationGracePeriodSeconds: 30
       volumes:
-        - name: pvc-immich-app-cache-pvc-c83a2fa3
+        - name: pvc-immich-app-ml-cache-pvc-c8a24147
           persistentVolumeClaim:
-            claimName: immich-app-cache-pvc-c83a2fa3
+            claimName: immich-app-ml-cache-pvc-c8a24147
             readOnly: false
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: immich-app-postgres-data-pvc-c85e3133
-  namespace: immich
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 50Gi
-  storageClassName: ceph-block
-  volumeMode: Filesystem
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: immich-app-initscript-c83d2009
-  namespace: immich
-data:
-  create-extensions.sql: "
-
-    \      CREATE EXTENSION cube;
-
-    \      CREATE EXTENSION earthdistance;
-
-    \      CREATE EXTENSION vectors;
-
-    \    "
-immutable: false
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    immich/monitoring: "false"
-  name: immich-app-postgres-service-c8de0146
-  namespace: immich
-spec:
-  externalIPs: []
-  ports:
-    - name: http
-      port: 5432
-      targetPort: 5432
-  selector:
-    cdk8s.io/metadata.addr: immich-app-immich-database-c89208d4
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: immich-app-immich-database-c8aca267
-  namespace: immich
-spec:
-  minReadySeconds: 0
-  podManagementPolicy: OrderedReady
-  replicas: 1
-  selector:
-    matchLabels:
-      cdk8s.io/metadata.addr: immich-app-immich-database-c89208d4
-  serviceName: immich-app-postgres-service-c8de0146
-  template:
-    metadata:
-      labels:
-        cdk8s.io/metadata.addr: immich-app-immich-database-c89208d4
-    spec:
-      automountServiceAccountToken: false
-      containers:
-        - env:
-            - name: IMMICH_METRICS
-              value: "true"
-            - name: UPLOAD_LOCATION
-              value: ./library
-            - name: DB_HOSTNAME
-              value: immich-app-postgres-service-c8de0146
-            - name: DB_USERNAME
-              value: immich
-            - name: DB_DATABASE_NAME
-              value: immich
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
-            - name: IMMICH_MACHINE_LEARNING_URL
-              value: http://immich-app-machine-learning-service-c858f540:3003
-            - name: PUBLIC_IMMICH_SERVER_URL
-              value: immich.us-drig-1.drigs.org
-            - name: REDIS_HOSTNAME
-              value: immich-app-redis-service-c85a9ac1
-            - name: MACHINE_LEARNING_EAGER_STARTUP
-              value: "false"
-            - name: POSTGRES_USER
-              value: immich
-            - name: POSTGRES_DB
-              value: immich
-            - name: PGDATA
-              value: /var/lib/postgresql/data/
-          image: tensorchord/pgvecto-rs:pg16-v0.2.0
-          imagePullPolicy: Always
-          livenessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - exec pg_isready -U "immich" -d "dbname=immich" -h 127.0.0.1 -p 5432
-            failureThreshold: 6
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
-          name: immich-database
-          readinessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - -e
-                - exec pg_isready -U "immich" -d "dbname=immich" -h 127.0.0.1 -p 5432
-            failureThreshold: 6
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 5
-          resources:
-            limits:
-              cpu: 2000m
-              memory: 4096Mi
-            requests:
-              cpu: 250m
-              memory: 256Mi
-          securityContext:
-            allowPrivilegeEscalation: true
-            privileged: true
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data/
-              name: pvc-immich-app-postgres-data-pvc-c85e3133
-              subPath: data
-            - mountPath: /docker-entrypoint-initdb.d
-              name: configmap-immich-app-initscript-c83d2009
-      dnsPolicy: ClusterFirst
-      hostNetwork: false
-      restartPolicy: Always
-      securityContext:
-        fsGroupChangePolicy: Always
-        runAsNonRoot: true
-      setHostnameAsFQDN: false
-      terminationGracePeriodSeconds: 30
-      volumes:
-        - name: pvc-immich-app-postgres-data-pvc-c85e3133
-          persistentVolumeClaim:
-            claimName: immich-app-postgres-data-pvc-c85e3133
-            readOnly: false
-        - configMap:
-            name: immich-app-initscript-c83d2009
-          name: configmap-immich-app-initscript-c83d2009
-  updateStrategy:
-    rollingUpdate:
-      partition: 0
-    type: RollingUpdate
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: immich-app-redis-deployment-c8421cc1
-  namespace: immich
-spec:
-  minReadySeconds: 0
-  progressDeadlineSeconds: 600
-  replicas: 1
-  selector:
-    matchLabels:
-      cdk8s.io/metadata.addr: immich-app-redis-deployment-c8383bdb
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        cdk8s.io/metadata.addr: immich-app-redis-deployment-c8383bdb
-    spec:
-      automountServiceAccountToken: false
-      containers:
-        - env:
-            - name: IMMICH_METRICS
-              value: "true"
-            - name: UPLOAD_LOCATION
-              value: ./library
-            - name: DB_HOSTNAME
-              value: immich-app-postgres-service-c8de0146
-            - name: DB_USERNAME
-              value: immich
-            - name: DB_DATABASE_NAME
-              value: immich
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: DATABASE_PASSWORD
-                  name: immich-database-password
-            - name: IMMICH_MACHINE_LEARNING_URL
-              value: http://immich-app-machine-learning-service-c858f540:3003
-            - name: PUBLIC_IMMICH_SERVER_URL
-              value: immich.us-drig-1.drigs.org
-            - name: REDIS_HOSTNAME
-              value: immich-app-redis-service-c85a9ac1
-            - name: MACHINE_LEARNING_EAGER_STARTUP
-              value: "false"
-          image: redis:6.2-alpine
-          imagePullPolicy: Always
-          name: redis
-          ports:
-            - containerPort: 6379
-              name: redis
-          resources:
-            limits:
-              cpu: 2000m
-              memory: 4096Mi
-            requests:
-              cpu: 200m
-              memory: 256Mi
-          securityContext:
-            allowPrivilegeEscalation: true
-            privileged: true
-            readOnlyRootFilesystem: false
-            runAsNonRoot: false
-      dnsPolicy: ClusterFirst
-      hostNetwork: false
-      restartPolicy: Always
-      securityContext:
-        fsGroupChangePolicy: Always
-        runAsNonRoot: true
-      setHostnameAsFQDN: false
-      terminationGracePeriodSeconds: 30
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor

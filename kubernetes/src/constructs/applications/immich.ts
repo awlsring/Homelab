@@ -1,16 +1,13 @@
 import { Duration, Size } from "cdk8s";
 import {
-  ConfigMap,
   Cpu,
   Deployment,
   DeploymentStrategy,
   EnvValue,
+  ISecret,
   Probe,
-  Secret,
   Service,
   ServiceType,
-  StatefulSet,
-  StatefulSetUpdateStrategy,
   Volume,
   VolumeMount,
 } from "cdk8s-plus-31";
@@ -22,11 +19,7 @@ import {
 } from "../homelab/storage";
 import { ServiceMonitor } from "../prometheus/service-monitor";
 
-const REDIS_PORT = 6379;
-const POSTGRES_PORT = 5432;
 const DEFAULT_IMAGE_TAG = "release";
-const REDIS_IMAGE = "redis:6.2-alpine";
-const POSTGRES_IMAGE = "tensorchord/pgvecto-rs:pg16-v0.2.0";
 
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
 const IMMICH_SERVER_PORT = 2283;
@@ -62,10 +55,8 @@ export interface ImmichGeocodingOptions {
 }
 
 export interface ImmichRedisOptions {
-  readonly create: boolean;
-  readonly imageTag?: string;
   readonly url?: string;
-  readonly hostname?: string;
+  readonly hostname: string;
   readonly port?: number;
   readonly dbIndex?: number;
   readonly user?: string;
@@ -74,12 +65,11 @@ export interface ImmichRedisOptions {
 }
 
 export interface ImmichPostgresOptions {
+  readonly hostname: string;
   readonly user: string;
-  readonly passwordSecret: string;
+  readonly passwordSecret: ISecret;
   readonly database: string;
-  readonly image?: string;
   readonly port?: number;
-  readonly storageClass: string;
 }
 
 export interface ImmichMachineLearningCacheOptions {
@@ -128,8 +118,6 @@ export interface ImmichProps {
 
 export class Immich extends Construct {
   readonly machineLearningService: Service;
-  readonly redisService: Service;
-  readonly postgresService: Service;
 
   constructor(scope: Construct, name: string, props: ImmichProps) {
     super(scope, name);
@@ -138,10 +126,6 @@ export class Immich extends Construct {
       "machine-learning",
       IMMICH_MACHINE_LEARNING_PORT
     );
-
-    this.redisService = this.configureService("redis", REDIS_PORT);
-
-    this.postgresService = this.configureService("postgres", POSTGRES_PORT);
 
     const env = this.formEnvironment(props);
 
@@ -165,8 +149,6 @@ export class Immich extends Construct {
       props.monitoring ?? false
     );
     this.buildMachineLearning(props.machineLearningOptions ?? {}, env);
-    this.buildDb(props.postgresOptions, env);
-    this.buildRedis(env);
 
     if (props.monitoring) {
       new ServiceMonitor(this, "service-monitor", {
@@ -214,27 +196,22 @@ export class Immich extends Construct {
   }
 
   private formEnvironment(options: ImmichProps): Record<string, EnvValue> {
-    const secret = Secret.fromSecretName(
-      this,
-      "immich-secret",
-      options.postgresOptions.passwordSecret
-    );
     const env: Record<string, EnvValue> = {
       IMMICH_METRICS: EnvValue.fromValue(options.monitoring ? "true" : "false"),
       UPLOAD_LOCATION: EnvValue.fromValue(
         options.serverOptions.uploadLocation ?? IMMICH_UPLOAD_LOCATION
       ),
-      DB_HOSTNAME: EnvValue.fromValue(this.postgresService.name),
+      DB_HOSTNAME: EnvValue.fromValue(options.postgresOptions.hostname),
       DB_USERNAME: EnvValue.fromValue(options.postgresOptions.user),
       DB_DATABASE_NAME: EnvValue.fromValue(options.postgresOptions.database),
       DB_PORT: EnvValue.fromValue(`${options.postgresOptions.port ?? 5432}`),
       DB_PASSWORD: EnvValue.fromSecretValue({
-        secret: secret,
-        key: "DATABASE_PASSWORD",
+        secret: options.postgresOptions.passwordSecret,
+        key: "password",
       }),
       POSTGRES_PASSWORD: EnvValue.fromSecretValue({
-        secret: secret,
-        key: "DATABASE_PASSWORD",
+        secret: options.postgresOptions.passwordSecret,
+        key: "password",
       }),
     };
 
@@ -244,7 +221,7 @@ export class Immich extends Construct {
     env.PUBLIC_IMMICH_SERVER_URL = EnvValue.fromValue(
       options.serverOptions.ingress.hostname
     );
-    env.REDIS_HOSTNAME = EnvValue.fromValue(this.redisService.name);
+    env.REDIS_HOSTNAME = EnvValue.fromValue(options.redisOptions.hostname);
 
     if (options.generalOptions?.mediaLocation) {
       env.IMMICH_MEDIA_LOCATION = EnvValue.fromValue(
@@ -359,104 +336,6 @@ export class Immich extends Construct {
     return env;
   }
 
-  private buildDb(
-    props: ImmichPostgresOptions,
-    env: Record<string, EnvValue>
-  ): StatefulSet {
-    const datapath = "/var/lib/postgresql/data/";
-    const data = new PersistantVolume(this, "postgres-data", {
-      storageClass: props.storageClass,
-      size: Size.gibibytes(50),
-    });
-
-    const initScript = new ConfigMap(this, "InitScript", {
-      data: {
-        "create-extensions.sql": `
-      CREATE EXTENSION cube;
-      CREATE EXTENSION earthdistance;
-      CREATE EXTENSION vectors;
-    `,
-      },
-    });
-    const initVol = Volume.fromConfigMap(this, "init-vol", initScript);
-
-    const ss = new StatefulSet(this, "immich-database", {
-      replicas: 1,
-      service: this.postgresService,
-      strategy: StatefulSetUpdateStrategy.rollingUpdate(),
-      containers: [
-        {
-          volumeMounts: [
-            {
-              path: datapath,
-              volume: data.volume,
-              subPath: "data",
-            },
-            {
-              path: "/docker-entrypoint-initdb.d",
-              volume: initVol,
-            },
-          ],
-          name: "immich-database",
-          image: props.image ?? POSTGRES_IMAGE,
-          envVariables: {
-            ...env,
-            POSTGRES_USER: EnvValue.fromValue(props.user),
-            POSTGRES_DB: EnvValue.fromValue(props.database),
-            PGDATA: EnvValue.fromValue(datapath),
-          },
-          resources: {
-            cpu: {
-              request: Cpu.millis(250),
-              limit: Cpu.millis(2000),
-            },
-            memory: {
-              request: Size.mebibytes(256),
-              limit: Size.gibibytes(4),
-            },
-          },
-          liveness: Probe.fromCommand(
-            [
-              "/bin/sh",
-              "-c",
-              `exec pg_isready -U "${props.user}" -d "dbname=${props.database}" -h 127.0.0.1 -p 5432`,
-            ],
-            {
-              failureThreshold: 6,
-              initialDelaySeconds: Duration.seconds(30),
-              periodSeconds: Duration.seconds(10),
-              successThreshold: 1,
-              timeoutSeconds: Duration.seconds(5),
-            }
-          ),
-          readiness: Probe.fromCommand(
-            [
-              "/bin/sh",
-              "-c",
-              "-e",
-              `exec pg_isready -U "${props.user}" -d "dbname=${props.database}" -h 127.0.0.1 -p 5432`,
-            ],
-            {
-              failureThreshold: 6,
-              initialDelaySeconds: Duration.seconds(5),
-              periodSeconds: Duration.seconds(10),
-              successThreshold: 1,
-              timeoutSeconds: Duration.seconds(5),
-            }
-          ),
-          securityContext: {
-            ensureNonRoot: false,
-            privileged: true,
-            readOnlyRootFilesystem: false,
-            allowPrivilegeEscalation: true,
-          },
-        },
-      ],
-    });
-
-    return ss;
-  }
-
   private buildServer(
     options: ImmichServerOptions,
     env: Record<string, EnvValue>,
@@ -493,10 +372,18 @@ export class Immich extends Construct {
         initialDelaySeconds: Duration.seconds(10),
         periodSeconds: Duration.seconds(10),
         timeoutSeconds: Duration.seconds(1),
+        failureThreshold: 3,
       }),
       readiness: Probe.fromHttpGet("/api/server/ping", {
         port: IMMICH_SERVER_PORT,
         failureThreshold: 3,
+        initialDelaySeconds: Duration.seconds(10),
+        periodSeconds: Duration.seconds(10),
+        timeoutSeconds: Duration.seconds(1),
+      }),
+      startup: Probe.fromHttpGet("/api/server/ping", {
+        port: IMMICH_SERVER_PORT,
+        failureThreshold: 30,
         initialDelaySeconds: Duration.seconds(10),
         periodSeconds: Duration.seconds(10),
         timeoutSeconds: Duration.seconds(1),
@@ -564,7 +451,7 @@ export class Immich extends Construct {
     options: ImmichMachineLearningOptions,
     env: Record<string, EnvValue>
   ): Deployment {
-    const cache = new PersistantVolume(this, "cache", {
+    const cache = new PersistantVolume(this, "ml-cache", {
       storageClass: options.cache?.storageClass,
       size: options.cache?.size ?? Size.gibibytes(10),
     });
@@ -621,41 +508,6 @@ export class Immich extends Construct {
     });
 
     this.machineLearningService.select(deployment);
-
-    return deployment;
-  }
-
-  // TODO: make this a stateful set and configure a bit better.
-  // potentially pass this in
-  private buildRedis(env: Record<string, EnvValue>): Deployment {
-    const deployment = new Deployment(this, "redis-deployment", {
-      replicas: 1,
-    });
-
-    deployment.addContainer({
-      name: "redis",
-      image: REDIS_IMAGE,
-      envVariables: env,
-      ports: [{ name: "redis", number: REDIS_PORT }],
-      resources: {
-        cpu: {
-          request: Cpu.millis(200),
-          limit: Cpu.millis(2000),
-        },
-        memory: {
-          request: Size.mebibytes(256),
-          limit: Size.gibibytes(4),
-        },
-      },
-      securityContext: {
-        ensureNonRoot: false,
-        privileged: true,
-        readOnlyRootFilesystem: false,
-        allowPrivilegeEscalation: true,
-      },
-    });
-
-    this.redisService.select(deployment);
 
     return deployment;
   }
