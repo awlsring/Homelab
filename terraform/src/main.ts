@@ -4,6 +4,7 @@ import { SopsSecretProviderFactory } from "./secret-provider/sops-secret-provide
 import { MachineDeploymentStack } from "./stacks/machine-deploy-stack";
 import { PostgresBackendFactory } from "./backend/pg-backend";
 import { extractSopsSecret } from "./util/extract-sops-secret";
+import { StorageBackupStack } from "./stacks/storage-backups";
 
 const app = new App();
 
@@ -33,6 +34,12 @@ new MachineDeploymentStack(app, "machine-deployment", {
       site: "us-drig-1",
     },
   ],
+});
+
+new StorageBackupStack(app, "storage-backups", {
+  ...commonProps,
+  accessKeyIdSecretName: "terraform.backblaze.accessKeyId",
+  secretAccessKeySecretName: "terraform.backblaze.secretAccessKey",
 });
 
 app.synth();

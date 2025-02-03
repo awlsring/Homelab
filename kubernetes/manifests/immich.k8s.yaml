@@ -17,12 +17,52 @@ spec:
     kind: ClusterSecretStore
     name: onepassword-secret-store
 ---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: immich-backup-store-access-key-c87d982f
+  namespace: immich
+spec:
+  dataFrom:
+    - extract:
+        key: immich-backup-store-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: immich-backup-store-secret-key-c8ce2246
+  namespace: immich
+spec:
+  dataFrom:
+    - extract:
+        key: immich-backup-store-secret-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: immich-immich-db-c88c515f
   namespace: immich
 spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/immich
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: immich-backup-store-access-key-c87d982f-kube-secret
+        secretAccessKey:
+          key: password
+          name: immich-backup-store-secret-key-c8ce2246-kube-secret
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
   bootstrap:
     initdb:
       database: immich
@@ -46,6 +86,16 @@ spec:
   storage:
     size: 10Gi
     storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: immich-immich-db-immich-db-backup-c84741a2
+  namespace: immich
+spec:
+  cluster:
+    name: immich-db
+  schedule: "* 1 * * *"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -184,10 +234,28 @@ spec:
               value: "false"
           image: ghcr.io/immich-app/immich-server:release
           imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/server/ping
+              port: 2283
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
           name: immich-server
           ports:
             - containerPort: 2283
               name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/server/ping
+              port: 2283
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
           resources:
             limits:
               cpu: 8000m
@@ -200,6 +268,15 @@ spec:
             privileged: true
             readOnlyRootFilesystem: false
             runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /api/server/ping
+              port: 2283
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
           volumeMounts:
             - mountPath: /usr/src/app/upload
               name: media

@@ -6,6 +6,7 @@ import {
 import { ISecret, Resource, Secret, SecretValue } from "cdk8s-plus-31";
 import { ApiObject } from "cdk8s";
 import { ISecretStore } from "./secret-store";
+import { SecretReference } from "../secrets/secret-reference";
 
 export interface ExternalSecretProps {
   readonly store: ISecretStore;
@@ -44,6 +45,13 @@ export class OnepasswordSecretPassword extends Resource {
 
   asSecret(): ISecret {
     return Secret.fromSecretName(this, `${this.name}-kube-secret`, this.name);
+  }
+
+  asSecretReference(key?: string): SecretReference {
+    return {
+      name: `${this.name}-kube-secret`,
+      key: key ?? "password",
+    };
   }
 
   asSecretValue(key?: string): SecretValue {

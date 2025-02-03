@@ -1,6 +1,8 @@
 import { ApiObject } from "cdk8s";
 import { Construct } from "constructs";
 import {
+  ClusterSpecBackup,
+  ClusterSpecBackupBarmanObjectStoreWalCompression,
   ClusterSpecBootstrapInitdb,
   ClusterSpecPostgresql,
   ClusterSpecPrimaryUpdateStrategy,
@@ -11,6 +13,7 @@ import { PersistentVolumeClaimOptions } from "../homelab/storage";
 import { Protocol, Service, ServiceType } from "cdk8s-plus-31";
 import { ClusterPrimaryPodSelector } from "./read-write-pod-selector";
 import { SecretReference } from "../secrets/secret-reference";
+import { CronSchedule, ScheduledBackup } from "./scheduled-backup";
 
 export const DEFAULT_PG_PORT = 5432;
 export const DEFAULT_INSTANCE_COUNT = 3;
@@ -34,6 +37,19 @@ export interface ClusterDatabaseOptions {
   readonly postInitApplicationSql?: string[];
 }
 
+export interface ClusterBackupCredentials {
+  readonly accessKeyId: SecretReference;
+  readonly secretAccessKey: SecretReference;
+}
+
+export interface ClusterBackupOptions {
+  readonly destinationPath: string;
+  readonly endpoint: string;
+  readonly credentials: ClusterBackupCredentials;
+  readonly walCompression?: ClusterSpecBackupBarmanObjectStoreWalCompression;
+  readonly retentionPolicy?: string;
+}
+
 export interface ClusterProps {
   readonly instances?: number;
   readonly storage: PersistentVolumeClaimOptions;
@@ -44,6 +60,7 @@ export interface ClusterProps {
   readonly image?: string;
   readonly enableMonitoring?: boolean;
   readonly database?: ClusterDatabaseOptions;
+  readonly backup?: ClusterBackupOptions;
   readonly sharedPreloadLibraries?: string[];
 }
 
@@ -54,6 +71,7 @@ export class Cluster extends Construct {
     this.apiObject = new L1Cluster(this, `resource`, {
       metadata: {},
       spec: {
+        backup: this.makeBackup(props),
         bootstrap: {
           initdb: this.formInitdbField(props.database),
         },
@@ -82,6 +100,13 @@ export class Cluster extends Construct {
 
   readWriteService(): string {
     return `${this.apiObject.name}-rw`;
+  }
+
+  createScheduledBackup(id: string, schedule: CronSchedule): ScheduledBackup {
+    return new ScheduledBackup(this, id, {
+      cluster: this,
+      schedule: schedule,
+    });
   }
 
   exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Service {
@@ -147,6 +172,34 @@ export class Cluster extends Construct {
     return {
       storageClass: options.storageClass,
       size: options.size ? SizeToString(options.size) : undefined,
+    };
+  }
+
+  private makeBackup(options: ClusterProps): ClusterSpecBackup | undefined {
+    if (!options.backup) {
+      return undefined;
+    }
+    return {
+      barmanObjectStore: {
+        destinationPath: options.backup.destinationPath,
+        endpointUrl: options.backup.endpoint,
+        s3Credentials: {
+          accessKeyId: {
+            key: options.backup.credentials.accessKeyId.key ?? "accessKeyId",
+            name: options.backup.credentials.accessKeyId.name,
+          },
+          secretAccessKey: {
+            key:
+              options.backup.credentials.secretAccessKey.key ??
+              "secretAccessKey",
+            name: options.backup.credentials.secretAccessKey.name,
+          },
+        },
+        wal: {
+          compression: options.backup.walCompression,
+        },
+      },
+      retentionPolicy: options.backup.retentionPolicy ?? "14d",
     };
   }
 

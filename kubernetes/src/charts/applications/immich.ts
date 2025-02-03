@@ -16,6 +16,8 @@ import {
   SecretStoreType,
 } from "../../constructs/external-secrets/secret-store";
 import { Cluster } from "../../constructs/cnpg/cluster";
+import { ClusterSpecBackupBarmanObjectStoreWalCompression } from "../../imports/clusters-postgresql.cnpg.io";
+import { CronSchedule } from "../../constructs/cnpg/scheduled-backup";
 
 const REDIS_PORT = 6379;
 const REDIS_IMAGE = "redis:6.2-alpine3.19";
@@ -79,10 +81,37 @@ export class ImmichChart extends HomelabChart {
     });
     const dbKubeSecret = dbSecret.asSecret();
 
+    const backupStoreAccessKey = new OnepasswordSecretPassword(
+      this,
+      "backup-store-access-key",
+      {
+        store: secretStore,
+        secretKey: "immich-backup-store-access-key",
+      }
+    );
+
+    const backupStoreSecretKey = new OnepasswordSecretPassword(
+      this,
+      "backup-store-secret-key",
+      {
+        store: secretStore,
+        secretKey: "immich-backup-store-secret-key",
+      }
+    );
+
     const dbCluster = new Cluster(this, "immich-db", {
       storage: {
         storageClass: props.database.storageClass,
         size: Size.gibibytes(10),
+      },
+      backup: {
+        destinationPath: "s3://awlsring-homelab-cnpg-db-backups/immich",
+        endpoint: "https://s3.us-east-005.backblazeb2.com",
+        walCompression: ClusterSpecBackupBarmanObjectStoreWalCompression.GZIP,
+        credentials: {
+          accessKeyId: backupStoreAccessKey.asSecretReference(),
+          secretAccessKey: backupStoreSecretKey.asSecretReference(),
+        },
       },
       image: "ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1",
       sharedPreloadLibraries: ["vectors.so"],
@@ -101,6 +130,10 @@ export class ImmichChart extends HomelabChart {
         ],
       },
     });
+    dbCluster.createScheduledBackup(
+      "immich-db-backup",
+      new CronSchedule({ hour: 1 })
+    );
 
     const redis = new Deployment(this, "redis-deployment", {
       replicas: 1,
