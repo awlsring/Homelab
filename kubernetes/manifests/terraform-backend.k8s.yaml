@@ -17,24 +17,66 @@ spec:
     kind: ClusterSecretStore
     name: onepassword-secret-store
 ---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: terraform-backend-backup-store-access-key-c84cd0fd
+  namespace: terraform-backend
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: terraform-backend-backup-store-secret-key-c841e3ee
+  namespace: terraform-backend
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: terraform-backend-cluster-c824bab6
   namespace: terraform-backend
 spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/terraform-backend
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: terraform-backend-backup-store-access-key-c84cd0fd
+        secretAccessKey:
+          key: password
+          name: terraform-backend-backup-store-secret-key-c841e3ee
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
   bootstrap:
     initdb:
       database: terraform
       owner: terraform
       secret:
         name: terraform-backend-database-secret-c8e759fe
+  externalClusters: []
   instances: 3
   monitoring: {}
+  postgresql: {}
   primaryUpdateStrategy: unsupervised
   storage:
-    size: 1Gi
-    storageClass: ceph-block
+    size: 5Gi
+    storageClass: local-path
 ---
 apiVersion: v1
 kind: Service

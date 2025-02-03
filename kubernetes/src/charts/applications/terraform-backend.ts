@@ -11,6 +11,7 @@ import {
   SecretStore,
   SecretStoreType,
 } from "../../constructs/external-secrets/secret-store";
+import { ClusterSpecBackupBarmanObjectStoreWalCompression } from "../../imports/clusters-postgresql.cnpg.io";
 
 export interface TerraformBackendChartProps extends HomelabChartProps {
   readonly storage: PersistentVolumeClaimOptions;
@@ -37,8 +38,36 @@ export class TerraformBackendChart extends HomelabChart {
     });
     const dbKubeSecret = dbSecret.asSecret();
 
+    const backupStoreAccessKey = new OnepasswordSecretPassword(
+      this,
+      "backup-store-access-key",
+      {
+        store: secretStore,
+        secretKey: "cnpg-backup-access-key-id",
+      }
+    );
+
+    const backupStoreSecretKey = new OnepasswordSecretPassword(
+      this,
+      "backup-store-secret-key",
+      {
+        store: secretStore,
+        secretKey: "cnpg-backup-secret-access-key",
+      }
+    );
+
     const cluster = new Cluster(this, "cluster", {
       storage: props.storage,
+      backup: {
+        destinationPath:
+          "s3://awlsring-homelab-cnpg-db-backups/terraform-backend",
+        endpoint: "https://s3.us-east-005.backblazeb2.com",
+        walCompression: ClusterSpecBackupBarmanObjectStoreWalCompression.GZIP,
+        credentials: {
+          accessKeyId: backupStoreAccessKey.asSecretReference(),
+          secretAccessKey: backupStoreSecretKey.asSecretReference(),
+        },
+      },
       database: {
         database: "terraform",
         username: "terraform",

@@ -162,8 +162,8 @@ export class ApplicationModule extends Module {
       secretStore: "onepassword-secret-store",
       namespace: "terraform-backend",
       storage: {
-        storageClass: "longhorn",
-        size: Size.gibibytes(1),
+        storageClass: "local-path",
+        size: Size.gibibytes(5),
       },
     });
 

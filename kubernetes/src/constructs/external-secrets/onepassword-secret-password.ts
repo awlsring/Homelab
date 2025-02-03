@@ -49,7 +49,7 @@ export class OnepasswordSecretPassword extends Resource {
 
   asSecretReference(key?: string): SecretReference {
     return {
-      name: `${this.name}-kube-secret`,
+      name: this.name,
       key: key ?? "password",
     };
   }

@@ -86,7 +86,7 @@ export class ImmichChart extends HomelabChart {
       "backup-store-access-key",
       {
         store: secretStore,
-        secretKey: "immich-backup-store-access-key",
+        secretKey: "cnpg-backup-access-key-id",
       }
     );
 
@@ -95,7 +95,7 @@ export class ImmichChart extends HomelabChart {
       "backup-store-secret-key",
       {
         store: secretStore,
-        secretKey: "immich-backup-store-secret-key",
+        secretKey: "cnpg-backup-secret-access-key",
       }
     );
 

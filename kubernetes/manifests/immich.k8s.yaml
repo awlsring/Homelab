@@ -25,7 +25,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: immich-backup-store-access-key
+        key: cnpg-backup-access-key-id
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -38,7 +38,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: immich-backup-store-secret-key
+        key: cnpg-backup-secret-access-key
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -56,10 +56,10 @@ spec:
       s3Credentials:
         accessKeyId:
           key: password
-          name: immich-backup-store-access-key-c87d982f-kube-secret
+          name: immich-backup-store-access-key-c87d982f
         secretAccessKey:
           key: password
-          name: immich-backup-store-secret-key-c8ce2246-kube-secret
+          name: immich-backup-store-secret-key-c8ce2246
       wal:
         compression: gzip
     retentionPolicy: 14d
