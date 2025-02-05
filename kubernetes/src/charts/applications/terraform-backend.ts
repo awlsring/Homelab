@@ -82,7 +82,7 @@ export class TerraformBackendChart extends HomelabChart {
     });
     cluster.createScheduledBackup(
       "terraform-db-backup",
-      new CronSchedule({ hour: 1 })
+      new CronSchedule({ minute: 0, hour: 1 })
     );
   }
 }

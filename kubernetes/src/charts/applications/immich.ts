@@ -132,7 +132,7 @@ export class ImmichChart extends HomelabChart {
     });
     dbCluster.createScheduledBackup(
       "immich-db-backup",
-      new CronSchedule({ hour: 1 })
+      new CronSchedule({ minute: 0, hour: 1 })
     );
 
     const redis = new Deployment(this, "redis-deployment", {

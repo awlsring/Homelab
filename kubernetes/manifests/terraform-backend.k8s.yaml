@@ -95,3 +95,13 @@ spec:
     cnpg.io/instanceRole: primary
     role: primary
   type: LoadBalancer
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: terraform-backend-cluster-terraform-db-backup-c8672e5b
+  namespace: terraform-backend
+spec:
+  cluster:
+    name: cluster
+  schedule: 0 1 * * *
