@@ -1,10 +1,4 @@
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: descheduler
-  namespace: descheduler
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
@@ -14,7 +8,7 @@ metadata:
     app.kubernetes.io/version: 0.32.1
     helm.sh/chart: descheduler-0.32.1
   name: descheduler-helm-c80f662c
-  namespace: descheduler
+  namespace: kube-system
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -26,11 +20,12 @@ metadata:
     app.kubernetes.io/version: 0.32.1
     helm.sh/chart: descheduler-0.32.1
   name: descheduler-helm-c80f662c
-  namespace: descheduler
+  namespace: kube-system
 data:
   policy.yaml: |
     apiVersion: "descheduler/v1alpha2"
     kind: "DeschedulerPolicy"
+    nodeSelector: performance=medium
     profiles:
     - name: default
       pluginConfig:
@@ -83,7 +78,7 @@ metadata:
     app.kubernetes.io/version: 0.32.1
     helm.sh/chart: descheduler-0.32.1
   name: descheduler-helm-c80f662c
-  namespace: descheduler
+  namespace: kube-system
 rules:
   - apiGroups:
       - events.k8s.io
@@ -142,7 +137,7 @@ metadata:
     app.kubernetes.io/version: 0.32.1
     helm.sh/chart: descheduler-0.32.1
   name: descheduler-helm-c80f662c
-  namespace: descheduler
+  namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -150,7 +145,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: descheduler-helm-c80f662c
-    namespace: descheduler
+    namespace: kube-system
 ---
 apiVersion: batch/v1
 kind: CronJob
@@ -162,7 +157,7 @@ metadata:
     app.kubernetes.io/version: 0.32.1
     helm.sh/chart: descheduler-0.32.1
   name: descheduler-helm-c80f662c
-  namespace: descheduler
+  namespace: kube-system
 spec:
   concurrencyPolicy: Forbid
   jobTemplate:
@@ -170,7 +165,7 @@ spec:
       template:
         metadata:
           annotations:
-            checksum/config: 6e887595571b52010be4af7de31f86d43459cfcbb800b30e14cc02c6d2ec5a90
+            checksum/config: 246e5e8ffb4c9d3273aa108cf7fa56a889add97e11871353fb22798ed418a3cd
           labels:
             app.kubernetes.io/instance: descheduler-helm-c80f662c
             app.kubernetes.io/name: descheduler

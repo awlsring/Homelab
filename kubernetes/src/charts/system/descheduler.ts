@@ -5,7 +5,7 @@ import {
   HomelabChartProps,
 } from "../../constructs/charts/homelab-chart";
 
-const NAMESPACE = "descheduler";
+const NAMESPACE = "kube-system";
 
 export interface DeschedulerChartProps
   extends Omit<HomelabChartProps, "namespace"> {}
@@ -15,7 +15,7 @@ export class DeschedulerChart extends HomelabChart {
     super(scope, name, {
       ...props,
       namespace: NAMESPACE,
-      createNamespace: true,
+      createNamespace: false,
     });
 
     new Helm(this, "helm", {
@@ -23,6 +23,11 @@ export class DeschedulerChart extends HomelabChart {
       repo: "https://kubernetes-sigs.github.io/descheduler",
       version: "0.32.1",
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
+      values: {
+        deschedulerPolicy: {
+          nodeSelector: "performance=medium",
+        },
+      },
     });
   }
 }
