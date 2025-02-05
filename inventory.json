@@ -106,6 +106,132 @@
         }
       }
     },
+    "kaldheim": {
+      "hostname": "kaldheim",
+      "description": "k8s cluster",
+      "ipv4": "10.0.10.101",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "NUC13ANHi5",
+      "roles": ["k3s:control"],
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp86s0",
+            "mac": "48:21:0b:59:a8:fc",
+            "staticIpv4": "10.0.10.101"
+          }
+        ]
+      },
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "i5-1340P"
+        },
+        "ram": {
+          "total": "64GB",
+          "type": "DDR4",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "sda": {
+            "size": "256GB",
+            "type": "SSD",
+            "model": "Samsung SSD 870"
+          },
+          "nvme0n1": {
+            "size": "2TB",
+            "type": "SSD",
+            "model": "Lexar SSD NM790 2TB"
+          }
+        }
+      }
+    },
+    "theros": {
+      "hostname": "theros",
+      "description": "k8s cluster",
+      "ipv4": "10.0.10.102",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "NUC13ANHi5",
+      "roles": ["k3s:control"],
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp86s0",
+            "mac": "48:21:0b:58:36:84",
+            "staticIpv4": "10.0.10.102"
+          }
+        ]
+      },
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "i5-1340P"
+        },
+        "ram": {
+          "total": "64GB",
+          "type": "DDR4",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "sda": {
+            "size": "256GB",
+            "type": "SSD",
+            "model": "Samsung SSD 870"
+          },
+          "nvme0n1": {
+            "size": "2TB",
+            "type": "SSD",
+            "model": "Lexar SSD NM790 2TB"
+          }
+        }
+      }
+    },
+    "eldraine": {
+      "hostname": "eldraine",
+      "description": "k8s cluster",
+      "ipv4": "10.0.10.103",
+      "os": "nixos",
+      "tailnet": true,
+      "site": "us-drig-1",
+      "machineType": "NUC13ANHi5",
+      "roles": ["k3s:control"],
+      "network": {
+        "interfaces": [
+          {
+            "interface": "enp86s0",
+            "mac": "48:21:0b:59:a6:4a",
+            "staticIpv4": "10.0.10.103"
+          }
+        ]
+      },
+      "hardware": {
+        "cpu": {
+          "make": "Intel",
+          "model": "i5-1340P"
+        },
+        "ram": {
+          "total": "64GB",
+          "type": "DDR4",
+          "formFactor": "SODIMM"
+        },
+        "disks": {
+          "sda": {
+            "size": "256GB",
+            "type": "SSD",
+            "model": "Samsung SSD 870"
+          },
+          "nvme0n1": {
+            "size": "2TB",
+            "type": "SSD",
+            "model": "Lexar SSD NM790 2TB"
+          }
+        }
+      }
+    },
     "kaladesh": {
       "hostname": "kaladesh",
       "description": "Home control server",

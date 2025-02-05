@@ -5,6 +5,7 @@ import { MachineDeploymentStack } from "./stacks/machine-deploy-stack";
 import { PostgresBackendFactory } from "./backend/pg-backend";
 import { extractSopsSecret } from "./util/extract-sops-secret";
 import { StorageBackupStack } from "./stacks/storage-backups";
+import { KubernetesClusterDeploymentStack } from "./stacks/kubernetes-cluster";
 
 const app = new App();
 
@@ -31,6 +32,22 @@ new MachineDeploymentStack(app, "machine-deployment", {
     {
       hostname: "ravnica",
       ipv4: "10.0.10.69",
+      site: "us-drig-1",
+    },
+  ],
+});
+
+new KubernetesClusterDeploymentStack(app, "kubernetes-cluster", {
+  ...commonProps,
+  machines: [
+    {
+      hostname: "kaldheim",
+      ipv4: "10.0.10.101",
+      site: "us-drig-1",
+    },
+    {
+      hostname: "theros",
+      ipv4: "10.0.10.102",
       site: "us-drig-1",
     },
   ],
