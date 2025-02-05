@@ -1,0 +1,277 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mealie
+  namespace: mealie
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mealie-openai-key-c87a9891
+  namespace: mealie
+spec:
+  dataFrom:
+    - extract:
+        key: mealie-openai-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mealie-database-secret-c8c8c752
+  namespace: mealie
+spec:
+  dataFrom:
+    - extract:
+        key: mealie-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mealie-backup-store-access-key-c8410b34
+  namespace: mealie
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mealie-backup-store-secret-key-c8ca4af6
+  namespace: mealie
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: mealie-mealie-db-c8f4383a
+  namespace: mealie
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/mealie
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: mealie-backup-store-access-key-c8410b34
+        secretAccessKey:
+          key: password
+          name: mealie-backup-store-secret-key-c8ca4af6
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
+  bootstrap:
+    initdb:
+      database: mealie
+      owner: mealie
+      secret:
+        name: mealie-database-secret-c8c8c752
+  externalClusters: []
+  instances: 3
+  monitoring: {}
+  postgresql: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: mealie-mealie-db-mealie-db-backup-c80d35d4
+  namespace: mealie
+spec:
+  cluster:
+    name: mealie-db
+  schedule: "* 1 * * *"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mealie-media-c8eb4a5e
+  namespace: mealie
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mealie-app-deployment-c8a89b3c
+  namespace: mealie
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: mealie-app-deployment-c866e53c
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: mealie-app-deployment-c866e53c
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TIMEZONE
+              value: America/Los_Angeles
+            - name: BASE_URL
+              value: mealie.us-drig-1.drigs.org
+            - name: DB_ENGINE
+              value: postgres
+            - name: POSTGRES_SERVER
+              value: mealie-mealie-db-c8f4383a-rw
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              value: mealie
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: mealie-database-secret-c8c8c752
+            - name: POSTGRES_DB
+              value: mealie
+            - name: ALLOW_SIGNUP
+              value: "false"
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: mealie-openai-key-c87a9891
+          image: ghcr.io/mealie-recipes/mealie:v2.5.0
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/app/about
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          name: mealie
+          ports:
+            - containerPort: 9000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/app/about
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 1000m
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /api/app/about
+              port: 9000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /app/data
+              name: pvc-mealie-media-c8eb4a5e
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-mealie-media-c8eb4a5e
+          persistentVolumeClaim:
+            claimName: mealie-media-c8eb4a5e
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mealie-app-service-c808805d
+  namespace: mealie
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 9000
+      targetPort: 9000
+  selector:
+    cdk8s.io/metadata.addr: mealie-app-deployment-c866e53c
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mealie-mealie-app-service-c808805d-tls-c8e3e75f
+  namespace: mealie
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: mealie-ingress-c8b6d296
+  namespace: mealie
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: mealie.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: mealie-app-service-c808805d
+                port:
+                  number: 9000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - mealie.us-drig-1.drigs.org
+      secretName: mealie-mealie-app-service-c808805d-tls-c8e3e75f

@@ -12,6 +12,7 @@ import {
   SecretStoreType,
 } from "../../constructs/external-secrets/secret-store";
 import { ClusterSpecBackupBarmanObjectStoreWalCompression } from "../../imports/clusters-postgresql.cnpg.io";
+import { CronSchedule } from "../../constructs/cnpg/scheduled-backup";
 
 export interface TerraformBackendChartProps extends HomelabChartProps {
   readonly storage: PersistentVolumeClaimOptions;
@@ -79,5 +80,9 @@ export class TerraformBackendChart extends HomelabChart {
     cluster.exposeWithPrimaryService({
       serviceType: ServiceType.LOAD_BALANCER,
     });
+    cluster.createScheduledBackup(
+      "terraform-db-backup",
+      new CronSchedule({ hour: 1 })
+    );
   }
 }

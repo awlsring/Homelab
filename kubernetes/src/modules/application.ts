@@ -15,6 +15,7 @@ import {
   GatusEndpoint,
 } from "../constructs/applications/gatus";
 import { YarrgChart } from "../charts/applications/yarrg";
+import { MealieChart } from "../charts/applications/mealie";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -154,6 +155,20 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "tandoor.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new MealieChart(app, "mealie", {
+      namespace: "mealie",
+      imageTag: "v2.5.0",
+      secretStore: "onepassword-secret-store",
+      storage: {
+        storageClass: "longhorn",
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "mealie.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });
