@@ -23,6 +23,7 @@ in {
       enable = true;
       role = "server";
       token = config.sops.secrets."k3s/token".path;
+      serverAddr = "https://10.0.10.60:6443";
       extraFlags = toString [
         "--tls-san 10.0.10.60" # make this configurable
         "--node-label \"k3s-upgrade=false\""

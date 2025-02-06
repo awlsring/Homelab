@@ -21,4 +21,5 @@ in {
 
   # TODO: determine this better
   services.k3s.clusterInit = true;
+  services.k3s.serverAddr = lib.mkForce "";
 }

@@ -18,6 +18,4 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   machine.hostname = hostname;
-
-  services.k3s.serverAddr = "https://10.0.10.60:6443";
 }
