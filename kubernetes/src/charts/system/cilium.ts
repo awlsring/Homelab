@@ -13,7 +13,7 @@ export class CiliumChart extends HelmChart {
       version: "1.16.4",
       values: {
         operator: {
-          replicas: 1,
+          replicas: 3,
         },
         routingMode: "native",
         ipv4NativeRoutingCIDR: "10.42.0.0/16",
