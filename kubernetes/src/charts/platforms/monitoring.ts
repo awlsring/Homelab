@@ -103,13 +103,6 @@ export class MonitoringChart extends HomelabChart {
           ),
           forceDeployDatasources: true,
           forceDeployDashboards: true,
-          additionalDataSources: [
-            {
-              name: "Loki",
-              type: "loki",
-              url: "http://loki.loki:3100",
-            },
-          ],
         },
         prometheus: {
           enabled: true,

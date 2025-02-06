@@ -16,19 +16,19 @@ export class PlatformModule extends Module {
 
     new MonitoringChart(app, "monitoring", {
       prometheus: {
-        storageSize: Size.gibibytes(300),
+        storageSize: Size.gibibytes(500),
         storageClass: BLOCK_STORAGE_CLASS,
-        retention: Duration.days(5),
+        retention: Duration.days(14),
         scapeTargets: [
           {
             name: "node-exporter",
             staticConfigs: [
-              { targets: ["10.0.10.125:9090", "10.0.10.9:9100"] },
+              { targets: ["10.0.10.120:9090", "10.0.10.9:9100"] },
             ],
           },
           {
             name: "comin",
-            staticConfigs: [{ targets: ["10.0.10.125:4243"] }],
+            staticConfigs: [{ targets: ["10.0.10.120:4243"] }],
           },
           {
             name: "tplink-plug-exporter",
