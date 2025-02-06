@@ -10,7 +10,6 @@ import {
   CERT_ISSUER_NAME_PROD,
   CERT_ISSUER_NAME_STAGING,
 } from "../constructs/cert-manager/issuers";
-import { RookCephChart } from "../charts/system/rook-ceph";
 import { ExternalSecretsChart } from "../charts/system/external-secrets";
 import { KuredChart } from "../charts/system/kured";
 import { DeschedulerChart } from "../charts/system/descheduler";
@@ -66,8 +65,6 @@ export class SystemModule extends Module {
     new MetalLBChart(app, "metallb", {
       addressRanges: ["10.0.10.230-10.0.10.250"],
     });
-
-    new RookCephChart(app, "rook-ceph");
 
     new ExternalSecretsChart(app, "external-secrets");
 

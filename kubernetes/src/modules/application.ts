@@ -6,7 +6,6 @@ import { ImmichChart } from "../charts/applications/immich";
 import { BlueskyPdsChart } from "../charts/applications/bluesky-pds";
 import { TPLinkPlugExporterChart } from "../charts/applications/tplink-plug-exporter";
 import { Configuration } from "../config/configuration";
-import { TandoorChart } from "../charts/applications/tandoor";
 import { TerraformBackendChart } from "../charts/applications/terraform-backend";
 import { GatusChart } from "../charts/applications/gatus";
 import {
@@ -139,24 +138,6 @@ export class ApplicationModule extends Module {
 
     new TPLinkPlugExporterChart(app, "tplink-plug-exporter", {
       namespace: "tplink-plug-exporter",
-    });
-
-    new TandoorChart(app, "tandoor", {
-      namespace: "tandoor",
-      secretStore: "onepassword-secret-store",
-      storage: {
-        staticFiles: {
-          storageClass: "longhorn",
-        },
-        mediaFiles: {
-          storageClass: "longhorn",
-        },
-      },
-      ingress: {
-        ingressClass: "nginx",
-        hostname: "tandoor.us-drig-1.drigs.org",
-        certIssuer: "prod",
-      },
     });
 
     new MealieChart(app, "mealie", {
