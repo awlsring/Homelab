@@ -15,6 +15,7 @@ import {
 } from "../constructs/applications/gatus";
 import { YarrgChart } from "../charts/applications/yarrg";
 import { MealieChart } from "../charts/applications/mealie";
+import { SearxngChart } from "../charts/applications/searxng";
 import { PocketIdChart } from "../charts/applications/pocket-id";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
@@ -153,6 +154,18 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "mealie.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new SearxngChart(app, "searxng", {
+      namespace: "searxng",
+      imageTag: "2025.2.3-4ab7984ed",
+      storageClassName: "longhorn",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "search.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });
