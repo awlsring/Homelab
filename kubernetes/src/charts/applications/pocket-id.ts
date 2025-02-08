@@ -87,7 +87,7 @@ export class PocketIdChart extends HomelabChart {
     });
     dbCluster.createScheduledBackup(
       "db-backup",
-      new CronSchedule({ minute: 0, hour: 1 })
+      new CronSchedule({ second: 0, minute: 0, hour: 1 })
     );
 
     const pvc = new PersistentVolumeClaim(this, "pvc", {

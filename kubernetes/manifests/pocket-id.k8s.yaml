@@ -86,7 +86,7 @@ metadata:
 spec:
   cluster:
     name: db
-  schedule: 0 1 * * *
+  schedule: 0 0 1 * * *
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

@@ -4,6 +4,7 @@ import { Cluster } from "./cluster";
 import { ApiObject } from "cdk8s";
 
 export interface CronScheduleOptions {
+  readonly second?: string | number;
   readonly minute?: string | number;
   readonly hour?: string | number;
   readonly dayOfMonth?: string | number;
@@ -12,6 +13,7 @@ export interface CronScheduleOptions {
 }
 
 export class CronSchedule {
+  private second: string;
   private minute: string;
   private hour: string;
   private dayOfMonth: string;
@@ -19,6 +21,7 @@ export class CronSchedule {
   private dayOfWeek: string;
 
   constructor(options?: CronScheduleOptions) {
+    this.second = options?.second?.toString() ?? "*";
     this.minute = options?.minute?.toString() ?? "*";
     this.hour = options?.hour?.toString() ?? "*";
     this.dayOfMonth = options?.dayOfMonth?.toString() ?? "*";
@@ -27,7 +30,7 @@ export class CronSchedule {
   }
 
   toString(): string {
-    return `${this.minute} ${this.hour} ${this.dayOfMonth} ${this.month} ${this.dayOfWeek}`;
+    return `${this.second} ${this.minute} ${this.hour} ${this.dayOfMonth} ${this.month} ${this.dayOfWeek}`;
   }
 }
 

@@ -95,7 +95,7 @@ metadata:
 spec:
   cluster:
     name: immich-db
-  schedule: 0 1 * * *
+  schedule: 0 0 1 * * *
 ---
 apiVersion: apps/v1
 kind: Deployment
