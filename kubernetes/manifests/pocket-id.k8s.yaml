@@ -1,0 +1,249 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pocket-id
+  namespace: pocket-id
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: pocket-id-backup-store-access-key-c8669169
+  namespace: pocket-id
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: pocket-id-backup-store-secret-key-c8bd1172
+  namespace: pocket-id
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: pocket-id-database-secret-c86b8105
+  namespace: pocket-id
+spec:
+  dataFrom:
+    - extract:
+        key: pocket-id-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pocket-id-db-c8abf219
+  namespace: pocket-id
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/pocket-id
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: pocket-id-backup-store-access-key-c8669169
+        secretAccessKey:
+          key: password
+          name: pocket-id-backup-store-secret-key-c8bd1172
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
+  bootstrap:
+    initdb:
+      database: pocket-id
+      owner: pocket-id
+      secret:
+        name: pocket-id-database-secret-c86b8105
+  externalClusters: []
+  instances: 3
+  monitoring: {}
+  postgresql: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 1Gi
+    storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: pocket-id-db-db-backup-c86e44e4
+  namespace: pocket-id
+spec:
+  cluster:
+    name: db
+  schedule: 0 1 * * *
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pocket-id-pvc-c82de9d7
+  namespace: pocket-id
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pocket-id-app-service-account-c868af2b
+  namespace: pocket-id
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pocket-id-app-deployment-c817665d
+  namespace: pocket-id
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: pocket-id-app-deployment-c867a61d
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: pocket-id-app-deployment-c867a61d
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - env:
+            - name: PUBLIC_APP_URL
+              value: https://identity.us-drig-1.drigs.org
+            - name: TRUST_PROXY
+              value: "true"
+            - name: DB_PROVIDER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: pocket-id-database-secret-c86b8105
+            - name: POSTGRES_CONNECTION_STRING
+              value: postgresql://pocket-id:$(POSTGRES_PASSWORD)@pocket-id-db-c8abf219-rw:5432/pocket-id
+          image: ghcr.io/pocket-id/pocket-id:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 90
+            periodSeconds: 10
+            timeoutSeconds: 5
+          name: pocketid
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /app/backend/data
+              name: pvc-pocket-id-pvc-c82de9d7
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      serviceAccountName: pocket-id-app-service-account-c868af2b
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-pocket-id-pvc-c82de9d7
+          persistentVolumeClaim:
+            claimName: pocket-id-pvc-c82de9d7
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pocket-id-app-service-c85d0acf
+  namespace: pocket-id
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+  selector:
+    cdk8s.io/metadata.addr: pocket-id-app-deployment-c867a61d
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pocket-id-pocket-id-app-service-c85d0acf-tls-c81946b4
+  namespace: pocket-id
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: pocket-id-ingress-c8904cc8
+  namespace: pocket-id
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: identity.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: pocket-id-app-service-c85d0acf
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - identity.us-drig-1.drigs.org
+      secretName: pocket-id-pocket-id-app-service-c85d0acf-tls-c81946b4

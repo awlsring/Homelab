@@ -15,6 +15,9 @@ import {
 } from "../constructs/applications/gatus";
 import { YarrgChart } from "../charts/applications/yarrg";
 import { MealieChart } from "../charts/applications/mealie";
+import { PocketIdChart } from "../charts/applications/pocket-id";
+
+export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
 export class ApplicationModule extends Module {
   constructor(app: App, config: Configuration) {
@@ -150,6 +153,18 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "mealie.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new PocketIdChart(app, "pocket-id", {
+      namespace: "pocket-id",
+      imageTag: "latest",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      storageClassName: "longhorn",
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "identity.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });
