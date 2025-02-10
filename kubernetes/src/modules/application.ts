@@ -18,6 +18,7 @@ import { MealieChart } from "../charts/applications/mealie";
 import { SearxngChart } from "../charts/applications/searxng";
 import { PocketIdChart } from "../charts/applications/pocket-id";
 import { ForgejoChart } from "../charts/applications/forgejo";
+import { WoodpeckerCIChart } from "../charts/applications/woodpecker-ci";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -201,6 +202,18 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "code.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new WoodpeckerCIChart(app, "woodpecker", {
+      namespace: "woodpecker",
+      storageClass: "longhorn",
+      imageTag: "v3.0.1",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "ci.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });

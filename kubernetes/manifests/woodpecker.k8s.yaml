@@ -1,0 +1,385 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: woodpecker
+  namespace: woodpecker
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: woodpecker-backup-store-access-key-c87b672e
+  namespace: woodpecker
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: woodpecker-backup-store-secret-key-c85a49c8
+  namespace: woodpecker
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: woodpecker-database-secret-c8b6f2de
+  namespace: woodpecker
+spec:
+  dataFrom:
+    - extract:
+        key: woodpecker-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: woodpecker-db-c85feff1
+  namespace: woodpecker
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/pocket-id
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: woodpecker-backup-store-access-key-c87b672e
+        secretAccessKey:
+          key: password
+          name: woodpecker-backup-store-secret-key-c85a49c8
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
+  bootstrap:
+    initdb:
+      database: woodpecker
+      owner: woodpecker
+      secret:
+        name: woodpecker-database-secret-c8b6f2de
+  externalClusters: []
+  instances: 3
+  monitoring: {}
+  postgresql: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 1Gi
+    storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: woodpecker-db-db-backup-c8aab389
+  namespace: woodpecker
+spec:
+  cluster:
+    name: db
+  schedule: 0 0 1 * * *
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: woodpecker-woodpecker-secret-c832828d
+  namespace: woodpecker
+spec:
+  dataFrom:
+    - extract:
+        key: woodpecker-secret
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: woodpecker-forgejo-woodpecker-client-secret-c89a7e47
+  namespace: woodpecker
+spec:
+  dataFrom:
+    - extract:
+        key: forgejo-woodpecker-client-secret
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: woodpecker-server-deployment-c833e82a
+  namespace: woodpecker
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: woodpecker-server-deployment-c8e7fc2e
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: woodpecker-server-deployment-c8e7fc2e
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: WOODPECKER_FORGEJO
+              value: "true"
+            - name: WOODPECKER_FORGEJO_URL
+              value: https://code.us-drig-1.drigs.org
+            - name: WOODPECKER_FORGEJO_CLIENT
+              value: a6f526b9-80bf-43aa-b7d7-f94355d5ccfd
+            - name: WOODPECKER_FORGEJO_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: woodpecker-forgejo-woodpecker-client-secret-c89a7e47
+            - name: WOODPECKER_ADMIN
+              value: woodpecker,admin
+            - name: WOODPECKER_HOST
+              value: https://ci.us-drig-1.drigs.org
+            - name: WOODPECKER_AGENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: woodpecker-woodpecker-secret-c832828d
+            - name: WOODPECKER_DATABASE_DRIVER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: woodpecker-database-secret-c8b6f2de
+            - name: WOODPECKER_DATABASE_DATASOURCE
+              value: postgresql://woodpecker:$(POSTGRES_PASSWORD)@woodpecker-db-c85feff1-rw:5432/woodpecker
+          image: docker.io/woodpeckerci/woodpecker-server:v3.0.1
+          imagePullPolicy: Always
+          name: server
+          ports:
+            - containerPort: 8000
+              name: http
+              protocol: TCP
+            - containerPort: 9000
+              name: grpc
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: woodpecker-server-service-c8d36bbf
+  namespace: woodpecker
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8000
+    - name: grpc
+      port: 9000
+      protocol: TCP
+  selector:
+    cdk8s.io/metadata.addr: woodpecker-server-deployment-c8e7fc2e
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: woodpecker-agent-service-account-c88bbddc
+  namespace: woodpecker
+automountServiceAccountToken: true
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: woodpecker-agent-role-c85af7ca
+  namespace: woodpecker
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods/logs
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: rolebindingc8975a73b9ef3f623bf8d8b688e7fcd6b4-c8ecf3e9
+  namespace: woodpecker
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: woodpecker-agent-role-c85af7ca
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: woodpecker-agent-service-account-c88bbddc
+    namespace: woodpecker
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: woodpecker-agent-c8af4e7d
+  namespace: woodpecker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: woodpecker
+      app.kubernetes.io/name: agent
+  serviceName: woodpecker-agent-service-account-c88bbddc
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: woodpecker
+        app.kubernetes.io/name: agent
+    spec:
+      containers:
+        - env:
+            - name: WOODPECKER_BACKEND
+              value: kubernetes
+            - name: WOODPECKER_KUBERNETES_NAMESPACE
+              value: woodpecker
+            - name: WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS
+              value: ""
+            - name: WOODPECKER_BACKEND_K8S_POD_LABELS
+              value: ""
+            - name: WOODPECKER_BACKEND_K8S_STORAGE_CLASS
+              value: longhorn
+            - name: WOODPECKER_BACKEND_K8S_STORAGE_RWX
+              value: "true"
+            - name: WOODPECKER_BACKEND_K8S_VOLUME_SIZE
+              value: 10G
+            - name: WOODPECKER_CONNECT_RETRY_COUNT
+              value: "1"
+            - name: WOODPECKER_SERVER
+              value: woodpecker-server-service-c8d36bbf:9000
+            - name: WOODPECKER_AGENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: woodpecker-woodpecker-secret-c832828d
+          image: docker.io/woodpeckerci/woodpecker-agent:v3.0.1
+          name: agent
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          securityContext:
+            runAsGroup: 1000
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /etc/woodpecker
+              name: agent-config
+      securityContext:
+        fsGroup: 1000
+      serviceAccountName: woodpecker-agent-service-account-c88bbddc
+  volumeClaimTemplates:
+    - metadata:
+        name: agent-config
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: longhorn
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: woodpe-woodpecker-server-service-c8d36bbf-tls-c87251fb
+  namespace: woodpecker
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: woodpecker-ingress-c8d2af19
+  namespace: woodpecker
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: ci.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: woodpecker-server-service-c8d36bbf
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - ci.us-drig-1.drigs.org
+      secretName: woodpe-woodpecker-server-service-c8d36bbf-tls-c87251fb
