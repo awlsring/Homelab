@@ -1,0 +1,285 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: forgejo
+  namespace: forgejo
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: forgejo-backup-store-access-key-c8aab7a1
+  namespace: forgejo
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: forgejo-backup-store-secret-key-c85a5fc2
+  namespace: forgejo
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: forgejo-db-secret-c87e89ad
+  namespace: forgejo
+spec:
+  dataFrom:
+    - extract:
+        key: forgejo-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: forgejo-db-c881dbc4
+  namespace: forgejo
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/forgejo
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: forgejo-backup-store-access-key-c8aab7a1
+        secretAccessKey:
+          key: password
+          name: forgejo-backup-store-secret-key-c85a5fc2
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
+  bootstrap:
+    initdb:
+      database: forgejo
+      owner: forgejo
+      secret:
+        name: forgejo-db-secret-c87e89ad
+  externalClusters: []
+  instances: 3
+  monitoring: {}
+  postgresql: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 1Gi
+    storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: forgejo-db-db-backup-c8d33931
+  namespace: forgejo
+spec:
+  cluster:
+    name: db
+  schedule: 0 0 1 * * *
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: forgejo-data-pvc-c8a47722
+  namespace: forgejo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: forgejo-app-service-account-c82cba42
+  namespace: forgejo
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo-app-deployment-c84ff3e1
+  namespace: forgejo
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: forgejo-app-deployment-c88e6896
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: forgejo-app-deployment-c88e6896
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - env:
+            - name: APP_NAME
+              value: Code
+            - name: FORGEJO__server__SSH_LISTEN_PORT
+              value: "2222"
+            - name: FORGEJO__server__ROOT_URL
+              value: https://code.us-drig-1.drigs.org/
+            - name: FORGEJO__server__DOMAIN
+              value: code.us-drig-1.drigs.org
+            - name: FORGEJO__server__SSH_DOMAIN
+              value: code.us-drig-1.drigs.org
+            - name: FORGEJO__service__DISABLE_REGISTRATION
+              value: "true"
+            - name: FORGEJO__database__DB_TYPE
+              value: postgres
+            - name: FORGEJO__metrics__ENABLED
+              value: "true"
+            - name: FORGEJO__database__HOST
+              value: forgejo-db-c881dbc4-rw
+            - name: FORGEJO__database__NAME
+              value: forgejo
+            - name: FORGEJO__database__USER
+              value: forgejo
+            - name: FORGEJO__database__PASSWD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: forgejo-db-secret-c87e89ad
+          image: codeberg.org/forgejo/forgejo:10.0.0-rootless
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 200
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 3000
+            timeoutSeconds: 1
+          name: forgejo
+          ports:
+            - containerPort: 3000
+              name: http
+            - containerPort: 2222
+              name: ssh
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/healthz
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /var/lib/gitea
+              name: pvc-forgejo-data-pvc-c8a47722
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      serviceAccountName: forgejo-app-service-account-c82cba42
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: pvc-forgejo-data-pvc-c8a47722
+          persistentVolumeClaim:
+            claimName: forgejo-data-pvc-c8a47722
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-app-http-service-c8aab71d
+  namespace: forgejo
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+  selector:
+    cdk8s.io/metadata.addr: forgejo-app-deployment-c88e6896
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: forgejo-app-ssh-service-c87dd44f
+  namespace: forgejo
+spec:
+  externalIPs: []
+  ports:
+    - name: ssh
+      port: 22
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    cdk8s.io/metadata.addr: forgejo-app-deployment-c88e6896
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: forgejo-forgejo-app-http-service-c8aab71d-tls-c862484b
+  namespace: forgejo
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: forgejo-ingress-c875ead4
+  namespace: forgejo
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: code.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: forgejo-app-http-service-c8aab71d
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - code.us-drig-1.drigs.org
+      secretName: forgejo-forgejo-app-http-service-c8aab71d-tls-c862484b

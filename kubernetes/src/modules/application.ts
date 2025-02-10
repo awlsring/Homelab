@@ -17,6 +17,7 @@ import { YarrgChart } from "../charts/applications/yarrg";
 import { MealieChart } from "../charts/applications/mealie";
 import { SearxngChart } from "../charts/applications/searxng";
 import { PocketIdChart } from "../charts/applications/pocket-id";
+import { ForgejoChart } from "../charts/applications/forgejo";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -188,6 +189,19 @@ export class ApplicationModule extends Module {
       storage: {
         storageClass: "local-path",
         size: Size.gibibytes(5),
+      },
+    });
+
+    new ForgejoChart(app, "forgejo", {
+      namespace: "forgejo",
+      createNamespace: true,
+      secretStore: "onepassword-secret-store",
+      storageClassName: "longhorn",
+      imageTag: "10.0.0-rootless",
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "code.us-drig-1.drigs.org",
+        certIssuer: "prod",
       },
     });
 
