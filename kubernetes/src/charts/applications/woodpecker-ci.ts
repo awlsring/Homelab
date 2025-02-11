@@ -22,6 +22,7 @@ export interface WoodpeckerCIChartProps {
   readonly imageTag: string;
   readonly secretStore: string;
   readonly storageClass: string;
+  readonly allowedUsers: string[];
   readonly ingress: HomelabIngressOptions;
 }
 
@@ -109,6 +110,7 @@ export class WoodpeckerCIChart extends HomelabChart {
       storageClass: props.storageClass,
       address: `https://${props.ingress.hostname}`,
       secret: woodpecerkSecretValue,
+      allowedUsers: props.allowedUsers,
       database: {
         hostname: dbCluster.readWriteService(),
         user: "woodpecker",
@@ -123,7 +125,7 @@ export class WoodpeckerCIChart extends HomelabChart {
         WOODPECKER_FORGEJO_CLIENT: EnvValue.fromValue(
           "a6f526b9-80bf-43aa-b7d7-f94355d5ccfd"
         ),
-        WOODPECKER_FORGEJO_CLIENT_SECRET: EnvValue.fromSecretValue(
+        WOODPECKER_FORGEJO_SECRET: EnvValue.fromSecretValue(
           forgejoWoodpeckerSecret.asSecretValue()
         ),
       },

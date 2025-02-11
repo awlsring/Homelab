@@ -145,13 +145,13 @@ spec:
               value: https://code.us-drig-1.drigs.org
             - name: WOODPECKER_FORGEJO_CLIENT
               value: a6f526b9-80bf-43aa-b7d7-f94355d5ccfd
-            - name: WOODPECKER_FORGEJO_CLIENT_SECRET
+            - name: WOODPECKER_FORGEJO_SECRET
               valueFrom:
                 secretKeyRef:
                   key: password
                   name: woodpecker-forgejo-woodpecker-client-secret-c89a7e47
             - name: WOODPECKER_ADMIN
-              value: woodpecker,admin
+              value: awlsring
             - name: WOODPECKER_HOST
               value: https://ci.us-drig-1.drigs.org
             - name: WOODPECKER_AGENT_SECRET
@@ -170,6 +170,12 @@ spec:
               value: postgresql://woodpecker:$(POSTGRES_PASSWORD)@woodpecker-db-c85feff1-rw:5432/woodpecker
           image: docker.io/woodpeckerci/woodpecker-server:v3.0.1
           imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8000
+              scheme: HTTP
           name: server
           ports:
             - containerPort: 8000
@@ -178,6 +184,12 @@ spec:
             - containerPort: 9000
               name: grpc
               protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8000
+              scheme: HTTP
           securityContext:
             allowPrivilegeEscalation: false
             privileged: false

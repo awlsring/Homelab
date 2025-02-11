@@ -211,6 +211,7 @@ export class ApplicationModule extends Module {
       storageClass: "longhorn",
       imageTag: "v3.0.1",
       secretStore: ONEPASSWORD_SECRET_STORE,
+      allowedUsers: ["awlsring"],
       ingress: {
         ingressClass: "nginx",
         hostname: "ci.us-drig-1.drigs.org",

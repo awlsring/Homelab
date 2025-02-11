@@ -2,12 +2,14 @@ import {
   Deployment,
   DeploymentStrategy,
   EnvValue,
-  // Probe,
+  Probe,
   Protocol,
   SecretValue,
   Service,
 } from "cdk8s-plus-31";
 import { Construct } from "constructs";
+
+const HTTP_PORT = 8000;
 
 export interface WoodpeckerCIServerPostgresOptions {
   readonly hostname: string;
@@ -21,6 +23,7 @@ export interface WoodpeckerCIServerProps {
   readonly address: string;
   readonly storageClass: string;
   readonly secret: SecretValue;
+  readonly allowedUsers: string[];
   readonly database: WoodpeckerCIServerPostgresOptions;
   readonly replicas?: number;
   readonly forgeSecrets: {
@@ -47,7 +50,7 @@ export class WoodpeckerCIServer extends Construct {
           image: `docker.io/woodpeckerci/woodpecker-server:${props.imageTag}`,
           envVariables: {
             ...props.forgeSecrets,
-            WOODPECKER_ADMIN: EnvValue.fromValue("woodpecker,admin"),
+            WOODPECKER_ADMIN: EnvValue.fromValue(props.allowedUsers.join(",")),
             WOODPECKER_HOST: EnvValue.fromValue(props.address),
             WOODPECKER_AGENT_SECRET: EnvValue.fromSecretValue(props.secret),
             WOODPECKER_DATABASE_DRIVER: EnvValue.fromValue("postgres"),
@@ -58,19 +61,19 @@ export class WoodpeckerCIServer extends Construct {
               `postgresql://${props.database.user}:$(POSTGRES_PASSWORD)@${props.database.hostname}:5432/${props.database.database}`
             ),
           },
-          // liveness: Probe.fromHttpGet("/healthz", {
-          //   port: 80,
-          // }),
-          // readiness: Probe.fromHttpGet("/healthz", {
-          //   port: 80,
-          // }),
+          liveness: Probe.fromHttpGet("/healthz", {
+            port: HTTP_PORT,
+          }),
+          readiness: Probe.fromHttpGet("/healthz", {
+            port: HTTP_PORT,
+          }),
           resources: {},
           securityContext: {
             user: 1000,
             group: 1000,
           },
           ports: [
-            { number: 8000, name: "http", protocol: Protocol.TCP },
+            { number: HTTP_PORT, name: "http", protocol: Protocol.TCP },
             { number: 9000, name: "grpc", protocol: Protocol.TCP },
           ],
         },
@@ -82,7 +85,7 @@ export class WoodpeckerCIServer extends Construct {
         {
           name: "http",
           port: 80,
-          targetPort: 8000,
+          targetPort: HTTP_PORT,
           protocol: Protocol.TCP,
         },
         {
