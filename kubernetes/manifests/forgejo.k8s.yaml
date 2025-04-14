@@ -264,6 +264,9 @@ metadata:
     cert-manager.io/cluster-issuer: prod
     cert-manager.io/duration: 2160h
     cert-manager.io/renew-before: 360h
+    nginx.ingress.kubernetes.io/proxy-body-size: 500000M
+    nginx.ingress.kubernetes.io/proxy-read-timeout: 600s
+    nginx.ingress.kubernetes.io/proxy-send-timeout: 600s
   name: forgejo-ingress-c875ead4
   namespace: forgejo
 spec:

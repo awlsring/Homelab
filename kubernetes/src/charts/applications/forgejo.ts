@@ -117,6 +117,21 @@ export class ForgejoChart extends HomelabChart {
       hostname: props.ingress.hostname,
       port: 3000,
       certIssuer: props.ingress.certIssuer,
+      annotations: [
+        {
+          // https://github.com/immich-app/immich/issues/8738
+          key: "nginx.ingress.kubernetes.io/proxy-body-size",
+          value: "500000M",
+        },
+        {
+          key: "nginx.ingress.kubernetes.io/proxy-send-timeout",
+          value: "600s",
+        },
+        {
+          key: "nginx.ingress.kubernetes.io/proxy-read-timeout",
+          value: "600s",
+        },
+      ],
     });
   }
 }
