@@ -57,7 +57,7 @@ spec:
           imagePullPolicy: Always
           name: audiobookshelf
           ports:
-            - containerPort: 13378
+            - containerPort: 80
           resources:
             limits:
               cpu: 1000m
@@ -107,7 +107,7 @@ metadata:
 spec:
   externalIPs: []
   ports:
-    - port: 13378
+    - port: 80
       targetPort: 80
   selector:
     cdk8s.io/metadata.addr: audiobookshelf-deployment-c8981d78
@@ -140,7 +140,7 @@ spec:
               service:
                 name: audiobookshelf-service-c8663952
                 port:
-                  number: 13378
+                  number: 80
             path: /
             pathType: Prefix
   tls:

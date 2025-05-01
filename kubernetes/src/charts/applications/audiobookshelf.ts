@@ -16,7 +16,6 @@ import {
 import { Construct } from "constructs";
 import { HomelabIngress } from "../../constructs/homelab/ingress";
 
-const AUDIOBOOKSHELF_PORT = 13378;
 const WEB_PORT = 80;
 
 export interface AudioBookshelfProps extends HomelabChartProps {
@@ -97,7 +96,7 @@ export class AudioBookshelfChart extends HomelabChart {
           },
           name: "audiobookshelf",
           image: `ghcr.io/ghcr.io/advplyr/audiobookshelf:${props.imageTag}`,
-          ports: [{ number: AUDIOBOOKSHELF_PORT }],
+          ports: [{ number: WEB_PORT }],
           volumeMounts: [
             {
               volume: nfsVol,
@@ -119,7 +118,7 @@ export class AudioBookshelfChart extends HomelabChart {
     const service = new Service(this, "service", {
       type: props.ingress?.type ?? ServiceType.CLUSTER_IP,
       selector: deployment,
-      ports: [{ port: AUDIOBOOKSHELF_PORT, targetPort: WEB_PORT }],
+      ports: [{ port: WEB_PORT, targetPort: WEB_PORT }],
     });
 
     if (props.ingress) {
