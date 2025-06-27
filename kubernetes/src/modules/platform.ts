@@ -7,6 +7,9 @@ import { OnePasswordConnectChart } from "../charts/platforms/onepassword-connect
 import { Configuration } from "../config/configuration";
 import { CloudnativePgChart } from "../charts/platforms/cloudnative-pg-operator";
 import { CloudflareOperatorChart } from "../charts/platforms/cloudflare-operator";
+import { OTELOperatorChart } from "../charts/platforms/otel-operator";
+import { TempoOperatorChart } from "../charts/platforms/tempo-operator";
+import { LokiChart } from "../charts/platforms/loki";
 
 const BLOCK_STORAGE_CLASS = "longhorn";
 
@@ -87,5 +90,11 @@ export class PlatformModule extends Module {
 
     // TODO: allow traffic from nginx to these https://cloudnative-pg.io/documentation/1.15/expose_pg_services/
     new CloudnativePgChart(app, "cloudnative-pg");
+
+    new OTELOperatorChart(app, "otel-operator");
+
+    new TempoOperatorChart(app, "tempo-operator");
+
+    new LokiChart(app, "loki");
   }
 }

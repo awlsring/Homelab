@@ -1,0 +1,4 @@
+{
+  "eslint.workingDirectories": ["kubernetes", "terraform"],
+  "eslint.validate": ["typescript", "typescriptreact"]
+}
