@@ -21,6 +21,7 @@ import { CronSchedule } from "../../constructs/cnpg/scheduled-backup";
 
 const REDIS_PORT = 6379;
 const REDIS_IMAGE = "redis:6.2-alpine3.19";
+const DB_IMAGE = "ghcr.io/tensorchord/cloudnative-vectorchord:16-0.4.3";
 
 export interface ImmichChartProps extends HomelabChartProps {
   readonly ingress: HomelabIngressOptions;
@@ -99,7 +100,7 @@ export class ImmichChart extends HomelabChart {
       }
     );
 
-    const dbCluster = new Cluster(this, "immich-db", {
+    const dbCluster = new Cluster(this, "immich-pg-database", {
       storage: {
         storageClass: props.database.storageClass,
         size: Size.gibibytes(10),
@@ -113,25 +114,18 @@ export class ImmichChart extends HomelabChart {
           secretAccessKey: backupStoreSecretKey.asSecretReference(),
         },
       },
-      image: "ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1",
-      sharedPreloadLibraries: ["vectors.so"],
+      sharedPreloadLibraries: ["vchord.so"],
+      image: DB_IMAGE,
       database: {
         database: "immich",
         username: "immich",
         password: {
           name: dbKubeSecret.name,
         },
-        postInitApplicationSql: [
-          'ALTER SYSTEM SET search_path TO "immich", public, vectors;',
-          'CREATE EXTENSION IF NOT EXISTS "vectors";',
-          "CREATE EXTENSION IF NOT EXISTS cube WITH SCHEMA pg_catalog;",
-          "CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA pg_catalog;",
-          "ALTER SCHEMA vectors OWNER TO immich;",
-        ],
       },
     });
     dbCluster.createScheduledBackup(
-      "immich-db-backup",
+      "immich-pg-database-backup",
       new CronSchedule({ second: 0, minute: 0, hour: 1 })
     );
 
@@ -179,6 +173,7 @@ export class ImmichChart extends HomelabChart {
       monitoring: true,
       serverOptions: {
         ingress: props.ingress,
+        imageTag: "v1.135.3",
       },
       machineLearningOptions: {
         cache: {

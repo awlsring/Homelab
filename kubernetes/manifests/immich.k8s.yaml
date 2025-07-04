@@ -46,7 +46,7 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: immich-immich-db-c88c515f
+  name: immich-immich-pg-database-c81956f0
   namespace: immich
 spec:
   backup:
@@ -67,21 +67,15 @@ spec:
     initdb:
       database: immich
       owner: immich
-      postInitApplicationSQL:
-        - ALTER SYSTEM SET search_path TO "immich", public, vectors;
-        - CREATE EXTENSION IF NOT EXISTS "vectors";
-        - CREATE EXTENSION IF NOT EXISTS cube WITH SCHEMA pg_catalog;
-        - CREATE EXTENSION IF NOT EXISTS earthdistance WITH SCHEMA pg_catalog;
-        - ALTER SCHEMA vectors OWNER TO immich;
       secret:
         name: immich-database-secret-c86932a0
   externalClusters: []
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16-v0.2.1
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16-0.4.3
   instances: 3
   monitoring: {}
   postgresql:
     shared_preload_libraries:
-      - vectors.so
+      - vchord.so
   primaryUpdateStrategy: unsupervised
   storage:
     size: 10Gi
@@ -90,11 +84,11 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: immich-immich-db-immich-db-backup-c84741a2
+  name: immich-pg-database-immich-pg-database-backup-c8f09e45
   namespace: immich
 spec:
   cluster:
-    name: immich-db
+    name: immich-pg-database
   schedule: 0 0 1 * * *
 ---
 apiVersion: apps/v1
@@ -207,7 +201,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-immich-db-c88c515f-rw
+              value: immich-immich-pg-database-c81956f0-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME
@@ -232,7 +226,7 @@ spec:
               value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
-          image: ghcr.io/immich-app/immich-server:release
+          image: ghcr.io/immich-app/immich-server:v1.135.3
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -399,7 +393,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-immich-db-c88c515f-rw
+              value: immich-immich-pg-database-c81956f0-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME
