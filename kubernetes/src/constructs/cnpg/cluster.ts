@@ -35,6 +35,7 @@ export interface ClusterDatabaseOptions {
   readonly password?: SecretReference;
   readonly initCommands?: string[];
   readonly postInitApplicationSql?: string[];
+  readonly postInitTemplateSql?: string[];
 }
 
 export interface ClusterBackupCredentials {
@@ -163,6 +164,10 @@ export class Cluster extends Construct {
 
     if (options.postInitApplicationSql) {
       rec.postInitApplicationSql = options.postInitApplicationSql;
+    }
+
+    if (options.postInitTemplateSql) {
+      rec.postInitTemplateSql = options.postInitTemplateSql;
     }
 
     return rec;

@@ -19,6 +19,7 @@ import { SearxngChart } from "../charts/applications/searxng";
 import { PocketIdChart } from "../charts/applications/pocket-id";
 import { ForgejoChart } from "../charts/applications/forgejo";
 import { WoodpeckerCIChart } from "../charts/applications/woodpecker-ci";
+import { DawarichChart } from "../charts/applications/dawarich";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -215,6 +216,20 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "ci.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new DawarichChart(app, "dawarich", {
+      namespace: "dawarich",
+      imageTag: "latest",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      storage: {
+        storageClass: "longhorn",
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "dawarich.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });

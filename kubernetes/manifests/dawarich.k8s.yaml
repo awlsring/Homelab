@@ -1,0 +1,461 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dawarich
+  namespace: dawarich
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dawarich-database-secret-c87bdb36
+  namespace: dawarich
+spec:
+  dataFrom:
+    - extract:
+        key: dawarich-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dawarich-secret-key-c8939b6f
+  namespace: dawarich
+spec:
+  dataFrom:
+    - extract:
+        key: dawarich-secret-key-base
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dawarich-geoapify-key-c8cb1570
+  namespace: dawarich
+spec:
+  dataFrom:
+    - extract:
+        key: dawarich-geoapify-api-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dawarich-backup-store-access-key-c8254410
+  namespace: dawarich
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-access-key-id
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: dawarich-backup-store-secret-key-c83e5c82
+  namespace: dawarich
+spec:
+  dataFrom:
+    - extract:
+        key: cnpg-backup-secret-access-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: dawarich-database-c85f564c
+  namespace: dawarich
+spec:
+  backup:
+    barmanObjectStore:
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/dawarich
+      endpointURL: https://s3.us-east-005.backblazeb2.com
+      s3Credentials:
+        accessKeyId:
+          key: password
+          name: dawarich-backup-store-access-key-c8254410
+        secretAccessKey:
+          key: password
+          name: dawarich-backup-store-secret-key-c83e5c82
+      wal:
+        compression: gzip
+    retentionPolicy: 14d
+  bootstrap:
+    initdb:
+      database: dawarich
+      owner: dawarich
+      postInitTemplateSQL:
+        - CREATE EXTENSION IF NOT EXISTS postgis;
+        - CREATE EXTENSION IF NOT EXISTS postgis_topology;
+        - CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+        - CREATE EXTENSION IF NOT EXISTS postgis_tiger_geocoder;
+      secret:
+        name: dawarich-database-secret-c87bdb36
+  externalClusters: []
+  imageName: ghcr.io/cloudnative-pg/postgis:17-3.5
+  instances: 3
+  monitoring: {}
+  postgresql: {}
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 10Gi
+    storageClass: local-path
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: dawarich-database-dawarich-db-backup-c8d98460
+  namespace: dawarich
+spec:
+  cluster:
+    name: database
+  schedule: 0 0 1 * * *
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dawarich-valkey-pvc-c81fd6d0
+  namespace: dawarich
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dawarich-valkey-deployment-c89341aa
+  namespace: dawarich
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: dawarich-valkey-deployment-c88d7ead
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: dawarich-valkey-deployment-c88d7ead
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - command:
+            - valkey-server
+            - --save
+            - "30"
+            - "1"
+            - --loglevel
+            - warning
+          image: docker.io/valkey/valkey:8-alpine
+          imagePullPolicy: Always
+          name: valkey
+          ports:
+            - containerPort: 6379
+              name: valkey
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 4096Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              add:
+                - SETGID
+                - SETUID
+                - DAC_OVERRIDE
+              drop:
+                - ALL
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /data
+              name: pvc-dawarich-valkey-pvc-c81fd6d0
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-dawarich-valkey-pvc-c81fd6d0
+          persistentVolumeClaim:
+            claimName: dawarich-valkey-pvc-c81fd6d0
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dawarich-valkey-service-c8d9e822
+  namespace: dawarich
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 6379
+      targetPort: 6379
+  selector:
+    cdk8s.io/metadata.addr: dawarich-valkey-deployment-c88d7ead
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dawarich-app-service-account-c80f5f64
+  namespace: dawarich
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dawarich-app-deployment-c88f7419
+  namespace: dawarich
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: dawarich-app-deployment-c855b612
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: dawarich-app-deployment-c855b612
+    spec:
+      automountServiceAccountToken: true
+      containers:
+        - args:
+            - bin/rails
+            - server
+            - -p
+            - "3000"
+            - -b
+            - "::"
+          command:
+            - web-entrypoint.sh
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: REDIS_URL
+              value: redis://dawarich-valkey-service-c8d9e822:6379
+            - name: DATABASE_HOST
+              value: dawarich-database-c85f564c-rw
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_USERNAME
+              value: dawarich
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-database-secret-c87bdb36
+            - name: DATABASE_NAME
+              value: dawarich
+            - name: APPLICATION_HOSTS
+              value: localhost,dawarich.us-drig-1.drigs.org
+            - name: TIME_ZONE
+              value: America/Los_Angeles
+            - name: APPLICATION_PROTOCOL
+              value: http
+            - name: SELF_HOSTED
+              value: "true"
+            - name: STORE_GEODATA
+              value: "true"
+            - name: DISTANCE_UNIT
+              value: mi
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-secret-key-c8939b6f
+            - name: GEOAPIFY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-geoapify-key-c8cb1570
+          image: freikin/dawarich:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          name: web
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+            requests:
+              cpu: 200m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+        - args:
+            - bundle
+            - exec
+            - sidekiq
+          command:
+            - sidekiq-entrypoint.sh
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: REDIS_URL
+              value: redis://dawarich-valkey-service-c8d9e822:6379
+            - name: DATABASE_HOST
+              value: dawarich-database-c85f564c-rw
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: DATABASE_USERNAME
+              value: dawarich
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-database-secret-c87bdb36
+            - name: DATABASE_NAME
+              value: dawarich
+            - name: APPLICATION_HOSTS
+              value: localhost,dawarich.us-drig-1.drigs.org
+            - name: TIME_ZONE
+              value: America/Los_Angeles
+            - name: APPLICATION_PROTOCOL
+              value: http
+            - name: SELF_HOSTED
+              value: "true"
+            - name: STORE_GEODATA
+              value: "true"
+            - name: DISTANCE_UNIT
+              value: mi
+            - name: BACKGROUND_PROCESSING_CONCURRENCY
+              value: "10"
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-secret-key-c8939b6f
+            - name: GEOAPIFY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: dawarich-geoapify-key-c8cb1570
+          image: freikin/dawarich:latest
+          imagePullPolicy: Always
+          name: worker
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            privileged: true
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      serviceAccountName: dawarich-app-service-account-c80f5f64
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    dawarich/monitoring: "false"
+  name: dawarich-app-service-c8c8c771
+  namespace: dawarich
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 3000
+      protocol: TCP
+  selector:
+    cdk8s.io/metadata.addr: dawarich-app-deployment-c855b612
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dawarich-dawarich-app-service-c8c8c771-tls-c887ce67
+  namespace: dawarich
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: dawarich-ingress-c823fb6f
+  namespace: dawarich
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: dawarich.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: dawarich-app-service-c8c8c771
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - dawarich.us-drig-1.drigs.org
+      secretName: dawarich-dawarich-app-service-c8c8c771-tls-c887ce67
