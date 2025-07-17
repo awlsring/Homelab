@@ -8,5 +8,7 @@
   imports = [
     ./kubernetes
     ./frigate.nix
+    ./jellyfin.nix
+    ./syncthing.nix
   ];
 }

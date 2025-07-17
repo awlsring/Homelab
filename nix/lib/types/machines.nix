@@ -78,6 +78,26 @@
     };
   };
 
+  deployConfig = submodule {
+    options = {
+      sshUser = lib.mkOption {
+        type = str;
+        description = "SSH user for deployment";
+        default = "root";
+      };
+      user = lib.mkOption {
+        type = str;
+        description = "Target user for deployment";
+        default = "root";
+      };
+      remoteBuild = lib.mkOption {
+        type = bool;
+        description = "Whether to build on the remote machine";
+        default = true;
+      };
+    };
+  };
+
   hardwareConfig = submodule {
     options = {
       cpu = lib.mkOption {
@@ -148,6 +168,11 @@
         type = nullOr networkConfig;
         default = null;
         description = "Network configuration";
+      };
+      deploy = lib.mkOption {
+        type = nullOr deployConfig;
+        default = null;
+        description = "Deploy-rs configuration overrides";
       };
     };
   };

@@ -8,6 +8,11 @@
 
     sops-nix.url = "github:Mic92/sops-nix";
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     srvos = {
       # Use fix in issue https://github.com/nix-community/srvos/pull/601
       url = "github:nix-community/srvos/7179525bf385263afbf2bdebc75b0060e37ceb7c";
@@ -25,6 +30,7 @@
     nixpkgs,
     systems,
     sops-nix,
+    deploy-rs,
     srvos,
     disko,
   } @ inputs: let
@@ -56,7 +62,8 @@
           };
           modules =
             [
-              srvos.nixosModules.server
+              # srvos.nixosModules.server  # Temporarily disable srvos for shellcheck issues
+              nixosModules.default
               ./machines/${machine.hostname}
             ]
             ++ lib.optionals (machine.site == "hetzner") [
@@ -79,7 +86,7 @@
 
     overlays = import ./nix/overlays {inherit inputs;};
     packages = forAllSystems (pkgs: import ./nix/pkgs {inherit pkgs;});
-    formatter = forAllSystems (pkgs: pkgs.alejandra);
+    formatter = forAllSystems ({pkgs, ...}: pkgs.alejandra);
 
     devShells = forAllSystems ({
       pkgs,
@@ -101,7 +108,7 @@
           nodejs_22
           yarn
           direnv
-          nodePackages.cdktf-cli
+          # nodePackages.cdktf-cli
           opentofu
           nodePackages.cdk8s-cli
           kubernetes-helm
@@ -110,8 +117,26 @@
           kubectl-cnpg
           alejandra
           commitizen
+          deploy-rs.packages.${system}.default
         ];
       };
     });
+
+    # Deploy-rs configurations - automatically create deployments for all NixOS machines
+    deploy.nodes = lib.mapAttrs (
+      hostname: machine: {
+        hostname = machine.ipv4;
+        profiles.system = {
+          sshUser = machine.deploy.sshUser or "root";
+          user = machine.deploy.user or "root";
+          remoteBuild = machine.deploy.remoteBuild or true;
+          path = deploy-rs.lib.${utilities.machines.getSystemForArch machine.arch}.activate.nixos 
+                 self.nixosConfigurations.${hostname};
+        };
+      }
+    ) (lib.filterAttrs (_name: machine: machine.os == "nixos") configJson.machines);
+
+    # Deploy-rs checks
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
   };
 }
