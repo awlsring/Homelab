@@ -1,0 +1,177 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: baikal
+  namespace: baikal
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: baikal-config-pvc-c88d13f4
+  namespace: baikal
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: baikal-data-pvc-c8e81ae4
+  namespace: baikal
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: baikal-smtp-secret-c8022a08
+  namespace: baikal
+spec:
+  dataFrom:
+    - extract:
+        key: baikal-smtp-key
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baikal-app-c8d271f1
+  namespace: baikal
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: baikal-app-c8e5f78d
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: baikal-app-c8e5f78d
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: baikal-smtp-secret-c8022a08
+            - name: MSMTPRC
+              value: |
+                defaults
+                auth           on
+                tls            on
+                tls_trust_file /etc/ssl/certs/ca-certificates.crt
+                account        default
+                host           smtp.resend.com
+                port           587
+                from           admin@drigs.org
+                user           resend
+                password       ${PASSWORD}
+          image: ckulka/baikal:nginx
+          imagePullPolicy: Always
+          name: main
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 524288Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /var/www/baikal/config
+              name: pvc-baikal-config-pvc-c88d13f4
+            - mountPath: /var/www/baikal/Specific
+              name: pvc-baikal-data-pvc-c8e81ae4
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-baikal-config-pvc-c88d13f4
+          persistentVolumeClaim:
+            claimName: baikal-config-pvc-c88d13f4
+            readOnly: false
+        - name: pvc-baikal-data-pvc-c8e81ae4
+          persistentVolumeClaim:
+            claimName: baikal-data-pvc-c8e81ae4
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: baikal-service-c826e584
+  namespace: baikal
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector:
+    cdk8s.io/metadata.addr: baikal-app-c8e5f78d
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: baikal-baikal-service-c826e584-tls-c8deb6c8
+  namespace: baikal
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: baikal-ingress-c82db344
+  namespace: baikal
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: baikal.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: baikal-service-c826e584
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - baikal.us-drig-1.drigs.org
+      secretName: baikal-baikal-service-c826e584-tls-c8deb6c8

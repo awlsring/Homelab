@@ -20,6 +20,7 @@ import { PocketIdChart } from "../charts/applications/pocket-id";
 import { ForgejoChart } from "../charts/applications/forgejo";
 import { WoodpeckerCIChart } from "../charts/applications/woodpecker-ci";
 import { DawarichChart } from "../charts/applications/dawarich";
+import { BaikalChart } from "../charts/applications/baikal";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -230,6 +231,26 @@ export class ApplicationModule extends Module {
       ingress: {
         ingressClass: "nginx",
         hostname: "dawarich.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
+    new BaikalChart(app, "baikal", {
+      namespace: "baikal",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      storage: {
+        data: {
+          storageClass: "longhorn",
+          size: Size.gibibytes(10),
+        },
+        config: {
+          storageClass: "longhorn",
+          size: Size.gibibytes(1),
+        },
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "baikal.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
     });
