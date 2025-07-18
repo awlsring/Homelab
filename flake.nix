@@ -130,8 +130,9 @@
           sshUser = machine.deploy.sshUser or "root";
           user = machine.deploy.user or "root";
           remoteBuild = machine.deploy.remoteBuild or true;
-          path = deploy-rs.lib.${utilities.machines.getSystemForArch machine.arch}.activate.nixos 
-                 self.nixosConfigurations.${hostname};
+          path =
+            deploy-rs.lib.${utilities.machines.getSystemForArch machine.arch}.activate.nixos
+            self.nixosConfigurations.${hostname};
         };
       }
     ) (lib.filterAttrs (_name: machine: machine.os == "nixos") configJson.machines);
