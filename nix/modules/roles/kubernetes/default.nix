@@ -13,31 +13,47 @@
   isControl = builtins.elem controlRoleName config.machine.active.roles;
   isHybrid = builtins.elem roleName config.machine.active.roles;
 in {
-  imports = [./longhorn.nix];
+  imports = [
+    ./options.nix
+    ./longhorn.nix
+  ];
 
-  config = lib.mkIf roleEnabled {
+  config = lib.mkIf config.kubernetes.enable {
     sops.secrets."k3s/token" = {};
 
-    # TODO: this will need to be different for worker nodes
-    services.k3s = {
-      enable = true;
-      role = "server";
-      token = config.sops.secrets."k3s/token".path;
-      serverAddr = "https://10.0.10.60:6443";
-      extraFlags = toString [
-        "--tls-san 10.0.10.60" # make this configurable
-        "--node-label \"k3s-upgrade=false\""
-        "--etcd-expose-metrics"
-        "--secrets-encryption"
-        "--flannel-backend=none"
-        "--disable-network-policy"
-        "--disable servicelb"
-        "--disable traefik"
-        "--disable coredns"
-        "--disable flannel"
-        "--kubelet-arg=register-with-taints=node.cilium.io/agent-not-ready:NoExecute"
-      ];
-    };
+    services.k3s =
+      {
+        enable = true;
+        token = config.sops.secrets."k3s/token".path;
+        serverAddr = "https://10.0.10.60:6443";
+      }
+      // (
+        if config.kubernetes.role == "server"
+        then {
+          role = "server";
+          extraFlags = toString [
+            "--tls-san 10.0.10.60" # make this configurable
+            "--node-label \"k3s-upgrade=false\""
+            "--etcd-expose-metrics"
+            "--secrets-encryption"
+            "--flannel-backend=none"
+            "--disable-network-policy"
+            "--disable servicelb"
+            "--disable traefik"
+            "--disable coredns"
+            "--disable flannel"
+            "--kubelet-arg=register-with-taints=node.cilium.io/agent-not-ready:NoExecute"
+          ];
+        }
+        else {
+          # Worker node configuration
+          role = "agent";
+          extraFlags = toString [
+            "--node-label \"k3s-upgrade=false\""
+            "--kubelet-arg=register-with-taints=node.cilium.io/agent-not-ready:NoExecute"
+          ];
+        }
+      );
 
     networking.firewall = {
       enable = true;

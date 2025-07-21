@@ -19,7 +19,12 @@ in {
 
   machine.hostname = hostname;
 
-  # TODO: determine this better
+  kubernetes = {
+    enable = true;
+    role = "server";
+  };
+
+  # Override k3s settings to configure this to launch as the first server
   services.k3s.clusterInit = true;
   services.k3s.serverAddr = lib.mkForce "";
 }

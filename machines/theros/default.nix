@@ -18,4 +18,9 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
 
   machine.hostname = hostname;
+
+  kubernetes = {
+    enable = true;
+    role = "server";
+  };
 }

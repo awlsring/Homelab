@@ -5,6 +5,7 @@
 }: let
   archToSystem = {
     "x86" = "x86_64-linux";
+    "x86_64" = "x86_64-linux";
     "aarch64" = "aarch64-linux";
     "armv7" = "armv7l-linux";
   };
