@@ -195,6 +195,7 @@
       "description": "k8s cluster",
       "ipv4": "10.0.10.103",
       "os": "nixos",
+      "arch": "x86_64",
       "tailnet": true,
       "site": "us-drig-1",
       "machineType": "NUC13ANHi5",
