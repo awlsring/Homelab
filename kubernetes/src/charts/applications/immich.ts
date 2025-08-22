@@ -173,7 +173,7 @@ export class ImmichChart extends HomelabChart {
       monitoring: true,
       serverOptions: {
         ingress: props.ingress,
-        imageTag: "v1.135.3",
+        imageTag: "v1.139.2",
       },
       machineLearningOptions: {
         cache: {
