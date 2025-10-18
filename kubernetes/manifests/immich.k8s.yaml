@@ -226,7 +226,7 @@ spec:
               value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
-          image: ghcr.io/immich-app/immich-server:v1.142.1
+          image: ghcr.io/immich-app/immich-server:v2.1.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
