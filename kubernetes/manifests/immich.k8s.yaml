@@ -25,7 +25,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: cnpg-backup-access-key-id
+        key: cnpg-access-key
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -38,7 +38,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: cnpg-backup-secret-access-key
+        key: cnpg-secret-key
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -46,12 +46,12 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: immich-immich-pg-database-c81956f0
+  name: immich-db-c85d4e5a
   namespace: immich
 spec:
   backup:
     barmanObjectStore:
-      destinationPath: s3://awlsring-homelab-cnpg-db-backups/immich
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/immich-db
       endpointURL: https://s3.us-east-005.backblazeb2.com
       s3Credentials:
         accessKeyId:
@@ -84,11 +84,11 @@ spec:
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: immich-pg-database-immich-pg-database-backup-c8f09e45
+  name: immich-db-db-backup-c8628fa2
   namespace: immich
 spec:
   cluster:
-    name: immich-pg-database
+    name: db
   schedule: 0 0 1 * * *
 ---
 apiVersion: apps/v1
@@ -201,7 +201,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-immich-pg-database-c81956f0-rw
+              value: immich-db-c85d4e5a-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME
@@ -226,7 +226,7 @@ spec:
               value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
-          image: ghcr.io/immich-app/immich-server:v2.1.0
+          image: ghcr.io/immich-app/immich-server:v2.2.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -393,7 +393,7 @@ spec:
             - name: UPLOAD_LOCATION
               value: ./library
             - name: DB_HOSTNAME
-              value: immich-immich-pg-database-c81956f0-rw
+              value: immich-db-c85d4e5a-rw
             - name: DB_USERNAME
               value: immich
             - name: DB_DATABASE_NAME

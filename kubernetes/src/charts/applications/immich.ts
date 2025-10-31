@@ -87,7 +87,7 @@ export class ImmichChart extends HomelabChart {
       "backup-store-access-key",
       {
         store: secretStore,
-        secretKey: "cnpg-backup-access-key-id",
+        secretKey: "cnpg-access-key",
       }
     );
 
@@ -96,17 +96,17 @@ export class ImmichChart extends HomelabChart {
       "backup-store-secret-key",
       {
         store: secretStore,
-        secretKey: "cnpg-backup-secret-access-key",
+        secretKey: "cnpg-secret-key",
       }
     );
 
-    const dbCluster = new Cluster(this, "immich-pg-database", {
+    const dbCluster = new Cluster(this, "db", {
       storage: {
         storageClass: props.database.storageClass,
         size: Size.gibibytes(10),
       },
       backup: {
-        destinationPath: "s3://awlsring-homelab-cnpg-db-backups/immich",
+        destinationPath: "s3://awlsring-homelab-cnpg-db-backups/immich-db",
         endpoint: "https://s3.us-east-005.backblazeb2.com",
         walCompression: ClusterSpecBackupBarmanObjectStoreWalCompression.GZIP,
         credentials: {
@@ -125,7 +125,7 @@ export class ImmichChart extends HomelabChart {
       },
     });
     dbCluster.createScheduledBackup(
-      "immich-pg-database-backup",
+      "db-backup",
       new CronSchedule({ second: 0, minute: 0, hour: 1 })
     );
 
@@ -173,7 +173,7 @@ export class ImmichChart extends HomelabChart {
       monitoring: true,
       serverOptions: {
         ingress: props.ingress,
-        imageTag: "v2.1.0",
+        imageTag: "v2.2.0",
       },
       machineLearningOptions: {
         cache: {
