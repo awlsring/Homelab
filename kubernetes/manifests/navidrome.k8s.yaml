@@ -1,0 +1,143 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: navidrome
+  namespace: navidrome
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: navidrome-config-pvc-c8b8fd1e
+  namespace: navidrome
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navidrome-deployment-c824576f
+  namespace: navidrome
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: navidrome-deployment-c8ed5ec3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: navidrome-deployment-c8ed5ec3
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: TZ
+              value: America/Los_Angeles
+            - name: ND_DATAFOLDER
+              value: /data
+            - name: ND_MUSICFOLDER
+              value: /music
+            - name: ND_LOGLEVEL
+              value: info
+            - name: ND_SCANSCHEDULE
+              value: "@every 1h"
+          image: docker.io/deluan/navidrome:latest
+          imagePullPolicy: Always
+          name: navidrome
+          ports:
+            - containerPort: 4533
+              name: http
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          volumeMounts:
+            - mountPath: /data
+              name: pvc-navidrome-config-pvc-c8b8fd1e
+            - mountPath: /music
+              name: music
+              readOnly: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-navidrome-config-pvc-c8b8fd1e
+          persistentVolumeClaim:
+            claimName: navidrome-config-pvc-c8b8fd1e
+            readOnly: false
+        - name: music
+          nfs:
+            path: /mnt/WD-6D-8T/fin/music
+            server: 10.0.10.180
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: navidrome-service-c8de1ede
+  namespace: navidrome
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 4533
+      targetPort: 4533
+  selector:
+    cdk8s.io/metadata.addr: navidrome-deployment-c8ed5ec3
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: navidrome-navidrome-service-c8de1ede-tls-c8306405
+  namespace: navidrome
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: navidrome-ingress-c849fa2d
+  namespace: navidrome
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: music.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: navidrome-service-c8de1ede
+                port:
+                  number: 4533
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - music.us-drig-1.drigs.org
+      secretName: navidrome-navidrome-service-c8de1ede-tls-c8306405

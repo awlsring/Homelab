@@ -21,6 +21,7 @@ import { ForgejoChart } from "../charts/applications/forgejo";
 import { WoodpeckerCIChart } from "../charts/applications/woodpecker-ci";
 import { DawarichChart } from "../charts/applications/dawarich";
 import { BaikalChart } from "../charts/applications/baikal";
+import { NavidromeChart } from "../charts/applications/navidrome";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -253,6 +254,26 @@ export class ApplicationModule extends Module {
         hostname: "baikal.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
+    });
+
+    new NavidromeChart(app, "navidrome", {
+      namespace: "navidrome",
+      imageTag: "latest",
+      configStorage: {
+        storageClass: "longhorn",
+        size: Size.gibibytes(5),
+      },
+      musicStorage: {
+        server: this.config.storage.nfs["media"].ipv4,
+        serverPath: `${this.config.storage.nfs["media"].mountPath}/music`,
+        mountPath: "/music",
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "music.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+      logLevel: "info",
     });
 
     // TODO: auto generate this somehow
