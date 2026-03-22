@@ -90,6 +90,7 @@ export class ApplicationModule extends Module {
 
     new ImmichChart(app, "immich", {
       namespace: "immich",
+      imageTag: "v2.6.1",
       secretStore: "onepassword-secret-store",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
@@ -117,6 +118,17 @@ export class ApplicationModule extends Module {
       machineLearning: {
         cache: {
           storageClass: "longhorn",
+        },
+      },
+      publicProxy: {
+        imageTag: "1.15.4",
+        publicBaseUrl: "https://immich.drigs.org",
+        tunnel: {
+          email: "admin@drigs.org",
+          domain: "drigs.org",
+          cloudflareSecret: "cloudflare-secrets",
+          accountId: "5838eb1235ebfbff425cfca5e3db9062",
+          fqdn: "immich.drigs.org",
         },
       },
     });

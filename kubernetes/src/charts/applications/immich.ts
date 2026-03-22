@@ -1,5 +1,14 @@
-import { Size } from "cdk8s";
-import { Cpu, Deployment, Service, Volume } from "cdk8s-plus-31";
+import { Duration, Size } from "cdk8s";
+import {
+  Cpu,
+  Deployment,
+  EnvValue,
+  Probe,
+  Protocol,
+  Service,
+  ServiceType,
+  Volume,
+} from "cdk8s-plus-31";
 import { Construct } from "constructs";
 import {
   HomelabChart,
@@ -8,6 +17,9 @@ import {
 import { HomelabIngressOptions } from "../../constructs/homelab/ingress";
 import {
   Immich,
+  ImmichGeneralOptions,
+  ImmichGeocodingOptions,
+  ImmichMachineLearningOptions,
   ImmichPhotoVolumeOptions,
 } from "../../constructs/applications/immich";
 import { OnepasswordSecretPassword } from "../../constructs/external-secrets/onepassword-secret-password";
@@ -18,14 +30,20 @@ import {
 import { Cluster } from "../../constructs/cnpg/cluster";
 import { ClusterSpecBackupBarmanObjectStoreWalCompression } from "../../imports/clusters-postgresql.cnpg.io";
 import { CronSchedule } from "../../constructs/cnpg/scheduled-backup";
+import { CloudflareClusterTunnel } from "../../constructs/cloudflare/tunnel/cluster-tunnel";
 
 const REDIS_PORT = 6379;
 const REDIS_IMAGE = "redis:6.2-alpine3.19";
 const DB_IMAGE = "ghcr.io/tensorchord/cloudnative-vectorchord:16-0.4.3";
+const IMMICH_PUBLIC_PROXY_IMAGE = "alangrainger/immich-public-proxy";
+const IMMICH_PUBLIC_PROXY_PORT = 3000;
 
 export interface ImmichChartProps extends HomelabChartProps {
+  readonly imageTag: string;
   readonly ingress: HomelabIngressOptions;
   readonly secretStore: string;
+  readonly generalOptions?: ImmichGeneralOptions;
+  readonly geocoding?: ImmichGeocodingOptions;
   readonly database: {
     readonly username: string;
     readonly database: string;
@@ -46,10 +64,24 @@ export interface ImmichChartProps extends HomelabChartProps {
       readonly storageClass: string;
       readonly size?: Size;
     };
+    readonly imageTag?: string;
+    readonly options?: Omit<ImmichMachineLearningOptions, "cache" | "imageTag">;
+  };
+  readonly publicProxy?: {
+    readonly imageTag: string;
+    readonly publicBaseUrl: string;
+    readonly tunnel: {
+      readonly email: string;
+      readonly domain: string;
+      readonly cloudflareSecret: string;
+      readonly accountId: string;
+      readonly fqdn: string;
+    };
   };
 }
 
 export class ImmichChart extends HomelabChart {
+
   constructor(scope: Construct, name: string, props: ImmichChartProps) {
     super(scope, name, props);
 
@@ -167,19 +199,24 @@ export class ImmichChart extends HomelabChart {
       selector: redis,
     });
 
-    new Immich(this, "app", {
+    const immich = new Immich(this, "app", {
       uploadShare: nfsPhotos,
       photoCollectionShares: externalCollections,
       monitoring: true,
+      generalOptions: props.generalOptions,
+      geocoding: props.geocoding,
       serverOptions: {
         ingress: props.ingress,
-        imageTag: "v2.2.0",
+        imageTag: props.imageTag,
+        externalDomain: props.publicProxy?.publicBaseUrl,
       },
       machineLearningOptions: {
+        ...props.machineLearning.options,
         cache: {
           storageClass: props.machineLearning.cache.storageClass,
           size: props.machineLearning.cache.size,
         },
+        imageTag: props.machineLearning.imageTag ?? props.imageTag,
       },
       postgresOptions: {
         hostname: dbCluster.readWriteService(),
@@ -190,6 +227,98 @@ export class ImmichChart extends HomelabChart {
       redisOptions: {
         hostname: redisService.name,
       },
+    });
+
+    if (props.publicProxy) {
+      this.createPublicProxy(immich.serverService, props.publicProxy);
+    }
+  }
+
+  private createPublicProxy(
+    immichService: Service,
+    proxy: NonNullable<ImmichChartProps["publicProxy"]>
+  ) {
+    const deployment = new Deployment(this, "public-proxy-deployment", {
+      replicas: 1,
+      containers: [
+        {
+          name: "immich-public-proxy",
+          image: `${IMMICH_PUBLIC_PROXY_IMAGE}:${proxy.imageTag}`,
+          envVariables: {
+            IMMICH_URL: EnvValue.fromValue(
+              `http://${immichService.name}:${immichService.port}`
+            ),
+            PUBLIC_BASE_URL: EnvValue.fromValue(proxy.publicBaseUrl),
+          },
+          ports: [
+            {
+              name: "http",
+              number: IMMICH_PUBLIC_PROXY_PORT,
+              protocol: Protocol.TCP,
+            },
+          ],
+          resources: {
+            cpu: {
+              request: Cpu.millis(100),
+              limit: Cpu.millis(1000),
+            },
+            memory: {
+              request: Size.mebibytes(128),
+              limit: Size.gibibytes(1),
+            },
+          },
+          liveness: Probe.fromHttpGet("/share/healthcheck", {
+            port: IMMICH_PUBLIC_PROXY_PORT,
+            initialDelaySeconds: Duration.seconds(10),
+            periodSeconds: Duration.seconds(10),
+            timeoutSeconds: Duration.seconds(5),
+          }),
+          readiness: Probe.fromHttpGet("/share/healthcheck", {
+            port: IMMICH_PUBLIC_PROXY_PORT,
+            initialDelaySeconds: Duration.seconds(5),
+            periodSeconds: Duration.seconds(10),
+            timeoutSeconds: Duration.seconds(5),
+          }),
+          startup: Probe.fromHttpGet("/share/healthcheck", {
+            port: IMMICH_PUBLIC_PROXY_PORT,
+            failureThreshold: 12,
+            initialDelaySeconds: Duration.seconds(5),
+            periodSeconds: Duration.seconds(5),
+            timeoutSeconds: Duration.seconds(5),
+          }),
+          securityContext: {
+            ensureNonRoot: false,
+            privileged: true,
+            readOnlyRootFilesystem: false,
+            allowPrivilegeEscalation: true,
+          },
+        },
+      ],
+    });
+
+    const service = new Service(this, "public-proxy-service", {
+      type: ServiceType.CLUSTER_IP,
+      selector: deployment,
+      ports: [
+        {
+          name: "http",
+          port: IMMICH_PUBLIC_PROXY_PORT,
+          targetPort: IMMICH_PUBLIC_PROXY_PORT,
+          protocol: Protocol.TCP,
+        },
+      ],
+    });
+
+    const tunnel = new CloudflareClusterTunnel(this, "public-proxy-tunnel", {
+      tunnelName: "immich-public-proxy",
+      email: proxy.tunnel.email,
+      domain: proxy.tunnel.domain,
+      cloudflareSecret: proxy.tunnel.cloudflareSecret,
+      accountId: proxy.tunnel.accountId,
+    });
+
+    tunnel.bindToService(service, {
+      domainName: proxy.tunnel.fqdn,
     });
   }
 }

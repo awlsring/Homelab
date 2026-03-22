@@ -1,5 +1,6 @@
 import { Duration, Size } from "cdk8s";
 import {
+  ConfigMap,
   Cpu,
   Deployment,
   DeploymentStrategy,
@@ -49,7 +50,9 @@ export interface ImmichGeneralOptions {
 }
 
 export interface ImmichGeocodingOptions {
+  readonly enabled?: boolean;
   readonly disable?: boolean;
+  readonly precision?: number;
   readonly percision?: number;
   readonly dumpDir?: string;
 }
@@ -80,6 +83,17 @@ export interface ImmichMachineLearningCacheOptions {
 export interface ImmichMachineLearningOptions {
   readonly cache?: PersistentVolumeClaimOptions;
   readonly imageTag?: string;
+  readonly urls?: string[];
+  readonly clip?: {
+    readonly modelName?: string;
+  };
+  readonly facialRecognition?: {
+    readonly minScore?: number;
+    readonly modelName?: string;
+  };
+  readonly duplicateDetection?: {
+    readonly maxDistance?: number;
+  };
   readonly minimumFaceScore?: number;
   readonly minimumTagScore?: number;
   readonly faceRecognitionModel?: string;
@@ -101,6 +115,7 @@ export interface ImmichServerOptions {
   readonly imageTag?: string;
   readonly ingress: HomelabIngressOptions;
   readonly uploadLocation?: string;
+  readonly externalDomain?: string;
 }
 
 export interface ImmichProps {
@@ -118,6 +133,7 @@ export interface ImmichProps {
 
 export class Immich extends Construct {
   readonly machineLearningService: Service;
+  readonly serverService: Service;
 
   constructor(scope: Construct, name: string, props: ImmichProps) {
     super(scope, name);
@@ -128,6 +144,7 @@ export class Immich extends Construct {
     );
 
     const env = this.formEnvironment(props);
+    const config = this.formConfig(props);
 
     const volumeMounts = [
       {
@@ -142,9 +159,10 @@ export class Immich extends Construct {
       });
     });
 
-    this.buildServer(
+    this.serverService = this.buildServer(
       props.serverOptions,
       env,
+      config,
       volumeMounts,
       props.monitoring ?? false
     );
@@ -229,10 +247,12 @@ export class Immich extends Construct {
       );
     }
     if (options.generalOptions?.nodeEnvironment) {
-      env.NODE_ENV = EnvValue.fromValue(options.generalOptions.nodeEnvironment);
+      env.IMMICH_ENV = EnvValue.fromValue(
+        options.generalOptions.nodeEnvironment
+      );
     }
     if (options.generalOptions?.logLevel) {
-      env.LOG_LEVEL = EnvValue.fromValue(options.generalOptions.logLevel);
+      env.IMMICH_LOG_LEVEL = EnvValue.fromValue(options.generalOptions.logLevel);
     }
     if (options.generalOptions?.loginMessage) {
       env.PUBLIC_LOGIN_MESSAGE = EnvValue.fromValue(
@@ -249,6 +269,11 @@ export class Immich extends Construct {
     }
     if (options.geocoding?.disable) {
       env.DISABLE_REVERSE_GEOCODING = EnvValue.fromValue("true");
+    }
+    if (options.geocoding?.precision) {
+      env.REVERSE_GEOCODING_PRECISION = EnvValue.fromValue(
+        `${options.geocoding.precision}`
+      );
     }
     if (options.geocoding?.percision) {
       env.REVERSE_GEOCODING_PRECISION = EnvValue.fromValue(
@@ -290,6 +315,11 @@ export class Immich extends Construct {
         `${options.machineLearningOptions.minimumFaceScore}`
       );
     }
+    if (options.machineLearningOptions?.facialRecognition?.minScore) {
+      env.MACHINE_LEARNING_MIN_FACE_SCORE = EnvValue.fromValue(
+        `${options.machineLearningOptions.facialRecognition.minScore}`
+      );
+    }
     if (options.machineLearningOptions?.modelTtl) {
       env.MACHINE_LEARNING_MODEL_TTL = EnvValue.fromValue(
         `${options.machineLearningOptions.modelTtl}`
@@ -306,6 +336,16 @@ export class Immich extends Construct {
     if (options.machineLearningOptions?.faceRecognitionModel) {
       env.MACHINE_LEARNING_FACIAL_RECOGNITION_MODEL = EnvValue.fromValue(
         `${options.machineLearningOptions.faceRecognitionModel}`
+      );
+    }
+    if (options.machineLearningOptions?.facialRecognition?.modelName) {
+      env.MACHINE_LEARNING_FACIAL_RECOGNITION_MODEL = EnvValue.fromValue(
+        `${options.machineLearningOptions.facialRecognition.modelName}`
+      );
+    }
+    if (options.machineLearningOptions?.clip?.modelName) {
+      env.MACHINE_LEARNING_CLIP_TEXT_MODEL = EnvValue.fromValue(
+        `${options.machineLearningOptions.clip.modelName}`
       );
     }
     if (options.machineLearningOptions?.clipTextModel) {
@@ -336,12 +376,114 @@ export class Immich extends Construct {
     return env;
   }
 
+  private formConfig(options: ImmichProps): Record<string, unknown> {
+    const config: Record<string, unknown> = {};
+
+    const serverConfig: Record<string, unknown> = {};
+    if (options.serverOptions.externalDomain) {
+      serverConfig.externalDomain = options.serverOptions.externalDomain;
+    }
+    if (options.generalOptions?.loginMessage) {
+      serverConfig.loginPageMessage = options.generalOptions.loginMessage;
+    }
+    if (Object.keys(serverConfig).length > 0) {
+      config.server = serverConfig;
+    }
+
+    if (options.generalOptions?.logLevel) {
+      config.logging = {
+        level: options.generalOptions.logLevel,
+      };
+    }
+
+    const reverseGeocodingEnabled =
+      options.geocoding?.enabled ??
+      (options.geocoding?.disable !== undefined
+        ? !options.geocoding.disable
+        : undefined);
+    if (reverseGeocodingEnabled !== undefined) {
+      config.reverseGeocoding = {
+        enabled: reverseGeocodingEnabled,
+      };
+    }
+
+    const machineLearningConfig: Record<string, unknown> = {
+      urls: options.machineLearningOptions?.urls ?? [
+        `http://${this.machineLearningService.name}:${this.machineLearningService.port}`,
+      ],
+    };
+
+    const clipModelName =
+      options.machineLearningOptions?.clip?.modelName ??
+      options.machineLearningOptions?.clipTextModel;
+    if (clipModelName) {
+      machineLearningConfig.clip = {
+        modelName: clipModelName,
+      };
+    }
+
+    const minFaceScore =
+      options.machineLearningOptions?.facialRecognition?.minScore ??
+      options.machineLearningOptions?.minimumFaceScore;
+    const faceModelName =
+      options.machineLearningOptions?.facialRecognition?.modelName ??
+      options.machineLearningOptions?.faceRecognitionModel;
+    if (minFaceScore !== undefined || faceModelName) {
+      const facialRecognition: Record<string, unknown> = {};
+      if (minFaceScore !== undefined) {
+        facialRecognition.minScore = minFaceScore;
+      }
+      if (faceModelName) {
+        facialRecognition.modelName = faceModelName;
+      }
+      machineLearningConfig.facialRecognition = facialRecognition;
+    }
+
+    if (
+      options.machineLearningOptions?.duplicateDetection?.maxDistance !==
+      undefined
+    ) {
+      machineLearningConfig.duplicateDetection = {
+        maxDistance: options.machineLearningOptions.duplicateDetection.maxDistance,
+      };
+    }
+
+    config.machineLearning = machineLearningConfig;
+
+    return config;
+  }
+
   private buildServer(
     options: ImmichServerOptions,
     env: Record<string, EnvValue>,
+    config: Record<string, unknown>,
     mounts: VolumeMount[],
     monitoring: boolean
-  ): Deployment {
+  ): Service {
+    const envVariables = { ...env };
+    const volumeMounts = [...mounts];
+    if (Object.keys(config).length > 0) {
+      const configMap = new ConfigMap(this, "server-config", {
+        data: {
+          "immich-config.json": JSON.stringify(config, null, 2),
+        },
+      });
+      const configVolume = Volume.fromConfigMap(
+        this,
+        "server-config-volume",
+        configMap
+      );
+      volumeMounts.push({
+        path: "/immich-config.json",
+        volume: configVolume,
+        readOnly: true,
+        subPath: "immich-config.json",
+      });
+      envVariables.IMMICH_CONFIG_FILE = EnvValue.fromValue(
+        "/immich-config.json"
+      );
+    }
+
     const deployment = new Deployment(this, "server-deployment", {
       replicas: 1,
       strategy: DeploymentStrategy.recreate(),
@@ -354,8 +496,8 @@ export class Immich extends Construct {
     deployment.addContainer({
       name: "immich-server",
       image: image,
-      envVariables: env,
-      volumeMounts: mounts,
+      envVariables: envVariables,
+      volumeMounts: volumeMounts,
       ports: [{ name: "http", number: IMMICH_SERVER_PORT }],
       resources: {
         cpu: {
@@ -444,7 +586,7 @@ export class Immich extends Construct {
       ],
     });
 
-    return deployment;
+    return service;
   }
 
   private buildMachineLearning(
