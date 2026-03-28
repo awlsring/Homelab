@@ -70,7 +70,7 @@ export class DawarichChart extends HomelabChart {
       "backup-store-access-key",
       {
         store: secretStore,
-        secretKey: "cnpg-backup-access-key-id",
+        secretKey: "cnpg-access-key",
       }
     );
 
@@ -79,7 +79,7 @@ export class DawarichChart extends HomelabChart {
       "backup-store-secret-key",
       {
         store: secretStore,
-        secretKey: "cnpg-backup-secret-access-key",
+        secretKey: "cnpg-secret-key",
       }
     );
 
@@ -90,7 +90,7 @@ export class DawarichChart extends HomelabChart {
       },
 
       backup: {
-        destinationPath: "s3://awlsring-homelab-cnpg-db-backups/dawarich",
+        destinationPath: "s3://awlsring-homelab-cnpg-db-backups/dawarich-db",
         endpoint: "https://s3.us-east-005.backblazeb2.com",
         walCompression: ClusterSpecBackupBarmanObjectStoreWalCompression.GZIP,
         credentials: {

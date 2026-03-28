@@ -51,7 +51,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: cnpg-backup-access-key-id
+        key: cnpg-access-key
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -64,7 +64,7 @@ metadata:
 spec:
   dataFrom:
     - extract:
-        key: cnpg-backup-secret-access-key
+        key: cnpg-secret-key
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-secret-store
@@ -77,7 +77,7 @@ metadata:
 spec:
   backup:
     barmanObjectStore:
-      destinationPath: s3://awlsring-homelab-cnpg-db-backups/dawarich
+      destinationPath: s3://awlsring-homelab-cnpg-db-backups/dawarich-db
       endpointURL: https://s3.us-east-005.backblazeb2.com
       s3Credentials:
         accessKeyId:

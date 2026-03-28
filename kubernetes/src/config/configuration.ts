@@ -1,4 +1,5 @@
-import * as inventory from "../../../inventory.json";
+import { existsSync, readFileSync } from "fs";
+import { resolve } from "path";
 
 export interface NFSConfiguration {
   readonly machine: string;
@@ -14,7 +15,39 @@ export interface Configuration {
   readonly storage: StorageConfiguration;
 }
 
-function getMachineFromInventory(hostname: string): any {
+interface InventoryMachine {
+  readonly ipv4: string;
+}
+
+interface InventoryStorageNfs {
+  readonly machine: string;
+  readonly mountPath: string;
+}
+
+interface Inventory {
+  readonly machines: Record<string, InventoryMachine>;
+  readonly storage: {
+    readonly nfs: Record<string, InventoryStorageNfs>;
+  };
+}
+
+function loadInventory(): Inventory {
+  const inventoryPath = [
+    resolve(process.cwd(), "inventory.json"),
+    resolve(__dirname, "../../../inventory.json"),
+    resolve(__dirname, "../../../../inventory.json"),
+  ].find((candidate) => existsSync(candidate));
+
+  if (!inventoryPath) {
+    throw new Error("Unable to locate inventory.json");
+  }
+
+  return JSON.parse(readFileSync(inventoryPath, "utf8")) as Inventory;
+}
+
+const inventory = loadInventory();
+
+function getMachineFromInventory(hostname: string): InventoryMachine {
   for (const [key, value] of Object.entries(inventory.machines)) {
     if (key === hostname) {
       return value;
@@ -24,7 +57,7 @@ function getMachineFromInventory(hostname: string): any {
 }
 
 function loadStorageConfiguration(): StorageConfiguration {
-  const cfg: Record<string, any> = {
+  const cfg: StorageConfiguration = {
     nfs: {},
   };
 
@@ -36,7 +69,7 @@ function loadStorageConfiguration(): StorageConfiguration {
     };
   });
 
-  return cfg as StorageConfiguration;
+  return cfg;
 }
 
 export function loadConfigurationFromInventory(): Configuration {
