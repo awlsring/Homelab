@@ -1,9 +1,13 @@
-import { Size } from "cdk8s";
+import { Duration, Size } from "cdk8s";
 import {
+  Cpu,
   Deployment,
+  DeploymentStrategy,
   EnvValue,
   PersistentVolumeAccessMode,
   PersistentVolumeClaim,
+  Probe,
+  Protocol,
   SecretValue,
   Service,
   ServiceType,
@@ -15,6 +19,8 @@ import { PersistentVolumeClaimOptions } from "../homelab/storage";
 const IMAGE = "ghcr.io/bluesky-social/pds";
 const DIRECTORY = "/pds";
 const PORT = 3000;
+const DEFAULT_IMAGE_TAG = "0.4.208";
+const DEFAULT_BLOB_UPLOAD_LIMIT_BYTES = 104857600;
 const PDS_DID_PLC_URL = "https://plc.directory";
 const PDS_BSKY_APP_VIEW_URL = "https://api.bsky.app";
 const PDS_BSKY_APP_VIEW_DID = "did:web:api.bsky.app";
@@ -47,6 +53,9 @@ export interface ApplicationProps {
   readonly pdsPlcRotationKeyK256PrivateKeyHex: SecretValue;
   readonly serviceHandleDomains?: string[];
   readonly disableLogging?: boolean;
+  readonly blobUploadLimitBytes?: number;
+  readonly rateLimitsEnabled?: boolean;
+  readonly inviteRequired?: boolean;
 }
 
 export interface BlueskyPDSSMTPOptions {
@@ -124,14 +133,26 @@ export class BlueskyPDS extends Construct {
 
     this.deployment = new Deployment(this, "bluesky-pds-deployment", {
       replicas: 1,
+      strategy: DeploymentStrategy.recreate(),
+      terminationGracePeriod: Duration.seconds(30),
       securityContext: {
         ensureNonRoot: false,
       },
       containers: [
         {
-          image: `${IMAGE}:${props.imageTag ?? "latest"}`,
-          port: PORT,
-          resources: {},
+          name: "pds",
+          image: `${IMAGE}:${props.imageTag ?? DEFAULT_IMAGE_TAG}`,
+          ports: [{ number: PORT, name: "http", protocol: Protocol.TCP }],
+          resources: {
+            cpu: {
+              request: Cpu.millis(100),
+              limit: Cpu.millis(1000),
+            },
+            memory: {
+              request: Size.mebibytes(256),
+              limit: Size.gibibytes(1),
+            },
+          },
           envVariables: {
             PDS_HOSTNAME: EnvValue.fromValue(props.application.hostname),
             PDS_JWT_SECRET: EnvValue.fromSecretValue(
@@ -144,12 +165,24 @@ export class BlueskyPDS extends Construct {
               props.application.pdsPlcRotationKeyK256PrivateKeyHex
             ),
             PDS_DATA_DIRECTORY: EnvValue.fromValue(DIRECTORY),
+            PDS_BLOB_UPLOAD_LIMIT: EnvValue.fromValue(
+              (
+                props.application.blobUploadLimitBytes ??
+                DEFAULT_BLOB_UPLOAD_LIMIT_BYTES
+              ).toString()
+            ),
             PDS_DID_PLC_URL: EnvValue.fromValue(PDS_DID_PLC_URL),
             PDS_BSKY_APP_VIEW_URL: EnvValue.fromValue(PDS_BSKY_APP_VIEW_URL),
             PDS_BSKY_APP_VIEW_DID: EnvValue.fromValue(PDS_BSKY_APP_VIEW_DID),
             PDS_REPORT_SERVICE_URL: EnvValue.fromValue(PDS_REPORT_SERVICE_URL),
             PDS_REPORT_SERVICE_DID: EnvValue.fromValue(PDS_REPORT_SERVICE_DID),
             PDS_CRAWLERS: EnvValue.fromValue(PDS_CRAWLERS),
+            PDS_RATE_LIMITS_ENABLED: EnvValue.fromValue(
+              props.application.rateLimitsEnabled === false ? "false" : "true"
+            ),
+            PDS_INVITE_REQUIRED: EnvValue.fromValue(
+              props.application.inviteRequired === false ? "false" : "true"
+            ),
             PDS_SERVICE_HANDLE_DOMAINS: EnvValue.fromValue(
               props.application.serviceHandleDomains?.join(",") ?? ""
             ),
@@ -159,9 +192,27 @@ export class BlueskyPDS extends Construct {
             ...this.makeStorageEnv(props),
             ...this.makeSMTPEnv(props),
           },
+          startup: Probe.fromHttpGet("/xrpc/_health", {
+            port: PORT,
+            failureThreshold: 30,
+            periodSeconds: Duration.seconds(10),
+            timeoutSeconds: Duration.seconds(5),
+          }),
+          liveness: Probe.fromHttpGet("/xrpc/_health", {
+            port: PORT,
+            failureThreshold: 3,
+            periodSeconds: Duration.seconds(10),
+            timeoutSeconds: Duration.seconds(5),
+          }),
+          readiness: Probe.fromHttpGet("/xrpc/_health", {
+            port: PORT,
+            failureThreshold: 3,
+            periodSeconds: Duration.seconds(10),
+            timeoutSeconds: Duration.seconds(5),
+          }),
           securityContext: {
-            privileged: true,
-            allowPrivilegeEscalation: true,
+            privileged: false,
+            allowPrivilegeEscalation: false,
             ensureNonRoot: false,
             readOnlyRootFilesystem: false,
           },

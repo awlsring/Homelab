@@ -135,8 +135,10 @@ export class ApplicationModule extends Module {
 
     new BlueskyPdsChart(app, "bluesky-pds", {
       namespace: "bluesky-pds",
-      imageTag: "0.4",
+      imageTag: "0.4.208",
       hostname: "at.drigs.org",
+      serviceHandleDomains: [".drigs.org"],
+      emailFromAddress: "admin@bluesky.drigs.org",
       secretStore: "onepassword-secret-store",
       storage: {
         size: Size.gibibytes(10),

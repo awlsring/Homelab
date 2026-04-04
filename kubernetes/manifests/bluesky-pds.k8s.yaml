@@ -109,10 +109,7 @@ spec:
     matchLabels:
       cdk8s.io/metadata.addr: bluesky-pds-app-bluesky-pds-deployment-c8f5e614
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
@@ -140,6 +137,8 @@ spec:
                   name: bluesky-pds-plc-rotation-key-c8d306ef
             - name: PDS_DATA_DIRECTORY
               value: /pds
+            - name: PDS_BLOB_UPLOAD_LIMIT
+              value: "104857600"
             - name: PDS_DID_PLC_URL
               value: https://plc.directory
             - name: PDS_BSKY_APP_VIEW_URL
@@ -152,6 +151,10 @@ spec:
               value: did:plc:ar7c4by46qjdydhdevvrndac
             - name: PDS_CRAWLERS
               value: https://bsky.network
+            - name: PDS_RATE_LIMITS_ENABLED
+              value: "true"
+            - name: PDS_INVITE_REQUIRED
+              value: "true"
             - name: PDS_SERVICE_HANDLE_DOMAINS
               value: .drigs.org
             - name: LOG_ENABLED
@@ -193,20 +196,49 @@ spec:
                   name: bluesky-pds-smtp-url-c835e4c6
             - name: PDS_EMAIL_FROM_ADDRESS
               value: admin@bluesky.drigs.org
-          image: ghcr.io/bluesky-social/pds:0.4
+          image: ghcr.io/bluesky-social/pds:0.4.208
           imagePullPolicy: Always
-          name: main
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /xrpc/_health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+          name: pds
           ports:
             - containerPort: 3000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /xrpc/_health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
           securityContext:
-            allowPrivilegeEscalation: true
-            privileged: true
+            allowPrivilegeEscalation: false
+            privileged: false
             readOnlyRootFilesystem: false
             runAsNonRoot: false
           startupProbe:
-            failureThreshold: 3
-            tcpSocket:
+            failureThreshold: 30
+            httpGet:
+              path: /xrpc/_health
               port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
           volumeMounts:
             - mountPath: /pds
               name: pvc-bluesky-pds-app-data-pvc-c88bf852

@@ -21,9 +21,14 @@ export interface BlueskyPdsBucketStorageOptions {
 }
 
 export interface BlueskyPdsChartProps extends HomelabChartProps {
-  readonly imageTag: string;
+  readonly imageTag?: string;
   readonly secretStore: string;
   readonly hostname: string;
+  readonly serviceHandleDomains: string[];
+  readonly emailFromAddress: string;
+  readonly blobUploadLimitBytes?: number;
+  readonly rateLimitsEnabled?: boolean;
+  readonly inviteRequired?: boolean;
   readonly storage: PersistentVolumeClaimOptions;
   readonly objectStorage: {
     readonly bucketName: string;
@@ -98,16 +103,19 @@ export class BlueskyPdsChart extends HomelabChart {
     const bluesky = new BlueskyPDS(this, "app", {
       imageTag: props.imageTag,
       application: {
-        serviceHandleDomains: [".drigs.org"],
+        serviceHandleDomains: props.serviceHandleDomains,
         hostname: props.hostname,
         jwtSecret: jwtSecret.asSecretValue(),
         pdsAdminPasswordSecret: adminPassword.asSecretValue(),
         pdsPlcRotationKeyK256PrivateKeyHex: plcRotationKeyHex.asSecretValue(),
+        blobUploadLimitBytes: props.blobUploadLimitBytes,
+        rateLimitsEnabled: props.rateLimitsEnabled,
+        inviteRequired: props.inviteRequired,
       },
       storage: props.storage,
       smtp: {
         smtpUrlSecret: smtpUrlSecret.asSecretValue(),
-        emailFromAddress: "admin@bluesky.drigs.org",
+        emailFromAddress: props.emailFromAddress,
       },
       objectStorage: {
         bucketName: props.objectStorage?.bucketName,
