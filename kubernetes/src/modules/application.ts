@@ -81,6 +81,9 @@ export class ApplicationModule extends Module {
         imageTag: "1.30.2",
         dnsName: "prowlarr.us-drig-1.drigs.org",
       },
+      suggestarr: {
+        dnsName: "suggestarr.us-drig-1.drigs.org",
+      },
       mediaStorage: {
         server: this.config.storage.nfs["media"].ipv4,
         serverPath: this.config.storage.nfs["media"].mountPath,
@@ -356,6 +359,13 @@ export class ApplicationModule extends Module {
           name: "prowlarr",
           group: "yarrg",
           url: "https://prowlarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "SuggestArr",
+          group: "yarrg",
+          url: "https://suggestarr.us-drig-1.drigs.org",
           conditions: [GatusConditions.HTTP_STATUS_2XX],
           alerts: [{ type: GatusAlertType.DISCORD }],
         }),

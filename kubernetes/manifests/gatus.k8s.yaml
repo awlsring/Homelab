@@ -124,6 +124,13 @@ data:
         conditions:
           - "[STATUS] < 300"
         group: yarrg
+      - name: SuggestArr
+        url: https://suggestarr.us-drig-1.drigs.org
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
       - name: Requesterr
         url: https://requesterr.us-drig-1.drigs.org
         alerts:

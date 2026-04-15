@@ -10,6 +10,8 @@ import { Lidarr } from "../../constructs/applications/lidarr";
 import { Readarr } from "../../constructs/applications/readarr";
 import { Bazarr } from "../../constructs/applications/bazarr";
 import { Prowlarr } from "../../constructs/applications/prowlarr";
+import { SuggestArr } from "../../constructs/applications/suggestarr";
+import { HomelabIngress } from "../../constructs/homelab/ingress";
 
 export interface AppOptions {
   readonly dnsName: string;
@@ -33,6 +35,7 @@ export interface YarrgChartProps extends HomelabChartProps {
   readonly readarr?: ArrAppOptions;
   readonly bazarr?: AppOptions;
   readonly prowlarr?: ArrAppOptions;
+  readonly suggestarr?: AppOptions;
   readonly requesterr?: AppOptions;
   readonly mediaStorage: {
     readonly server: string;
@@ -164,6 +167,28 @@ export class YarrgChart extends HomelabChart {
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("prowlarr", props.prowlarr.metrics),
+      });
+    }
+
+    if (props.suggestarr) {
+      const app = new SuggestArr(this, "suggestarr", {
+        imageTag: props.suggestarr.imageTag ?? "v2.4.3",
+        config: {
+          storageClass: props.storageClass,
+        },
+        ingress: {
+          ingressClass: props.ingress.ingressClass,
+          hostname: props.suggestarr.dnsName,
+          type: props.suggestarr.serviceType,
+          certIssuer: props.ingress.certIssuer,
+        },
+      });
+
+      new HomelabIngress(this, "suggestarr-ingress", {
+        ingressClassName: props.ingress.ingressClass,
+        service: app.service,
+        hostname: props.suggestarr.dnsName,
+        certIssuer: props.ingress.certIssuer,
       });
     }
   }

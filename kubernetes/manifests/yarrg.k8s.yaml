@@ -933,3 +933,158 @@ spec:
     - hosts:
         - prowlarr.us-drig-1.drigs.org
       secretName: prowlarr-yarrg-prowlarr-service-c832eff5-tls-c87917d6
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: yarrg-suggestarr-config-pvc-c892ec19
+  namespace: yarrg
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yarrg-suggestarr-deployment-c8caba8d
+  namespace: yarrg
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: yarrg-suggestarr-deployment-c8418997
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: yarrg-suggestarr-deployment-c8418997
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: LOG_LEVEL
+              value: info
+            - name: SUGGESTARR_PORT
+              value: "5000"
+            - name: TZ
+              value: America/Los_Angeles
+          image: docker.io/ciuse99/suggestarr:v2.4.3
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health/live
+              port: 5000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          name: suggestarr
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health/live
+              port: 5000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /api/health/live
+              port: 5000
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1
+          volumeMounts:
+            - mountPath: /app/config/config_files
+              name: pvc-yarrg-suggestarr-config-pvc-c892ec19
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-yarrg-suggestarr-config-pvc-c892ec19
+          persistentVolumeClaim:
+            claimName: yarrg-suggestarr-config-pvc-c892ec19
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yarrg-suggestarr-service-c86a299d
+  namespace: yarrg
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+  selector:
+    cdk8s.io/metadata.addr: yarrg-suggestarr-deployment-c8418997
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: yarrg-yarrg-suggestarr-service-c86a299d-tls-c819bbbe
+  namespace: yarrg
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: yarrg-suggestarr-ingress-c86a0583
+  namespace: yarrg
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: suggestarr.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: yarrg-suggestarr-service-c86a299d
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - suggestarr.us-drig-1.drigs.org
+      secretName: yarrg-yarrg-suggestarr-service-c86a299d-tls-c819bbbe
