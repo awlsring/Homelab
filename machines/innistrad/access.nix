@@ -47,7 +47,7 @@ in {
         locations."/".proxyPass = "http://127.0.0.1:5055";
       };
       ${jellySeerPublic} = {
-        useACMEHost = jellySeerDomain;
+        useACMEHost = jellySeerPublic;
         forceSSL = true;
         locations."/".proxyPass = "http://127.0.0.1:5055";
       };
