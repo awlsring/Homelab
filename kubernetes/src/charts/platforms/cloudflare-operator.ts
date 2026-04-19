@@ -2,6 +2,8 @@ import { Construct } from "constructs";
 import { HomelabChart, HomelabChartProps } from "../../constructs/charts/homelab-chart";
 import { Kustomize } from "../../constructs/kustomize/kustomize";
 
+const CLOUDFLARE_OPERATOR_REF = "v0.12.0";
+
 export interface CloudflareOperatorChartProps
   extends Omit<HomelabChartProps, "namespace"> {}
 
@@ -17,7 +19,8 @@ export class CloudflareOperatorChart extends HomelabChart {
     });
 
     new Kustomize(this, "kustomize", {
-      url: "https://github.com/adyanth/cloudflare-operator/config/default",
+      // Pin the upstream base so generated manifests stay reproducible.
+      url: `https://github.com/adyanth/cloudflare-operator/config/default?ref=${CLOUDFLARE_OPERATOR_REF}`,
     });
   }
 }
