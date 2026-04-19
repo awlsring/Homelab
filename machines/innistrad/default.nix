@@ -11,7 +11,7 @@
   hostname = "innistrad";
 
   # NFS Media Share
-  localMount = "mnt/media";
+  localMount = "/mnt/media";
   mountPath = utilities.storage.getNfsMountPath configJson.storage "media";
   nfsServer = utilities.machines.getMachineIPv4 config.machine.all (utilities.storage.getNfsMachine configJson.storage "media");
 in {
