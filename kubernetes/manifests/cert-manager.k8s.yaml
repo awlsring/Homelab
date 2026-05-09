@@ -13509,47 +13509,6 @@ webhooks:
     sideEffects: None
     timeoutSeconds: 30
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app: cert-manager
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: cert-manager-helm-c8b8979c
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: cert-manager
-    app.kubernetes.io/version: v1.16.3
-    helm.sh/chart: cert-manager-v1.16.3
-    prometheus: default
-  name: cert-manager-helm-c8b8979c
-  namespace: cert-manager
-spec:
-  endpoints:
-    - honorLabels: false
-      interval: 60s
-      path: /metrics
-      scrapeTimeout: 30s
-      targetPort: 9402
-  jobLabel: cert-manager-helm-c8b8979c
-  selector:
-    matchExpressions:
-      - key: app.kubernetes.io/name
-        operator: In
-        values:
-          - cainjector
-          - cert-manager
-          - webhook
-      - key: app.kubernetes.io/instance
-        operator: In
-        values:
-          - cert-manager-helm-c8b8979c
-      - key: app.kubernetes.io/component
-        operator: In
-        values:
-          - cainjector
-          - controller
-          - webhook
----
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
@@ -13595,6 +13554,47 @@ webhooks:
           - "*/*"
     sideEffects: None
     timeoutSeconds: 30
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: cert-manager
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: cert-manager-helm-c8b8979c
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: cert-manager
+    app.kubernetes.io/version: v1.16.3
+    helm.sh/chart: cert-manager-v1.16.3
+    prometheus: default
+  name: cert-manager-helm-c8b8979c
+  namespace: cert-manager
+spec:
+  endpoints:
+    - honorLabels: false
+      interval: 60s
+      path: /metrics
+      scrapeTimeout: 30s
+      targetPort: 9402
+  jobLabel: cert-manager-helm-c8b8979c
+  selector:
+    matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: In
+        values:
+          - cainjector
+          - cert-manager
+          - webhook
+      - key: app.kubernetes.io/instance
+        operator: In
+        values:
+          - cert-manager-helm-c8b8979c
+      - key: app.kubernetes.io/component
+        operator: In
+        values:
+          - cainjector
+          - controller
+          - webhook
 ---
 apiVersion: v1
 kind: ServiceAccount

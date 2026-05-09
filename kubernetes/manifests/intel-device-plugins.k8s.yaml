@@ -1875,28 +1875,6 @@ spec:
             defaultMode: 420
             secretName: webhook-server-cert
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: inteldeviceplugins-serving-cert
-  namespace: inteldeviceplugins-system
-spec:
-  dnsNames:
-    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc
-    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc.cluster.local
-  issuerRef:
-    kind: Issuer
-    name: inteldeviceplugins-selfsigned-issuer
-  secretName: webhook-server-cert
----
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: inteldeviceplugins-selfsigned-issuer
-  namespace: inteldeviceplugins-system
-spec:
-  selfSigned: {}
----
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -2233,6 +2211,28 @@ webhooks:
         resources:
           - sgxdeviceplugins
     sideEffects: None
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: inteldeviceplugins-serving-cert
+  namespace: inteldeviceplugins-system
+spec:
+  dnsNames:
+    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc
+    - inteldeviceplugins-webhook-service.inteldeviceplugins-system.svc.cluster.local
+  issuerRef:
+    kind: Issuer
+    name: inteldeviceplugins-selfsigned-issuer
+  secretName: webhook-server-cert
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: inteldeviceplugins-selfsigned-issuer
+  namespace: inteldeviceplugins-system
+spec:
+  selfSigned: {}
 ---
 apiVersion: deviceplugin.intel.com/v1
 kind: GpuDevicePlugin

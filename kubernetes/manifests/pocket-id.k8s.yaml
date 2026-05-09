@@ -85,7 +85,7 @@ metadata:
   namespace: pocket-id
 spec:
   cluster:
-    name: db
+    name: pocket-id-db-c8abf219
   schedule: 0 0 1 * * *
 ---
 apiVersion: v1

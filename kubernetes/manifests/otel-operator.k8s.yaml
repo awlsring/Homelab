@@ -11,7 +11,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.17.1
+    controller-gen.kubebuilder.io/version: v0.20.1
   labels:
     app.kubernetes.io/name: opentelemetry-operator
   name: instrumentations.opentelemetry.io
@@ -87,6 +87,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -153,6 +170,23 @@ spec:
                                     type: string
                                 required:
                                   - fieldPath
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
                                 type: object
                                 x-kubernetes-map-type: atomic
                               resourceFieldRef:
@@ -384,6 +418,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -604,6 +655,23 @@ spec:
                               - fieldPath
                             type: object
                             x-kubernetes-map-type: atomic
+                          fileKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              optional:
+                                default: false
+                                type: boolean
+                              path:
+                                type: string
+                              volumeName:
+                                type: string
+                            required:
+                              - key
+                              - path
+                              - volumeName
+                            type: object
+                            x-kubernetes-map-type: atomic
                           resourceFieldRef:
                             properties:
                               containerName:
@@ -690,6 +758,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -757,6 +842,78 @@ spec:
                               - type: string
                             pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                             x-kubernetes-int-or-string: true
+                          type: object
+                      type: object
+                    securityContext:
+                      properties:
+                        allowPrivilegeEscalation:
+                          type: boolean
+                        appArmorProfile:
+                          properties:
+                            localhostProfile:
+                              type: string
+                            type:
+                              type: string
+                          required:
+                            - type
+                          type: object
+                        capabilities:
+                          properties:
+                            add:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                            drop:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          type: object
+                        privileged:
+                          type: boolean
+                        procMount:
+                          type: string
+                        readOnlyRootFilesystem:
+                          type: boolean
+                        runAsGroup:
+                          format: int64
+                          type: integer
+                        runAsNonRoot:
+                          type: boolean
+                        runAsUser:
+                          format: int64
+                          type: integer
+                        seLinuxOptions:
+                          properties:
+                            level:
+                              type: string
+                            role:
+                              type: string
+                            type:
+                              type: string
+                            user:
+                              type: string
+                          type: object
+                        seccompProfile:
+                          properties:
+                            localhostProfile:
+                              type: string
+                            type:
+                              type: string
+                          required:
+                            - type
+                          type: object
+                        windowsOptions:
+                          properties:
+                            gmsaCredentialSpec:
+                              type: string
+                            gmsaCredentialSpecName:
+                              type: string
+                            hostProcess:
+                              type: boolean
+                            runAsUserName:
+                              type: string
                           type: object
                       type: object
                     volumeClaimTemplate:
@@ -880,6 +1037,78 @@ spec:
                   type: object
                 imagePullPolicy:
                   type: string
+                initContainerSecurityContext:
+                  properties:
+                    allowPrivilegeEscalation:
+                      type: boolean
+                    appArmorProfile:
+                      properties:
+                        localhostProfile:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                        - type
+                      type: object
+                    capabilities:
+                      properties:
+                        add:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        drop:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                      type: object
+                    privileged:
+                      type: boolean
+                    procMount:
+                      type: string
+                    readOnlyRootFilesystem:
+                      type: boolean
+                    runAsGroup:
+                      format: int64
+                      type: integer
+                    runAsNonRoot:
+                      type: boolean
+                    runAsUser:
+                      format: int64
+                      type: integer
+                    seLinuxOptions:
+                      properties:
+                        level:
+                          type: string
+                        role:
+                          type: string
+                        type:
+                          type: string
+                        user:
+                          type: string
+                      type: object
+                    seccompProfile:
+                      properties:
+                        localhostProfile:
+                          type: string
+                        type:
+                          type: string
+                      required:
+                        - type
+                      type: object
+                    windowsOptions:
+                      properties:
+                        gmsaCredentialSpec:
+                          type: string
+                        gmsaCredentialSpecName:
+                          type: string
+                        hostProcess:
+                          type: boolean
+                        runAsUserName:
+                          type: string
+                      type: object
+                  type: object
                 java:
                   properties:
                     env:
@@ -912,6 +1141,23 @@ spec:
                                     type: string
                                 required:
                                   - fieldPath
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
                                 type: object
                                 x-kubernetes-map-type: atomic
                               resourceFieldRef:
@@ -1148,6 +1394,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -1214,6 +1477,23 @@ spec:
                                     type: string
                                 required:
                                   - fieldPath
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
                                 type: object
                                 x-kubernetes-map-type: atomic
                               resourceFieldRef:
@@ -1436,6 +1716,23 @@ spec:
                                     type: string
                                 required:
                                   - fieldPath
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
                                 type: object
                                 x-kubernetes-map-type: atomic
                               resourceFieldRef:
@@ -1673,6 +1970,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -1888,6 +2202,11 @@ spec:
                   type: object
               type: object
             status:
+              properties:
+                upgradeBlockedVersions:
+                  additionalProperties:
+                    type: string
+                  type: object
               type: object
           type: object
       served: true
@@ -1899,8 +2218,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: opentelemetry-operator-system/opentelemetry-operator-serving-cert
-    controller-gen.kubebuilder.io/version: v0.17.1
+    controller-gen.kubebuilder.io/version: v0.20.1
   labels:
     app.kubernetes.io/name: opentelemetry-operator
   name: opampbridges.opentelemetry.io
@@ -2427,6 +2745,23 @@ spec:
                                 type: string
                             required:
                               - fieldPath
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          fileKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              optional:
+                                default: false
+                                type: boolean
+                              path:
+                                type: string
+                              volumeName:
+                                type: string
+                            required:
+                              - key
+                              - path
+                              - volumeName
                             type: object
                             x-kubernetes-map-type: atomic
                           resourceFieldRef:
@@ -3462,6 +3797,29 @@ spec:
                                       type: array
                                       x-kubernetes-list-type: atomic
                                   type: object
+                                podCertificate:
+                                  properties:
+                                    certificateChainPath:
+                                      type: string
+                                    credentialBundlePath:
+                                      type: string
+                                    keyPath:
+                                      type: string
+                                    keyType:
+                                      type: string
+                                    maxExpirationSeconds:
+                                      format: int32
+                                      type: integer
+                                    signerName:
+                                      type: string
+                                    userAnnotations:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  required:
+                                    - keyType
+                                    - signerName
+                                  type: object
                                 secret:
                                   properties:
                                     items:
@@ -3670,7 +4028,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: opentelemetry-operator-system/opentelemetry-operator-serving-cert
-    controller-gen.kubebuilder.io/version: v0.17.1
+    controller-gen.kubebuilder.io/version: v0.20.1
   labels:
     app.kubernetes.io/name: opentelemetry-operator
   name: opentelemetrycollectors.opentelemetry.io
@@ -3777,6 +4135,23 @@ spec:
                                       type: string
                                   required:
                                     - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
                                   type: object
                                   x-kubernetes-map-type: atomic
                                 resourceFieldRef:
@@ -3968,6 +4343,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -4205,6 +4582,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -4886,6 +5286,12 @@ spec:
                             stabilizationWindowSeconds:
                               format: int32
                               type: integer
+                            tolerance:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
                           type: object
                         scaleUp:
                           properties:
@@ -4912,6 +5318,12 @@ spec:
                             stabilizationWindowSeconds:
                               format: int32
                               type: integer
+                            tolerance:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
                           type: object
                       type: object
                     maxReplicas:
@@ -5059,6 +5471,23 @@ spec:
                                 type: string
                             required:
                               - fieldPath
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          fileKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              optional:
+                                default: false
+                                type: boolean
+                              path:
+                                type: string
+                              volumeName:
+                                type: string
+                            required:
+                              - key
+                              - path
+                              - volumeName
                             type: object
                             x-kubernetes-map-type: atomic
                           resourceFieldRef:
@@ -5212,6 +5641,23 @@ spec:
                                       type: string
                                   required:
                                     - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
                                   type: object
                                   x-kubernetes-map-type: atomic
                                 resourceFieldRef:
@@ -5403,6 +5849,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -5640,6 +6088,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -5971,6 +6442,8 @@ spec:
                             - port
                           type: object
                       type: object
+                    stopSignal:
+                      type: string
                   type: object
                 livenessProbe:
                   properties:
@@ -6263,6 +6736,8 @@ spec:
                       type: object
                   type: object
                 serviceAccount:
+                  type: string
+                serviceName:
                   type: string
                 shareProcessNamespace:
                   type: boolean
@@ -6748,6 +7223,23 @@ spec:
                                   - fieldPath
                                 type: object
                                 x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
+                                type: object
+                                x-kubernetes-map-type: atomic
                               resourceFieldRef:
                                 properties:
                                   containerName:
@@ -6901,6 +7393,12 @@ spec:
                           additionalProperties:
                             type: string
                           type: object
+                        scrapeClasses:
+                          items:
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                          x-kubernetes-preserve-unknown-fields: true
                         scrapeInterval:
                           default: 30s
                           format: duration
@@ -7164,6 +7662,8 @@ spec:
                       - whenUnsatisfiable
                     type: object
                   type: array
+                trafficDistribution:
+                  type: string
                 updateStrategy:
                   properties:
                     rollingUpdate:
@@ -8005,6 +8505,29 @@ spec:
                                       type: array
                                       x-kubernetes-list-type: atomic
                                   type: object
+                                podCertificate:
+                                  properties:
+                                    certificateChainPath:
+                                      type: string
+                                    credentialBundlePath:
+                                      type: string
+                                    keyPath:
+                                      type: string
+                                    keyType:
+                                      type: string
+                                    maxExpirationSeconds:
+                                      format: int32
+                                      type: integer
+                                    signerName:
+                                      type: string
+                                    userAnnotations:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  required:
+                                    - keyType
+                                    - signerName
+                                  type: object
                                 secret:
                                   properties:
                                     items:
@@ -8310,6 +8833,23 @@ spec:
                                     - fieldPath
                                   type: object
                                   x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
+                                  type: object
+                                  x-kubernetes-map-type: atomic
                                 resourceFieldRef:
                                   properties:
                                     containerName:
@@ -8499,6 +9039,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -8736,6 +9278,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -9417,6 +9982,12 @@ spec:
                             stabilizationWindowSeconds:
                               format: int32
                               type: integer
+                            tolerance:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
                           type: object
                         scaleUp:
                           properties:
@@ -9443,10 +10014,17 @@ spec:
                             stabilizationWindowSeconds:
                               format: int32
                               type: integer
+                            tolerance:
+                              anyOf:
+                                - type: integer
+                                - type: string
+                              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                              x-kubernetes-int-or-string: true
                           type: object
                       type: object
                     maxReplicas:
                       format: int32
+                      minimum: 1
                       type: integer
                     metrics:
                       items:
@@ -9520,12 +10098,15 @@ spec:
                       type: array
                     minReplicas:
                       format: int32
+                      minimum: 1
                       type: integer
                     targetCPUUtilization:
                       format: int32
+                      minimum: 1
                       type: integer
                     targetMemoryUtilization:
                       format: int32
+                      minimum: 1
                       type: integer
                   type: object
                 config:
@@ -9636,6 +10217,8 @@ spec:
                     type:
                       type: string
                   type: object
+                dnsPolicy:
+                  type: string
                 env:
                   items:
                     properties:
@@ -9666,6 +10249,23 @@ spec:
                                 type: string
                             required:
                               - fieldPath
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          fileKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              optional:
+                                default: false
+                                type: boolean
+                              path:
+                                type: string
+                              volumeName:
+                                type: string
+                            required:
+                              - key
+                              - path
+                              - volumeName
                             type: object
                             x-kubernetes-map-type: atomic
                           resourceFieldRef:
@@ -9727,8 +10327,43 @@ spec:
                         x-kubernetes-map-type: atomic
                     type: object
                   type: array
+                hostAliases:
+                  items:
+                    properties:
+                      hostnames:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      ip:
+                        type: string
+                    required:
+                      - ip
+                    type: object
+                  type: array
+                  x-kubernetes-list-type: atomic
                 hostNetwork:
                   type: boolean
+                hostPID:
+                  type: boolean
+                hostUsers:
+                  type: boolean
+                httpRoute:
+                  properties:
+                    enabled:
+                      type: boolean
+                    gateway:
+                      type: string
+                    gatewayNamespace:
+                      type: string
+                    hostnames:
+                      items:
+                        type: string
+                      type: array
+                  required:
+                    - enabled
+                    - gateway
+                  type: object
                 image:
                   type: string
                 imagePullPolicy:
@@ -9819,6 +10454,23 @@ spec:
                                       type: string
                                   required:
                                     - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
                                   type: object
                                   x-kubernetes-map-type: atomic
                                 resourceFieldRef:
@@ -10010,6 +10662,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -10247,6 +10901,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -10585,26 +11262,34 @@ spec:
                             - port
                           type: object
                       type: object
+                    stopSignal:
+                      type: string
                   type: object
                 livenessProbe:
                   properties:
                     failureThreshold:
                       format: int32
+                      minimum: 1
                       type: integer
                     initialDelaySeconds:
                       format: int32
+                      minimum: 0
                       type: integer
                     periodSeconds:
                       format: int32
+                      minimum: 1
                       type: integer
                     successThreshold:
                       format: int32
+                      minimum: 1
                       type: integer
                     terminationGracePeriodSeconds:
                       format: int64
+                      minimum: 1
                       type: integer
                     timeoutSeconds:
                       format: int32
+                      minimum: 1
                       type: integer
                   type: object
                 managementState:
@@ -10620,6 +11305,11 @@ spec:
                     - sidecar
                     - statefulset
                   type: string
+                networkPolicy:
+                  properties:
+                    enabled:
+                      type: boolean
+                  type: object
                 nodeSelector:
                   additionalProperties:
                     type: string
@@ -10632,6 +11322,10 @@ spec:
                           type: boolean
                         enableMetrics:
                           type: boolean
+                        extraLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
                       type: object
                   type: object
                 persistentVolumeClaimRetentionPolicy:
@@ -10681,6 +11375,11 @@ spec:
                       type: array
                       x-kubernetes-list-type: atomic
                   type: object
+                podManagementPolicy:
+                  enum:
+                    - OrderedReady
+                    - Parallel
+                  type: string
                 podSecurityContext:
                   properties:
                     appArmorProfile:
@@ -10767,6 +11466,8 @@ spec:
                         type: string
                       hostPort:
                         format: int32
+                        maximum: 65535
+                        minimum: 0
                         type: integer
                       name:
                         type: string
@@ -10795,21 +11496,27 @@ spec:
                   properties:
                     failureThreshold:
                       format: int32
+                      minimum: 1
                       type: integer
                     initialDelaySeconds:
                       format: int32
+                      minimum: 0
                       type: integer
                     periodSeconds:
                       format: int32
+                      minimum: 1
                       type: integer
                     successThreshold:
                       format: int32
+                      minimum: 1
                       type: integer
                     terminationGracePeriodSeconds:
                       format: int64
+                      minimum: 1
                       type: integer
                     timeoutSeconds:
                       format: int32
+                      minimum: 1
                       type: integer
                   type: object
                 replicas:
@@ -10923,8 +11630,37 @@ spec:
                   type: object
                 serviceAccount:
                   type: string
+                serviceName:
+                  type: string
                 shareProcessNamespace:
                   type: boolean
+                startupProbe:
+                  properties:
+                    failureThreshold:
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    initialDelaySeconds:
+                      format: int32
+                      minimum: 0
+                      type: integer
+                    periodSeconds:
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    successThreshold:
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    terminationGracePeriodSeconds:
+                      format: int64
+                      minimum: 1
+                      type: integer
+                    timeoutSeconds:
+                      format: int32
+                      minimum: 1
+                      type: integer
+                  type: object
                 targetAllocator:
                   properties:
                     affinity:
@@ -11377,6 +12113,10 @@ spec:
                       default: 30s
                       format: duration
                       type: string
+                    collectorTargetReloadInterval:
+                      default: 30s
+                      format: duration
+                      type: string
                     enabled:
                       type: boolean
                     env:
@@ -11409,6 +12149,23 @@ spec:
                                     type: string
                                 required:
                                   - fieldPath
+                                type: object
+                                x-kubernetes-map-type: atomic
+                              fileKeyRef:
+                                properties:
+                                  key:
+                                    type: string
+                                  optional:
+                                    default: false
+                                    type: boolean
+                                  path:
+                                    type: string
+                                  volumeName:
+                                    type: string
+                                required:
+                                  - key
+                                  - path
+                                  - volumeName
                                 type: object
                                 x-kubernetes-map-type: atomic
                               resourceFieldRef:
@@ -11465,6 +12222,10 @@ spec:
                               type: boolean
                             enableMetrics:
                               type: boolean
+                            extraLabels:
+                              additionalProperties:
+                                type: string
+                              type: object
                           type: object
                       type: object
                     podDisruptionBudget:
@@ -11571,6 +12332,37 @@ spec:
                           type: array
                         enabled:
                           type: boolean
+                        evaluationInterval:
+                          default: 30s
+                          format: duration
+                          type: string
+                        podMonitorNamespaceSelector:
+                          default: {}
+                          properties:
+                            matchExpressions:
+                              items:
+                                properties:
+                                  key:
+                                    type: string
+                                  operator:
+                                    type: string
+                                  values:
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                required:
+                                  - key
+                                  - operator
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                          x-kubernetes-map-type: atomic
                         podMonitorSelector:
                           properties:
                             matchExpressions:
@@ -11597,7 +12389,67 @@ spec:
                               type: object
                           type: object
                           x-kubernetes-map-type: atomic
+                        probeNamespaceSelector:
+                          default: {}
+                          properties:
+                            matchExpressions:
+                              items:
+                                properties:
+                                  key:
+                                    type: string
+                                  operator:
+                                    type: string
+                                  values:
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                required:
+                                  - key
+                                  - operator
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                          x-kubernetes-map-type: atomic
                         probeSelector:
+                          properties:
+                            matchExpressions:
+                              items:
+                                properties:
+                                  key:
+                                    type: string
+                                  operator:
+                                    type: string
+                                  values:
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                required:
+                                  - key
+                                  - operator
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                          x-kubernetes-map-type: atomic
+                        scrapeClasses:
+                          items:
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                          x-kubernetes-preserve-unknown-fields: true
+                        scrapeConfigNamespaceSelector:
+                          default: {}
                           properties:
                             matchExpressions:
                               items:
@@ -11653,6 +12505,37 @@ spec:
                           default: 30s
                           format: duration
                           type: string
+                        scrapeProtocols:
+                          items:
+                            type: string
+                          type: array
+                        serviceMonitorNamespaceSelector:
+                          default: {}
+                          properties:
+                            matchExpressions:
+                              items:
+                                properties:
+                                  key:
+                                    type: string
+                                  operator:
+                                    type: string
+                                  values:
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: atomic
+                                required:
+                                  - key
+                                  - operator
+                                type: object
+                              type: array
+                              x-kubernetes-list-type: atomic
+                            matchLabels:
+                              additionalProperties:
+                                type: string
+                              type: object
+                          type: object
+                          x-kubernetes-map-type: atomic
                         serviceMonitorSelector:
                           properties:
                             matchExpressions:
@@ -11934,6 +12817,8 @@ spec:
                       - whenUnsatisfiable
                     type: object
                   type: array
+                trafficDistribution:
+                  type: string
                 upgradeStrategy:
                   enum:
                     - automatic
@@ -12757,6 +13642,29 @@ spec:
                                       type: array
                                       x-kubernetes-list-type: atomic
                                   type: object
+                                podCertificate:
+                                  properties:
+                                    certificateChainPath:
+                                      type: string
+                                    credentialBundlePath:
+                                      type: string
+                                    keyPath:
+                                      type: string
+                                    keyType:
+                                      type: string
+                                    maxExpirationSeconds:
+                                      format: int32
+                                      type: integer
+                                    signerName:
+                                      type: string
+                                    userAnnotations:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  required:
+                                    - keyType
+                                    - signerName
+                                  type: object
                                 secret:
                                   properties:
                                     items:
@@ -12947,7 +13855,6 @@ spec:
                   x-kubernetes-list-type: atomic
               required:
                 - config
-                - managementState
               type: object
               x-kubernetes-validations:
                 - message: the OpenTelemetry Collector mode is set to sidecar, which does not support the attribute 'tolerations'
@@ -12989,8 +13896,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: opentelemetry-operator-system/opentelemetry-operator-serving-cert
-    controller-gen.kubebuilder.io/version: v0.17.1
+    controller-gen.kubebuilder.io/version: v0.20.1
   labels:
     app.kubernetes.io/name: opentelemetry-operator
   name: targetallocators.opentelemetry.io
@@ -13070,6 +13976,23 @@ spec:
                                       type: string
                                   required:
                                     - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
                                   type: object
                                   x-kubernetes-map-type: atomic
                                 resourceFieldRef:
@@ -13261,6 +14184,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -13498,6 +14423,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -14161,6 +15109,8 @@ spec:
                   default: 30s
                   format: duration
                   type: string
+                dnsPolicy:
+                  type: string
                 env:
                   items:
                     properties:
@@ -14191,6 +15141,23 @@ spec:
                                 type: string
                             required:
                               - fieldPath
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          fileKeyRef:
+                            properties:
+                              key:
+                                type: string
+                              optional:
+                                default: false
+                                type: boolean
+                              path:
+                                type: string
+                              volumeName:
+                                type: string
+                            required:
+                              - key
+                              - path
+                              - volumeName
                             type: object
                             x-kubernetes-map-type: atomic
                           resourceFieldRef:
@@ -14260,7 +15227,26 @@ spec:
                   type: string
                 global:
                   type: object
+                hostAliases:
+                  items:
+                    properties:
+                      hostnames:
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      ip:
+                        type: string
+                    required:
+                      - ip
+                    type: object
+                  type: array
+                  x-kubernetes-list-type: atomic
                 hostNetwork:
+                  type: boolean
+                hostPID:
+                  type: boolean
+                hostUsers:
                   type: boolean
                 image:
                   type: string
@@ -14309,6 +15295,23 @@ spec:
                                       type: string
                                   required:
                                     - fieldPath
+                                  type: object
+                                  x-kubernetes-map-type: atomic
+                                fileKeyRef:
+                                  properties:
+                                    key:
+                                      type: string
+                                    optional:
+                                      default: false
+                                      type: boolean
+                                    path:
+                                      type: string
+                                    volumeName:
+                                      type: string
+                                  required:
+                                    - key
+                                    - path
+                                    - volumeName
                                   type: object
                                   x-kubernetes-map-type: atomic
                                 resourceFieldRef:
@@ -14500,6 +15503,8 @@ spec:
                                   - port
                                 type: object
                             type: object
+                          stopSignal:
+                            type: string
                         type: object
                       livenessProbe:
                         properties:
@@ -14737,6 +15742,29 @@ spec:
                         type: object
                       restartPolicy:
                         type: string
+                      restartPolicyRules:
+                        items:
+                          properties:
+                            action:
+                              type: string
+                            exitCodes:
+                              properties:
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    format: int32
+                                    type: integer
+                                  type: array
+                                  x-kubernetes-list-type: set
+                              required:
+                                - operator
+                              type: object
+                          required:
+                            - action
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
                       securityContext:
                         properties:
                           allowPrivilegeEscalation:
@@ -15075,6 +16103,89 @@ spec:
                             - port
                           type: object
                       type: object
+                    stopSignal:
+                      type: string
+                  type: object
+                livenessProbe:
+                  properties:
+                    exec:
+                      properties:
+                        command:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                      type: object
+                    failureThreshold:
+                      format: int32
+                      type: integer
+                    grpc:
+                      properties:
+                        port:
+                          format: int32
+                          type: integer
+                        service:
+                          default: ""
+                          type: string
+                      required:
+                        - port
+                      type: object
+                    httpGet:
+                      properties:
+                        host:
+                          type: string
+                        httpHeaders:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                              - name
+                              - value
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        path:
+                          type: string
+                        port:
+                          anyOf:
+                            - type: integer
+                            - type: string
+                          x-kubernetes-int-or-string: true
+                        scheme:
+                          type: string
+                      required:
+                        - port
+                      type: object
+                    initialDelaySeconds:
+                      format: int32
+                      type: integer
+                    periodSeconds:
+                      format: int32
+                      type: integer
+                    successThreshold:
+                      format: int32
+                      type: integer
+                    tcpSocket:
+                      properties:
+                        host:
+                          type: string
+                        port:
+                          anyOf:
+                            - type: integer
+                            - type: string
+                          x-kubernetes-int-or-string: true
+                      required:
+                        - port
+                      type: object
+                    terminationGracePeriodSeconds:
+                      format: int64
+                      type: integer
+                    timeoutSeconds:
+                      format: int32
+                      type: integer
                   type: object
                 managementState:
                   default: managed
@@ -15082,6 +16193,11 @@ spec:
                     - managed
                     - unmanaged
                   type: string
+                networkPolicy:
+                  properties:
+                    enabled:
+                      type: boolean
+                  type: object
                 nodeSelector:
                   additionalProperties:
                     type: string
@@ -15094,6 +16210,10 @@ spec:
                           type: boolean
                         enableMetrics:
                           type: boolean
+                        extraLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
                       type: object
                   type: object
                 podAnnotations:
@@ -15222,6 +16342,8 @@ spec:
                         type: string
                       hostPort:
                         format: int32
+                        maximum: 65535
+                        minimum: 0
                         type: integer
                       name:
                         type: string
@@ -15258,6 +16380,37 @@ spec:
                       type: array
                     enabled:
                       type: boolean
+                    evaluationInterval:
+                      default: 30s
+                      format: duration
+                      type: string
+                    podMonitorNamespaceSelector:
+                      default: {}
+                      properties:
+                        matchExpressions:
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              operator:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: atomic
+                            required:
+                              - key
+                              - operator
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
+                      x-kubernetes-map-type: atomic
                     podMonitorSelector:
                       properties:
                         matchExpressions:
@@ -15284,7 +16437,67 @@ spec:
                           type: object
                       type: object
                       x-kubernetes-map-type: atomic
+                    probeNamespaceSelector:
+                      default: {}
+                      properties:
+                        matchExpressions:
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              operator:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: atomic
+                            required:
+                              - key
+                              - operator
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
+                      x-kubernetes-map-type: atomic
                     probeSelector:
+                      properties:
+                        matchExpressions:
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              operator:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: atomic
+                            required:
+                              - key
+                              - operator
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
+                      x-kubernetes-map-type: atomic
+                    scrapeClasses:
+                      items:
+                        type: object
+                      type: array
+                      x-kubernetes-list-type: atomic
+                      x-kubernetes-preserve-unknown-fields: true
+                    scrapeConfigNamespaceSelector:
+                      default: {}
                       properties:
                         matchExpressions:
                           items:
@@ -15340,6 +16553,37 @@ spec:
                       default: 30s
                       format: duration
                       type: string
+                    scrapeProtocols:
+                      items:
+                        type: string
+                      type: array
+                    serviceMonitorNamespaceSelector:
+                      default: {}
+                      properties:
+                        matchExpressions:
+                          items:
+                            properties:
+                              key:
+                                type: string
+                              operator:
+                                type: string
+                              values:
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: atomic
+                            required:
+                              - key
+                              - operator
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        matchLabels:
+                          additionalProperties:
+                            type: string
+                          type: object
+                      type: object
+                      x-kubernetes-map-type: atomic
                     serviceMonitorSelector:
                       properties:
                         matchExpressions:
@@ -15366,6 +16610,87 @@ spec:
                           type: object
                       type: object
                       x-kubernetes-map-type: atomic
+                  type: object
+                readinessProbe:
+                  properties:
+                    exec:
+                      properties:
+                        command:
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: atomic
+                      type: object
+                    failureThreshold:
+                      format: int32
+                      type: integer
+                    grpc:
+                      properties:
+                        port:
+                          format: int32
+                          type: integer
+                        service:
+                          default: ""
+                          type: string
+                      required:
+                        - port
+                      type: object
+                    httpGet:
+                      properties:
+                        host:
+                          type: string
+                        httpHeaders:
+                          items:
+                            properties:
+                              name:
+                                type: string
+                              value:
+                                type: string
+                            required:
+                              - name
+                              - value
+                            type: object
+                          type: array
+                          x-kubernetes-list-type: atomic
+                        path:
+                          type: string
+                        port:
+                          anyOf:
+                            - type: integer
+                            - type: string
+                          x-kubernetes-int-or-string: true
+                        scheme:
+                          type: string
+                      required:
+                        - port
+                      type: object
+                    initialDelaySeconds:
+                      format: int32
+                      type: integer
+                    periodSeconds:
+                      format: int32
+                      type: integer
+                    successThreshold:
+                      format: int32
+                      type: integer
+                    tcpSocket:
+                      properties:
+                        host:
+                          type: string
+                        port:
+                          anyOf:
+                            - type: integer
+                            - type: string
+                          x-kubernetes-int-or-string: true
+                      required:
+                        - port
+                      type: object
+                    terminationGracePeriodSeconds:
+                      format: int64
+                      type: integer
+                    timeoutSeconds:
+                      format: int32
+                      type: integer
                   type: object
                 replicas:
                   default: 1
@@ -15559,6 +16884,8 @@ spec:
                       - whenUnsatisfiable
                     type: object
                   type: array
+                trafficDistribution:
+                  type: string
                 volumeMounts:
                   items:
                     properties:
@@ -16193,6 +17520,29 @@ spec:
                                       type: array
                                       x-kubernetes-list-type: atomic
                                   type: object
+                                podCertificate:
+                                  properties:
+                                    certificateChainPath:
+                                      type: string
+                                    credentialBundlePath:
+                                      type: string
+                                    keyPath:
+                                      type: string
+                                    keyType:
+                                      type: string
+                                    maxExpirationSeconds:
+                                      format: int32
+                                      type: integer
+                                    signerName:
+                                      type: string
+                                    userAnnotations:
+                                      additionalProperties:
+                                        type: string
+                                      type: object
+                                  required:
+                                    - keyType
+                                    - signerName
+                                  type: object
                                 secret:
                                   properties:
                                     items:
@@ -16381,8 +17731,6 @@ spec:
                     type: object
                   type: array
                   x-kubernetes-list-type: atomic
-              required:
-                - managementState
               type: object
             status:
               properties:
@@ -16428,14 +17776,6 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - configmaps/status
-    verbs:
-      - get
-      - update
-      - patch
-  - apiGroups:
-      - ""
-    resources:
       - events
     verbs:
       - create
@@ -16449,6 +17789,10 @@ metadata:
   name: opentelemetry-operator-manager-role
   namespace: opentelemetry-operator-system
 rules:
+  - nonResourceURLs:
+      - /version
+    verbs:
+      - get
   - apiGroups:
       - ""
     resources:
@@ -16467,19 +17811,20 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - events
-    verbs:
-      - create
-      - patch
-  - apiGroups:
-      - ""
-    resources:
       - namespaces
       - secrets
     verbs:
       - get
       - list
       - watch
+  - apiGroups:
+      - ""
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
   - apiGroups:
       - apps
     resources:
@@ -16491,6 +17836,15 @@ rules:
       - delete
       - get
       - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments/finalizers
+    verbs:
+      - get
       - patch
       - update
       - watch
@@ -16525,6 +17879,7 @@ rules:
   - apiGroups:
       - config.openshift.io
     resources:
+      - apiservers
       - infrastructures
       - infrastructures/status
     verbs:
@@ -16540,6 +17895,25 @@ rules:
       - get
       - list
       - update
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
+      - get
+      - list
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - httproutes
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
   - apiGroups:
       - monitoring.coreos.com
     resources:
@@ -16557,6 +17931,7 @@ rules:
       - networking.k8s.io
     resources:
       - ingresses
+      - networkpolicies
     verbs:
       - create
       - delete
@@ -16568,18 +17943,10 @@ rules:
   - apiGroups:
       - opentelemetry.io
     resources:
+      - clusterobservabilities
       - instrumentations
-      - opentelemetrycollectors
-    verbs:
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - opentelemetry.io
-    resources:
       - opampbridges
+      - opentelemetrycollectors
       - targetallocators
       - targetallocators/finalizers
     verbs:
@@ -16593,12 +17960,15 @@ rules:
   - apiGroups:
       - opentelemetry.io
     resources:
+      - clusterobservabilities/finalizers
       - opampbridges/finalizers
     verbs:
       - update
   - apiGroups:
       - opentelemetry.io
     resources:
+      - clusterobservabilities/status
+      - instrumentations/status
       - opampbridges/status
       - opentelemetrycollectors/finalizers
       - opentelemetrycollectors/status
@@ -16624,6 +17994,18 @@ rules:
     resources:
       - routes
       - routes/custom-host
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - security.openshift.io
+    resources:
+      - securitycontextconstraints
     verbs:
       - create
       - delete
@@ -16771,17 +18153,26 @@ spec:
     spec:
       containers:
         - args:
-            - --metrics-addr=127.0.0.1:8080
-            - --enable-leader-election
             - --zap-log-level=info
             - --zap-time-encoding=rfc3339nano
-            - --enable-nginx-instrumentation=true
           env:
             - name: SERVICE_ACCOUNT_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: spec.serviceAccountName
-          image: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.127.0
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: METRICS_ADDR
+              value: :8443
+            - name: METRICS_SECURE
+              value: "true"
+            - name: ENABLE_LEADER_ELECTION
+              value: "true"
+            - name: ENABLE_NGINX_AUTO_INSTRUMENTATION
+              value: "true"
+          image: ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.150.0
           livenessProbe:
             httpGet:
               path: /healthz
@@ -16792,6 +18183,9 @@ spec:
           ports:
             - containerPort: 9443
               name: webhook-server
+              protocol: TCP
+            - containerPort: 8443
+              name: https
               protocol: TCP
           readinessProbe:
             httpGet:
@@ -16807,24 +18201,6 @@ spec:
             - mountPath: /tmp/k8s-webhook-server/serving-certs
               name: cert
               readOnly: true
-        - args:
-            - --secure-listen-address=0.0.0.0:8443
-            - --upstream=http://127.0.0.1:8080/
-            - --logtostderr=true
-            - --v=0
-          image: quay.io/brancz/kube-rbac-proxy:v0.13.1
-          name: kube-rbac-proxy
-          ports:
-            - containerPort: 8443
-              name: https
-              protocol: TCP
-          resources:
-            limits:
-              cpu: 500m
-              memory: 128Mi
-            requests:
-              cpu: 5m
-              memory: 64Mi
       serviceAccountName: opentelemetry-operator-controller-manager
       terminationGracePeriodSeconds: 10
       volumes:
@@ -16878,26 +18254,6 @@ webhooks:
       service:
         name: opentelemetry-operator-webhook-service
         namespace: opentelemetry-operator-system
-        path: /mutate-opentelemetry-io-v1beta1-opentelemetrycollector
-    failurePolicy: Fail
-    name: mopentelemetrycollectorbeta.kb.io
-    rules:
-      - apiGroups:
-          - opentelemetry.io
-        apiVersions:
-          - v1beta1
-        operations:
-          - CREATE
-          - UPDATE
-        resources:
-          - opentelemetrycollectors
-    sideEffects: None
-  - admissionReviewVersions:
-      - v1
-    clientConfig:
-      service:
-        name: opentelemetry-operator-webhook-service
-        namespace: opentelemetry-operator-system
         path: /mutate-opentelemetry-io-v1alpha1-instrumentation
     failurePolicy: Fail
     name: minstrumentation.kb.io
@@ -16938,9 +18294,9 @@ webhooks:
       service:
         name: opentelemetry-operator-webhook-service
         namespace: opentelemetry-operator-system
-        path: /mutate-opentelemetry-io-v1beta1-targetallocator
+        path: /mutate-opentelemetry-io-v1beta1-opentelemetrycollector
     failurePolicy: Fail
-    name: mtargetallocatorbeta.kb.io
+    name: mopentelemetrycollectorbeta.kb.io
     rules:
       - apiGroups:
           - opentelemetry.io
@@ -16950,7 +18306,7 @@ webhooks:
           - CREATE
           - UPDATE
         resources:
-          - targetallocators
+          - opentelemetrycollectors
     sideEffects: None
   - admissionReviewVersions:
       - v1
@@ -16971,6 +18327,26 @@ webhooks:
         resources:
           - pods
     sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /mutate-opentelemetry-io-v1beta1-targetallocator
+    failurePolicy: Fail
+    name: mtargetallocatorbeta.kb.io
+    rules:
+      - apiGroups:
+          - opentelemetry.io
+        apiVersions:
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - targetallocators
+    sideEffects: None
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
@@ -16982,45 +18358,6 @@ metadata:
   name: opentelemetry-operator-validating-webhook-configuration
   namespace: opentelemetry-operator-system
 webhooks:
-  - admissionReviewVersions:
-      - v1
-    clientConfig:
-      service:
-        name: opentelemetry-operator-webhook-service
-        namespace: opentelemetry-operator-system
-        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
-    failurePolicy: Fail
-    name: vopentelemetrycollectorcreateupdatebeta.kb.io
-    rules:
-      - apiGroups:
-          - opentelemetry.io
-        apiVersions:
-          - v1beta1
-        operations:
-          - CREATE
-          - UPDATE
-        resources:
-          - opentelemetrycollectors
-    sideEffects: None
-  - admissionReviewVersions:
-      - v1
-    clientConfig:
-      service:
-        name: opentelemetry-operator-webhook-service
-        namespace: opentelemetry-operator-system
-        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
-    failurePolicy: Ignore
-    name: vopentelemetrycollectordeletebeta.kb.io
-    rules:
-      - apiGroups:
-          - opentelemetry.io
-        apiVersions:
-          - v1beta1
-        operations:
-          - DELETE
-        resources:
-          - opentelemetrycollectors
-    sideEffects: None
   - admissionReviewVersions:
       - v1
     clientConfig:
@@ -17098,6 +18435,45 @@ webhooks:
           - DELETE
         resources:
           - opampbridges
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
+    failurePolicy: Fail
+    name: vopentelemetrycollectorcreateupdatebeta.kb.io
+    rules:
+      - apiGroups:
+          - opentelemetry.io
+        apiVersions:
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - opentelemetrycollectors
+    sideEffects: None
+  - admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
+    failurePolicy: Ignore
+    name: vopentelemetrycollectordeletebeta.kb.io
+    rules:
+      - apiGroups:
+          - opentelemetry.io
+        apiVersions:
+          - v1beta1
+        operations:
+          - DELETE
+        resources:
+          - opentelemetrycollectors
     sideEffects: None
   - admissionReviewVersions:
       - v1

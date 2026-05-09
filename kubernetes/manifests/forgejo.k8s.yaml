@@ -85,7 +85,7 @@ metadata:
   namespace: forgejo
 spec:
   cluster:
-    name: db
+    name: forgejo-db-c881dbc4
   schedule: 0 0 1 * * *
 ---
 apiVersion: v1

@@ -25,5 +25,5 @@
     "target": "ES2019"
   },
   "include": ["src/**/*.ts", "**/*.ts", ".projenrc.ts"],
-  "exclude": []
+  "exclude": ["node_modules", "lib"]
 }

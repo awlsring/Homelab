@@ -88,7 +88,7 @@ metadata:
   namespace: immich
 spec:
   cluster:
-    name: db
+    name: immich-db-c85d4e5a
   schedule: 0 0 1 * * *
 ---
 apiVersion: apps/v1

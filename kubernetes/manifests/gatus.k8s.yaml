@@ -42,8 +42,10 @@ spec:
       owner: gatus
       secret:
         name: gatus-database-secret-c830a0e6
+  externalClusters: []
   instances: 2
   monitoring: {}
+  postgresql: {}
   primaryUpdateStrategy: unsupervised
   storage:
     size: 5Gi

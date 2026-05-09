@@ -98,7 +98,7 @@ metadata:
   namespace: mealie
 spec:
   cluster:
-    name: mealie-db
+    name: mealie-mealie-db-c8f4383a
   schedule: 0 0 1 * * *
 ---
 apiVersion: v1

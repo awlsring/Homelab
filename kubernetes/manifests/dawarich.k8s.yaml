@@ -117,7 +117,7 @@ metadata:
   namespace: dawarich
 spec:
   cluster:
-    name: database
+    name: dawarich-database-c85f564c
   schedule: 0 0 1 * * *
 ---
 apiVersion: v1

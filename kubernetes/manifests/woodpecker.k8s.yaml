@@ -85,7 +85,7 @@ metadata:
   namespace: woodpecker
 spec:
   cluster:
-    name: db
+    name: woodpecker-db-c85feff1
   schedule: 0 0 1 * * *
 ---
 apiVersion: external-secrets.io/v1beta1

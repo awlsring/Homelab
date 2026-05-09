@@ -482,32 +482,6 @@ metadata:
 spec:
   controller: k8s.io/ingress-nginx
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: nginx-ingress-helm-c890c0bc
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-    app.kubernetes.io/version: 1.12.0
-    helm.sh/chart: ingress-nginx-4.12.0
-  name: nginx-ingress-helm-c890c0bc-ingress-nginx-controller
-  namespace: ingress-nginx
-spec:
-  endpoints:
-    - interval: 30s
-      port: metrics
-  namespaceSelector:
-    matchNames:
-      - ingress-nginx
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: controller
-      app.kubernetes.io/instance: nginx-ingress-helm-c890c0bc
-      app.kubernetes.io/name: ingress-nginx
----
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
@@ -545,6 +519,32 @@ webhooks:
           - ingresses
     sideEffects: None
     timeoutSeconds: 30
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: nginx-ingress-helm-c890c0bc
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+    app.kubernetes.io/version: 1.12.0
+    helm.sh/chart: ingress-nginx-4.12.0
+  name: nginx-ingress-helm-c890c0bc-ingress-nginx-controller
+  namespace: ingress-nginx
+spec:
+  endpoints:
+    - interval: 30s
+      port: metrics
+  namespaceSelector:
+    matchNames:
+      - ingress-nginx
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: controller
+      app.kubernetes.io/instance: nginx-ingress-helm-c890c0bc
+      app.kubernetes.io/name: ingress-nginx
 ---
 apiVersion: v1
 kind: ServiceAccount

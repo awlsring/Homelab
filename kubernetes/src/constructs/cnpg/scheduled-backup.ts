@@ -48,7 +48,7 @@ export class ScheduledBackup extends Construct {
       metadata: {},
       spec: {
         cluster: {
-          name: props.cluster.node.id,
+          name: props.cluster.resourceName(),
         },
         schedule: props.schedule.toString(),
       },

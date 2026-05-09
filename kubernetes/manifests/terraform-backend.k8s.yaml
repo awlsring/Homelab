@@ -103,5 +103,5 @@ metadata:
   namespace: terraform-backend
 spec:
   cluster:
-    name: cluster
+    name: terraform-backend-cluster-c824bab6
   schedule: 0 0 1 * * *

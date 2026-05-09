@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "import": "cdk8s import",
-    "synth": "cdk8s synth",
+    "synth": "cd .. && cdk8s synth",
     "compile": "tsc --build",
     "watch": "tsc --build -w",
     "test": "jest --config jest.config.cjs --passWithNoTests",

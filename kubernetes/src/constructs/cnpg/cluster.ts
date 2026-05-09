@@ -110,6 +110,10 @@ export class Cluster extends Construct {
     });
   }
 
+  resourceName(): string {
+    return this.apiObject.name;
+  }
+
   exposeWithPrimaryService(options?: ExposeWithPrimaryServiceOptions): Service {
     const selector = new ClusterPrimaryPodSelector(
       this,
