@@ -247,7 +247,7 @@ spec:
               value: "false"
             - name: IMMICH_CONFIG_FILE
               value: /immich-config.json
-          image: ghcr.io/immich-app/immich-server:v2.6.1
+          image: ghcr.io/immich-app/immich-server:v2.7.5
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -446,7 +446,7 @@ spec:
               value: immich-redis-service-c83c7595
             - name: MACHINE_LEARNING_EAGER_STARTUP
               value: "false"
-          image: ghcr.io/immich-app/immich-machine-learning:v2.6.1
+          image: ghcr.io/immich-app/immich-machine-learning:v2.7.5
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3

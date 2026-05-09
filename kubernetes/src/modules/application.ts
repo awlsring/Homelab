@@ -93,7 +93,7 @@ export class ApplicationModule extends Module {
 
     new ImmichChart(app, "immich", {
       namespace: "immich",
-      imageTag: "v2.6.1",
+      imageTag: "v2.7.5",
       secretStore: "onepassword-secret-store",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
