@@ -934,6 +934,104 @@ spec:
         - prowlarr.us-drig-1.drigs.org
       secretName: prowlarr-yarrg-prowlarr-service-c832eff5-tls-c87917d6
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yarrg-byparr-deployment-c8a90579
+  namespace: yarrg
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: yarrg-byparr-deployment-c8ce7925
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: yarrg-byparr-deployment-c8ce7925
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PORT
+              value: "8191"
+          image: ghcr.io/thephaseless/byparr:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /docs
+              port: 8191
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 1
+          name: byparr
+          ports:
+            - containerPort: 8191
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /docs
+              port: 8191
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+            requests:
+              cpu: 100m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /docs
+              port: 8191
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 5
+            timeoutSeconds: 1
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: false
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: byparr
+  namespace: yarrg
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 8191
+      protocol: TCP
+      targetPort: 8191
+  selector:
+    cdk8s.io/metadata.addr: yarrg-byparr-deployment-c8ce7925
+  type: ClusterIP
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

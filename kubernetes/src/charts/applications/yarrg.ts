@@ -10,6 +10,7 @@ import { Lidarr } from "../../constructs/applications/lidarr";
 import { Readarr } from "../../constructs/applications/readarr";
 import { Bazarr } from "../../constructs/applications/bazarr";
 import { Prowlarr } from "../../constructs/applications/prowlarr";
+import { Byparr } from "../../constructs/applications/byparr";
 import { SuggestArr } from "../../constructs/applications/suggestarr";
 import { HomelabIngress } from "../../constructs/homelab/ingress";
 
@@ -35,6 +36,7 @@ export interface YarrgChartProps extends HomelabChartProps {
   readonly readarr?: ArrAppOptions;
   readonly bazarr?: AppOptions;
   readonly prowlarr?: ArrAppOptions;
+  readonly byparr?: Omit<AppOptions, "dnsName" | "serviceType">;
   readonly suggestarr?: AppOptions;
   readonly requesterr?: AppOptions;
   readonly mediaStorage: {
@@ -167,6 +169,12 @@ export class YarrgChart extends HomelabChart {
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("prowlarr", props.prowlarr.metrics),
+      });
+    }
+
+    if (props.byparr) {
+      new Byparr(this, "byparr", {
+        imageTag: props.byparr.imageTag,
       });
     }
 

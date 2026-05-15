@@ -126,6 +126,13 @@ data:
         conditions:
           - "[STATUS] < 300"
         group: yarrg
+      - name: Byparr
+        url: http://byparr.yarrg.svc.cluster.local:8191/docs
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: yarrg
       - name: SuggestArr
         url: https://suggestarr.us-drig-1.drigs.org
         alerts:

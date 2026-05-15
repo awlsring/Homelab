@@ -81,6 +81,7 @@ export class ApplicationModule extends Module {
         imageTag: "1.30.2",
         dnsName: "prowlarr.us-drig-1.drigs.org",
       },
+      byparr: {},
       suggestarr: {
         dnsName: "suggestarr.us-drig-1.drigs.org",
       },
@@ -359,6 +360,13 @@ export class ApplicationModule extends Module {
           name: "prowlarr",
           group: "yarrg",
           url: "https://prowlarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Byparr",
+          group: "yarrg",
+          url: "http://byparr.yarrg.svc.cluster.local:8191/docs",
           conditions: [GatusConditions.HTTP_STATUS_2XX],
           alerts: [{ type: GatusAlertType.DISCORD }],
         }),
