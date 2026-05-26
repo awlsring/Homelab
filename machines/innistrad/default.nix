@@ -42,7 +42,7 @@ in {
   };
 
   frigate = {
-    enable = true;
+    enable = false;
     settings = {
       mqtt.enabled = true;
       detectors.coral = {
