@@ -94,7 +94,7 @@ export class ApplicationModule extends Module {
 
     new ImmichChart(app, "immich", {
       namespace: "immich",
-      imageTag: "v2.7.5",
+      imageTag: "v3.1.0",
       secretStore: "onepassword-secret-store",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
@@ -125,7 +125,8 @@ export class ApplicationModule extends Module {
         },
       },
       publicProxy: {
-        imageTag: "1.15.4",
+        // 3.x is the first release compatible with immich v3.
+        imageTag: "3.2.0",
         publicBaseUrl: "https://immich.drigs.org",
         tunnel: {
           email: "admin@drigs.org",

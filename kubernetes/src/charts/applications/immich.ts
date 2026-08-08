@@ -33,7 +33,9 @@ import { CronSchedule } from "../../constructs/cnpg/scheduled-backup";
 import { CloudflareClusterTunnel } from "../../constructs/cloudflare/tunnel/cluster-tunnel";
 
 const REDIS_PORT = 6379;
-const REDIS_IMAGE = "redis:6.2-alpine3.19";
+// Upstream immich moved its compose file from redis to valkey; valkey is a
+// drop-in replacement and is what immich now tests against.
+const REDIS_IMAGE = "docker.io/valkey/valkey:9-alpine";
 const DB_IMAGE = "ghcr.io/tensorchord/cloudnative-vectorchord:16-0.4.3";
 const IMMICH_PUBLIC_PROXY_IMAGE = "alangrainger/immich-public-proxy";
 const IMMICH_PUBLIC_PROXY_PORT = 3000;

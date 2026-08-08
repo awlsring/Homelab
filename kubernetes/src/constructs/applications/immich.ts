@@ -25,12 +25,18 @@ const DEFAULT_IMAGE_TAG = "release";
 const IMMICH_SERVER_IMAGE = "ghcr.io/immich-app/immich-server";
 const IMMICH_SERVER_PORT = 2283;
 
-const IMMICH_METRICS_PORT = 8081;
+const IMMICH_API_METRICS_PORT = 8081;
+const IMMICH_MICROSERVICES_METRICS_PORT = 8082;
 
 const IMMICH_MACHINE_LEARNING_IMAGE =
   "ghcr.io/immich-app/immich-machine-learning";
 const IMMICH_MACHINE_LEARNING_PORT = 3003;
-const IMMICH_UPLOAD_LOCATION = "./library";
+
+// The server auto-detects its media location from `/data` and
+// `/usr/src/app/upload`. We pin it so the detection heuristic can never move
+// the library out from under an existing install.
+// https://docs.immich.app/administration/system-integrity#folder-checks
+const IMMICH_MEDIA_LOCATION = "/usr/src/app/upload";
 
 export enum ImmichLogLevel {
   VERBOSE = "verbose",
@@ -41,7 +47,6 @@ export enum ImmichLogLevel {
 }
 
 export interface ImmichGeneralOptions {
-  readonly immichVersion?: string;
   readonly mediaLocation?: string;
   readonly timezone?: string;
   readonly nodeEnvironment?: string;
@@ -80,6 +85,15 @@ export interface ImmichMachineLearningCacheOptions {
   readonly size: Size;
 }
 
+export interface ImmichMachineLearningPreloadOptions {
+  readonly clipTextual?: string;
+  readonly clipVisual?: string;
+  readonly facialRecognitionDetection?: string;
+  readonly facialRecognitionRecognition?: string;
+  readonly ocrDetection?: string;
+  readonly ocrRecognition?: string;
+}
+
 export interface ImmichMachineLearningOptions {
   readonly cache?: PersistentVolumeClaimOptions;
   readonly imageTag?: string;
@@ -94,16 +108,17 @@ export interface ImmichMachineLearningOptions {
   readonly duplicateDetection?: {
     readonly maxDistance?: number;
   };
+  readonly availabilityChecks?: {
+    readonly enabled?: boolean;
+    readonly timeout?: number;
+    readonly interval?: number;
+  };
   readonly minimumFaceScore?: number;
-  readonly minimumTagScore?: number;
   readonly faceRecognitionModel?: string;
   readonly clipTextModel?: string;
-  readonly clipImageModel?: string;
-  readonly classificationModel?: string;
   readonly cacheFolder?: string;
-  readonly transformerCache?: string;
   readonly modelTtl?: number;
-  readonly eagerStartup?: boolean;
+  readonly preload?: ImmichMachineLearningPreloadOptions;
 }
 
 export interface ImmichPhotoVolumeOptions {
@@ -114,7 +129,6 @@ export interface ImmichPhotoVolumeOptions {
 export interface ImmichServerOptions {
   readonly imageTag?: string;
   readonly ingress: HomelabIngressOptions;
-  readonly uploadLocation?: string;
   readonly externalDomain?: string;
 }
 
@@ -127,8 +141,23 @@ export interface ImmichProps {
   readonly redisOptions: ImmichRedisOptions;
   readonly postgresOptions: ImmichPostgresOptions;
   readonly machineLearningOptions?: ImmichMachineLearningOptions;
-  readonly externalApiUrl?: string;
   readonly monitoring?: boolean;
+}
+
+// The api and microservices workers each expose their own metrics endpoint.
+function metricsServicePorts() {
+  return [
+    {
+      name: "metrics",
+      port: IMMICH_API_METRICS_PORT,
+      targetPort: IMMICH_API_METRICS_PORT,
+    },
+    {
+      name: "metrics-jobs",
+      port: IMMICH_MICROSERVICES_METRICS_PORT,
+      targetPort: IMMICH_MICROSERVICES_METRICS_PORT,
+    },
+  ];
 }
 
 export class Immich extends Construct {
@@ -143,12 +172,13 @@ export class Immich extends Construct {
       IMMICH_MACHINE_LEARNING_PORT
     );
 
-    const env = this.formEnvironment(props);
+    const serverEnv = this.formServerEnvironment(props);
+    const machineLearningEnv = this.formMachineLearningEnvironment(props);
     const config = this.formConfig(props);
 
     const volumeMounts = [
       {
-        path: "/usr/src/app/upload",
+        path: props.generalOptions?.mediaLocation ?? IMMICH_MEDIA_LOCATION,
         volume: props.uploadShare,
       },
     ];
@@ -161,12 +191,15 @@ export class Immich extends Construct {
 
     this.serverService = this.buildServer(
       props.serverOptions,
-      env,
+      serverEnv,
       config,
       volumeMounts,
       props.monitoring ?? false
     );
-    this.buildMachineLearning(props.machineLearningOptions ?? {}, env);
+    this.buildMachineLearning(
+      props.machineLearningOptions ?? {},
+      machineLearningEnv
+    );
 
     if (props.monitoring) {
       new ServiceMonitor(this, "service-monitor", {
@@ -176,6 +209,9 @@ export class Immich extends Construct {
         endpoints: [
           {
             port: "metrics",
+          },
+          {
+            port: "metrics-jobs",
           },
         ],
       });
@@ -196,11 +232,7 @@ export class Immich extends Construct {
     ];
 
     if (metrics) {
-      ports.push({
-        name: "metrics",
-        port: IMMICH_METRICS_PORT,
-        targetPort: IMMICH_METRICS_PORT,
-      });
+      ports.push(...metricsServicePorts());
     }
 
     return new Service(this, `${name}-service`, {
@@ -213,11 +245,22 @@ export class Immich extends Construct {
     });
   }
 
-  private formEnvironment(options: ImmichProps): Record<string, EnvValue> {
+  /**
+   * Environment for the server container.
+   *
+   * Only variables the server still reads are set here. Everything that used to
+   * be configured through `MACHINE_LEARNING_*`, `REVERSE_GEOCODING_*`,
+   * `PUBLIC_LOGIN_MESSAGE` and friends now lives in the config file written by
+   * `formConfig`, and the remaining strays (`UPLOAD_LOCATION`, `IMMICH_VERSION`)
+   * were only ever read by the upstream docker compose file.
+   * https://docs.immich.app/install/environment-variables
+   */
+  private formServerEnvironment(
+    options: ImmichProps
+  ): Record<string, EnvValue> {
     const env: Record<string, EnvValue> = {
-      IMMICH_METRICS: EnvValue.fromValue(options.monitoring ? "true" : "false"),
-      UPLOAD_LOCATION: EnvValue.fromValue(
-        options.serverOptions.uploadLocation ?? IMMICH_UPLOAD_LOCATION
+      IMMICH_MEDIA_LOCATION: EnvValue.fromValue(
+        options.generalOptions?.mediaLocation ?? IMMICH_MEDIA_LOCATION
       ),
       DB_HOSTNAME: EnvValue.fromValue(options.postgresOptions.hostname),
       DB_USERNAME: EnvValue.fromValue(options.postgresOptions.user),
@@ -227,24 +270,12 @@ export class Immich extends Construct {
         secret: options.postgresOptions.passwordSecret,
         key: "password",
       }),
-      POSTGRES_PASSWORD: EnvValue.fromSecretValue({
-        secret: options.postgresOptions.passwordSecret,
-        key: "password",
-      }),
+      REDIS_HOSTNAME: EnvValue.fromValue(options.redisOptions.hostname),
     };
 
-    env.IMMICH_MACHINE_LEARNING_URL = EnvValue.fromValue(
-      `http://${this.machineLearningService.name}:${this.machineLearningService.port}`
-    );
-    env.PUBLIC_IMMICH_SERVER_URL = EnvValue.fromValue(
-      options.serverOptions.ingress.hostname
-    );
-    env.REDIS_HOSTNAME = EnvValue.fromValue(options.redisOptions.hostname);
-
-    if (options.generalOptions?.mediaLocation) {
-      env.IMMICH_MEDIA_LOCATION = EnvValue.fromValue(
-        options.generalOptions.mediaLocation
-      );
+    // `IMMICH_METRICS` was replaced by the telemetry include/exclude lists.
+    if (options.monitoring) {
+      env.IMMICH_TELEMETRY_INCLUDE = EnvValue.fromValue("all");
     }
     if (options.generalOptions?.nodeEnvironment) {
       env.IMMICH_ENV = EnvValue.fromValue(
@@ -254,125 +285,85 @@ export class Immich extends Construct {
     if (options.generalOptions?.logLevel) {
       env.IMMICH_LOG_LEVEL = EnvValue.fromValue(options.generalOptions.logLevel);
     }
-    if (options.generalOptions?.loginMessage) {
-      env.PUBLIC_LOGIN_MESSAGE = EnvValue.fromValue(
-        options.generalOptions.loginMessage
-      );
+    if (options.generalOptions?.timezone) {
+      env.TZ = EnvValue.fromValue(options.generalOptions.timezone);
     }
-    if (options.generalOptions?.immichVersion) {
-      env.IMMICH_VERSION = EnvValue.fromValue(
-        options.generalOptions.immichVersion
-      );
+    if (options.redisOptions.url) {
+      env.REDIS_URL = EnvValue.fromValue(options.redisOptions.url);
+    }
+    if (options.redisOptions.port) {
+      env.REDIS_PORT = EnvValue.fromValue(`${options.redisOptions.port}`);
+    }
+    if (options.redisOptions.password) {
+      env.REDIS_PASSWORD = EnvValue.fromValue(options.redisOptions.password);
+    }
+    if (options.redisOptions.dbIndex) {
+      env.REDIS_DBINDEX = EnvValue.fromValue(`${options.redisOptions.dbIndex}`);
+    }
+    if (options.redisOptions.user) {
+      env.REDIS_USERNAME = EnvValue.fromValue(options.redisOptions.user);
+    }
+    if (options.redisOptions.socket) {
+      env.REDIS_SOCKET = EnvValue.fromValue(options.redisOptions.socket);
+    }
+
+    return env;
+  }
+
+  /**
+   * Environment for the machine learning container. It shares no configuration
+   * with the server, so it deliberately does not receive the database secret.
+   */
+  private formMachineLearningEnvironment(
+    options: ImmichProps
+  ): Record<string, EnvValue> {
+    const ml = options.machineLearningOptions;
+    const env: Record<string, EnvValue> = {};
+
+    if (options.generalOptions?.logLevel) {
+      env.IMMICH_LOG_LEVEL = EnvValue.fromValue(options.generalOptions.logLevel);
     }
     if (options.generalOptions?.timezone) {
       env.TZ = EnvValue.fromValue(options.generalOptions.timezone);
     }
-    if (options.geocoding?.disable) {
-      env.DISABLE_REVERSE_GEOCODING = EnvValue.fromValue("true");
+    if (ml?.cacheFolder) {
+      env.MACHINE_LEARNING_CACHE_FOLDER = EnvValue.fromValue(ml.cacheFolder);
     }
-    if (options.geocoding?.precision) {
-      env.REVERSE_GEOCODING_PRECISION = EnvValue.fromValue(
-        `${options.geocoding.precision}`
+    if (ml?.modelTtl !== undefined) {
+      env.MACHINE_LEARNING_MODEL_TTL = EnvValue.fromValue(`${ml.modelTtl}`);
+    }
+    // The unsplit `MACHINE_LEARNING_PRELOAD__CLIP` and
+    // `MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION` variables were removed in
+    // v3.0.0 in favour of these per-model variants.
+    if (ml?.preload?.clipTextual) {
+      env.MACHINE_LEARNING_PRELOAD__CLIP__TEXTUAL = EnvValue.fromValue(
+        ml.preload.clipTextual
       );
     }
-    if (options.geocoding?.percision) {
-      env.REVERSE_GEOCODING_PRECISION = EnvValue.fromValue(
-        `${options.geocoding.percision}`
+    if (ml?.preload?.clipVisual) {
+      env.MACHINE_LEARNING_PRELOAD__CLIP__VISUAL = EnvValue.fromValue(
+        ml.preload.clipVisual
       );
     }
-    if (options.geocoding?.dumpDir) {
-      env.REVERSE_GEOCODING_DUMP_DIRECTORY = EnvValue.fromValue(
-        options.geocoding.dumpDir
+    if (ml?.preload?.facialRecognitionDetection) {
+      env.MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__DETECTION =
+        EnvValue.fromValue(ml.preload.facialRecognitionDetection);
+    }
+    if (ml?.preload?.facialRecognitionRecognition) {
+      env.MACHINE_LEARNING_PRELOAD__FACIAL_RECOGNITION__RECOGNITION =
+        EnvValue.fromValue(ml.preload.facialRecognitionRecognition);
+    }
+    if (ml?.preload?.ocrDetection) {
+      env.MACHINE_LEARNING_PRELOAD__OCR__DETECTION = EnvValue.fromValue(
+        ml.preload.ocrDetection
       );
     }
-    if (options.externalApiUrl) {
-      env.IMMICH_API_URL_EXTERNAL = EnvValue.fromValue(options.externalApiUrl);
-    }
-    if (options.redisOptions) {
-      if (options.redisOptions.url) {
-        env.REDIS_URL = EnvValue.fromValue(options.redisOptions.url);
-      }
-      if (options.redisOptions.port) {
-        env.REDIS_PORT = EnvValue.fromValue(`${options.redisOptions.port}`);
-      }
-      if (options.redisOptions.password) {
-        env.REDIS_PASSWORD = EnvValue.fromValue(options.redisOptions.password);
-      }
-      if (options.redisOptions.dbIndex) {
-        env.REDIS_DBINDEX = EnvValue.fromValue(
-          `${options.redisOptions.dbIndex}`
-        );
-      }
-      if (options.redisOptions.user) {
-        env.REDIS_USERNAME = EnvValue.fromValue(options.redisOptions.user);
-      }
-      if (options.redisOptions.socket) {
-        env.REDIS_SOCKET = EnvValue.fromValue(options.redisOptions.socket);
-      }
-    }
-    if (options.machineLearningOptions?.minimumFaceScore) {
-      env.MACHINE_LEARNING_MIN_FACE_SCORE = EnvValue.fromValue(
-        `${options.machineLearningOptions.minimumFaceScore}`
+    if (ml?.preload?.ocrRecognition) {
+      env.MACHINE_LEARNING_PRELOAD__OCR__RECOGNITION = EnvValue.fromValue(
+        ml.preload.ocrRecognition
       );
     }
-    if (options.machineLearningOptions?.facialRecognition?.minScore) {
-      env.MACHINE_LEARNING_MIN_FACE_SCORE = EnvValue.fromValue(
-        `${options.machineLearningOptions.facialRecognition.minScore}`
-      );
-    }
-    if (options.machineLearningOptions?.modelTtl) {
-      env.MACHINE_LEARNING_MODEL_TTL = EnvValue.fromValue(
-        `${options.machineLearningOptions.modelTtl}`
-      );
-    }
-    if (!options.machineLearningOptions?.eagerStartup) {
-      env.MACHINE_LEARNING_EAGER_STARTUP = EnvValue.fromValue("false");
-    }
-    if (options.machineLearningOptions?.minimumTagScore) {
-      env.MACHINE_LEARNING_MIN_TAG_SCORE = EnvValue.fromValue(
-        `${options.machineLearningOptions.minimumTagScore}`
-      );
-    }
-    if (options.machineLearningOptions?.faceRecognitionModel) {
-      env.MACHINE_LEARNING_FACIAL_RECOGNITION_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.faceRecognitionModel}`
-      );
-    }
-    if (options.machineLearningOptions?.facialRecognition?.modelName) {
-      env.MACHINE_LEARNING_FACIAL_RECOGNITION_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.facialRecognition.modelName}`
-      );
-    }
-    if (options.machineLearningOptions?.clip?.modelName) {
-      env.MACHINE_LEARNING_CLIP_TEXT_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.clip.modelName}`
-      );
-    }
-    if (options.machineLearningOptions?.clipTextModel) {
-      env.MACHINE_LEARNING_CLIP_TEXT_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.clipTextModel}`
-      );
-    }
-    if (options.machineLearningOptions?.clipImageModel) {
-      env.MACHINE_LEARNING_CLIP_IMAGE_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.clipImageModel}`
-      );
-    }
-    if (options.machineLearningOptions?.classificationModel) {
-      env.MACHINE_LEARNING_CLASSIFICATION_MODEL = EnvValue.fromValue(
-        `${options.machineLearningOptions.classificationModel}`
-      );
-    }
-    if (options.machineLearningOptions?.cacheFolder) {
-      env.MACHINE_LEARNING_CACHE_FOLDER = EnvValue.fromValue(
-        `${options.machineLearningOptions.cacheFolder}`
-      );
-    }
-    if (options.machineLearningOptions?.transformerCache) {
-      env.TRANSFORMER_CACHE = EnvValue.fromValue(
-        `${options.machineLearningOptions.transformerCache}`
-      );
-    }
+
     return env;
   }
 
@@ -446,6 +437,24 @@ export class Immich extends Construct {
       machineLearningConfig.duplicateDetection = {
         maxDistance: options.machineLearningOptions.duplicateDetection.maxDistance,
       };
+    }
+
+    // Replaces the removed `IMMICH_MACHINE_LEARNING_PING_TIMEOUT`.
+    const availabilityChecks = options.machineLearningOptions?.availabilityChecks;
+    if (availabilityChecks) {
+      const checks: Record<string, unknown> = {};
+      if (availabilityChecks.enabled !== undefined) {
+        checks.enabled = availabilityChecks.enabled;
+      }
+      if (availabilityChecks.timeout !== undefined) {
+        checks.timeout = availabilityChecks.timeout;
+      }
+      if (availabilityChecks.interval !== undefined) {
+        checks.interval = availabilityChecks.interval;
+      }
+      if (Object.keys(checks).length > 0) {
+        machineLearningConfig.availabilityChecks = checks;
+      }
     }
 
     config.machineLearning = machineLearningConfig;
@@ -546,11 +555,7 @@ export class Immich extends Construct {
       },
     ];
     if (monitoring) {
-      servicePorts.push({
-        name: "metrics",
-        port: IMMICH_METRICS_PORT,
-        targetPort: IMMICH_METRICS_PORT,
-      });
+      servicePorts.push(...metricsServicePorts());
     }
     const service = new Service(this, "server-service", {
       metadata: {

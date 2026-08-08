@@ -115,7 +115,7 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        - image: redis:6.2-alpine3.19
+        - image: docker.io/valkey/valkey:9-alpine
           imagePullPolicy: Always
           name: redis
           ports:
@@ -215,10 +215,8 @@ spec:
       automountServiceAccountToken: false
       containers:
         - env:
-            - name: IMMICH_METRICS
-              value: "true"
-            - name: UPLOAD_LOCATION
-              value: ./library
+            - name: IMMICH_MEDIA_LOCATION
+              value: /usr/src/app/upload
             - name: DB_HOSTNAME
               value: immich-db-c85d4e5a-rw
             - name: DB_USERNAME
@@ -232,22 +230,13 @@ spec:
                 secretKeyRef:
                   key: password
                   name: immich-database-secret-c86932a0
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: immich-database-secret-c86932a0
-            - name: IMMICH_MACHINE_LEARNING_URL
-              value: http://immich-app-machine-learning-service-c858f540:3003
-            - name: PUBLIC_IMMICH_SERVER_URL
-              value: immich.us-drig-1.drigs.org
             - name: REDIS_HOSTNAME
               value: immich-redis-service-c83c7595
-            - name: MACHINE_LEARNING_EAGER_STARTUP
-              value: "false"
+            - name: IMMICH_TELEMETRY_INCLUDE
+              value: all
             - name: IMMICH_CONFIG_FILE
               value: /immich-config.json
-          image: ghcr.io/immich-app/immich-server:v2.7.5
+          image: ghcr.io/immich-app/immich-server:v3.1.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -338,6 +327,9 @@ spec:
     - name: metrics
       port: 8081
       targetPort: 8081
+    - name: metrics-jobs
+      port: 8082
+      targetPort: 8082
   selector:
     cdk8s.io/metadata.addr: immich-app-server-deployment-c8e8f010
   type: LoadBalancer
@@ -415,38 +407,7 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        - env:
-            - name: IMMICH_METRICS
-              value: "true"
-            - name: UPLOAD_LOCATION
-              value: ./library
-            - name: DB_HOSTNAME
-              value: immich-db-c85d4e5a-rw
-            - name: DB_USERNAME
-              value: immich
-            - name: DB_DATABASE_NAME
-              value: immich
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: immich-database-secret-c86932a0
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: password
-                  name: immich-database-secret-c86932a0
-            - name: IMMICH_MACHINE_LEARNING_URL
-              value: http://immich-app-machine-learning-service-c858f540:3003
-            - name: PUBLIC_IMMICH_SERVER_URL
-              value: immich.us-drig-1.drigs.org
-            - name: REDIS_HOSTNAME
-              value: immich-redis-service-c83c7595
-            - name: MACHINE_LEARNING_EAGER_STARTUP
-              value: "false"
-          image: ghcr.io/immich-app/immich-machine-learning:v2.7.5
+        - image: ghcr.io/immich-app/immich-machine-learning:v3.1.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -507,6 +468,7 @@ metadata:
 spec:
   endpoints:
     - port: metrics
+    - port: metrics-jobs
   selector:
     matchLabels:
       immich/monitoring: "true"
@@ -540,7 +502,7 @@ spec:
               value: http://immich-app-server-service-c8f37b56:2283
             - name: PUBLIC_BASE_URL
               value: https://immich.drigs.org
-          image: alangrainger/immich-public-proxy:1.15.4
+          image: alangrainger/immich-public-proxy:3.2.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
