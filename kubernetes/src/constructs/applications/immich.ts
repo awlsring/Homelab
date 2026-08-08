@@ -1,6 +1,5 @@
 import { Duration, Size } from "cdk8s";
 import {
-  ConfigMap,
   Cpu,
   Deployment,
   DeploymentStrategy,
@@ -46,20 +45,22 @@ export enum ImmichLogLevel {
   ERROR = "error",
 }
 
+// NOTE: Immich's system settings (OAuth, storage template, reverse geocoding,
+// login message, machine learning model selection, ...) are owned by the admin
+// UI and stored in the database. They are deliberately not modelled here.
+//
+// Immich resolves its config as `configFile ? file : database` and then merges
+// over defaults — the two are mutually exclusive, not layered. Setting
+// IMMICH_CONFIG_FILE therefore discards the entire stored config, silently
+// reverting every setting absent from the file back to its default. A partial
+// config file did exactly that here between 2026-03-21 and 2026-08-08,
+// disabling OAuth and the storage template. Only add options below that map to
+// a real environment variable.
 export interface ImmichGeneralOptions {
   readonly mediaLocation?: string;
   readonly timezone?: string;
   readonly nodeEnvironment?: string;
   readonly logLevel?: ImmichLogLevel;
-  readonly loginMessage?: string;
-}
-
-export interface ImmichGeocodingOptions {
-  readonly enabled?: boolean;
-  readonly disable?: boolean;
-  readonly precision?: number;
-  readonly percision?: number;
-  readonly dumpDir?: string;
 }
 
 export interface ImmichRedisOptions {
@@ -97,25 +98,6 @@ export interface ImmichMachineLearningPreloadOptions {
 export interface ImmichMachineLearningOptions {
   readonly cache?: PersistentVolumeClaimOptions;
   readonly imageTag?: string;
-  readonly urls?: string[];
-  readonly clip?: {
-    readonly modelName?: string;
-  };
-  readonly facialRecognition?: {
-    readonly minScore?: number;
-    readonly modelName?: string;
-  };
-  readonly duplicateDetection?: {
-    readonly maxDistance?: number;
-  };
-  readonly availabilityChecks?: {
-    readonly enabled?: boolean;
-    readonly timeout?: number;
-    readonly interval?: number;
-  };
-  readonly minimumFaceScore?: number;
-  readonly faceRecognitionModel?: string;
-  readonly clipTextModel?: string;
   readonly cacheFolder?: string;
   readonly modelTtl?: number;
   readonly preload?: ImmichMachineLearningPreloadOptions;
@@ -129,14 +111,12 @@ export interface ImmichPhotoVolumeOptions {
 export interface ImmichServerOptions {
   readonly imageTag?: string;
   readonly ingress: HomelabIngressOptions;
-  readonly externalDomain?: string;
 }
 
 export interface ImmichProps {
   readonly uploadShare: Volume;
   readonly photoCollectionShares?: ImmichPhotoVolumeOptions[];
   readonly generalOptions?: ImmichGeneralOptions;
-  readonly geocoding?: ImmichGeocodingOptions;
   readonly serverOptions: ImmichServerOptions;
   readonly redisOptions: ImmichRedisOptions;
   readonly postgresOptions: ImmichPostgresOptions;
@@ -174,7 +154,6 @@ export class Immich extends Construct {
 
     const serverEnv = this.formServerEnvironment(props);
     const machineLearningEnv = this.formMachineLearningEnvironment(props);
-    const config = this.formConfig(props);
 
     const volumeMounts = [
       {
@@ -192,7 +171,6 @@ export class Immich extends Construct {
     this.serverService = this.buildServer(
       props.serverOptions,
       serverEnv,
-      config,
       volumeMounts,
       props.monitoring ?? false
     );
@@ -250,9 +228,9 @@ export class Immich extends Construct {
    *
    * Only variables the server still reads are set here. Everything that used to
    * be configured through `MACHINE_LEARNING_*`, `REVERSE_GEOCODING_*`,
-   * `PUBLIC_LOGIN_MESSAGE` and friends now lives in the config file written by
-   * `formConfig`, and the remaining strays (`UPLOAD_LOCATION`, `IMMICH_VERSION`)
-   * were only ever read by the upstream docker compose file.
+   * `PUBLIC_LOGIN_MESSAGE` and friends is now an admin-UI system setting stored
+   * in the database, and the remaining strays (`UPLOAD_LOCATION`,
+   * `IMMICH_VERSION`) were only ever read by the upstream docker compose file.
    * https://docs.immich.app/install/environment-variables
    */
   private formServerEnvironment(
@@ -271,6 +249,11 @@ export class Immich extends Construct {
         key: "password",
       }),
       REDIS_HOSTNAME: EnvValue.fromValue(options.redisOptions.hostname),
+      // Seeds the default for the machineLearning.urls system setting, which
+      // is otherwise `http://immich-machine-learning:3003` and wrong here.
+      IMMICH_MACHINE_LEARNING_URL: EnvValue.fromValue(
+        `http://${this.machineLearningService.name}:${this.machineLearningService.port}`
+      ),
     };
 
     // `IMMICH_METRICS` was replaced by the telemetry include/exclude lists.
@@ -367,131 +350,14 @@ export class Immich extends Construct {
     return env;
   }
 
-  private formConfig(options: ImmichProps): Record<string, unknown> {
-    const config: Record<string, unknown> = {};
-
-    const serverConfig: Record<string, unknown> = {};
-    if (options.serverOptions.externalDomain) {
-      serverConfig.externalDomain = options.serverOptions.externalDomain;
-    }
-    if (options.generalOptions?.loginMessage) {
-      serverConfig.loginPageMessage = options.generalOptions.loginMessage;
-    }
-    if (Object.keys(serverConfig).length > 0) {
-      config.server = serverConfig;
-    }
-
-    if (options.generalOptions?.logLevel) {
-      config.logging = {
-        level: options.generalOptions.logLevel,
-      };
-    }
-
-    const reverseGeocodingEnabled =
-      options.geocoding?.enabled ??
-      (options.geocoding?.disable !== undefined
-        ? !options.geocoding.disable
-        : undefined);
-    if (reverseGeocodingEnabled !== undefined) {
-      config.reverseGeocoding = {
-        enabled: reverseGeocodingEnabled,
-      };
-    }
-
-    const machineLearningConfig: Record<string, unknown> = {
-      urls: options.machineLearningOptions?.urls ?? [
-        `http://${this.machineLearningService.name}:${this.machineLearningService.port}`,
-      ],
-    };
-
-    const clipModelName =
-      options.machineLearningOptions?.clip?.modelName ??
-      options.machineLearningOptions?.clipTextModel;
-    if (clipModelName) {
-      machineLearningConfig.clip = {
-        modelName: clipModelName,
-      };
-    }
-
-    const minFaceScore =
-      options.machineLearningOptions?.facialRecognition?.minScore ??
-      options.machineLearningOptions?.minimumFaceScore;
-    const faceModelName =
-      options.machineLearningOptions?.facialRecognition?.modelName ??
-      options.machineLearningOptions?.faceRecognitionModel;
-    if (minFaceScore !== undefined || faceModelName) {
-      const facialRecognition: Record<string, unknown> = {};
-      if (minFaceScore !== undefined) {
-        facialRecognition.minScore = minFaceScore;
-      }
-      if (faceModelName) {
-        facialRecognition.modelName = faceModelName;
-      }
-      machineLearningConfig.facialRecognition = facialRecognition;
-    }
-
-    if (
-      options.machineLearningOptions?.duplicateDetection?.maxDistance !==
-      undefined
-    ) {
-      machineLearningConfig.duplicateDetection = {
-        maxDistance: options.machineLearningOptions.duplicateDetection.maxDistance,
-      };
-    }
-
-    // Replaces the removed `IMMICH_MACHINE_LEARNING_PING_TIMEOUT`.
-    const availabilityChecks = options.machineLearningOptions?.availabilityChecks;
-    if (availabilityChecks) {
-      const checks: Record<string, unknown> = {};
-      if (availabilityChecks.enabled !== undefined) {
-        checks.enabled = availabilityChecks.enabled;
-      }
-      if (availabilityChecks.timeout !== undefined) {
-        checks.timeout = availabilityChecks.timeout;
-      }
-      if (availabilityChecks.interval !== undefined) {
-        checks.interval = availabilityChecks.interval;
-      }
-      if (Object.keys(checks).length > 0) {
-        machineLearningConfig.availabilityChecks = checks;
-      }
-    }
-
-    config.machineLearning = machineLearningConfig;
-
-    return config;
-  }
-
   private buildServer(
     options: ImmichServerOptions,
     env: Record<string, EnvValue>,
-    config: Record<string, unknown>,
     mounts: VolumeMount[],
     monitoring: boolean
   ): Service {
     const envVariables = { ...env };
     const volumeMounts = [...mounts];
-    if (Object.keys(config).length > 0) {
-      const configMap = new ConfigMap(this, "server-config", {
-        data: {
-          "immich-config.json": JSON.stringify(config, null, 2),
-        },
-      });
-      const configVolume = Volume.fromConfigMap(
-        this,
-        "server-config-volume",
-        configMap
-      );
-      volumeMounts.push({
-        path: "/immich-config.json",
-        volume: configVolume,
-        readOnly: true,
-        subPath: "immich-config.json",
-      });
-      envVariables.IMMICH_CONFIG_FILE = EnvValue.fromValue(
-        "/immich-config.json"
-      );
-    }
 
     const deployment = new Deployment(this, "server-deployment", {
       replicas: 1,

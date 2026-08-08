@@ -174,25 +174,6 @@ spec:
     cdk8s.io/metadata.addr: immich-app-machine-learning-deployment-c8099966
   type: ClusterIP
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: immich-app-server-config-c86126e4
-  namespace: immich
-data:
-  immich-config.json: |-
-    {
-      "server": {
-        "externalDomain": "https://immich.drigs.org"
-      },
-      "machineLearning": {
-        "urls": [
-          "http://immich-app-machine-learning-service-c858f540:3003"
-        ]
-      }
-    }
-immutable: false
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -232,10 +213,10 @@ spec:
                   name: immich-database-secret-c86932a0
             - name: REDIS_HOSTNAME
               value: immich-redis-service-c83c7595
+            - name: IMMICH_MACHINE_LEARNING_URL
+              value: http://immich-app-machine-learning-service-c858f540:3003
             - name: IMMICH_TELEMETRY_INCLUDE
               value: all
-            - name: IMMICH_CONFIG_FILE
-              value: /immich-config.json
           image: ghcr.io/immich-app/immich-server:v3.1.0
           imagePullPolicy: Always
           livenessProbe:
@@ -286,10 +267,6 @@ spec:
               name: media
             - mountPath: photos
               name: photos
-            - mountPath: /immich-config.json
-              name: configmap-immich-app-server-config-c86126e4
-              readOnly: true
-              subPath: immich-config.json
       dnsPolicy: ClusterFirst
       hostNetwork: false
       restartPolicy: Always
@@ -307,9 +284,6 @@ spec:
           nfs:
             path: /mnt/WD-6D-8T/photos
             server: 10.0.10.180
-        - configMap:
-            name: immich-app-server-config-c86126e4
-          name: configmap-immich-app-server-config-c86126e4
 ---
 apiVersion: v1
 kind: Service

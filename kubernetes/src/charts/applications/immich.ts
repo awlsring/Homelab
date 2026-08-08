@@ -18,7 +18,6 @@ import { HomelabIngressOptions } from "../../constructs/homelab/ingress";
 import {
   Immich,
   ImmichGeneralOptions,
-  ImmichGeocodingOptions,
   ImmichMachineLearningOptions,
   ImmichPhotoVolumeOptions,
 } from "../../constructs/applications/immich";
@@ -45,7 +44,6 @@ export interface ImmichChartProps extends HomelabChartProps {
   readonly ingress: HomelabIngressOptions;
   readonly secretStore: string;
   readonly generalOptions?: ImmichGeneralOptions;
-  readonly geocoding?: ImmichGeocodingOptions;
   readonly database: {
     readonly username: string;
     readonly database: string;
@@ -206,11 +204,9 @@ export class ImmichChart extends HomelabChart {
       photoCollectionShares: externalCollections,
       monitoring: true,
       generalOptions: props.generalOptions,
-      geocoding: props.geocoding,
       serverOptions: {
         ingress: props.ingress,
         imageTag: props.imageTag,
-        externalDomain: props.publicProxy?.publicBaseUrl,
       },
       machineLearningOptions: {
         ...props.machineLearning.options,
