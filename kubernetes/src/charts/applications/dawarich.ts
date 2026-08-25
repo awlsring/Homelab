@@ -121,7 +121,7 @@ export class DawarichChart extends HomelabChart {
     const valkey = this.createValkeyInstance(props);
 
     const dawarich = new Dawarich(this, "app", {
-      imageTag: "latest",
+      imageTag: props.imageTag,
       secretKeyBase: secretKey.asSecretValue(),
       postgres: {
         hostname: dbCluster.readWriteService(),

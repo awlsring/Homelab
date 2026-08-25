@@ -33,7 +33,7 @@ export class Byparr extends Construct {
       scheme: ConnectionScheme.HTTP,
       initialDelaySeconds: Duration.seconds(5),
       periodSeconds: Duration.seconds(10),
-      timeoutSeconds: Duration.seconds(1),
+      timeoutSeconds: Duration.seconds(30),
       failureThreshold: 3,
     });
 
@@ -77,7 +77,7 @@ export class Byparr extends Construct {
             scheme: ConnectionScheme.HTTP,
             initialDelaySeconds: Duration.seconds(0),
             periodSeconds: Duration.seconds(5),
-            timeoutSeconds: Duration.seconds(1),
+            timeoutSeconds: Duration.seconds(30),
             failureThreshold: 30,
           }),
         },

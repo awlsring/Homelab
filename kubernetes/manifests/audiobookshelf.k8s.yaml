@@ -53,7 +53,7 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        - image: ghcr.io/ghcr.io/advplyr/audiobookshelf:2.7.1
+        - image: ghcr.io/advplyr/audiobookshelf:2.36.0
           imagePullPolicy: Always
           name: audiobookshelf
           ports:

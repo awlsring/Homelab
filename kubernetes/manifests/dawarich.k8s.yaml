@@ -299,7 +299,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: dawarich-geoapify-key-c8cb1570
-          image: freikin/dawarich:latest
+          image: freikin/dawarich:1.13.1
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -383,7 +383,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: dawarich-geoapify-key-c8cb1570
-          image: freikin/dawarich:latest
+          image: freikin/dawarich:1.13.1
           imagePullPolicy: Always
           name: worker
           resources:

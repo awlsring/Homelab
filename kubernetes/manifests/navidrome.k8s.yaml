@@ -50,7 +50,7 @@ spec:
               value: info
             - name: ND_SCANSCHEDULE
               value: "@every 1h"
-          image: docker.io/deluan/navidrome:latest
+          image: docker.io/deluan/navidrome:0.63.2
           imagePullPolicy: Always
           name: navidrome
           ports:

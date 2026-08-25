@@ -95,7 +95,7 @@ export class AudioBookshelfChart extends HomelabChart {
             },
           },
           name: "audiobookshelf",
-          image: `ghcr.io/ghcr.io/advplyr/audiobookshelf:${props.imageTag}`,
+          image: `ghcr.io/advplyr/audiobookshelf:${props.imageTag}`,
           ports: [{ number: WEB_PORT }],
           volumeMounts: [
             {

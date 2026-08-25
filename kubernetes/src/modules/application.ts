@@ -31,7 +31,7 @@ export class ApplicationModule extends Module {
 
     new AudioBookshelfChart(app, "audiobookshelf", {
       namespace: "audiobookshelf",
-      imageTag: "2.7.1",
+      imageTag: "2.36.0",
       configStorage: {
         storageClassName: "longhorn",
       },
@@ -244,7 +244,7 @@ export class ApplicationModule extends Module {
 
     new DawarichChart(app, "dawarich", {
       namespace: "dawarich",
-      imageTag: "latest",
+      imageTag: "1.13.1",
       secretStore: ONEPASSWORD_SECRET_STORE,
       storage: {
         storageClass: "longhorn",
@@ -278,7 +278,7 @@ export class ApplicationModule extends Module {
 
     new NavidromeChart(app, "navidrome", {
       namespace: "navidrome",
-      imageTag: "latest",
+      imageTag: "0.63.2",
       configStorage: {
         storageClass: "longhorn",
         size: Size.gibibytes(5),
