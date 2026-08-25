@@ -13,7 +13,7 @@ in {
   options = {
     jellyfin = {
       enable = lib.mkEnableOption "enables jellyfin";
-      jellyseerr = lib.mkEnableOption "Enable Jellyseer";
+      seerr = lib.mkEnableOption "Enable Seerr";
     };
   };
 
@@ -43,15 +43,15 @@ in {
       extraPackages = with pkgs; [
         intel-media-driver
         intel-vaapi-driver # previously vaapiIntel
-        vaapiVdpau
+        libva-vdpau-driver
         libvdpau-va-gl
         intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
         vpl-gpu-rt # QSV on 11th gen or newer
       ];
     };
 
-    # Jellyseerr
-    services.jellyseerr = lib.mkIf config.jellyfin.jellyseerr {
+    # Seerr
+    services.seerr = lib.mkIf config.jellyfin.seerr {
       enable = true;
       openFirewall = true;
     };

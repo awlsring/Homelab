@@ -74,6 +74,12 @@ in {
     frigate = {
       enable = lib.mkEnableOption "enables frigate";
 
+      image = mkOption {
+        type = types.str;
+        default = "ghcr.io/blakeblackshear/frigate:stable";
+        description = "Frigate container image";
+      };
+
       settings = mkOption {
         type = types.submodule {
           freeformType = format.type;
@@ -199,7 +205,7 @@ in {
 
     virtualisation.oci-containers.containers."frigate" = {
       autoStart = true;
-      image = "ghcr.io/blakeblackshear/frigate:stable";
+      image = cfg.image;
       environmentFiles = [
         config.sops.secrets."frigate/plus-key".path
         config.sops.secrets."frigate/rtsp-password".path

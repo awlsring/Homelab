@@ -110,7 +110,7 @@
           direnv
           # nodePackages.cdktf-cli
           opentofu
-          nodePackages.cdk8s-cli
+          cdk8s-cli
           kubernetes-helm
           k9s
           kubectl

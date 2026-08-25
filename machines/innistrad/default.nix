@@ -22,6 +22,7 @@ in {
   ];
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   machine.hostname = hostname;
@@ -38,11 +39,13 @@ in {
   # media server
   jellyfin = {
     enable = true;
-    jellyseerr = true;
+    seerr = true;
   };
 
   frigate = {
-    enable = false;
+    # Preserve the running Frigate version while updating the rest of the host.
+    enable = true;
+    image = "ghcr.io/blakeblackshear/frigate@sha256:44745918b0124253890b389e41ed9e24553bd156ab3f9e2b06723c0dfed2af8c";
     settings = {
       mqtt.enabled = true;
       detectors.coral = {
