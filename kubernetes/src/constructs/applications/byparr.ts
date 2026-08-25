@@ -14,6 +14,7 @@ import { Construct } from "constructs";
 const APPLICATION_NAME = "byparr";
 const IMAGE = "ghcr.io/thephaseless/byparr";
 const PORT = 8191;
+const HEALTH_PATH = "/health";
 const DEFAULT_IMAGE_TAG = "latest";
 
 export interface ByparrProps {
@@ -27,7 +28,7 @@ export class Byparr extends Construct {
   constructor(scope: Construct, name: string, props: ByparrProps = {}) {
     super(scope, name);
 
-    const health = Probe.fromHttpGet("/docs", {
+    const health = Probe.fromHttpGet(HEALTH_PATH, {
       port: PORT,
       scheme: ConnectionScheme.HTTP,
       initialDelaySeconds: Duration.seconds(5),
@@ -71,7 +72,7 @@ export class Byparr extends Construct {
           },
           readiness: health,
           liveness: health,
-          startup: Probe.fromHttpGet("/docs", {
+          startup: Probe.fromHttpGet(HEALTH_PATH, {
             port: PORT,
             scheme: ConnectionScheme.HTTP,
             initialDelaySeconds: Duration.seconds(0),

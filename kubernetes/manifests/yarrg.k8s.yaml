@@ -46,7 +46,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/radarr:5.17.2
+          image: lscr.io/linuxserver/radarr:6.3.0
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -204,7 +204,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/sonarr:latest
+          image: lscr.io/linuxserver/sonarr:4.0.19
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -362,7 +362,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/lidarr:2.8.2
+          image: lscr.io/linuxserver/lidarr:3.1.0
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -520,7 +520,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/readarr:0.4.10-develop
+          image: lscr.io/linuxserver/readarr:0.4.18-develop
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -678,7 +678,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/bazarr:1.5.1
+          image: lscr.io/linuxserver/bazarr:1.6.0
           imagePullPolicy: Always
           name: bazarr
           ports:
@@ -824,7 +824,7 @@ spec:
               value: "1000"
             - name: TZ
               value: Etc/UTC
-          image: lscr.io/linuxserver/prowlarr:1.30.2
+          image: lscr.io/linuxserver/prowlarr:2.5.2
           imagePullPolicy: Always
           livenessProbe:
             exec:
@@ -966,7 +966,7 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /docs
+              path: /health
               port: 8191
               scheme: HTTP
             initialDelaySeconds: 5
@@ -980,7 +980,7 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /docs
+              path: /health
               port: 8191
               scheme: HTTP
             initialDelaySeconds: 5
@@ -1001,7 +1001,7 @@ spec:
           startupProbe:
             failureThreshold: 30
             httpGet:
-              path: /docs
+              path: /health
               port: 8191
               scheme: HTTP
             initialDelaySeconds: 0
@@ -1074,7 +1074,7 @@ spec:
               value: "5000"
             - name: TZ
               value: America/Los_Angeles
-          image: docker.io/ciuse99/suggestarr:v2.4.3
+          image: docker.io/ciuse99/suggestarr:v2.13.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3

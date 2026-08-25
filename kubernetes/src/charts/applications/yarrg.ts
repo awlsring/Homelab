@@ -180,7 +180,7 @@ export class YarrgChart extends HomelabChart {
 
     if (props.suggestarr) {
       const app = new SuggestArr(this, "suggestarr", {
-        imageTag: props.suggestarr.imageTag ?? "v2.4.3",
+        imageTag: props.suggestarr.imageTag ?? "v2.13.0",
         config: {
           storageClass: props.storageClass,
         },

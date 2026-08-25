@@ -59,26 +59,27 @@ export class ApplicationModule extends Module {
         certIssuer: "prod",
       },
       radarr: {
-        imageTag: "5.17.2",
+        imageTag: "6.3.0",
         dnsName: "radarr.us-drig-1.drigs.org",
       },
       sonarr: {
+        imageTag: "4.0.19",
         dnsName: "sonarr.us-drig-1.drigs.org",
       },
       lidarr: {
-        imageTag: "2.8.2",
+        imageTag: "3.1.0",
         dnsName: "lidarr.us-drig-1.drigs.org",
       },
       readarr: {
-        imageTag: "0.4.10-develop",
+        imageTag: "0.4.18-develop",
         dnsName: "readarr.us-drig-1.drigs.org",
       },
       bazarr: {
-        imageTag: "1.5.1",
+        imageTag: "1.6.0",
         dnsName: "bazarr.us-drig-1.drigs.org",
       },
       prowlarr: {
-        imageTag: "1.30.2",
+        imageTag: "2.5.2",
         dnsName: "prowlarr.us-drig-1.drigs.org",
       },
       byparr: {},
