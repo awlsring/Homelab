@@ -22,6 +22,7 @@ import { WoodpeckerCIChart } from "../charts/applications/woodpecker-ci";
 import { DawarichChart } from "../charts/applications/dawarich";
 import { BaikalChart } from "../charts/applications/baikal";
 import { NavidromeChart } from "../charts/applications/navidrome";
+import { BookloreChart } from "../charts/applications/booklore";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -296,6 +297,32 @@ export class ApplicationModule extends Module {
       logLevel: "info",
     });
 
+    new BookloreChart(app, "booklore", {
+      namespace: "booklore",
+      imageTag: "v2.3.1",
+      mariadbImageTag: "11.4.5",
+      secretStore: ONEPASSWORD_SECRET_STORE,
+      storage: {
+        data: {
+          storageClass: "longhorn",
+          size: Size.gibibytes(10),
+        },
+        database: {
+          storageClass: "longhorn",
+          size: Size.gibibytes(10),
+        },
+        books: {
+          server: this.config.storage.nfs["media"].ipv4,
+          serverPath: `${this.config.storage.nfs["media"].mountPath}/books`,
+        },
+      },
+      ingress: {
+        ingressClass: "nginx",
+        hostname: "booklore.us-drig-1.drigs.org",
+        certIssuer: "prod",
+      },
+    });
+
     // TODO: auto generate this somehow
     new GatusChart(app, "gatus", {
       createNamespace: true,
@@ -306,6 +333,13 @@ export class ApplicationModule extends Module {
           name: "Audiobookshelf",
           group: "media - internal",
           url: "https://audiobookshelf.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "BookLore",
+          group: "media - internal",
+          url: "https://booklore.us-drig-1.drigs.org/api/v1/healthcheck",
           conditions: [GatusConditions.HTTP_STATUS_2XX],
           alerts: [{ type: GatusAlertType.DISCORD }],
         }),

@@ -1,0 +1,360 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: booklore
+  namespace: booklore
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: booklore-database-password-c85ac917
+  namespace: booklore
+spec:
+  dataFrom:
+    - extract:
+        key: booklore-database-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: booklore-database-root-password-c818f88c
+  namespace: booklore
+spec:
+  dataFrom:
+    - extract:
+        key: booklore-database-root-password
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: onepassword-secret-store
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: booklore-database-pvc-c8858c7b
+  namespace: booklore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booklore-database-c87fe8dd
+  namespace: booklore
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: booklore-database-c8ab911e
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: booklore-database-c8ab911e
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+            - name: MYSQL_DATABASE
+              value: booklore
+            - name: MYSQL_USER
+              value: booklore
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: booklore-database-password-c85ac917
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: booklore-database-root-password-c818f88c
+          image: lscr.io/linuxserver/mariadb:11.4.5
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - mariadb-admin ping -h 127.0.0.1 --silent
+            failureThreshold: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          name: mariadb
+          ports:
+            - containerPort: 3306
+              name: mysql
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - mariadb-admin ping -h 127.0.0.1 --silent
+            failureThreshold: 3
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 2048Mi
+            requests:
+              cpu: 200m
+              memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - mariadb-admin ping -h 127.0.0.1 --silent
+            failureThreshold: 30
+            periodSeconds: 5
+            timeoutSeconds: 5
+          volumeMounts:
+            - mountPath: /config
+              name: pvc-booklore-database-pvc-c8858c7b
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-booklore-database-pvc-c8858c7b
+          persistentVolumeClaim:
+            claimName: booklore-database-pvc-c8858c7b
+            readOnly: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booklore-database-service-c8526f51
+  namespace: booklore
+spec:
+  externalIPs: []
+  ports:
+    - name: mysql
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+  selector:
+    cdk8s.io/metadata.addr: booklore-database-c8ab911e
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: booklore-data-pvc-c8bec71f
+  namespace: booklore
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
+  volumeMode: Filesystem
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booklore-app-c88f5f4b
+  namespace: booklore
+spec:
+  minReadySeconds: 0
+  progressDeadlineSeconds: 600
+  replicas: 1
+  selector:
+    matchLabels:
+      cdk8s.io/metadata.addr: booklore-app-c853e852
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        cdk8s.io/metadata.addr: booklore-app-c853e852
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: USER_ID
+              value: "1000"
+            - name: GROUP_ID
+              value: "1000"
+            - name: TZ
+              value: America/Los_Angeles
+            - name: ALLOWED_ORIGINS
+              value: https://booklore.us-drig-1.drigs.org
+            - name: DATABASE_URL
+              value: jdbc:mariadb://booklore-database-service-c8526f51:3306/booklore
+            - name: DATABASE_USERNAME
+              value: booklore
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: booklore-database-password-c85ac917
+            - name: DISK_TYPE
+              value: NETWORK
+          image: ghcr.io/booklore-app/booklore:v2.3.1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /api/v1/healthcheck
+              port: 6060
+              scheme: HTTP
+            periodSeconds: 30
+            timeoutSeconds: 10
+          name: booklore
+          ports:
+            - containerPort: 6060
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/v1/healthcheck
+              port: 6060
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 4096Mi
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /api/v1/healthcheck
+              port: 6060
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - mountPath: /app/data
+              name: pvc-booklore-data-pvc-c8bec71f
+            - mountPath: /books
+              name: books
+              readOnly: true
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      initContainers:
+        - args:
+            - until nc -z -w 2 booklore-database-service-c8526f51 3306; do sleep 2; done
+          command:
+            - /bin/sh
+            - -c
+          image: docker.io/library/busybox:1.37
+          imagePullPolicy: IfNotPresent
+          name: wait-for-database
+          resources:
+            limits:
+              cpu: 50m
+              memory: 32Mi
+            requests:
+              cpu: 10m
+              memory: 16Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: false
+      restartPolicy: Always
+      securityContext:
+        fsGroupChangePolicy: Always
+        runAsNonRoot: true
+      setHostnameAsFQDN: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: pvc-booklore-data-pvc-c8bec71f
+          persistentVolumeClaim:
+            claimName: booklore-data-pvc-c8bec71f
+            readOnly: false
+        - name: books
+          nfs:
+            path: /mnt/WD-6D-8T/fin/books
+            server: 10.0.10.180
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booklore-service-c844e5ce
+  namespace: booklore
+spec:
+  externalIPs: []
+  ports:
+    - name: http
+      port: 6060
+      protocol: TCP
+      targetPort: 6060
+  selector:
+    cdk8s.io/metadata.addr: booklore-app-c853e852
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: booklore-booklore-service-c844e5ce-tls-c8e0379d
+  namespace: booklore
+immutable: false
+stringData: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: prod
+    cert-manager.io/duration: 2160h
+    cert-manager.io/renew-before: 360h
+  name: booklore-ingress-c8a61822
+  namespace: booklore
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: booklore.us-drig-1.drigs.org
+      http:
+        paths:
+          - backend:
+              service:
+                name: booklore-service-c844e5ce
+                port:
+                  number: 6060
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - booklore.us-drig-1.drigs.org
+      secretName: booklore-booklore-service-c844e5ce-tls-c8e0379d

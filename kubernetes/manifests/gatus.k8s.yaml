@@ -70,6 +70,13 @@ data:
         conditions:
           - "[STATUS] < 300"
         group: media - internal
+      - name: BookLore
+        url: https://booklore.us-drig-1.drigs.org/api/v1/healthcheck
+        alerts:
+          - type: discord
+        conditions:
+          - "[STATUS] < 300"
+        group: media - internal
       - name: Jellyfin
         url: https://jellyfin.us-drig-1.drigs.org/health
         alerts:
