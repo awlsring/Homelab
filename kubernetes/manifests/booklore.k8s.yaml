@@ -339,6 +339,9 @@ metadata:
     cert-manager.io/cluster-issuer: prod
     cert-manager.io/duration: 2160h
     cert-manager.io/renew-before: 360h
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 256k
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
   name: booklore-ingress-c8a61822
   namespace: booklore
 spec:

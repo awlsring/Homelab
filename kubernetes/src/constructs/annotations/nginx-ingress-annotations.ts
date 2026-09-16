@@ -39,6 +39,24 @@ export class NginxIngressAnnotations {
       value: size,
     };
   }
+  static proxyBuffering(enabled: boolean): Annotation {
+    return {
+      key: `${BASE_NGINX_KEY}/proxy-buffering`,
+      value: enabled ? "on" : "off",
+    };
+  }
+  static proxyBuffersNumber(count: number): Annotation {
+    return {
+      key: `${BASE_NGINX_KEY}/proxy-buffers-number`,
+      value: count.toString(),
+    };
+  }
+  static proxyBufferSize(size: string): Annotation {
+    return {
+      key: `${BASE_NGINX_KEY}/proxy-buffer-size`,
+      value: size,
+    };
+  }
   static appRoot(target: string): Annotation {
     return {
       key: `${BASE_NGINX_KEY}/app-root`,

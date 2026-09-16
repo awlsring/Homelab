@@ -23,6 +23,7 @@ import { DawarichChart } from "../charts/applications/dawarich";
 import { BaikalChart } from "../charts/applications/baikal";
 import { NavidromeChart } from "../charts/applications/navidrome";
 import { BookloreChart } from "../charts/applications/booklore";
+import { NginxIngressAnnotations } from "../constructs/annotations/nginx-ingress-annotations";
 
 export const ONEPASSWORD_SECRET_STORE = "onepassword-secret-store";
 
@@ -320,6 +321,14 @@ export class ApplicationModule extends Module {
         ingressClass: "nginx",
         hostname: "booklore.us-drig-1.drigs.org",
         certIssuer: "prod",
+        annotations: [
+          // ingress-nginx uses one size for proxy_buffer_size and each
+          // proxy_buffers entry, so 256k satisfies BookLore's Kobo sync
+          // requirements for both directives.
+          NginxIngressAnnotations.proxyBuffering(true),
+          NginxIngressAnnotations.proxyBufferSize("256k"),
+          NginxIngressAnnotations.proxyBuffersNumber(4),
+        ],
       },
       tunnel: {
         email: "admin@drigs.org",

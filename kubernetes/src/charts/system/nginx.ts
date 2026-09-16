@@ -26,6 +26,11 @@ export class NginxIngressChart extends HomelabChart {
       values: {
         controller: {
           allowSnippetAnnotations: true,
+          config: {
+            // BookLore's Kobo sync uses larger-than-default request headers.
+            // ingress-nginx configures this directive at controller scope.
+            "large-client-header-buffers": "8 32k",
+          },
           admissionWebhooks: {
             timeoutSeconds: 30,
           },
