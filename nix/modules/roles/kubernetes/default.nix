@@ -32,6 +32,7 @@ in {
         then {
           role = "server";
           extraFlags = toString [
+            "--node-ip ${config.machine.active.ipv4}"
             "--tls-san 10.0.10.60" # make this configurable
             "--node-label \"k3s-upgrade=false\""
             "--etcd-expose-metrics"
@@ -49,6 +50,7 @@ in {
           # Worker node configuration
           role = "agent";
           extraFlags = toString [
+            "--node-ip ${config.machine.active.ipv4}"
             "--node-label \"k3s-upgrade=false\""
             "--kubelet-arg=register-with-taints=node.cilium.io/agent-not-ready:NoExecute"
           ];
