@@ -321,6 +321,13 @@ export class ApplicationModule extends Module {
         hostname: "booklore.us-drig-1.drigs.org",
         certIssuer: "prod",
       },
+      tunnel: {
+        email: "admin@drigs.org",
+        domain: "drigs.org",
+        cloudflareSecret: "cloudflare-secrets",
+        accountId: "5838eb1235ebfbff425cfca5e3db9062",
+        fqdn: "booklore.drigs.org",
+      },
     });
 
     // TODO: auto generate this somehow

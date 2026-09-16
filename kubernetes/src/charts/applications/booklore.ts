@@ -28,6 +28,7 @@ import {
   SecretStore,
   SecretStoreType,
 } from "../../constructs/external-secrets/secret-store";
+import { CloudflareClusterTunnel } from "../../constructs/cloudflare/tunnel/cluster-tunnel";
 
 const BOOKLORE_IMAGE = "ghcr.io/booklore-app/booklore";
 const BOOKLORE_PORT = 6060;
@@ -45,6 +46,13 @@ export interface BookloreChartProps extends HomelabChartProps {
   readonly mariadbImageTag: string;
   readonly secretStore: string;
   readonly ingress: HomelabIngressOptions;
+  readonly tunnel?: {
+    readonly email: string;
+    readonly domain: string;
+    readonly cloudflareSecret: string;
+    readonly accountId: string;
+    readonly fqdn: string;
+  };
   readonly storage: {
     readonly data: PersistentVolumeClaimOptions;
     readonly database: PersistentVolumeClaimOptions;
@@ -194,6 +202,10 @@ export class BookloreChart extends HomelabChart {
       server: props.storage.books.server,
       path: props.storage.books.serverPath,
     });
+    const allowedOrigins = [
+      `https://${props.ingress.hostname}`,
+      ...(props.tunnel ? [`https://${props.tunnel.fqdn}`] : []),
+    ];
 
     const booklore = new Deployment(this, "app", {
       replicas: 1,
@@ -239,9 +251,7 @@ export class BookloreChart extends HomelabChart {
             USER_ID: EnvValue.fromValue("1000"),
             GROUP_ID: EnvValue.fromValue("1000"),
             TZ: EnvValue.fromValue("America/Los_Angeles"),
-            ALLOWED_ORIGINS: EnvValue.fromValue(
-              `https://${props.ingress.hostname}`,
-            ),
+            ALLOWED_ORIGINS: EnvValue.fromValue(allowedOrigins.join(",")),
             DATABASE_URL: EnvValue.fromValue(
               `jdbc:mariadb://${databaseService.name}:${MARIADB_PORT}/${DATABASE_NAME}`,
             ),
@@ -319,5 +329,18 @@ export class BookloreChart extends HomelabChart {
       hostname: props.ingress.hostname,
       certIssuer: props.ingress.certIssuer,
     });
+
+    if (props.tunnel) {
+      const tunnel = new CloudflareClusterTunnel(this, "tunnel", {
+        tunnelName: "booklore",
+        email: props.tunnel.email,
+        domain: props.tunnel.domain,
+        cloudflareSecret: props.tunnel.cloudflareSecret,
+        accountId: props.tunnel.accountId,
+      });
+      tunnel.bindToService(service, {
+        domainName: props.tunnel.fqdn,
+      });
+    }
   }
 }

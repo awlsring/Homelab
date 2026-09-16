@@ -208,7 +208,7 @@ spec:
             - name: TZ
               value: America/Los_Angeles
             - name: ALLOWED_ORIGINS
-              value: https://booklore.us-drig-1.drigs.org
+              value: https://booklore.us-drig-1.drigs.org,https://booklore.drigs.org
             - name: DATABASE_URL
               value: jdbc:mariadb://booklore-database-service-c8526f51:3306/booklore
             - name: DATABASE_USERNAME
@@ -358,3 +358,33 @@ spec:
     - hosts:
         - booklore.us-drig-1.drigs.org
       secretName: booklore-booklore-service-c844e5ce-tls-c8e0379d
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: ClusterTunnel
+metadata:
+  name: booklore-tunnel-c8741dd8
+  namespace: booklore
+spec:
+  cloudflare:
+    accountId: 5838eb1235ebfbff425cfca5e3db9062
+    domain: drigs.org
+    email: admin@drigs.org
+    secret: cloudflare-secrets
+  image: cloudflare/cloudflared:2024.1.5
+  newTunnel:
+    name: booklore
+  size: 2
+---
+apiVersion: networking.cfargotunnel.com/v1alpha1
+kind: TunnelBinding
+metadata:
+  name: booklore-tunnel-binding-c86ccbdb
+  namespace: booklore
+subjects:
+  - kind: Service
+    name: booklore-service-c844e5ce
+    spec:
+      fqdn: booklore.drigs.org
+tunnelRef:
+  kind: ClusterTunnel
+  name: booklore-tunnel-c8741dd8
