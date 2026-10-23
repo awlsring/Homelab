@@ -18,10 +18,10 @@ export class NginxIngressChart extends HomelabChart {
       createNamespace: true,
     });
 
-    new Helm(this, "helm", {
+    const helm = new Helm(this, "helm", {
       chart: "ingress-nginx",
       repo: "https://kubernetes.github.io/ingress-nginx",
-      version: "4.12.0",
+      version: "4.12.8",
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         controller: {
@@ -42,6 +42,11 @@ export class NginxIngressChart extends HomelabChart {
           },
         },
       },
+    });
+
+    // Rendered Helm hooks are ordinary Jobs under Flux, with immutable templates.
+    helm.apiObjects.filter((object) => object.kind === "Job").forEach((job) => {
+      job.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/force", "enabled");
     });
   }
 }
