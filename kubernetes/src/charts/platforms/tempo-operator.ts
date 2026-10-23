@@ -1,4 +1,5 @@
 import { Include } from "cdk8s";
+import { join } from "path";
 import { Construct } from "constructs";
 import {
   HomelabChart,
@@ -22,10 +23,9 @@ export class TempoOperatorChart extends HomelabChart {
       url: "https://github.com/grafana/tempo-operator/releases/download/v0.16.0/tempo-operator.yaml",
     });
 
-    // Add Minio for default tempo storage
-    // Unsecure, so dont use this for important things
+    // Keep storage resources local so upstream main cannot silently replace them.
     new Include(this, "minio", {
-      url: "https://raw.githubusercontent.com/grafana/tempo-operator/main/minio.yaml",
+      url: join(__dirname, "../../../resources/tempo-minio.yaml"),
     });
   }
 }

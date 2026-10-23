@@ -95,6 +95,7 @@ export class MonitoringChart extends HomelabChart {
           },
         },
         grafana: {
+          image: { tag: "12.4.13" },
           enabled: true,
           ...this.makeIngress(
             "prod",

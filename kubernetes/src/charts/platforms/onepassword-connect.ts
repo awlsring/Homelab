@@ -38,6 +38,7 @@ export class OnePasswordConnectChart extends HomelabChart {
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         connect: {
+          version: "1.8.1",
           ingress: {
             enabled: true,
             annotations: {

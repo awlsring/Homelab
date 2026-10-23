@@ -17,13 +17,14 @@ export class LokiChart extends HomelabChart {
       createNamespace: true,
     });
 
-    new Helm(this, "helm", {
+    const helm = new Helm(this, "helm", {
       chart: "loki",
       repo: "https://grafana.github.io/helm-charts",
       version: "6.6.2",
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
       values: {
         loki: {
+          image: { tag: "3.7.9" },
           commonConfig: {
             replication_factor: 1,
           },
@@ -54,7 +55,16 @@ export class LokiChart extends HomelabChart {
         },
         minio: {
           enabled: true,
+          image: {
+            repository: "pgsty/silo",
+            tag: "RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7",
+          },
+          mcImage: {
+            repository: "pgsty/silo",
+            tag: "RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7",
+          },
         },
+        lokiCanary: { image: { tag: "3.7.9" } },
         deploymentMode: "SingleBinary",
         singleBinary: {
           replicas: 1,
@@ -96,6 +106,10 @@ export class LokiChart extends HomelabChart {
           replicas: 0,
         },
       },
+    });
+
+    helm.apiObjects.filter((object) => object.kind === "Job").forEach((job) => {
+      job.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/force", "enabled");
     });
   }
 }

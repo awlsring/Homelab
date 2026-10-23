@@ -52,7 +52,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-canary
   namespace: loki
@@ -65,7 +65,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki
   namespace: loki
@@ -409,7 +409,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki
   namespace: loki
@@ -522,7 +522,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9-gateway
   namespace: loki
@@ -691,7 +691,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-runtime
   namespace: loki
@@ -772,7 +772,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9-chunks-cache
   namespace: loki
@@ -799,7 +799,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9-gateway
   namespace: loki
@@ -823,7 +823,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-canary
   namespace: loki
@@ -847,7 +847,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9-results-cache
   namespace: loki
@@ -873,7 +873,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-memberlist
   namespace: loki
@@ -897,7 +897,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
     prometheus.io/service-monitor: "false"
     variant: headless
@@ -921,7 +921,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9
   namespace: loki
@@ -949,7 +949,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-canary
   namespace: loki
@@ -980,7 +980,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-          image: docker.io/grafana/loki-canary:3.0.0
+          image: docker.io/grafana/loki-canary:3.7.9
           imagePullPolicy: IfNotPresent
           name: loki-canary
           ports:
@@ -1018,7 +1018,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9-gateway
   namespace: loki
@@ -1035,7 +1035,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 336e287faeae576d6f4c70c72d64a642b6d75ea867eeedc83f61e9dca533ef5d
+        checksum/config: 34e32aeebf362ee48c2ffd5667bc5bf8bd392275cafc6a6a7d329ca45709ee75
       labels:
         app.kubernetes.io/component: gateway
         app.kubernetes.io/instance: loki-helm-c80c1fd9
@@ -1139,7 +1139,7 @@ spec:
                   name: loki-helm-c80c1fd9-minio
             - name: MINIO_PROMETHEUS_AUTH_TYPE
               value: public
-          image: quay.io/minio/minio:RELEASE.2022-09-17T00-09-45Z
+          image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7
           imagePullPolicy: IfNotPresent
           name: minio
           ports:
@@ -1194,7 +1194,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
     name: memcached-chunks-cache
   name: loki-helm-c80c1fd9-chunks-cache
@@ -1280,7 +1280,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
     name: memcached-results-cache
   name: loki-helm-c80c1fd9-results-cache
@@ -1367,7 +1367,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
     app.kubernetes.io/part-of: memberlist
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-c80c1fd9
   namespace: loki
@@ -1387,7 +1387,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 811cca6a66d63aa059de8939e02ec6b664f8238653c3cf8141bf3741ac8c5200
+        checksum/config: 61c60c79156f8f65d3bf9abe9745124fbf78f2a89bbf7afd314f50b6c2af8aa7
       labels:
         app.kubernetes.io/component: single-binary
         app.kubernetes.io/instance: loki-helm-c80c1fd9
@@ -1406,7 +1406,7 @@ spec:
         - args:
             - -config.file=/etc/loki/config/config.yaml
             - -target=all
-          image: docker.io/grafana/loki:3.0.0
+          image: docker.io/grafana/loki:3.7.9
           imagePullPolicy: IfNotPresent
           name: loki
           ports:
@@ -1486,7 +1486,7 @@ metadata:
     app.kubernetes.io/instance: loki-helm-c80c1fd9
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: loki
-    app.kubernetes.io/version: 3.0.0
+    app.kubernetes.io/version: 3.7.9
     helm.sh/chart: loki-6.6.2
   name: loki-helm-test
   namespace: loki
@@ -1511,6 +1511,7 @@ metadata:
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    kustomize.toolkit.fluxcd.io/force: enabled
   labels:
     app: minio-make-bucket-job
     chart: minio-4.0.15
@@ -1534,7 +1535,7 @@ spec:
               value: loki-helm-c80c1fd9-minio
             - name: MINIO_PORT
               value: "9000"
-          image: quay.io/minio/mc:RELEASE.2022-09-16T09-16-47Z
+          image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7
           imagePullPolicy: IfNotPresent
           name: minio-mc
           resources:
@@ -1560,6 +1561,7 @@ metadata:
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
+    kustomize.toolkit.fluxcd.io/force: enabled
   labels:
     app: minio-make-user-job
     chart: minio-4.0.15
@@ -1583,7 +1585,7 @@ spec:
               value: loki-helm-c80c1fd9-minio
             - name: MINIO_PORT
               value: "9000"
-          image: quay.io/minio/mc:RELEASE.2022-09-16T09-16-47Z
+          image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7
           imagePullPolicy: IfNotPresent
           name: minio-mc
           resources:

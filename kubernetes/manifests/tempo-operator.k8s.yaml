@@ -5677,13 +5677,13 @@ spec:
             - -c
             - |
               mkdir -p /storage/tempo && \
-              minio server /storage
+              exec silo server /storage
           env:
-            - name: MINIO_ACCESS_KEY
+            - name: MINIO_ROOT_USER
               value: tempo
-            - name: MINIO_SECRET_KEY
+            - name: MINIO_ROOT_PASSWORD
               value: supersecret
-          image: minio/minio
+          image: pgsty/silo:RELEASE.2026-10-18T00-00-00Z@sha256:2636fc4155d9a7e41ff58cdb65ddd13ba9304e67184e13c25bc5cb34016269d7
           name: minio
           ports:
             - containerPort: 9000

@@ -19,7 +19,7 @@ export class OTELOperatorChart extends HomelabChart {
     });
 
     new Include(this, "manifest", {
-      url: "https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml",
+      url: "https://github.com/open-telemetry/opentelemetry-operator/releases/download/v0.150.0/opentelemetry-operator.yaml",
     });
   }
 }
