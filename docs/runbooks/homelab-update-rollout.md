@@ -1,7 +1,8 @@
 # Homelab updates prepared October 22, 2026
 
-These changes are local commits only. Nothing has been pushed, reconciled,
-deployed, migrated or restarted. Pi-hole and the unrelated Bookshelf and host
+The user subsequently authorized pushing and monitoring a live rollout. Commits
+through `1f207b1` were pushed to origin/main and the implementation branch.
+The rollout record below supersedes the initial source-only status. Pi-hole and the unrelated Bookshelf and host
 disk-maintenance work remain outside this change.
 
 Implementation branch: `codex/homelab-security-updates`, based on `68eb180`.
@@ -110,7 +111,7 @@ storage claims and endpoints. This removes a moving upstream `main` include
 that had silently changed its image to a test utility during regeneration.
 Tempo credentials use the current `MINIO_ROOT_USER`/`MINIO_ROOT_PASSWORD`
 variable names, with the existing values preserved. Credential rotation is
-not part of this source-only update.
+not part of this update.
 
 Read-only inspection found Tempo storage format `xl-single`, XL version 3,
 and both Loki drives using format `xl`, XL version 3. This rules out a legacy
@@ -122,11 +123,10 @@ configuration. Never test an old binary against an upgraded live data directory.
 
 ## Required deployment order and acceptance
 
-Do not promote the whole branch as one unattended rollout. Flux currently
-reconciles the complete generated-manifest directory without dependency ordering.
-Promote selected commit/files in maintenance windows, or suspend affected
-reconciliation while an operator performs the sequence. This document is not
-authorization to change live reconciliation.
+Do not promote the whole branch as one unattended rollout. The repository defines
+Flux reconciliation, but the actual homelab context has no Flux controllers or
+CRDs. This rollout uses narrow, staged updates of existing live workloads.
+Installing Flux and applying unrelated repository drift are outside this rollout.
 
 1. Record health and prove recovery for etcd/K3s token, databases, persistent
    volumes and object stores. Scheduled backup definitions alone are not proof.
@@ -203,3 +203,58 @@ container startup, application database migrations and MinIO restored-data
 compatibility could not be exercised locally. Nothing here claims live runtime
 acceptance. Do not infer that the source-only validation substitutes for the
 deployment gates above.
+
+## Authorized live rollout record
+
+The user authorized deployment and monitoring after source preparation. The live
+context is `homelab`, with three K3s 1.32.0 nodes. Existing live configuration was
+preserved through narrow patches rather than applying entire stale chart outputs.
+Private backups and operational receipts are retained outside Git under
+`/Users/awlsring/.codex/reviews/homelab-rollout-20261022`.
+
+Before updates, direct PostgreSQL dumps for Dawarich, Forgejo and Immich were
+fully read with `pg_restore`; recent successful scheduled backups also existed.
+Baikal and Navidrome SQLite backups passed integrity checks. Baikal configuration,
+Booklore's database and stopped PDS data were archived. Recent etcd snapshots
+reported ready on all nodes, and 17 pre-upgrade Longhorn snapshots reported ready.
+The Longhorn backup target is unconfigured: local snapshots are not remote
+recovery evidence.
+
+Both object stores were stopped for consistent archives, restored into isolated
+test volumes and tested using the exact pinned Silo image. Readiness,
+authenticated listing and a new object write/read passed for both copies. Loki
+also passed as UID/GID 1000 with the writable `/tmp/certs` path. Original live
+PVCs were never mounted into the test pods. Image-only rollback against upgraded
+storage remains unsafe; retain the consistent archives.
+
+Grafana previously used `emptyDir`. Its state was archived, copied into a new
+5 GiB Longhorn PVC, and checked after upgrading: SQLite integrity passed with
+28 dashboards, one user and two data sources retained. Source now uses Recreate,
+persistent storage and a current BusyBox ownership initializer. Cilium agent and
+Envoy updates are limited to one unavailable node at a time.
+
+Rolled out: ingress-nginx 1.12.8; patched Baikal with PHP 8.5.12 and the completed
+admin upgrade wizard; prepared application versions already deployed in the
+cluster; Connect 1.8.1; cloudflared 2026.10.3; cert-manager 1.16.5; CNPG operator
+1.25.4; Grafana 12.4.13; Cilium 1.16.19; both Silo stores; Loki/canary 3.7.9.
+Tunnel CRD image changes did not update deployments automatically, so their
+matching deployment images were updated explicitly as well.
+
+Held and excluded:
+
+- Longhorn 1.8.2 remains source-only. The existing Prometheus volume was already
+  degraded. Grafana's new PVC has two working replicas; scheduling the third
+  fails with `disks are unavailable;precheck new replica failed`. Resolve disk
+  capacity/replica scheduling and recovery readiness before upgrading storage.
+- Mealie and Woodpecker are absent from this cluster and remain source-only.
+  Pi-hole remains excluded by the user's instruction.
+- Gatus was already unavailable, with its database init job Pending before this
+  rollout. It is not a regression introduced by these updates.
+- No K3s/NixOS migration, database-engine version change, Flux installation or
+  unrelated OpenTelemetry operator rollout was performed.
+
+Acceptance checks cover Kubernetes rollouts, node readiness, existing database
+readiness, certificate Ready conditions, app health routes, Baikal DAV's
+expected authentication response and public PDS/Immich/Booklore HTTP health.
+They do not establish interactive login, mobile sync, every integration or
+end-to-end Tempo trace ingestion/query acceptance.

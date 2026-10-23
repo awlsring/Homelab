@@ -12,6 +12,16 @@ export class CiliumChart extends HelmChart {
       repo: "https://helm.cilium.io/",
       version: "1.16.19",
       values: {
+        updateStrategy: {
+          type: "RollingUpdate",
+          rollingUpdate: { maxUnavailable: 1 },
+        },
+        envoy: {
+          updateStrategy: {
+            type: "RollingUpdate",
+            rollingUpdate: { maxUnavailable: 1 },
+          },
+        },
         operator: {
           replicas: 3,
         },

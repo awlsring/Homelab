@@ -96,6 +96,14 @@ export class MonitoringChart extends HomelabChart {
         },
         grafana: {
           image: { tag: "12.4.13" },
+          deploymentStrategy: { type: "Recreate" },
+          initChownData: { image: { tag: "1.37" } },
+          persistence: {
+            enabled: true,
+            type: "pvc",
+            storageClassName: "longhorn",
+            size: "5Gi",
+          },
           enabled: true,
           ...this.makeIngress(
             "prod",
