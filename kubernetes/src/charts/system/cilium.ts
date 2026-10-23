@@ -10,7 +10,7 @@ export class CiliumChart extends HelmChart {
       createNamespace: false,
       chart: "cilium",
       repo: "https://helm.cilium.io/",
-      version: "1.16.4",
+      version: "1.16.19",
       values: {
         operator: {
           replicas: 3,

@@ -21,8 +21,9 @@ export class CloudnativePgChart extends HomelabChart {
     new Helm(this, "helm", {
       chart: "cloudnative-pg",
       repo: "https://cloudnative-pg.github.io/charts",
-      version: "0.23.0",
+      version: "0.23.2",
       helmFlags: ["--namespace", NAMESPACE, "--include-crds"],
+      values: { image: { tag: "1.25.4" } },
     });
   }
 }

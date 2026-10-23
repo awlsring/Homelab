@@ -36,7 +36,7 @@ export class LonghornChart extends HomelabChart {
     const helm = new Helm(this, "helm", {
       chart: "longhorn",
       repo: "https://charts.longhorn.io",
-      version: "1.8.0",
+      version: "1.8.2",
       helmFlags: ["--namespace", LONGHORN_NAMESPACE, "--include-crds"],
       values: {
         service: {
@@ -74,6 +74,13 @@ export class LonghornChart extends HomelabChart {
         );
       }
       if (apiObject.kind === "Job") {
+        if (apiObject.metadata.name === "longhorn-uninstall") {
+          // A Helm pre-delete hook must never run as an ordinary Flux apply.
+          apiObject.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/ssa", "Ignore");
+          apiObject.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/prune", "disabled");
+        } else {
+          apiObject.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/force", "enabled");
+        }
         apiObject.addJsonPatch(
           JsonPatch.add("/spec/template/spec/containers/0/envFrom", [
             {

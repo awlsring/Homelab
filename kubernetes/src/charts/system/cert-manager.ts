@@ -25,10 +25,10 @@ export class CertManagerChart extends HomelabChart {
       createNamespace: true,
     });
 
-    new Helm(this, "helm", {
+    const helm = new Helm(this, "helm", {
       chart: "cert-manager",
       repo: "https://charts.jetstack.io",
-      version: "1.16.3",
+      version: "1.16.5",
       helmFlags: ["--namespace", CERT_MANAGER_NAMESPACE, "--include-crds"],
       values: {
         installCRDs: true,
@@ -40,6 +40,10 @@ export class CertManagerChart extends HomelabChart {
           },
         },
       },
+    });
+
+    helm.apiObjects.filter((object) => object.kind === "Job").forEach((job) => {
+      job.metadata.addAnnotation("kustomize.toolkit.fluxcd.io/force", "enabled");
     });
 
     props?.certIssuers.forEach((issuer) => {
