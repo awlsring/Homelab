@@ -23,8 +23,6 @@ import {
   HomelabIngressOptions,
 } from "../../constructs/homelab/ingress";
 
-const IMAGE_TAG = "10.0.0-rootless";
-
 export interface ForgejoChartProps extends HomelabChartProps {
   readonly imageTag: string;
   readonly secretStore: string;
@@ -100,7 +98,7 @@ export class ForgejoChart extends HomelabChart {
     const volume = Volume.fromPersistentVolumeClaim(this, "volume", pvc);
 
     const forgejo = new Forgejo(this, "app", {
-      imageTag: IMAGE_TAG,
+      imageTag: props.imageTag,
       volume: volume,
       hostname: props.ingress.hostname,
       database: {

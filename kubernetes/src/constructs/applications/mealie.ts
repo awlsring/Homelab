@@ -124,7 +124,7 @@ export class Mealie extends Construct {
           }),
           startup: Probe.fromHttpGet("/api/app/about", {
             port: PORT,
-            failureThreshold: 30,
+            failureThreshold: 90,
             initialDelaySeconds: Duration.seconds(10),
             periodSeconds: Duration.seconds(10),
             timeoutSeconds: Duration.seconds(1),

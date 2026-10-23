@@ -220,7 +220,7 @@ spec:
                   name: booklore-database-password-c85ac917
             - name: DISK_TYPE
               value: NETWORK
-          image: ghcr.io/booklore-app/booklore:v2.3.1
+          image: ghcr.io/booklore-app/booklore:v2.4.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 5
@@ -373,7 +373,7 @@ spec:
     domain: drigs.org
     email: admin@drigs.org
     secret: cloudflare-secrets
-  image: cloudflare/cloudflared:2024.1.5
+  image: cloudflare/cloudflared:2026.10.3
   newTunnel:
     name: booklore
   size: 2

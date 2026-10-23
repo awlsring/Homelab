@@ -158,7 +158,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: forgejo-db-secret-c87e89ad
-          image: codeberg.org/forgejo/forgejo:10.0.0-rootless
+          image: codeberg.org/forgejo/forgejo:15.0.10-rootless
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 10

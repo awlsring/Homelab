@@ -114,7 +114,7 @@ export class WoodpeckerCIAgent extends Construct {
                     value: "kubernetes",
                   },
                   {
-                    name: "WOODPECKER_KUBERNETES_NAMESPACE",
+                    name: "WOODPECKER_BACKEND_K8S_NAMESPACE",
                     value: props.namespace,
                   },
                   {

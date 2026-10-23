@@ -196,7 +196,7 @@ spec:
                   name: bluesky-pds-smtp-url-c835e4c6
             - name: PDS_EMAIL_FROM_ADDRESS
               value: admin@bluesky.drigs.org
-          image: ghcr.io/bluesky-social/pds:0.4.208
+          image: ghcr.io/bluesky-social/pds:0.4.5046
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -282,7 +282,7 @@ spec:
     domain: drigs.org
     email: admin@drigs.org
     secret: cloudflare-secrets
-  image: cloudflare/cloudflared:2024.1.5
+  image: cloudflare/cloudflared:2026.10.3
   newTunnel:
     name: bluesky-pds
   size: 2

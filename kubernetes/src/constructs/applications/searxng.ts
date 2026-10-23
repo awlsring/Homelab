@@ -75,63 +75,6 @@ link_token = true
       limiterConfigMap
     );
 
-    const uwsgiConfigMap = new ConfigMap(this, "uwsgi", {
-      data: {
-        "uwsgi.ini": `[uwsgi]
-# Who will run the code
-uid = searxng
-gid = searxng
-
-# Number of workers (usually CPU count)
-# default value: %k (= number of CPU core, see Dockerfile)
-workers = %k
-
-# Number of threads per worker
-# default value: 4 (see Dockerfile)
-threads = 4
-
-# The right granted on the created socket
-chmod-socket = 666
-
-# Plugin to use and interpreter config
-single-interpreter = true
-master = true
-plugin = python3
-lazy-apps = true
-enable-threads = 4
-
-# Module to import
-module = searx.webapp
-
-# Virtualenv and python path
-pythonpath = /usr/local/searxng/
-chdir = /usr/local/searxng/searx/
-
-# automatically set processes name to something meaningful
-auto-procname = true
-
-# Disable request logging for privacy
-disable-logging = true
-log-5xx = true
-
-# Set the max size of a request (request-body excluded)
-buffer-size = 8192
-
-# No keep alive
-# See https://github.com/searx/searx-docker/issues/24
-add-header = Connection: close
-
-# uwsgi serves the static files
-static-map = /static=/usr/local/searxng/searx/static
-# expires set to one day
-static-expires = /* 86400
-static-gzip-all = True
-offload-threads = 4
-`,
-      },
-    });
-    const uwsgiVolume = Volume.fromConfigMap(this, "uwsgi-vol", uwsgiConfigMap);
-
     const image = `${SEARXNG_IMAGE}:${props.imageTag}`;
 
     this.serviceAccount = new ServiceAccount(this, "service-account", {
@@ -148,10 +91,14 @@ offload-threads = 4
           image: image,
           ports: [{ number: 8080, protocol: Protocol.TCP }],
           envVariables: {
-            SEARXNG_REDIS_URL: EnvValue.fromValue(
+            // ConfigMap mounts are read-only; the Granian entrypoint must not chown them.
+            FORCE_OWNERSHIP: EnvValue.fromValue("false"),
+            GRANIAN_HOST: EnvValue.fromValue("0.0.0.0"),
+            GRANIAN_PORT: EnvValue.fromValue("8080"),
+            SEARXNG_VALKEY_URL: EnvValue.fromValue(
               `redis://${props.valkeyHostname}:6379/0`
             ),
-            SEARXNG_URL: EnvValue.fromValue(props.hostname),
+            SEARXNG_BASE_URL: EnvValue.fromValue(`https://${props.hostname}`),
             SEARXNG_SECRET: EnvValue.fromSecretValue(props.secret),
           },
           resources: {
@@ -196,12 +143,6 @@ offload-threads = 4
               path: "/etc/searxng/limiter.toml",
               readOnly: true,
               subPath: "limiter.toml",
-            },
-            {
-              volume: uwsgiVolume,
-              path: "/etc/searxng/uwsgi.ini",
-              readOnly: true,
-              subPath: "uwsgi.ini",
             },
           ],
         },

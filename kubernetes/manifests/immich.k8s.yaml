@@ -217,7 +217,7 @@ spec:
               value: http://immich-app-machine-learning-service-c858f540:3003
             - name: IMMICH_TELEMETRY_INCLUDE
               value: all
-          image: ghcr.io/immich-app/immich-server:v3.1.0
+          image: ghcr.io/immich-app/immich-server:v3.3.5
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -381,7 +381,7 @@ spec:
     spec:
       automountServiceAccountToken: false
       containers:
-        - image: ghcr.io/immich-app/immich-machine-learning:v3.1.0
+        - image: ghcr.io/immich-app/immich-machine-learning:v3.3.5
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -476,7 +476,7 @@ spec:
               value: http://immich-app-server-service-c8f37b56:2283
             - name: PUBLIC_BASE_URL
               value: https://immich.drigs.org
-          image: alangrainger/immich-public-proxy:3.2.0
+          image: alangrainger/immich-public-proxy:4.1.1
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -558,7 +558,7 @@ spec:
     domain: drigs.org
     email: admin@drigs.org
     secret: cloudflare-secrets
-  image: cloudflare/cloudflared:2024.1.5
+  image: cloudflare/cloudflared:2026.10.3
   newTunnel:
     name: immich-public-proxy
   size: 2

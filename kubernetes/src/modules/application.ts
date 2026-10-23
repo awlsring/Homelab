@@ -33,7 +33,7 @@ export class ApplicationModule extends Module {
 
     new AudioBookshelfChart(app, "audiobookshelf", {
       namespace: "audiobookshelf",
-      imageTag: "2.36.0",
+      imageTag: "2.37.1",
       configStorage: {
         storageClassName: "longhorn",
       },
@@ -61,11 +61,11 @@ export class ApplicationModule extends Module {
         certIssuer: "prod",
       },
       radarr: {
-        imageTag: "6.3.0",
+        imageTag: "6.4.4",
         dnsName: "radarr.us-drig-1.drigs.org",
       },
       sonarr: {
-        imageTag: "4.0.19",
+        imageTag: "4.0.20",
         dnsName: "sonarr.us-drig-1.drigs.org",
       },
       lidarr: {
@@ -77,11 +77,11 @@ export class ApplicationModule extends Module {
         dnsName: "readarr.us-drig-1.drigs.org",
       },
       bazarr: {
-        imageTag: "1.6.0",
+        imageTag: "1.6.2",
         dnsName: "bazarr.us-drig-1.drigs.org",
       },
       prowlarr: {
-        imageTag: "2.5.2",
+        imageTag: "2.6.5",
         dnsName: "prowlarr.us-drig-1.drigs.org",
       },
       byparr: {},
@@ -97,7 +97,7 @@ export class ApplicationModule extends Module {
 
     new ImmichChart(app, "immich", {
       namespace: "immich",
-      imageTag: "v3.1.0",
+      imageTag: "v3.3.5",
       secretStore: "onepassword-secret-store",
       uploadStorage: {
         server: this.config.storage.nfs["immich-uploads"].ipv4,
@@ -128,8 +128,8 @@ export class ApplicationModule extends Module {
         },
       },
       publicProxy: {
-        // 3.x is the first release compatible with immich v3.
-        imageTag: "3.2.0",
+        // Proxy 4.x requires Immich 3.x; only the URL settings are customized.
+        imageTag: "4.1.1",
         publicBaseUrl: "https://immich.drigs.org",
         tunnel: {
           email: "admin@drigs.org",
@@ -143,7 +143,7 @@ export class ApplicationModule extends Module {
 
     new BlueskyPdsChart(app, "bluesky-pds", {
       namespace: "bluesky-pds",
-      imageTag: "0.4.208",
+      imageTag: "0.4.5046",
       hostname: "at.drigs.org",
       serviceHandleDomains: [".drigs.org"],
       emailFromAddress: "admin@bluesky.drigs.org",
@@ -173,7 +173,7 @@ export class ApplicationModule extends Module {
 
     new MealieChart(app, "mealie", {
       namespace: "mealie",
-      imageTag: "v2.5.0",
+      imageTag: "v3.29.0",
       secretStore: "onepassword-secret-store",
       storage: {
         storageClass: "longhorn",
@@ -187,7 +187,7 @@ export class ApplicationModule extends Module {
 
     new SearxngChart(app, "searxng", {
       namespace: "searxng",
-      imageTag: "2025.2.3-4ab7984ed",
+      imageTag: "2026.10.19-81371861f",
       storageClassName: "longhorn",
       secretStore: ONEPASSWORD_SECRET_STORE,
       ingress: {
@@ -223,7 +223,7 @@ export class ApplicationModule extends Module {
       createNamespace: true,
       secretStore: "onepassword-secret-store",
       storageClassName: "longhorn",
-      imageTag: "10.0.0-rootless",
+      imageTag: "15.0.10-rootless",
       ingress: {
         ingressClass: "nginx",
         hostname: "code.us-drig-1.drigs.org",
@@ -234,7 +234,7 @@ export class ApplicationModule extends Module {
     new WoodpeckerCIChart(app, "woodpecker", {
       namespace: "woodpecker",
       storageClass: "longhorn",
-      imageTag: "v3.0.1",
+      imageTag: "v3.19.0",
       secretStore: ONEPASSWORD_SECRET_STORE,
       allowedUsers: ["awlsring"],
       ingress: {
@@ -246,7 +246,7 @@ export class ApplicationModule extends Module {
 
     new DawarichChart(app, "dawarich", {
       namespace: "dawarich",
-      imageTag: "1.13.1",
+      imageTag: "1.16.0",
       secretStore: ONEPASSWORD_SECRET_STORE,
       storage: {
         storageClass: "longhorn",
@@ -280,7 +280,7 @@ export class ApplicationModule extends Module {
 
     new NavidromeChart(app, "navidrome", {
       namespace: "navidrome",
-      imageTag: "0.63.2",
+      imageTag: "0.64.2",
       configStorage: {
         storageClass: "longhorn",
         size: Size.gibibytes(5),
@@ -300,7 +300,7 @@ export class ApplicationModule extends Module {
 
     new BookloreChart(app, "booklore", {
       namespace: "booklore",
-      imageTag: "v2.3.1",
+      imageTag: "v2.4.0",
       mariadbImageTag: "11.4.5",
       secretStore: ONEPASSWORD_SECRET_STORE,
       storage: {

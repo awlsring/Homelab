@@ -1,3 +1,4 @@
+import { Duration } from "cdk8s";
 import {
   Deployment,
   DeploymentStrategy,
@@ -43,7 +44,7 @@ export class WoodpeckerCIServer extends Construct {
       securityContext: {
         fsGroup: 1000,
       },
-      strategy: DeploymentStrategy.rollingUpdate(),
+      strategy: DeploymentStrategy.recreate(),
       containers: [
         {
           name: "server",
@@ -61,6 +62,11 @@ export class WoodpeckerCIServer extends Construct {
               `postgresql://${props.database.user}:$(POSTGRES_PASSWORD)@${props.database.hostname}:5432/${props.database.database}`
             ),
           },
+          startup: Probe.fromHttpGet("/healthz", {
+            port: HTTP_PORT,
+            failureThreshold: 90,
+            periodSeconds: Duration.seconds(10),
+          }),
           liveness: Probe.fromHttpGet("/healthz", {
             port: HTTP_PORT,
           }),

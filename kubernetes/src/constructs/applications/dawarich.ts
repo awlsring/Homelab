@@ -4,6 +4,7 @@ import {
   ContainerProps,
   Cpu,
   Deployment,
+  DeploymentStrategy,
   EnvValue,
   Probe,
   Protocol,
@@ -112,6 +113,13 @@ export class Dawarich extends Construct {
       command: ["web-entrypoint.sh"],
       args: ["bin/rails", "server", "-p", "3000", "-b", "::"],
       envVariables: environment,
+      // The upgrade can consolidate legacy coordinates before the web server starts.
+      startup: Probe.fromHttpGet("/api/v1/health", {
+        port: 3000,
+        failureThreshold: 180,
+        periodSeconds: Duration.seconds(10),
+        timeoutSeconds: Duration.seconds(5),
+      }),
       liveness: Probe.fromHttpGet("/api/v1/health", {
         port: 3000,
         failureThreshold: 3,
@@ -220,6 +228,7 @@ export class Dawarich extends Construct {
 
     this.deployment = new Deployment(this, "deployment", {
       replicas: 1,
+      strategy: DeploymentStrategy.recreate(),
       serviceAccount: this.serviceAccount,
       automountServiceAccountToken: true,
       containers: [

@@ -239,10 +239,7 @@ spec:
     matchLabels:
       cdk8s.io/metadata.addr: dawarich-app-deployment-c855b612
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
@@ -299,7 +296,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: dawarich-geoapify-key-c8cb1570
-          image: freikin/dawarich:1.13.1
+          image: freikin/dawarich:1.16.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -335,6 +332,14 @@ spec:
             privileged: true
             readOnlyRootFilesystem: false
             runAsNonRoot: false
+          startupProbe:
+            failureThreshold: 180
+            httpGet:
+              path: /api/v1/health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            timeoutSeconds: 5
         - args:
             - bundle
             - exec
@@ -383,7 +388,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: dawarich-geoapify-key-c8cb1570
-          image: freikin/dawarich:1.13.1
+          image: freikin/dawarich:1.16.0
           imagePullPolicy: Always
           name: worker
           resources:

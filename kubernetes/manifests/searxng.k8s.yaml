@@ -156,65 +156,6 @@ data:
 immutable: false
 ---
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: searxng-app-uwsgi-c831d691
-  namespace: searxng
-data:
-  uwsgi.ini: |
-    [uwsgi]
-    # Who will run the code
-    uid = searxng
-    gid = searxng
-
-    # Number of workers (usually CPU count)
-    # default value: %k (= number of CPU core, see Dockerfile)
-    workers = %k
-
-    # Number of threads per worker
-    # default value: 4 (see Dockerfile)
-    threads = 4
-
-    # The right granted on the created socket
-    chmod-socket = 666
-
-    # Plugin to use and interpreter config
-    single-interpreter = true
-    master = true
-    plugin = python3
-    lazy-apps = true
-    enable-threads = 4
-
-    # Module to import
-    module = searx.webapp
-
-    # Virtualenv and python path
-    pythonpath = /usr/local/searxng/
-    chdir = /usr/local/searxng/searx/
-
-    # automatically set processes name to something meaningful
-    auto-procname = true
-
-    # Disable request logging for privacy
-    disable-logging = true
-    log-5xx = true
-
-    # Set the max size of a request (request-body excluded)
-    buffer-size = 8192
-
-    # No keep alive
-    # See https://github.com/searx/searx-docker/issues/24
-    add-header = Connection: close
-
-    # uwsgi serves the static files
-    static-map = /static=/usr/local/searxng/searx/static
-    # expires set to one day
-    static-expires = /* 86400
-    static-gzip-all = True
-    offload-threads = 4
-immutable: false
----
-apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: searxng-app-service-account-c855fa8a
@@ -246,16 +187,22 @@ spec:
       automountServiceAccountToken: true
       containers:
         - env:
-            - name: SEARXNG_REDIS_URL
+            - name: FORCE_OWNERSHIP
+              value: "false"
+            - name: GRANIAN_HOST
+              value: 0.0.0.0
+            - name: GRANIAN_PORT
+              value: "8080"
+            - name: SEARXNG_VALKEY_URL
               value: redis://searxng-valkey-service-c8b828b4:6379/0
-            - name: SEARXNG_URL
-              value: search.us-drig-1.drigs.org
+            - name: SEARXNG_BASE_URL
+              value: https://search.us-drig-1.drigs.org
             - name: SEARXNG_SECRET
               valueFrom:
                 secretKeyRef:
                   key: password
                   name: searxng-searxng-secret-key-c82ff3ce
-          image: searxng/searxng:2025.2.3-4ab7984ed
+          image: searxng/searxng:2026.10.19-81371861f
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -300,10 +247,6 @@ spec:
               name: configmap-searxng-app-limiter-c8c5b9bc
               readOnly: true
               subPath: limiter.toml
-            - mountPath: /etc/searxng/uwsgi.ini
-              name: configmap-searxng-app-uwsgi-c831d691
-              readOnly: true
-              subPath: uwsgi.ini
       dnsPolicy: ClusterFirst
       hostNetwork: false
       restartPolicy: Always
@@ -320,9 +263,6 @@ spec:
         - configMap:
             name: searxng-app-limiter-c8c5b9bc
           name: configmap-searxng-app-limiter-c8c5b9bc
-        - configMap:
-            name: searxng-app-uwsgi-c831d691
-          name: configmap-searxng-app-uwsgi-c831d691
 ---
 apiVersion: v1
 kind: Service

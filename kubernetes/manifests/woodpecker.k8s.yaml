@@ -127,10 +127,7 @@ spec:
     matchLabels:
       cdk8s.io/metadata.addr: woodpecker-server-deployment-c8e7fc2e
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
       labels:
@@ -168,7 +165,7 @@ spec:
                   name: woodpecker-database-secret-c8b6f2de
             - name: WOODPECKER_DATABASE_DATASOURCE
               value: postgresql://woodpecker:$(POSTGRES_PASSWORD)@woodpecker-db-c85feff1-rw:5432/woodpecker
-          image: docker.io/woodpeckerci/woodpecker-server:v3.0.1
+          image: docker.io/woodpeckerci/woodpecker-server:v3.19.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -197,6 +194,13 @@ spec:
             runAsGroup: 1000
             runAsNonRoot: true
             runAsUser: 1000
+          startupProbe:
+            failureThreshold: 90
+            httpGet:
+              path: /healthz
+              port: 8000
+              scheme: HTTP
+            periodSeconds: 10
       dnsPolicy: ClusterFirst
       hostNetwork: false
       restartPolicy: Always
@@ -314,7 +318,7 @@ spec:
         - env:
             - name: WOODPECKER_BACKEND
               value: kubernetes
-            - name: WOODPECKER_KUBERNETES_NAMESPACE
+            - name: WOODPECKER_BACKEND_K8S_NAMESPACE
               value: woodpecker
             - name: WOODPECKER_BACKEND_K8S_POD_ANNOTATIONS
               value: ""
@@ -335,7 +339,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: woodpecker-woodpecker-secret-c832828d
-          image: docker.io/woodpeckerci/woodpecker-agent:v3.0.1
+          image: docker.io/woodpeckerci/woodpecker-agent:v3.19.0
           name: agent
           ports:
             - containerPort: 3000

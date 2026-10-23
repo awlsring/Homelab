@@ -167,7 +167,7 @@ spec:
                 secretKeyRef:
                   key: password
                   name: mealie-openai-key-c87a9891
-          image: ghcr.io/mealie-recipes/mealie:v2.5.0
+          image: ghcr.io/mealie-recipes/mealie:v3.29.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -201,7 +201,7 @@ spec:
             readOnlyRootFilesystem: false
             runAsNonRoot: false
           startupProbe:
-            failureThreshold: 30
+            failureThreshold: 90
             httpGet:
               path: /api/app/about
               port: 9000

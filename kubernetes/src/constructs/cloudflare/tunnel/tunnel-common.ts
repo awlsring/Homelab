@@ -35,7 +35,7 @@ export interface ExistingTunnelOptions extends CloudflareTunnelProps {
 const DEFAULT_REPLICA_COUNT = 2;
 
 const DEFAULT_IMAGE = "cloudflare/cloudflared";
-const DEFAULT_IMAGE_TAG = "2024.1.5";
+const DEFAULT_IMAGE_TAG = "2026.10.3";
 
 export interface ICloudflareTunnel {
   readonly name: string;
