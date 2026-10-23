@@ -74,7 +74,10 @@ export class BaikalChart extends HomelabChart {
       volumes: [dataVol],
       containers: [
         {
-          image: "ckulka/baikal:nginx",
+          // PHP 8.5.12 fixes CVE-2026-109618 and CVE-2026-109619.
+          // See docs/runbooks/baikal-php-security-upgrade.md before rollout.
+          image:
+            "ghcr.io/aalmenar/baikal:0.13.0-r1-nginx@sha256:d2d049b537886fa76134d7d88d7c5c32bc0ce4da44559b968a7aed3edb2810ad",
           ports: [{ name: "http", number: 80, protocol: Protocol.TCP }],
           securityContext: {
             readOnlyRootFilesystem: false,

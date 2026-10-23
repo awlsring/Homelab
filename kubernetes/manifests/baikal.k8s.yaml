@@ -84,7 +84,7 @@ spec:
                 from           admin@drigs.org
                 user           resend
                 password       ${PASSWORD}
-          image: ckulka/baikal:nginx
+          image: ghcr.io/aalmenar/baikal:0.13.0-r1-nginx@sha256:d2d049b537886fa76134d7d88d7c5c32bc0ce4da44559b968a7aed3edb2810ad
           imagePullPolicy: Always
           name: main
           ports:
