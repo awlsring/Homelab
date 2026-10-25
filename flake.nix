@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    media-nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     systems.url = "github:nix-systems/default";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -28,6 +30,7 @@
   outputs = {
     self,
     nixpkgs,
+    media-nixpkgs,
     systems,
     sops-nix,
     deploy-rs,

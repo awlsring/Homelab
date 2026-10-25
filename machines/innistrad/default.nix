@@ -19,6 +19,7 @@ in {
     nixosModules.default
     ./hardware-configuration.nix
     ./access.nix
+    ./jellyfin-packages.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
