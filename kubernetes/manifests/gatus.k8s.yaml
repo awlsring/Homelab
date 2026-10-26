@@ -119,13 +119,6 @@ data:
         conditions:
           - "[STATUS] < 300"
         group: yarrg
-      - name: Bookshelf
-        url: https://bookshelf.us-drig-1.drigs.org
-        alerts:
-          - type: discord
-        conditions:
-          - "[STATUS] < 300"
-        group: yarrg
       - name: Bazarr
         url: https://bazarr.us-drig-1.drigs.org
         alerts:

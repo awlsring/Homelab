@@ -8,8 +8,6 @@ import { Radarr } from "../../constructs/applications/radarr";
 import { Sonarr } from "../../constructs/applications/sonarr";
 import { Lidarr } from "../../constructs/applications/lidarr";
 import { Readarr } from "../../constructs/applications/readarr";
-import { Bookshelf } from "../../constructs/applications/bookshelf";
-import { RreadingGlasses } from "../../constructs/applications/rreading-glasses";
 import { Bazarr } from "../../constructs/applications/bazarr";
 import { Prowlarr } from "../../constructs/applications/prowlarr";
 import { Byparr } from "../../constructs/applications/byparr";
@@ -36,7 +34,6 @@ export interface YarrgChartProps extends HomelabChartProps {
   readonly sonarr?: ArrAppOptions;
   readonly lidarr?: ArrAppOptions;
   readonly readarr?: ArrAppOptions;
-  readonly bookshelf?: ArrAppOptions;
   readonly bazarr?: AppOptions;
   readonly prowlarr?: ArrAppOptions;
   readonly byparr?: Omit<AppOptions, "dnsName" | "serviceType">;
@@ -138,29 +135,6 @@ export class YarrgChart extends HomelabChart {
           certIssuer: props.ingress.certIssuer,
         },
         metrics: this.makeMetricsField("readarr", props.readarr.metrics),
-      });
-    }
-
-    if (props.bookshelf) {
-      const metadata = new RreadingGlasses(this, "bookshelf-metadata", {
-        storageClass: props.storageClass,
-      });
-      new Bookshelf(this, "bookshelf", {
-        imageTag: props.bookshelf.imageTag,
-        metadataUrl: `http://${metadata.service.name}:8788`,
-        config: {
-          storageClass: props.storageClass,
-        },
-        storage: {
-          media: mediaMount,
-        },
-        ingress: {
-          ingressClass: props.ingress.ingressClass,
-          hostname: props.bookshelf.dnsName,
-          type: props.bookshelf.serviceType,
-          certIssuer: props.ingress.certIssuer,
-        },
-        metrics: this.makeMetricsField("bookshelf", props.bookshelf.metrics),
       });
     }
 
