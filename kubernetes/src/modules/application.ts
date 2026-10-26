@@ -76,6 +76,11 @@ export class ApplicationModule extends Module {
         imageTag: "0.4.18-develop",
         dnsName: "readarr.us-drig-1.drigs.org",
       },
+      bookshelf: {
+        imageTag:
+          "softcover@sha256:885211472f4b7f6f6ef67921c2fd59ef1fb9fb7c89cf8eb155c938a0a2285aae",
+        dnsName: "bookshelf.us-drig-1.drigs.org",
+      },
       bazarr: {
         imageTag: "1.6.2",
         dnsName: "bazarr.us-drig-1.drigs.org",
@@ -398,6 +403,13 @@ export class ApplicationModule extends Module {
           name: "Readarr",
           group: "yarrg",
           url: "https://readarr.us-drig-1.drigs.org",
+          conditions: [GatusConditions.HTTP_STATUS_2XX],
+          alerts: [{ type: GatusAlertType.DISCORD }],
+        }),
+        new GatusEndpoint({
+          name: "Bookshelf",
+          group: "yarrg",
+          url: "https://bookshelf.us-drig-1.drigs.org",
           conditions: [GatusConditions.HTTP_STATUS_2XX],
           alerts: [{ type: GatusAlertType.DISCORD }],
         }),

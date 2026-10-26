@@ -57,6 +57,7 @@ export interface ArrAppOptions {
   readonly webPort?: number;
   readonly timezone?: string;
   readonly imageTag?: string;
+  readonly envVariables?: Record<string, EnvValue>;
 }
 
 export interface ArrAppApplicationOption {
@@ -80,6 +81,7 @@ export interface ArrAppProps {
   readonly webPort?: number;
   readonly timezone?: string;
   readonly imageTag?: string;
+  readonly envVariables?: Record<string, EnvValue>;
 }
 
 export class ArrApp extends Construct {
@@ -141,6 +143,7 @@ export class ArrApp extends Construct {
           PUID: EnvValue.fromValue(`${PUID}`),
           PGID: EnvValue.fromValue(`${PGID}`),
           TZ: EnvValue.fromValue(props.timezone ?? DEFAULT_TIME_ZONE),
+          ...props.envVariables,
         },
         volumeMounts: volumeMounts,
         readiness: readinessProbe,
